@@ -78,7 +78,23 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/index', isLogged, (req, res) => {
-    res.render('index');
+    try {
+        const insert_usuario = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
+        connection.query(insert_usuario, [], (err, result_juegos) => {
+            if (err) {
+                console.error('Error al registrarse ', err);
+                res.status(500).send('Error al registrarse ');
+            } else {
+                res.render('index', { juegos: result_juegos });
+            }
+        })
+    }
+
+    catch (err) {
+
+    }
+
+
 })
 
 app.get('/register', (req, res) => {

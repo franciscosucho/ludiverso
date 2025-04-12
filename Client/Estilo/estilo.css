@@ -177,6 +177,9 @@ body main #sec_img #cont_main_juego {
   align-items: center;
   flex-direction: row;
 }
+body main #sec_img #cont_main_juego.desac {
+  display: none;
+}
 body main #sec_img #cont_main_juego .cont_main {
   display: flex;
   justify-content: space-between;

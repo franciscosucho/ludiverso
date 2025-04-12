@@ -229,7 +229,9 @@ body {
                 justify-content: space-between;
                 align-items: center;
                 flex-direction: row;
-
+                &.desac{
+                    display: none;
+                }
                 .cont_main {
                     display: flex;
                     justify-content: space-between;
