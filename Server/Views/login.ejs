@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/Estilo/estilo.css">
+    <script src="https://kit.fontawesome.com/1eff4537b0.js" crossorigin="anonymous"></script>
+</head>
+<body id="login"> 
+    <main class="background" >
+        <div class="overlay">
+
+            <form method="post" action="/iniciar_sesion">
+                <div class="cont_logo">
+                    <img src="resources/imagenes/logo.png" alt="">
+                </div>
+                <div id="cont_main_inputs">
+                    <div class="cont_input">
+                        <input name="user_name" type="text" placeholder="Nombre de usuario">
+                    </div>
+                    <div class="cont_input">
+                        <input id="input" name="password" type="password" placeholder="Contraseña"> 
+                        <i class="fa-solid fa-lock" id="contra"></i>
+                    </div>
+                    <button>Ingresar</button>
+                    <a href="/register">No tienes cuenta todavia?</a>
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="error-message">
+                          <%= error %>
+                        </div>
+                      <% } %>
+                </div>
+            </form>
+
+        </div>
+    </main>
+</body>
+</html>

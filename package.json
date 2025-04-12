@@ -1,0 +1,33 @@
+{
+  "name": "proyecto_profes",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/franciscosucho/proyecto_profes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/franciscosucho/proyecto_profes/issues"
+  },
+  "homepage": "https://github.com/franciscosucho/proyecto_profes#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "fast-csv": "^5.0.2",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.4",
+    "path": "^0.12.7",
+    "serialport": "^12.0.0",
+    "socket.io": "^4.8.1"
+  }
+}
