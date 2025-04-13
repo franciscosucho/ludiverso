@@ -70,14 +70,29 @@ const isLogged = (req, res, next) => {
 
 
 app.get('/', (req, res) => {
+    // Mientras este en produccion para ahorrar tiempo
     res.render('login')
+    // try {
+    //     const insert_usuario = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
+    //     connection.query(insert_usuario, [], (err, result_juegos) => {
+    //         if (err) {
+    //             console.error('Error al registrarse ', err);
+    //             res.status(500).send('Error al registrarse ');
+    //         } else {
+    //             res.render('index', { juegos: result_juegos });
+    //         }
+    //     })
+    // }catch (err) {
+    //     console.error('Error al abrir la pagina principal:', err);
+    //     res.render('index', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    // }
 })
 
 app.get('/login', (req, res) => {
     res.render('login');
 })
 
-app.get('/index', isLogged, (req, res) => {
+app.get('/index',(req, res) => {
     try {
         const insert_usuario = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
         connection.query(insert_usuario, [], (err, result_juegos) => {
@@ -91,7 +106,8 @@ app.get('/index', isLogged, (req, res) => {
     }
 
     catch (err) {
-
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('index', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
     }
 
 

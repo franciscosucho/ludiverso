@@ -219,7 +219,7 @@ body {
             justify-content: center;
             align-items: center;
 
-            #cont_main_juego {
+            .cont_main_juego {
                 height: 90%;
                 width: 90%;
                 border-radius: 10px;
@@ -323,6 +323,24 @@ body {
     footer {
         width: 100%;
         height: 10vh;
+        background-color: $Encabezados_botones_y_primarios;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        .cont_text{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            color: rgb(216, 216, 216);
+        }
+        color: rgb(216, 216, 216);
+        .cont_des{
+            a{
+                color: rgb(216, 216, 216);
+                text-decoration: none;
+            }
+        }
     }
 }
 

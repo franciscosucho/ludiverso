@@ -166,7 +166,7 @@ body main #sec_img {
   justify-content: center;
   align-items: center;
 }
-body main #sec_img #cont_main_juego {
+body main #sec_img .cont_main_juego {
   height: 90%;
   width: 90%;
   border-radius: 10px;
@@ -177,24 +177,24 @@ body main #sec_img #cont_main_juego {
   align-items: center;
   flex-direction: row;
 }
-body main #sec_img #cont_main_juego.desac {
+body main #sec_img .cont_main_juego.desac {
   display: none;
 }
-body main #sec_img #cont_main_juego .cont_main {
+body main #sec_img .cont_main_juego .cont_main {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
   height: 100%;
 }
-body main #sec_img #cont_main_juego .cont_arrow {
+body main #sec_img .cont_main_juego .cont_arrow {
   height: 100%;
   width: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-body main #sec_img #cont_main_juego .cont_arrow i {
+body main #sec_img .cont_main_juego .cont_arrow i {
   font-size: 2.2em;
   cursor: pointer;
   color: white;
@@ -207,10 +207,10 @@ body main #sec_img #cont_main_juego .cont_arrow i {
   align-items: center;
   transition: all 0.2s ease-in-out;
 }
-body main #sec_img #cont_main_juego .cont_arrow i:hover {
+body main #sec_img .cont_main_juego .cont_arrow i:hover {
   background-color: rgba(128, 128, 128, 0.349);
 }
-body main #sec_img #cont_main_juego .cont_tex {
+body main #sec_img .cont_main_juego .cont_tex {
   padding-left: 20px;
   padding-top: 20px;
   width: 100%;
@@ -219,12 +219,12 @@ body main #sec_img #cont_main_juego .cont_tex {
   align-items: center;
   color: white;
 }
-body main #sec_img #cont_main_juego .cont_tex #nombre_juego {
+body main #sec_img .cont_main_juego .cont_tex #nombre_juego {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
-body main #sec_img #cont_main_juego .cont_info_juego {
+body main #sec_img .cont_main_juego .cont_info_juego {
   background-color: rgba(51, 95, 153, 0.589);
   margin-bottom: 8%;
   padding: 30px;
@@ -236,12 +236,12 @@ body main #sec_img #cont_main_juego .cont_info_juego {
   flex-direction: column;
   gap: 20px;
 }
-body main #sec_img #cont_main_juego .cont_info_juego p {
+body main #sec_img .cont_main_juego .cont_info_juego p {
   width: 80%;
   text-align: center;
   color: #dddddd;
 }
-body main #sec_img #cont_main_juego .cont_info_juego a {
+body main #sec_img .cont_main_juego .cont_info_juego a {
   border-radius: 10px;
   padding: 20px;
   font-weight: bold;
@@ -254,6 +254,22 @@ body main #sec_img #cont_main_juego .cont_info_juego a {
 body footer {
   width: 100%;
   height: 10vh;
+  background-color: #3e86d3;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: rgb(216, 216, 216);
+}
+body footer .cont_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: rgb(216, 216, 216);
+}
+body footer .cont_des a {
+  color: rgb(216, 216, 216);
+  text-decoration: none;
 }
 
 #login {

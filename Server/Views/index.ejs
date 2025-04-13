@@ -25,33 +25,42 @@
     </header>
     <main>
         <section id="sec_img" class="secciones">
-        
-            <% juegos.forEach((juego, index) => { %>
-                <% if (index==0) {  %>
-                    <article id="cont_main_juego" style="background-image: url('<%= juego.url_img %>');">
-                <% } else { %>
-                    <article id="cont_main_juego" class="desac cont_main_juego_<%= index %>" style="background-image: url('<%=juego.url_img %>');">
-                <% } %>
-                    <div class="cont_arrow">
-                        <i class="fa-solid fa-arrow-left arrow" id="arrow_left_<%= index %>"></i>
-                    </div>
-            
-                    <div class="cont_main">
-                        <div class="cont_tex">
-                            <h3 id="nombre_materia_<%= index %>"><%= juego.nombre_materia || 'Sin nombre' %></h3>
-                            <h2 id="nombre_juego_<%= index %>"><%= juego.titulo %></h2>
-                        </div>
-                        <div class="cont_info_juego">
-                            <p class="info"><%= juego.descripcion %></p>
-                            <a href="#">Jugar</a>
-                        </div>
-                    </div>
-            
-                    <div class="cont_arrow">
-                        <i class="fa-solid fa-arrow-right arrow" id="arrow_right_<%= index %>"></i>
-                    </div>
-                </article>
-            <% }) %>
+
+            <% juegos.forEach((juego, index)=> { %>
+                <% if (index==0) { %>
+                    <article id="cont_main_juego_<%=index%>" class="cont_main_juego"
+                        style="background-image: url('<%= juego.url_img %>');">
+                        <% } else { %>
+                            <article id="cont_main_juego_<%=index%>" class="desac cont_main_juego"
+                                style="background-image: url('<%=juego.url_img %>');">
+                                <% } %>
+                                    <div class="cont_arrow">
+                                        <i class="fa-solid fa-arrow-left arrow_left" id="arrow_left_<%= index %>"></i>
+                                    </div>
+
+                                    <div class="cont_main">
+                                        <div class="cont_tex">
+                                            <h3 id="nombre_materia_<%= index %>">
+                                                <%= juego.nombre_materia || 'Sin nombre' %>
+                                            </h3>
+                                            <h2 id="nombre_juego_<%= index %>">
+                                                <%= juego.titulo %>
+                                            </h2>
+                                        </div>
+                                        <div class="cont_info_juego">
+                                            <p class="info">
+                                                <%= juego.descripcion %>
+                                            </p>
+                                            <a href="#">Jugar</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="cont_arrow">
+                                        <i class="fa-solid fa-arrow-right arrow_right"
+                                            id="arrow_right_<%= index %>"></i>
+                                    </div>
+                            </article>
+                            <% }) %>
 
 
         </section>
@@ -91,7 +100,18 @@
             </article>
         </section>
     </main>
-    <footer></footer>
+    <footer>
+        <img src="#" alt="Logo_ludiverso">
+        <div class="cont_text">
+            <b> ©2025 Ludiverso</b>
+            <p> Todos los derechos reservados</p>
+
+        </div>
+        <div class="cont_des">
+            <a href="#">Desarrolado por</a>
+        </div>
+    </footer>
+    <script src="Scripts/app.js"></script>
 </body>
 
 </html>
