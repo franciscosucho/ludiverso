@@ -106,6 +106,7 @@ body {
         min-height: 80vw !important;
         height: 100%;
         background-color: #f5f5f5;
+        padding-bottom: 3%;
 
         .secciones {
             width: 100%;
@@ -115,10 +116,89 @@ body {
             justify-content: flex-start;
             align-items: center;
             gap: 20px;
+            margin-top: 8%;
+            &#sec_img{
+                margin-top: 2% !important;
+            }
+            &#sec_novedades {
+              
+                .cont_novedades {
+                    background-color: rgba(228, 228, 228, 0.658);
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    border-radius: 10px;
+                    padding: 30px;
+                    flex-direction: row;
+                    gap: 20px;
+                    width: 80%;
+                    height: 100%;
 
+                    .cont_text_novedad {
+                        width: 60%;
+                        height: 50vh;
+                        display: flex;
+                        justify-content: flex-start;
+                       
+                        padding: 30px;
+                        gap: 20px;
+                        align-items: flex-start;
+                        flex-direction: column;
+                      
+                        .fecha_novedad{
+                            font-size: .9em;
+                            font-weight: 800;
+                            color: #222;
+                            width: 60%; 
+                        }
+                        .titulo_novedad {
+                            font-size: 2em;
+                            font-weight: 800;
+                            color:$Botones_secundarios_o_hover_azul;
+                            width: 60%;
+                        }
 
+                        .sub_titulo_novedades {
+                            font-size: 1.4em;
+                            font-weight: 500;
+                            color: #222;
+                            width: 60%;
+                        }
 
-            h2 {
+                        .cuepo_novedad {
+                            font-size: 1.1em;
+                            font-weight: 300;
+                            color: #414141;
+                            width: 60%;
+                        }
+                    }
+                    .img_novedad{
+                        border-radius: 8px;
+                        height: 50vh;
+                        width: 40%;
+                    }
+
+                }
+                #ver_mas_nov{
+                    padding: 20px;
+                    border-radius: 10px;
+                    width: 250px;
+                    height: 60px;
+                    font-size: 1.2em;
+                    font-weight: 600;
+                    background-color: $Botones_secundarios_o_hover_azul;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    transition: all .2s ease-in-out;
+                    &:hover{
+                        background-color: #6da3e0;
+                    }
+                }
+            }
+
+            .sub_titulo {
+                color: #333333;
                 font-size: 2.5em;
             }
 
@@ -229,9 +309,11 @@ body {
                 justify-content: space-between;
                 align-items: center;
                 flex-direction: row;
-                &.desac{
+
+                &.desac {
                     display: none;
                 }
+
                 .cont_main {
                     display: flex;
                     justify-content: space-between;
@@ -327,16 +409,19 @@ body {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        .cont_text{
+
+        .cont_text {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             color: rgb(216, 216, 216);
         }
+
         color: rgb(216, 216, 216);
-        .cont_des{
-            a{
+
+        .cont_des {
+            a {
                 color: rgb(216, 216, 216);
                 text-decoration: none;
             }
@@ -434,6 +519,10 @@ body {
                 border-radius: 30px;
                 padding: 20px;
                 transition: all .1s ease-in-out;
+
+                #contra {
+                    cursor: pointer;
+                }
 
                 input {
 

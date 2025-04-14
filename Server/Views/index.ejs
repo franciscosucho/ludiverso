@@ -64,8 +64,9 @@
 
 
         </section>
+
         <section id="sec_areas" class="secciones">
-            <h2>Areas</h2>
+            <h2 class="sub_titulo">Areas</h2>
             <article id="cont_areas">
                 <div class="cont_dos">
                     <a href="" class="cont_areas" id="cont_sociales">
@@ -98,6 +99,46 @@
                     </a>
                 </div>
             </article>
+        </section>
+
+        <section id="sec_novedades" class="secciones">
+            <h2 class="sub_titulo">Novedades</h2>
+            <% novedades.forEach((novedad, index)=> { %>
+                <% if (index==0) { %>
+                    <article id="cont_novedades<%=index%>" class="cont_novedades">
+                        <% } else { %>
+                            <article id="cont_novedades<%=index%>" class="cont_novedades desac">
+                                <% } %>
+                                    <div class="cont_text_novedad">
+                                        <b class="fecha_novedad">
+                                            <%= novedad.fecha_novedad %>
+                                        </b>
+                                        <h3 class="titulo_novedad">
+                                            <%= novedad.titulo_novedad %>
+                                        </h3>
+                                        <h4 class="sub_titulo_novedades">
+                                            <%= novedad.subtitulo_novedad %>
+                                        </h4>
+                                        <p class="cuepo_novedad">
+                                            <%= novedad.cuerpo_novedad %>
+                                        </p>
+                                       
+                                        
+                                    </div>
+                                    <img src="<%= novedad.url_foto_novedad %>" alt="Imagen sobre novedades."
+                                    class="img_novedad">
+                            </article>
+                            <% }) %>
+
+
+               <button id="ver_mas_nov">Ver mas novedades</button>             
+        </section>
+
+
+
+        <section id="sec_sobre_nosotros" class="secciones">
+            <h2 class="sub_titulo">Sobre nosotros</h2>
+
         </section>
     </main>
     <footer>

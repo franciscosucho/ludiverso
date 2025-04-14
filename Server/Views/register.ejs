@@ -48,3 +48,17 @@
     </main>
 </body>
 </html>
+<script>
+    const contra = document.getElementById("contra")
+    const input = document.getElementById("input")
+    contra.addEventListener("click", () => {
+        contra.classList.toggle("fa-lock")
+        contra.classList.toggle("fa-eye")
+       
+        if (contra.classList.contains("fa-eye")) {
+            input.type = "text"; 
+        } else if (contra.classList.contains("fa-lock")) {
+            input.type = "password"; 
+        }
+    })
+</script>

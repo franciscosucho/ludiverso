@@ -92,15 +92,24 @@ app.get('/login', (req, res) => {
     res.render('login');
 })
 
-app.get('/index',(req, res) => {
+app.get('/index', (req, res) => {
     try {
-        const insert_usuario = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
-        connection.query(insert_usuario, [], (err, result_juegos) => {
+        const select_juegos = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
+        connection.query(select_juegos, [], (err, result_juegos) => {
             if (err) {
-                console.error('Error al registrarse ', err);
-                res.status(500).send('Error al registrarse ');
+                console.error('Error al ejecutar la query en el servidor ', err);
+                res.status(500).send('Error al ejecutar la query en el servidor');
             } else {
-                res.render('index', { juegos: result_juegos });
+              
+                const select_novedades = 'SELECT * FROM `novedades` WHERE 1 ORDER BY `fecha_novedad` ASC;';
+                connection.query(select_novedades, [], (err, result_novedades) => {
+                    if (err) {
+                        console.error('Error al ejecutar la query en el servidor ', err);
+                        res.status(500).send('Error al ejecutar la query en el servidor');
+                    } else {
+                        res.render('index', { juegos: result_juegos, novedades:result_novedades });
+                    }
+                })
             }
         })
     }
@@ -110,7 +119,7 @@ app.get('/index',(req, res) => {
         res.render('index', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
     }
 
-
+    //
 })
 
 app.get('/register', (req, res) => {
@@ -184,6 +193,9 @@ app.post('/iniciar_sesion', async (req, res) => {
 
 })
 
+/*<------------------------------------------------------------------------------------------------------>
+    Area de funciones.
+*/
 
 // Función para comparar una contraseña con su hash
 async function verifyPassword(plainPassword, hashedPassword) {
@@ -195,7 +207,7 @@ async function verifyPassword(plainPassword, hashedPassword) {
         throw error;
     }
 }
-
+// Funcion para hashear una contraseña
 async function hashPassword(plainPassword) {
     try {
         const saltRounds = 10;
@@ -205,4 +217,13 @@ async function hashPassword(plainPassword) {
         console.error('Error al hashear la contraseña:', error);
         throw error;
     }
+}
+// Funcion para solicitar la fecha actual.
+function Datatime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
 }

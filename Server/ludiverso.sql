@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2025 a las 21:36:02
+-- Tiempo de generación: 14-04-2025 a las 21:02:50
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -93,8 +93,42 @@ CREATE TABLE `juegos` (
   `descripcion` text DEFAULT NULL,
   `materia_id` int(11) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT current_timestamp(),
-  `url_img` varchar(255) NOT NULL
+  `url_img` varchar(255) NOT NULL,
+  `valoracion` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `juegos`
+--
+
+INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`) VALUES
+(1, 'Viajeros del Tiempo', 'Los estudiantes forman equipos y viajan simbólicamente a diferentes épocas históricas. Deben resolver desafíos o acertijos relacionados con la cultura, geografía y personajes de esa época para avanzar en el \"tiempo\".', 6, '2025-04-12 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 0),
+(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 0),
+(3, 'Constructor Exprés', 'Los equipos reciben materiales reciclables y planos básicos. En un tiempo limitado deben construir un objeto funcional. Se evalúan la creatividad, estabilidad y presentación final.', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 0),
+(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 0),
+(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `novedades`
+--
+
+CREATE TABLE `novedades` (
+  `id_novedad` int(11) NOT NULL,
+  `titulo_novedad` varchar(255) DEFAULT NULL,
+  `subtitulo_novedad` varchar(255) DEFAULT NULL,
+  `cuerpo_novedad` varchar(3000) DEFAULT NULL,
+  `url_foto_novedad` varchar(255) DEFAULT NULL,
+  `fecha_novedad` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `novedades`
+--
+
+INSERT INTO `novedades` (`id_novedad`, `titulo_novedad`, `subtitulo_novedad`, `cuerpo_novedad`, `url_foto_novedad`, `fecha_novedad`) VALUES
+(1, 'Torneo de actividades Ludicas', 'Se realizara un torneo sobre actividades ludicas en la Escuela de Educación Secundaria Técnica Nro 1 Eduardo Ader', 'El  dia lunes 20 del mes de octubre los estudiantes de la institucion Técnica Nro 1 \"Eduardo Ader, podran competir entre ellos el los distintos juegos en los que se cuenta en la aplicacion. El evento se hara en la franja horaria de 10hs hasta las 11.55hs, para poder participar se deberan inscribir con anterioridad', 'Resources/Imagenes/Novedades/torneo.png', '2025-01-01');
 
 -- --------------------------------------------------------
 
@@ -206,6 +240,12 @@ ALTER TABLE `juegos`
   ADD KEY `materia_id` (`materia_id`);
 
 --
+-- Indices de la tabla `novedades`
+--
+ALTER TABLE `novedades`
+  ADD PRIMARY KEY (`id_novedad`);
+
+--
 -- Indices de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
@@ -265,7 +305,13 @@ ALTER TABLE `intentos`
 -- AUTO_INCREMENT de la tabla `juegos`
 --
 ALTER TABLE `juegos`
-  MODIFY `juego_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `juego_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `novedades`
+--
+ALTER TABLE `novedades`
+  MODIFY `id_novedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `preguntas`
