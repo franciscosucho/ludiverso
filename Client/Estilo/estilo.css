@@ -46,7 +46,7 @@ body header {
   transition: all 0.2s ease-in-out;
 }
 body header.reducir {
-  height: 5vh;
+  height: 50px;
 }
 body header nav {
   padding: 20px;
@@ -54,10 +54,18 @@ body header nav {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  height: 100%;
   width: 100%;
 }
 body header nav #cont_nav_tit {
   height: 100%;
+}
+body header nav #cont_nav_tit h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: white;
 }
 body header nav #cont_nav_links {
   display: flex;
@@ -65,6 +73,8 @@ body header nav #cont_nav_links {
   align-items: center;
   flex-direction: row;
   padding: 30px;
+  height: auto;
+  height: 100%;
   gap: 20px;
 }
 body header nav #cont_nav_links a {

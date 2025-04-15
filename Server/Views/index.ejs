@@ -54,7 +54,7 @@
         </section>
 
         <section id="sec_areas" class="secciones">
-            <h2 class="sub_titulo">Areas</h2>
+            <h2 class="sub_titulo">Áreas</h2>
             <article id="cont_areas">
                 <div class="cont_dos">
                     <a href="/areas?area=Sociales" class="cont_areas" id="cont_sociales">
@@ -99,7 +99,12 @@
                                 <% } %>
                                     <div class="cont_text_novedad">
                                         <b class="fecha_novedad">
-                                            <%= novedad.fecha_novedad %>
+                                            <%= new Date(novedad.fecha_novedad).toLocaleString('es-ES', {
+                                                timeZone: 'UTC',
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric',
+                                            }) %>
                                         </b>
                                         <h3 class="titulo_novedad">
                                             <%= novedad.titulo_novedad %>
