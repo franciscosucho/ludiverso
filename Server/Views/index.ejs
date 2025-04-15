@@ -8,21 +8,9 @@
     <link rel="stylesheet" href="Estilo/estilo.css">
     <script src="https://kit.fontawesome.com/1eff4537b0.js" crossorigin="anonymous"></script>
 </head>
- 
+
 <body>
-    <header>
-        <nav>
-            <div class="container_nav" id="cont_nav_tit">
-                <h1>Ludiverso</h1>
-            </div>
-            <div class="container_nav" id="cont_nav_links">
-                <a href="#" class="links">Juegos</a>
-                <a href="#sec_areas" class="links">Areas</a>
-                <a href="#sec_novedades" class="links">Novedades</a>
-                <a href="#sec_sobre_nosotros" class="links">Sobre nosotros</a>
-            </div>
-        </nav>
-    </header>
+        <%- include('header.ejs') %>
     <main>
         <section id="sec_img" class="secciones">
 
@@ -69,30 +57,30 @@
             <h2 class="sub_titulo">Areas</h2>
             <article id="cont_areas">
                 <div class="cont_dos">
-                    <a href="" class="cont_areas" id="cont_sociales">
+                    <a href="/areas?area=Sociales" class="cont_areas" id="cont_sociales">
                         <img src="Resources/Imagenes/sociales.webp" alt="">
                         <span>Sociales</span>
 
                     </a>
-                    <a href="" class="cont_areas " id="cont_edu">
+                    <a href="/areas?area=edu_fisica" class="cont_areas " id="cont_edu">
                         <img src="Resources/Imagenes/educacion_fisica.webp" alt="">
                         <span>Educacion fisica</span>
 
                     </a>
                 </div>
 
-                <a href="" class="cont_areas" id="cont_central">
+                <a href="/areas?area=Comunicaciones" class="cont_areas" id="cont_central">
                     <img src="Resources/Imagenes/comunicaciones.webp" alt="">
                     <span>Comunicaciones</span>
 
                 </a>
                 <div class="cont_dos">
-                    <a href="" class="cont_areas" id="cont_taller">
+                    <a href="/areas?area=Taller" class="cont_areas" id="cont_taller">
                         <img src="Resources/Imagenes/taller.webp" alt="">
                         <span>Taller</span>
 
                     </a>
-                    <a href="" class="cont_areas" id="cont_exactas">
+                    <a href="/areas?area=exactas_naturales" class="cont_areas" id="cont_exactas">
                         <img src="Resources/Imagenes/exactas_naturales.webp" alt="">
                         <span>Exactas y naturales</span>
 
@@ -122,39 +110,46 @@
                                         <p class="cuepo_novedad">
                                             <%= novedad.cuerpo_novedad %>
                                         </p>
-                                       
-                                        
+
+
                                     </div>
                                     <img src="<%= novedad.url_foto_novedad %>" alt="Imagen sobre novedades."
-                                    class="img_novedad">
+                                        class="img_novedad">
                             </article>
                             <% }) %>
 
-               <button id="ver_mas_nov">Ver mas novedades</button>   
-               <button id="ver_menos_nov" class="desac">Ver menos novedades</button>                
+                                <button id="ver_mas_nov">Ver mas novedades</button>
+                                <button id="ver_menos_nov" class="desac">Ver menos novedades</button>
         </section>
 
 
 
         <section id="sec_sobre_nosotros" class="secciones">
             <h2 class="sub_titulo">Sobre nosotros</h2>
-            <b>Que es Ludiverso?</b>
-            <p>Ludiverso es una plataforma educativa desarrollada por estudiantes de 7° año de la especialidad de programacion. Nuestra app tiene como objetivo principal fomentar la educacion, de una manera mas amigable para los nuevos alumnos. En esta plataforma encontraras juegos divertidos, en los cuales aprenderas cosas muy importante en las distintas areas educativas, como Educacion fisica, comunicaciones,ciencias exactas,sociales y taller.
-            
-            </p>
+            <div class="cont_text_ludi">
+                <b>Que es Ludiverso?</b>
+                <p>Ludiverso es una plataforma educativa desarrollada por estudiantes de 7° año de la especialidad de
+                    programacion. Nuestra app tiene como objetivo principal fomentar la educacion, de una manera mas
+                    amigable para los nuevos alumnos. En esta plataforma encontraras juegos divertidos, en los cuales
+                    aprenderas cosas muy importante en las distintas areas educativas, como Educacion fisica,
+                    comunicaciones,ciencias exactas,sociales y taller.
+                </p>
+                <button id="btn_conocer_mas">Conocer mas sobre el proyecto</button>
+            </div>
+            <div class="cont_text_ludi desac">
+                <b>Objetivo es Ludiverso</b>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ex explicabo corrupti vel aperiam!
+                    Maiores provident labore sit officia in debitis quibusdam fuga possimus illo ut molestias fugit,
+                    recusandae est.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti saepe dolorem culpa explicabo ut
+                    aperiam laborum eveniet totam temporibus veniam architecto, rem modi vel deleniti perspiciatis
+                    suscipit fugiat accusamus exercitationem?
+                </p>
+            </div>
+
         </section>
     </main>
-    <footer>
-        <img src="#" alt="Logo_ludiverso">
-        <div class="cont_text">
-            <b> ©2025 Ludiverso</b>
-            <p> Todos los derechos reservados</p>
-
-        </div>
-        <div class="cont_des">
-            <a href="#">Desarrolado por</a>
-        </div>
-    </footer>
+    <%- include('footer.ejs') %>
     <script src="Scripts/app.js"></script>
 </body>
 

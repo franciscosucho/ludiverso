@@ -36,11 +36,17 @@ body {
 body header {
   height: 10vh;
   width: 100vw;
+  position: fixed;
+  z-index: 1000;
   background-color: #3e86d3;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
+  transition: all 0.2s ease-in-out;
+}
+body header.reducir {
+  height: 5vh;
 }
 body header nav {
   padding: 20px;
@@ -69,6 +75,9 @@ body header nav #cont_nav_links a {
   font-weight: 600;
   text-decoration: none;
 }
+body header nav #cont_nav_links a .desac {
+  display: none;
+}
 body header nav #cont_nav_links a:hover {
   animation: shake 0.5s ease;
   background-color: #7ab8ff;
@@ -77,6 +86,7 @@ body main {
   width: 100vw;
   min-height: 80vw !important;
   height: 100%;
+  padding-top: 5%;
   background-color: #f5f5f5;
   padding-bottom: 3%;
 }
@@ -104,9 +114,12 @@ body main .secciones#sec_novedades .cont_novedades {
   gap: 20px;
   width: 80%;
   height: auto;
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
 }
 body main .secciones#sec_novedades .cont_novedades.desac {
-  display: none;
+  height: 0;
+  opacity: 0;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad {
   width: 60%;
@@ -147,7 +160,8 @@ body main .secciones#sec_novedades .cont_novedades .img_novedad {
   height: 50vh;
   width: 40%;
 }
-body main .secciones#sec_novedades #ver_mas_nov, body main .secciones#sec_novedades #ver_menos_nov {
+body main .secciones#sec_novedades #ver_mas_nov,
+body main .secciones#sec_novedades #ver_menos_nov {
   padding: 20px;
   border-radius: 10px;
   width: 250px;
@@ -160,15 +174,58 @@ body main .secciones#sec_novedades #ver_mas_nov, body main .secciones#sec_noveda
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-body main .secciones#sec_novedades #ver_mas_nov:hover, body main .secciones#sec_novedades #ver_menos_nov:hover {
+body main .secciones#sec_novedades #ver_mas_nov:hover,
+body main .secciones#sec_novedades #ver_menos_nov:hover {
   background-color: #6da3e0;
 }
-body main .secciones#sec_novedades #ver_mas_nov.desac, body main .secciones#sec_novedades #ver_menos_nov.desac {
+body main .secciones#sec_novedades #ver_mas_nov.desac,
+body main .secciones#sec_novedades #ver_menos_nov.desac {
+  display: none;
+}
+body main .secciones#sec_sobre_nosotros {
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 5%;
+}
+body main .secciones#sec_sobre_nosotros .cont_text_ludi {
+  margin-top: 3%;
+  display: flex;
+  justify-content: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  width: 60%;
+}
+body main .secciones#sec_sobre_nosotros .cont_text_ludi b {
+  font-size: 2em;
+}
+body main .secciones#sec_sobre_nosotros .cont_text_ludi p {
+  width: 60%;
+  font-size: 1.2em;
+}
+body main .secciones#sec_sobre_nosotros .cont_text_ludi #btn_conocer_mas {
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #7ab8ff;
+  height: 60px;
+  font-size: 1em;
+  font-weight: 800;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+body main .secciones#sec_sobre_nosotros .cont_text_ludi #btn_conocer_mas:hover {
+  animation: shake 0.5s ease;
+}
+body main .secciones#sec_sobre_nosotros .cont_text_ludi.desac {
   display: none;
 }
 body main .secciones .sub_titulo {
   color: #333333;
-  font-size: 2.5em;
+  font-size: 3.4em;
 }
 body main .secciones .cont_dos {
   width: auto;

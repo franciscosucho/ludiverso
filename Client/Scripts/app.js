@@ -57,3 +57,5 @@ ver_menos_nov.addEventListener("click", () => {
         ver_mas_nov.classList.remove("desac")
     });
 })
+
+

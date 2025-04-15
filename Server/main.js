@@ -100,14 +100,14 @@ app.get('/index', (req, res) => {
                 console.error('Error al ejecutar la query en el servidor ', err);
                 res.status(500).send('Error al ejecutar la query en el servidor');
             } else {
-              
+
                 const select_novedades = 'SELECT * FROM `novedades` WHERE 1 ORDER BY `fecha_novedad` ASC;';
                 connection.query(select_novedades, [], (err, result_novedades) => {
                     if (err) {
                         console.error('Error al ejecutar la query en el servidor ', err);
                         res.status(500).send('Error al ejecutar la query en el servidor');
                     } else {
-                        res.render('index', { juegos: result_juegos, novedades:result_novedades });
+                        res.render('index', { juegos: result_juegos, novedades: result_novedades });
                     }
                 })
             }
@@ -191,6 +191,47 @@ app.post('/iniciar_sesion', async (req, res) => {
         return res.render('login.ejs', { error: 'Error al verificar los datos' });
     }
 
+})
+
+
+app.get('/areas', (req, res) => {
+    const area = req.query.area;
+    let area_id 
+
+    if (area == "Sociales") {
+        area_id = 6
+    }
+    if (area == "edu_fisica") {
+        area_id = 5
+    }
+    if (area == "Comunicaciones") {
+        area_id = 6
+    }
+    if (area == "Taller") {
+        area_id = 7
+    }
+    if (area == "exactas_naturales") {
+        area_id = 2
+    }
+    
+    const select_areas = 'SELECT * FROM `areas` WHERE materia_id=?'
+    connection.query(select_areas, [area_id], (err, result_areas) => {
+        if (err) {
+            console.error('Error al registrarse ', err);
+            res.status(500).send('Error al registrarse ');
+        } else {
+            const select_juegos = 'SELECT * FROM `juegos` WHERE materia_id=?'
+            connection.query(select_juegos, [area_id], (err, result_juegos) => {
+                if (err) {
+                    console.error('Error al registrarse ', err);
+                    res.status(500).send('Error al registrarse ');
+                } else {
+                    res.render("areas", { data_areas: result_areas, data_juegos:result_juegos})
+                }
+            })
+
+        }
+    })
 })
 
 /*<------------------------------------------------------------------------------------------------------>
