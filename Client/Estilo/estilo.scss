@@ -5,7 +5,7 @@
     font-family: Arial, Helvetica, sans-serif;
 
 }
-
+ 
 $Fondo_principal: #ffff;
 $Texto_principal: #333333;
 $Encabezados_botones_y_primarios: #3e86d3;
@@ -132,14 +132,17 @@ body {
                     flex-direction: row;
                     gap: 20px;
                     width: 80%;
-                    height: 100%;
-
+                    height: auto;
+                    &.desac{
+                        display: none;
+                    }
                     .cont_text_novedad {
+                       
                         width: 60%;
-                        height: 50vh;
+                        height: 100%;
                         display: flex;
                         justify-content: flex-start;
-                       
+                        
                         padding: 30px;
                         gap: 20px;
                         align-items: flex-start;
@@ -149,27 +152,27 @@ body {
                             font-size: .9em;
                             font-weight: 800;
                             color: #222;
-                            width: 60%; 
+                            width: 80%; 
                         }
                         .titulo_novedad {
                             font-size: 2em;
                             font-weight: 800;
                             color:$Botones_secundarios_o_hover_azul;
-                            width: 60%;
+                            width: 80%;
                         }
 
                         .sub_titulo_novedades {
                             font-size: 1.4em;
                             font-weight: 500;
                             color: #222;
-                            width: 60%;
+                            width: 80%;
                         }
 
                         .cuepo_novedad {
                             font-size: 1.1em;
                             font-weight: 300;
                             color: #414141;
-                            width: 60%;
+                            width: 80%;
                         }
                     }
                     .img_novedad{
@@ -179,7 +182,7 @@ body {
                     }
 
                 }
-                #ver_mas_nov{
+                #ver_mas_nov , #ver_menos_nov{
                     padding: 20px;
                     border-radius: 10px;
                     width: 250px;
@@ -193,6 +196,9 @@ body {
                     transition: all .2s ease-in-out;
                     &:hover{
                         background-color: #6da3e0;
+                    }
+                    &.desac{
+                        display: none;
                     }
                 }
             }
@@ -237,7 +243,7 @@ body {
                     &:hover {
                         img {
                             height: 100% !important;
-
+                            border-radius: 20px;
                         }
                     }
 
@@ -261,7 +267,7 @@ body {
                         left: 0;
                         transition: all .3s ease-in-out;
                         z-index: 1;
-
+                        border-radius: 20px;
                     }
 
                     &#cont_sociales {

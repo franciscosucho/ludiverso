@@ -103,11 +103,14 @@ body main .secciones#sec_novedades .cont_novedades {
   flex-direction: row;
   gap: 20px;
   width: 80%;
-  height: 100%;
+  height: auto;
+}
+body main .secciones#sec_novedades .cont_novedades.desac {
+  display: none;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad {
   width: 60%;
-  height: 50vh;
+  height: 100%;
   display: flex;
   justify-content: flex-start;
   padding: 30px;
@@ -119,32 +122,32 @@ body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .fecha_nov
   font-size: 0.9em;
   font-weight: 800;
   color: #222;
-  width: 60%;
+  width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .titulo_novedad {
   font-size: 2em;
   font-weight: 800;
   color: #7ab8ff;
-  width: 60%;
+  width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .sub_titulo_novedades {
   font-size: 1.4em;
   font-weight: 500;
   color: #222;
-  width: 60%;
+  width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .cuepo_novedad {
   font-size: 1.1em;
   font-weight: 300;
   color: #414141;
-  width: 60%;
+  width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .img_novedad {
   border-radius: 8px;
   height: 50vh;
   width: 40%;
 }
-body main .secciones#sec_novedades #ver_mas_nov {
+body main .secciones#sec_novedades #ver_mas_nov, body main .secciones#sec_novedades #ver_menos_nov {
   padding: 20px;
   border-radius: 10px;
   width: 250px;
@@ -157,8 +160,11 @@ body main .secciones#sec_novedades #ver_mas_nov {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-body main .secciones#sec_novedades #ver_mas_nov:hover {
+body main .secciones#sec_novedades #ver_mas_nov:hover, body main .secciones#sec_novedades #ver_menos_nov:hover {
   background-color: #6da3e0;
+}
+body main .secciones#sec_novedades #ver_mas_nov.desac, body main .secciones#sec_novedades #ver_menos_nov.desac {
+  display: none;
 }
 body main .secciones .sub_titulo {
   color: #333333;
@@ -193,6 +199,7 @@ body main .secciones #cont_areas .cont_areas {
 }
 body main .secciones #cont_areas .cont_areas:hover img {
   height: 100% !important;
+  border-radius: 20px;
 }
 body main .secciones #cont_areas .cont_areas span {
   font-weight: bold;
@@ -213,6 +220,7 @@ body main .secciones #cont_areas .cont_areas img {
   left: 0;
   transition: all 0.3s ease-in-out;
   z-index: 1;
+  border-radius: 20px;
 }
 body main .secciones #cont_areas .cont_areas#cont_sociales {
   background-color: #90caf9;
