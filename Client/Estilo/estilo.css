@@ -6,6 +6,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, body main .secciones .sub_titulo {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 @keyframes shake {
   0% {
     transform: translateX(0);
@@ -234,8 +240,8 @@ body main .secciones#sec_sobre_nosotros .cont_text_ludi.desac {
   display: none;
 }
 body main .secciones .sub_titulo {
-  color: #333333;
-  font-size: 3.4em;
+  color: #3e86d3;
+  font-size: 4em;
 }
 body main .secciones .cont_dos {
   width: auto;
@@ -455,7 +461,8 @@ body footer .cont_des a {
   z-index: -1;
 }
 #login form {
-  height: 600px;
+  min-height: 600px;
+  height: auto;
   width: 450px;
   background-color: rgb(252, 252, 252);
   padding: 0px 0px;
@@ -491,13 +498,13 @@ body footer .cont_des a {
 }
 #login form #cont_main_inputs .cont_input {
   width: 70%;
-  height: 12%;
+  height: 60px;
   gap: 5px;
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
-  border: 1px solid gray;
+  border: 1px solid rgba(128, 128, 128, 0.253);
   border-radius: 30px;
   padding: 20px;
   transition: all 0.1s ease-in-out;
@@ -506,6 +513,7 @@ body footer .cont_des a {
   cursor: pointer;
 }
 #login form #cont_main_inputs .cont_input input {
+  color: rgba(128, 128, 128, 0.253);
   border: none;
   background-color: transparent;
   outline: none;
@@ -516,7 +524,7 @@ body footer .cont_des a {
 }
 #login form #cont_main_inputs button {
   width: 70%;
-  height: 12%;
+  height: 60px;
   font-weight: bolder;
   background-color: rgb(55, 55, 243);
   color: white;
@@ -528,15 +536,85 @@ body footer .cont_des a {
 #login form #cont_main_inputs button:hover {
   background-color: rgb(38, 38, 245);
 }
+#login form #cont_main_inputs a {
+  text-decoration: none;
+}
 @media (max-width: 770px) {
   #login form {
-    height: 500px;
-    width: 350px;
+    min-height: 500px;
+    height: auto;
+    max-height: 90%;
+    width: 90%;
+  }
+  #login form #cont_main_inputs .cont_input {
+    height: 40px;
+    width: 90%;
+  }
+  #login form #cont_main_inputs button {
+    height: 40px;
+    width: 90%;
   }
 }
-@media (max-width: 450px) {
-  #login form {
-    height: 450px;
-    width: 300px;
-  }
+
+#main_areas #cont_main_areas {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 60px;
+  padding-top: 9% !important;
+}
+#main_areas #cont_main_areas h2 {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4em;
+  color: #3e86d3;
+}
+#main_areas #cont_main_areas .cont_text {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 40px;
+  width: 80%;
+  height: auto;
+  min-height: 75vh;
+}
+#main_areas #cont_main_areas .cont_text img {
+  width: 40%;
+  height: 40vh;
+}
+#main_areas #cont_main_areas .cont_text .sub_cont_text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+#main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+#main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3 {
+  color: #7ab8ff;
+  font-size: 2em;
+}
+#main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4 {
+  color: #616161;
+  font-size: 1.3em;
+  font-family: "Poetsen One", sans-serif;
+}
+#main_areas #cont_main_areas .cont_juegos_areas {
+  width: 80%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos {
+  font-size: 4em;
 }/*# sourceMappingURL=estilo.css.map */

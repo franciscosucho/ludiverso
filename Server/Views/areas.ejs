@@ -1,18 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="Estilo/estilo.css">
+    <%- include('head.ejs') %>
+        <title>
+            <%= data_areas[0].nombre%>
+        </title>
 </head>
-<body>
-    <header>
-        <%- include('header.ejs') %></aside>
-    </header>
-    <main>
-        <h2>Bienvenidos a la area de:<%= data_areas[0].nombre%></h2>
-    </main>
-    <%- include('footer.ejs') %></aside>
+
+<body id="main_areas">
+
+    <%- include('header.ejs') %>
+        <main id="cont_main_areas">
+            <h2>Bienvenidos a la area `<%= data_areas[0].nombre%>`
+            </h2>
+            <section class="cont_text">
+
+                <% if (data_areas[0].nombre=="Comunicaciones" ) { %>
+                    <img src="Resources/Imagenes/Comunicaciones.webp" alt="">
+                    <% } %>
+
+                        <% if (data_areas[0].nombre=="Ciencias Sociales" ) { %>
+                            <img src="Resources/Imagenes/sociales.webp" alt="">
+                            <% } %>
+
+
+                                <% if (data_areas[0].nombre=="Exactas y Naturales" ) { %>
+                                    <img src="Resources/Imagenes/exactas_Naturales.webp" alt="">
+                                    <% } %>
+
+                                        <% if (data_areas[0].nombre=="Educación Física" ) { %>
+                                            <img src="Resources/Imagenes/educacion_fisica.webp" alt="">
+                                            <% } %>
+
+                                                <% if (data_areas[0].nombre=="Taller" ) { %>
+                                                    <img src="Resources/Imagenes/Taller.webp" alt="">
+                                                    <% } %>
+                                                        <div class="sub_cont_text">
+                                                            <div class="cont_text_sub">
+                                                                <h3>Jefe de area</h3>
+                                                                <h4>
+                                                                    <%= data_areas[0].jefe_de_area%>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="cont_text_sub">
+                                                                <h3>Descripcion de la area</h3>
+                                                                <h4>
+                                                                    <%= data_areas[0].descripcion%>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+
+            </section>
+            <section class="cont_juegos_areas">
+                <h2 id="tit_juegos">Juegos del area `<%= data_areas[0].nombre%>`</h2>
+                <article class="sub_cont_juegos">
+
+                    <% data_juegos.forEach((juego, index)=> { %>
+
+                        <div id="juego_cont<%=index%>" class="cont_juego_desc">
+
+                            <div class="cont_text_juego">
+                                <%= juego.titulo%>
+
+                            </div>
+                           
+                        </div>
+                        <% }) %>
+                </article>
+            </section>
+        </main>
+        <%- include('footer.ejs') %></aside>
 </body>
+
 </html>

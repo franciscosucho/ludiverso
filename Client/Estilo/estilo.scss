@@ -6,8 +6,15 @@
 
 }
 
+%poetsen-font {
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 $Fondo_principal: #ffff;
 $Texto_principal: #333333;
+$Texto_secundario: #616161;
 $Encabezados_botones_y_primarios: #3e86d3;
 $Botones_secundarios_o_hover_azul: #7ab8ff;
 $Botones_secundarios_o_hover_verde: #a8d08d;
@@ -64,10 +71,11 @@ body {
         align-items: center;
         flex-direction: row;
         transition: all .2s ease-in-out;
-        &.reducir{
+
+        &.reducir {
             height: 50px;
         }
-      
+
         nav {
             padding: 20px;
             display: flex;
@@ -78,13 +86,14 @@ body {
             width: 100%;
 
             #cont_nav_tit {
-                h1{
+                h1 {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     height: 100%;
                     color: white;
                 }
+
                 height: 100%;
 
             }
@@ -97,7 +106,7 @@ body {
                 padding: 30px;
                 height: auto;
                 height: 100%;
-                
+
                 gap: 20px;
 
                 a {
@@ -107,9 +116,11 @@ body {
                     color: white;
                     font-weight: 600;
                     text-decoration: none;
-                    .desac{
+
+                    .desac {
                         display: none;
                     }
+
                     &:hover {
                         animation: shake 0.5s ease;
                         background-color: $Botones_secundarios_o_hover_azul;
@@ -241,6 +252,7 @@ body {
                 justify-content: flex-start;
                 align-items: center;
                 margin-bottom: 5%;
+
                 .cont_text_ludi {
                     margin-top: 3%;
                     display: flex;
@@ -259,7 +271,8 @@ body {
                         font-size: 1.2em;
 
                     }
-                    #btn_conocer_mas{
+
+                    #btn_conocer_mas {
                         padding: 20px;
                         border-radius: 8px;
                         background-color: $Botones_secundarios_o_hover_azul;
@@ -269,24 +282,27 @@ body {
 
                         color: white;
                         border: none;
-                       display: flex;
-                       align-items: center;
-                       justify-content: center;
-                       cursor: pointer;
-                       &:hover {
-                        animation: shake 0.5s ease;
-                     
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+
+                        &:hover {
+                            animation: shake 0.5s ease;
+
+                        }
                     }
-                    }
-                    &.desac{
+
+                    &.desac {
                         display: none;
                     }
                 }
             }
 
             .sub_titulo {
-                color: #333333;
-                font-size: 3.4em;
+                color: $Encabezados_botones_y_primarios;
+                font-size: 4em;
+                @extend %poetsen-font;
             }
 
             .cont_dos {
@@ -555,7 +571,8 @@ body {
     }
 
     form {
-        height: 600px;
+        min-height: 600px;
+        height: auto;
         width: 450px;
         background-color: rgb(252, 252, 252);
         padding: 0px 0px;
@@ -596,13 +613,13 @@ body {
 
             .cont_input {
                 width: 70%;
-                height: 12%;
+                height: 60px;
                 gap: 5px;
                 display: flex;
                 justify-content: flex-start;
                 flex-direction: row;
                 align-items: center;
-                border: 1px solid gray;
+                border: 1px solid rgba(128, 128, 128, 0.253);
                 border-radius: 30px;
                 padding: 20px;
                 transition: all .1s ease-in-out;
@@ -612,7 +629,7 @@ body {
                 }
 
                 input {
-
+                    color: rgba(128, 128, 128, 0.253);
                     border: none;
                     background-color: transparent;
 
@@ -629,7 +646,7 @@ body {
 
             button {
                 width: 70%;
-                height: 12%;
+                height: 60px;
                 font-weight: bolder;
                 background-color: rgb(55, 55, 243);
                 color: white;
@@ -642,24 +659,124 @@ body {
                     background-color: rgb(38, 38, 245);
                 }
             }
+
+            a {
+                text-decoration: none;
+            }
         }
     }
 
     @media (max-width: 770px) {
-
         form {
-            height: 500px;
-            width: 350px;
-        }
-    }
+            min-height: 500px;
+            height: auto;
+            max-height: 90%;
+            width: 90%;
 
-    @media (max-width: 450px) {
+            #cont_main_inputs {
 
-        form {
-            height: 450px;
-            width: 300px;
+                .cont_input {
+                    height: 40px;
+                    width: 90%;
+                }
+
+                button {
+                    height: 40px;
+                    width: 90%;
+                }
+            }
+
         }
     }
 }
 
 //-----------------------------------------------------------------------------
+
+
+//<----->Areas<--------------------------------------------->
+
+#main_areas {
+
+    #cont_main_areas {
+
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        gap: 60px;
+        padding-top: 9% !important;
+
+        h2 {
+            @extend %poetsen-font;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 4em;
+            color: $Encabezados_botones_y_primarios;
+        }
+
+        .cont_text {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 40px;
+            width: 80%;
+            height: auto;
+            min-height: 75vh;
+           
+
+
+            img {
+                width: 40%;
+                height: 40vh;
+            }
+
+            .sub_cont_text {
+                width: 100%;
+                height: 100%;
+                display: flex;
+
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                .cont_text_sub {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    h3 {
+                        @extend %poetsen-font;
+                        color: $Botones_secundarios_o_hover_azul;
+                        font-size: 2em;
+                    }
+
+                    h4 {
+                        @extend %poetsen-font;
+                        color: $Texto_secundario;
+                        font-size: 1.3em;
+                        font-family: "Poetsen One", sans-serif;
+                    }
+                }
+            }
+        }
+
+        .cont_juegos_areas {
+            width: 80%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+            #tit_juegos{
+                font-size: 4em;
+                @extend %poetsen-font;
+            }
+        }
+    }
+}
+
+
+//<------------------------------------------------------------------------------->

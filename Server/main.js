@@ -206,7 +206,7 @@ app.get('/areas', (req, res) => {
         area_id = 5
     }
     if (area == "Comunicaciones") {
-        area_id = 6
+        area_id = 1
     }
     if (area == "Taller") {
         area_id = 7
