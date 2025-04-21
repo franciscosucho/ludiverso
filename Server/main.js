@@ -107,7 +107,6 @@ app.get('/index', (req, res) => {
                         console.error('Error al ejecutar la query en el servidor ', err);
                         res.status(500).send('Error al ejecutar la query en el servidor');
                     } else {
-                        console.log(result_novedades[0].fecha_novedad)
                         res.render('index', { juegos: result_juegos, novedades: result_novedades });
                     }
                 })
@@ -233,6 +232,13 @@ app.get('/areas', (req, res) => {
 
         }
     })
+})
+
+app.get('/juego_memoria', (req, res) => {
+
+    res.render("juego_memoria")
+
+
 })
 
 /*<------------------------------------------------------------------------------------------------------>

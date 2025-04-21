@@ -64,6 +64,8 @@ body header nav {
   width: 100%;
 }
 body header nav #cont_nav_tit {
+  text-decoration: none;
+  color: transparent;
   height: 100%;
 }
 body header nav #cont_nav_tit h1 {
@@ -426,6 +428,66 @@ body footer .cont_des a {
   text-decoration: none;
 }
 
+#juego_memoria {
+  padding-top: 160px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: rgb(87, 24, 24);
+}
+#juego_memoria img {
+  height: 90%;
+  width: 90%;
+}
+#juego_memoria .section1 {
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 8px 10px 10px 10px;
+  border-radius: 8px;
+}
+#juego_memoria .section1 h1 {
+  color: white;
+  text-align: center;
+}
+#juego_memoria .section1 button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+}
+#juego_memoria .section2 {
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 30px;
+  padding: 15px;
+  display: flex;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+  width: 250px;
+  height: 400px;
+}
+#juego_memoria .section2 .estadisticas {
+  height: 105px;
+  border-radius: 8px;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  border: 1px solid white;
+  color: white;
+}
+
 #login {
   /* Fondo de la página */
   /* Filtro de color azul */
@@ -612,8 +674,100 @@ body footer .cont_des a {
   width: 80%;
   height: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos {
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc {
+  border: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+  width: 60%;
+  min-height: 400px;
+  height: auto;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  gap: 40px;
+  background-color: rgba(255, 255, 255, 0.685);
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc img {
+  border-radius: 20px;
+  width: 35%;
+  height: 300px;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego {
+  margin-top: 20px;
+  padding-left: 20px;
+  display: flex;
+  width: 60%;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  justify-content: flex-start;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_tit {
+  padding: 0px 4px;
+  width: 100%;
+  gap: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_tit h3 {
+  font-size: 1.8em;
+  font-weight: bolder;
+  color: #333333;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_tit .cont_estrellas {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_tit .cont_estrellas i {
+  color: #fda016;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_tit .cont_estrellas span {
+  font-weight: bold;
+  font-size: 1em;
+  color: #333333;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_btn {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_btn .btn_jugar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  padding: 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  background-color: #7ab8ff;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 800;
+  transition: all 0.2s ease-in-out;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_btn .btn_jugar:hover {
+  background-color: #6ca3e2;
+}
+#main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc:hover {
+  border: 3px solid #3e86d3;
 }
 #main_areas #cont_main_areas .cont_juegos_areas #tit_juegos {
   font-size: 4em;

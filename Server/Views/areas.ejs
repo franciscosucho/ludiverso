@@ -59,12 +59,28 @@
                     <% data_juegos.forEach((juego, index)=> { %>
 
                         <div id="juego_cont<%=index%>" class="cont_juego_desc">
-
+                            <img src="  <%= juego.url_img%>" alt="">
                             <div class="cont_text_juego">
-                                <%= juego.titulo%>
-
+                                <div class="cont_tit">
+                                    <h3>
+                                        <%= juego.titulo%>
+                                    </h3>
+                                    <div class="cont_estrellas">
+                                        <i class="fa-solid fa-star"></i>
+                                        <span><%= juego.valoracion%></span>
+                                   </div>
+                                </div>
+                                
+                                <p>
+                                    <%= juego.descripcion%>
+                                </p>
+                                <div class="cont_btn">
+                                    <a href="#" class="btn_jugar">Jugar</a>
+                                   </div>
                             </div>
-                           
+                          
+                          
+                        
                         </div>
                         <% }) %>
                 </article>
