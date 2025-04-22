@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2025 a las 02:23:31
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Tiempo de generación: 22-04-2025 a las 21:16:41
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ CREATE TABLE `areas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `jefe_de_area` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `areas`
@@ -51,7 +51,7 @@ CREATE TABLE `calificaciones` (
   `juego_id` int(11) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL CHECK (`estrellas` between 0 and 5),
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE `estadisticas` (
   `juegos_jugados` int(11) DEFAULT 0,
   `puntaje_total` int(11) DEFAULT 0,
   `ultima_actividad` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `intentos` (
   `juego_id` int(11) DEFAULT NULL,
   `puntaje` int(11) DEFAULT NULL,
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -95,18 +95,18 @@ CREATE TABLE `juegos` (
   `fecha_creacion` datetime DEFAULT current_timestamp(),
   `url_img` varchar(255) NOT NULL,
   `valoracion` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `juegos`
 --
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`) VALUES
-(1, 'Viajeros del Tiempo', 'Los estudiantes forman equipos y viajan simbólicamente a diferentes épocas históricas. Deben resolver desafíos o acertijos relacionados con la cultura, geografía y personajes de esa época para avanzar en el \"tiempo\".', 6, '2025-04-12 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 0),
-(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 0),
-(3, 'Constructor Exprés', 'Los equipos reciben materiales reciclables y planos básicos. En un tiempo limitado deben construir un objeto funcional. Se evalúan la creatividad, estabilidad y presentación final.', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 0),
-(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 0),
-(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 0);
+(1, 'Viajeros del Tiempo', 'Los estudiantes forman equipos y viajan simbólicamente a diferentes épocas históricas. Deben resolver desafíos o acertijos relacionados con la cultura, geografía y personajes de esa época para avanzar en el \"tiempo\".', 6, '2025-04-12 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5),
+(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4),
+(3, 'Constructor Exprés', 'Los equipos reciben materiales reciclables y planos básicos. En un tiempo limitado deben construir un objeto funcional. Se evalúan la creatividad, estabilidad y presentación final.', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4),
+(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4),
+(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4);
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,7 @@ CREATE TABLE `novedades` (
   `cuerpo_novedad` varchar(3000) DEFAULT NULL,
   `url_foto_novedad` varchar(255) DEFAULT NULL,
   `fecha_novedad` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `novedades`
@@ -142,7 +142,7 @@ CREATE TABLE `preguntas` (
   `juego_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ CREATE TABLE `respuestas` (
   `pregunta_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `es_correcta` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -166,7 +166,7 @@ CREATE TABLE `respuestas` (
 CREATE TABLE `roles` (
   `rol_id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -191,7 +191,7 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `rol_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
