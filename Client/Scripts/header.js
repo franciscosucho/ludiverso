@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = document.getElementById(targetId);       // busca el ID
 
             if (target) {
-                scrollToElement(target, 500); 
+                scrollToElement(target, 200); 
             }
         });
     });
