@@ -71,7 +71,11 @@ const isLogged = (req, res, next) => {
 
 app.get('/', (req, res) => {
     // Mientras este en produccion para ahorrar tiempo
-    res.render('login')
+    // res.redirect('/index');
+
+
+
+    res.redirect('/login')
     // try {
     //     const insert_usuario = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
     //     connection.query(insert_usuario, [], (err, result_juegos) => {
@@ -107,7 +111,8 @@ app.get('/index', (req, res) => {
                         console.error('Error al ejecutar la query en el servidor ', err);
                         res.status(500).send('Error al ejecutar la query en el servidor');
                     } else {
-                        res.render('index', { juegos: result_juegos, novedades: result_novedades });
+
+                        res.render('index', { juegos: result_juegos, novedades: result_novedades, sessionUserId: req.session.usuario_id });
                     }
                 })
             }
@@ -140,13 +145,26 @@ app.post('/registrar', async (req, res) => {
                 console.error('Error al registrarse ', err);
                 res.status(500).send('Error al registrarse ');
             } else {
-                req.session.nombre_us == nombre_us
-                req.session.apellido_us == "oscuro"
-                req.session.nombre_usuario_us == nombre_usuario_us
-                req.session.email_us == email_us
-                req.session.password_us == password_us
-                req.session.rol_us == 2
-                res.redirect('/index');
+                const info_us = "SELECT `usuario_id` FROM `usuarios` WHERE 1 ORDER BY `usuario_id` DESC";
+                connection.query(info_us, [], (err, result_id) => {
+                    if (err) {
+                        console.error('Error al registrarse ', err);
+                        res.status(500).send('Error al registrarse ');
+                    } else {
+                        console.log("id:", result_id)
+
+                        req.session.usuario_id = result_id[0].usuario_id + 1;
+                        req.session.nombre_us = nombre_us
+                        req.session.apellido_us = apellido_us
+                        req.session.nombre_usuario_us = nombre_usuario_us
+                        req.session.email_us = email_us
+                        req.session.password_us = password_us
+                        req.session.rol_us = 2
+                        req.session.user_sesion = true;
+                        res.redirect('/index');
+                    }
+                })
+
             }
         })
 
@@ -181,6 +199,13 @@ app.post('/iniciar_sesion', async (req, res) => {
         const hashedPassword = userResults[0].contraseña;
         const isMatch = await verifyPassword(password, hashedPassword);
         if (isMatch) {
+            req.session.usuario_id = userResults[0].usuario_id;
+            req.session.nombre_us = userResults[0].nombre;
+            req.session.apellido_us = userResults[0].apellido;
+            req.session.nombre_usuario_us = userResults[0].nombre_usuario;
+            req.session.email_us = userResults[0].email;
+            req.session.password_us = userResults[0].contraseña;
+            req.session.rol_us = userResults[0].rol_id;
             req.session.user_sesion = true;
             return res.redirect('/index');
         } else {
@@ -196,7 +221,7 @@ app.post('/iniciar_sesion', async (req, res) => {
 
 app.get('/areas', (req, res) => {
     const area = req.query.area;
-    let area_id 
+    let area_id
 
     if (area == "Sociales") {
         area_id = 6
@@ -213,7 +238,7 @@ app.get('/areas', (req, res) => {
     if (area == "exactas_naturales") {
         area_id = 2
     }
-    
+
     const select_areas = 'SELECT * FROM `areas` WHERE materia_id=?'
     connection.query(select_areas, [area_id], (err, result_areas) => {
         if (err) {
@@ -226,7 +251,7 @@ app.get('/areas', (req, res) => {
                     console.error('Error al registrarse ', err);
                     res.status(500).send('Error al registrarse ');
                 } else {
-                    res.render("areas", { data_areas: result_areas, data_juegos:result_juegos})
+                    res.render("areas", { data_areas: result_areas, data_juegos: result_juegos })
                 }
             })
 
@@ -235,12 +260,36 @@ app.get('/areas', (req, res) => {
 })
 
 app.get('/juego_memoria', (req, res) => {
+    const nivel_juego = req.query.nivel_juego;
+    res.render("juego_memoria",{nivel_juego})
 
-    res.render("juego_memoria")
+})
+app.get('/juego_intro', (req, res) => {
+    const id_juego = req.query.id_juego;
+    const id_us = req.session.usuario_id
+
+    const select_juego = 'SELECT * FROM `juegos` WHERE juego_id=?'
+    connection.query(select_juego, [id_juego], (err, result_juego) => {
+        if (err) {
+            console.error('Error al registrarse ', err);
+            res.status(500).send('Error al registrarse ');
+        } else {
+            const select_juegos = 'SELECT * FROM `niveles_juego` WHERE id_juego=? AND id_us=?'
+            connection.query(select_juegos, [id_juego,id_us], (err, result_niveles) => {
+                if (err) {
+                    console.error('Error al registrarse ', err);
+                    res.status(500).send('Error al registrarse ');
+                } else {
+                    res.render("juego_intro", { data_juego: result_juego[0], data_niveles: result_niveles[0] })
+                }
+            })
+
+        }
+    })
+    // res.render("juego_intro")
 
 
 })
-
 /*<------------------------------------------------------------------------------------------------------>
     Area de funciones.
 */

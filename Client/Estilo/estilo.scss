@@ -96,19 +96,22 @@ body {
             flex-direction: row;
             height: 100%;
             width: 100%;
+
             #cont_nav_tit {
-               
-               
+
+
                 display: flex;
                 justify-content: flex-start;
                 align-items: flex-start;
                 padding: 3px;
-                img{
+
+                img {
                     display: flex;
-                    
+
                     width: 100%;
                     height: 100%;
                 }
+
                 height: 100%;
 
             }
@@ -607,6 +610,58 @@ body {
 
 }
 
+/*Intro de juegos <------------------------------------------------------------------->*/
+
+
+#juego_intro {
+    padding-top: 200px;
+    min-height: 100vh !important;
+    height: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px ;
+    .cont_text{
+        display: flex;
+        width: 80%;
+        background-color: red;
+    }
+    .cont_niveles{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        width: 80%;
+        background-color: rgb(122, 90, 90);
+        .sub_cont_niveles{
+           
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            gap: 40px   ;
+            .nivel{
+                background-color: #3e86d3;
+                border-radius: 50%;
+                width: 100px;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-decoration: none;
+                color: white;
+                list-style: none;
+            }
+        }
+
+    }
+}
+
+
+
+
+//<----------------------------------------------------------------------------------->
 
 /*Juego memoria <------------------------------------------------------------------------------------->*/
 #juego_memoria {
@@ -617,7 +672,6 @@ body {
     height: auto !important;
     padding: 10% 0px;
     min-height: 100vh;
-    background-color: red;
 
     img {
         height: 90%;

@@ -475,6 +475,50 @@ body footer .cont_des a {
     width: 68%;
   }
 }
+/*Intro de juegos <------------------------------------------------------------------->*/
+#juego_intro {
+  padding-top: 200px;
+  min-height: 100vh !important;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+#juego_intro .cont_text {
+  display: flex;
+  width: 80%;
+  background-color: red;
+}
+#juego_intro .cont_niveles {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  background-color: rgb(122, 90, 90);
+}
+#juego_intro .cont_niveles .sub_cont_niveles {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 40px;
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel {
+  background-color: #3e86d3;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  list-style: none;
+}
+
 /*Juego memoria <------------------------------------------------------------------------------------->*/
 #juego_memoria {
   width: 100vw;
@@ -484,7 +528,6 @@ body footer .cont_des a {
   height: auto !important;
   padding: 10% 0px;
   min-height: 100vh;
-  background-color: red;
 }
 #juego_memoria img {
   height: 90%;

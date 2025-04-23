@@ -8,10 +8,10 @@
     </head>
 <body >
     <%- include('header.ejs') %>
-    <main id="juego_memoria">
+    <main id="juego_memoria" data-nivel="<%= nivel_juego%>">
         <section>
-            <h2>Introduccion al juego</h2>
-            <p>EL juego </p>
+            <h2>!Bienvenido al nivel: <%= nivel_juego%> </h2>
+           
         </section>
 
 
@@ -44,6 +44,7 @@
                 </tr>
             </table>
         </section>
+
         <section class="section2">
             <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
             <h2 id="t-restante" class="estadisticas">Tiempo 30 segundos</h2>

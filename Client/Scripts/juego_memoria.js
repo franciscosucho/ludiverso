@@ -1,4 +1,9 @@
+const main = document.getElementById("juego_memoria");
+const nivel = main.dataset.nivel;
 
+document.addEventListener("DOMContentLoaded",()=>{
+    mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
+})
 let tarjetasDestapadas = 0;
 let tarjeta1 = null;
 let tarjeta2 = null;
@@ -7,10 +12,22 @@ let segundoResultado = null;
 let movimientos = 0
 let aciertos = 0
 let timer = false;
-let timer_cont = 30;
+let timer_cont = 0
+if (nivel == 1) {
+    timer_cont = 50;
+}
+if (nivel == 2) {
+    timer_cont = 40;
+}
+if (nivel == 3) {
+    timer_cont = 30;
+}
+if (nivel == 4) {
+    timer_cont = 25;
+}
 let timerInicial = timer_cont;
 let tiempoRegresivoId = null;
-let mostrarTiempo = document.getElementById("t-restante")
+const mostrarTiempo = document.getElementById("t-restante")
 let mostrar_mov = document.getElementById("movimientos")
 let aciertos_dom = document.getElementById("aciertos")
 
@@ -73,7 +90,7 @@ function destapar(id) {
 function iniciarTiempo() {
     tiempoRegresivoId = setInterval(() => {
         timer_cont--;
-        mostrarTiempo.innerHTML=`Tiempo: ${timer_cont}`;
+        mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
         if (timer_cont == 0) {
             //Detiene el temporizador
             clearInterval(tiempoRegresivoId)
@@ -84,8 +101,8 @@ function iniciarTiempo() {
 function bloquearTarjetas() {
     for (let i = 0; i <= 15; i++) {
         let tarjetaBloqueada = document.getElementById(i)
-        tarjetaBloqueada.innerHTML =`<img src="./../Resources/Imagenes/juego_memoria/${numeros[i]}.png" alt="">`;
-         
+        tarjetaBloqueada.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${numeros[i]}.png" alt="">`;
+
         tarjetaBloqueada.disabled = true;
     }
 }
