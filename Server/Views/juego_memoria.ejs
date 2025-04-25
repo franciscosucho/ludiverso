@@ -10,13 +10,12 @@
     <%- include('header.ejs') %>
     <main id="juego_memoria" data-nivel="<%= nivel_juego%>">
         <section>
-            <h2>!Bienvenido al nivel: <%= nivel_juego%> </h2>
+            <h1>!Bienvenido al nivel: <%= nivel_juego%> del Memory card </h1>
            
         </section>
 
 
         <section class="section1">
-            <h1>juego de memoria</h1>
             <table>
                 <tr>
                     <td> <button id="0" onclick="destapar(0)"></button></td>
@@ -43,13 +42,14 @@
                     <td> <button id="15" onclick="destapar(15)"></button></td>
                 </tr>
             </table>
+            <div class="section2">
+                <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
+                <h2 id="t-restante" class="estadisticas">Tiempo 30 segundos</h2>
+                <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
+            </div>
         </section>
 
-        <section class="section2">
-            <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
-            <h2 id="t-restante" class="estadisticas">Tiempo 30 segundos</h2>
-            <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
-        </section>
+        
       
     </main>
     <%- include('footer.ejs') %></aside>

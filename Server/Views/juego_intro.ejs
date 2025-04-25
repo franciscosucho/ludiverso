@@ -4,7 +4,7 @@
 <head>
     <%- include('head.ejs') %>
         <title>
-            Juego de memoria
+        Elogiendo los niveles
         </title>
 </head>
 
@@ -12,10 +12,10 @@
     <%- include('header.ejs') %>
         <main id="juego_intro">
             <section class="cont_text">
-                <h2>
+                <h2 class="titulo_juego">
                     <%= data_juego.titulo %>
                 </h2>
-                <h2>
+                <h2 class="desc_juego">
                     <%= data_juego.descripcion %>
                 </h2>
             </section>
@@ -29,34 +29,30 @@
                 }
             %>
                 <ul class="sub_cont_niveles">
-                    <% for(let i=1; i <=data_juego.niveles; i++) { %>
-                        <% if (nivel_us == i) { %>
-                            <a href="<%=data_juego.url_juego %>?nivel_juego=<%=nivel_us %>" class="nivel actual" >
-                                <li>
-                                    <%= i %>
-                                </li>
-                            </a>
-                            <% } %>
-                        
-                        <% if (nivel_us > i) { %>
-                            <a href="<%=data_juego.url_juego %>?nivel_juego=<%=nivel_us %>" class="nivel superado" >
-                                <li>
-                                    <i class="fa-solid fa-check"></i>
-                                    <%= i %>
-                                </li>
-                            </a>
-                            <% } %>
-                            <% if (i > nivel_us ) { %>
-                                <a href="<%=data_juego.url_juego %>?nivel_juego=<%=nivel_us %>" class="nivel no_superado" >
-                                    <li>
-                                        <i class="fa-solid fa-lock"></i>
-                                        <%= i %>
-                                    </li>
-                                </a>
-                                <% } %>
-                            <% }%>
-                       
-                       
+                    <% for(let i = 1; i <= data_juego.niveles; i++) { 
+                        let mover_der = (i % 2 === 0) ? 'mover_der' : '';
+                   %>
+                       <% if (nivel_us == i) { %>
+                           <a href="<%= data_juego.url_juego %>?nivel_juego=<%= nivel_us %>" class="nivel actual <%= mover_der %>">
+                               <li>
+                                   <i class="fa-solid fa-star"></i>
+                               </li>
+                           </a>
+                       <% } else if (nivel_us > i) { %>
+                           <a href="<%= data_juego.url_juego %>?nivel_juego=<%= i%>" class="nivel superado <%= mover_der %>">
+                               <li>
+                                   <i class="fa-solid fa-check"></i>
+                               </li>
+                           </a>
+                       <% } else { %>
+                           <span href="<%= data_juego.url_juego %>?nivel_juego=<%= i %>" class="nivel no_superado <%= mover_der %>">
+                               <li>
+                                   <i class="fa-solid fa-lock"></i>
+                               </li>
+                           </span>
+                       <% } %>
+                   <% } %>
+                   
                 </ul>
 
             </section>

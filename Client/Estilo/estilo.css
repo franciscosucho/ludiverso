@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, body main .secciones .sub_titulo {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria h1, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -66,6 +66,10 @@ body header {
 body header.reducir {
   height: 50px;
 }
+body header.reducir #cont_nav_tit img {
+  height: 100%;
+  width: 100%;
+}
 body header nav {
   padding-left: 20px;
   display: flex;
@@ -78,14 +82,15 @@ body header nav {
 body header nav #cont_nav_tit {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   padding: 3px;
   height: 100%;
 }
 body header nav #cont_nav_tit img {
+  transition: all 0.2s ease-in-out;
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 70px;
+  height: 70px;
 }
 body header nav #cont_nav_links {
   display: flex;
@@ -442,6 +447,19 @@ body footer {
   align-items: center;
   color: rgb(216, 216, 216);
 }
+body footer #container_foot_img {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3px;
+  height: 100%;
+}
+body footer #container_foot_img img {
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  width: 70px;
+  height: 70px;
+}
 body footer .cont_text {
   display: flex;
   justify-content: center;
@@ -488,8 +506,22 @@ body footer .cont_des a {
 }
 #juego_intro .cont_text {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
   width: 80%;
-  background-color: red;
+}
+#juego_intro .cont_text .titulo_juego {
+  font-size: 4em;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4em;
+  text-decoration: underline;
+  color: #3e86d3;
+}
+#juego_intro .cont_text .desc_juego {
+  font-size: 1.3em;
 }
 #juego_intro .cont_niveles {
   display: flex;
@@ -497,34 +529,74 @@ body footer .cont_des a {
   align-items: center;
   flex-direction: column;
   width: 80%;
-  background-color: rgb(122, 90, 90);
+  height: auto;
+  padding: 10px;
 }
 #juego_intro .cont_niveles .sub_cont_niveles {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  gap: 40px;
+  gap: 80px;
+  position: relative;
 }
 #juego_intro .cont_niveles .sub_cont_niveles .nivel {
-  background-color: #3e86d3;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  position: relative;
+  background: linear-gradient(to bottom, #3e86d3, #3572b3);
+  border: 4px solid #3268a1;
+  height: 80px;
+  width: 80px;
+  color: #43c443;
+  padding: 0.6em 1.4em;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 1rem;
+  list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
+  box-shadow: 0 4px 0 #3268a1, 0 4px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel i {
+  font-size: 1.8em;
   color: white;
-  list-style: none;
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel.no_superado {
+  cursor: not-allowed;
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #3268a1, 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #3268a1, 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 2px;
+  height: 80px;
+  border-left: 2px dashed #3572b3;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+#juego_intro .cont_niveles .sub_cont_niveles .nivel:last-child::after {
+  content: none;
 }
 
 /*Juego memoria <------------------------------------------------------------------------------------->*/
 #juego_memoria {
   width: 100vw;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  gap: 80px;
   height: auto !important;
   padding: 10% 0px;
   min-height: 100vh;
@@ -533,21 +605,25 @@ body footer .cont_des a {
   height: 90%;
   width: 90%;
 }
+#juego_memoria h1 {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3em;
+  color: #3e86d3;
+  text-align: center;
+}
 #juego_memoria .section1 {
   width: auto;
   height: auto;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 20px;
-  flex-direction: column;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  gap: 100px;
   background-color: rgba(255, 255, 255, 0.2);
   padding: 8px 10px 10px 10px;
   border-radius: 8px;
-}
-#juego_memoria .section1 h1 {
-  color: white;
-  text-align: center;
 }
 #juego_memoria .section1 button {
   display: flex;
@@ -561,11 +637,9 @@ body footer .cont_des a {
 }
 #juego_memoria .section2 {
   background-color: rgba(255, 255, 255, 0.2);
-  margin-top: 30px;
   padding: 15px;
   display: flex;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 8px;
   justify-content: center;
   gap: 10px;
   flex-direction: column;
@@ -577,8 +651,8 @@ body footer .cont_des a {
   border-radius: 8px;
   padding: 8px 20px;
   box-sizing: border-box;
-  border: 1px solid white;
-  color: white;
+  border: 1px solid #7ab8ff;
+  color: #7ab8ff;
 }
 
 #login {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-04-2025 a las 21:16:41
+-- Tiempo de generación: 25-04-2025 a las 20:50:46
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -94,19 +94,54 @@ CREATE TABLE `juegos` (
   `materia_id` int(11) DEFAULT NULL,
   `fecha_creacion` datetime DEFAULT current_timestamp(),
   `url_img` varchar(255) NOT NULL,
-  `valoracion` float NOT NULL
+  `valoracion` float NOT NULL,
+  `url_juego` varchar(255) NOT NULL,
+  `niveles` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `juegos`
 --
 
-INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`) VALUES
-(1, 'Viajeros del Tiempo', 'Los estudiantes forman equipos y viajan simbólicamente a diferentes épocas históricas. Deben resolver desafíos o acertijos relacionados con la cultura, geografía y personajes de esa época para avanzar en el \"tiempo\".', 6, '2025-04-12 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5),
-(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4),
-(3, 'Constructor Exprés', 'Los equipos reciben materiales reciclables y planos básicos. En un tiempo limitado deben construir un objeto funcional. Se evalúan la creatividad, estabilidad y presentación final.', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4),
-(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4),
-(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4);
+INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`) VALUES
+(1, 'Viajeros del Tiempo', 'Los estudiantes forman equipos y viajan simbólicamente a diferentes épocas históricas. Deben resolver desafíos o acertijos relacionados con la cultura, geografía y personajes de esa época para avanzar en el \"tiempo\".', 6, '2025-04-12 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, '0', 0),
+(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0),
+(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_memoria', 4),
+(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0),
+(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `juego_memoria`
+--
+
+CREATE TABLE `juego_memoria` (
+  `id_juego` int(11) NOT NULL,
+  `juego` int(11) NOT NULL,
+  `titulo_del_juego` varchar(255) NOT NULL,
+  `descripcion_del_tema` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `niveles_juego`
+--
+
+CREATE TABLE `niveles_juego` (
+  `id_nivel` int(11) NOT NULL,
+  `id_juego` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `nivel_actual_us` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `niveles_juego`
+--
+
+INSERT INTO `niveles_juego` (`id_nivel`, `id_juego`, `id_us`, `nivel_actual_us`) VALUES
+(1, 3, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,6 +177,19 @@ CREATE TABLE `preguntas` (
   `juego_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resources_juego`
+--
+
+CREATE TABLE `resources_juego` (
+  `id_rources` int(11) NOT NULL,
+  `id_juego` int(11) NOT NULL,
+  `url_img` int(11) NOT NULL,
+  `descripcion_img` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -198,7 +246,15 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol_id`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 2);
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 2),
+(6, 'david', 'mingueza', 'davidmingueza', 'davidmingueza@gmail.com', '$2b$10$0EvUQrkWB43ZavtXyX85fe8y/Rzy7DGuqoVatH0lcvQ3hoAhSJUdO', 2),
+(8, 'jorge', 'mingueza', 'jorgemingueza', 'jorgemingueza@gmail.com', '$2b$10$ZB5qktwKxh3MgDCD425YMej0wZj8/zR7GAR9O.mnSDxb10c4Njcfe', 2),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 2),
+(10, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmissron@gmail.com', '$2b$10$0bVwWy.35qE7HmXhmu.7JeLaYt./MDv0Crcdi4x1aYyH8XXlSSPcO', 2),
+(11, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmsissron@gmail.com', '$2b$10$mROJ/C6X7baUf.S4km.fE.rQ2Ra2/xfLyDQzHgOjRQj2Vxk77HpoC', 2),
+(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 2),
+(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 2),
+(14, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelassss@gmail.com', '$2b$10$DxW.Lvdl.At7WPz00C3qbOfBRAbtyV5AyXUbvBOAm5MR8f8y4sw2q', 2);
 
 --
 -- Índices para tablas volcadas
@@ -241,6 +297,20 @@ ALTER TABLE `juegos`
   ADD KEY `materia_id` (`materia_id`);
 
 --
+-- Indices de la tabla `juego_memoria`
+--
+ALTER TABLE `juego_memoria`
+  ADD PRIMARY KEY (`id_juego`),
+  ADD KEY `juego` (`juego`);
+
+--
+-- Indices de la tabla `niveles_juego`
+--
+ALTER TABLE `niveles_juego`
+  ADD PRIMARY KEY (`id_nivel`),
+  ADD KEY `id_juego` (`id_juego`,`id_us`);
+
+--
 -- Indices de la tabla `novedades`
 --
 ALTER TABLE `novedades`
@@ -252,6 +322,13 @@ ALTER TABLE `novedades`
 ALTER TABLE `preguntas`
   ADD PRIMARY KEY (`pregunta_id`),
   ADD KEY `juego_id` (`juego_id`);
+
+--
+-- Indices de la tabla `resources_juego`
+--
+ALTER TABLE `resources_juego`
+  ADD PRIMARY KEY (`id_rources`),
+  ADD KEY `id_juego` (`id_juego`);
 
 --
 -- Indices de la tabla `respuestas`
@@ -309,6 +386,18 @@ ALTER TABLE `juegos`
   MODIFY `juego_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `juego_memoria`
+--
+ALTER TABLE `juego_memoria`
+  MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `niveles_juego`
+--
+ALTER TABLE `niveles_juego`
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `novedades`
 --
 ALTER TABLE `novedades`
@@ -319,6 +408,12 @@ ALTER TABLE `novedades`
 --
 ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `resources_juego`
+--
+ALTER TABLE `resources_juego`
+  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
@@ -336,7 +431,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
@@ -369,10 +464,22 @@ ALTER TABLE `juegos`
   ADD CONSTRAINT `juegos_ibfk_1` FOREIGN KEY (`materia_id`) REFERENCES `areas` (`materia_id`);
 
 --
+-- Filtros para la tabla `juego_memoria`
+--
+ALTER TABLE `juego_memoria`
+  ADD CONSTRAINT `juego_memoria_ibfk_1` FOREIGN KEY (`juego`) REFERENCES `juegos` (`juego_id`);
+
+--
 -- Filtros para la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
+
+--
+-- Filtros para la tabla `resources_juego`
+--
+ALTER TABLE `resources_juego`
+  ADD CONSTRAINT `resources_juego_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `juego_memoria` (`id_juego`);
 
 --
 -- Filtros para la tabla `respuestas`

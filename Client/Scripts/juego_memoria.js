@@ -2,6 +2,9 @@ const main = document.getElementById("juego_memoria");
 const nivel = main.dataset.nivel;
 
 document.addEventListener("DOMContentLoaded",()=>{
+    
+    var sonido = new Audio('./../Resources/Sounds/flipcard.mp3');
+    sonido.play();
     mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
 })
 let tarjetasDestapadas = 0;
