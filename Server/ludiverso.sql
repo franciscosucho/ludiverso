@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2025 a las 20:50:46
+-- Tiempo de generación: 28-04-2025 a las 21:34:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -113,35 +113,43 @@ INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `juego_memoria`
+-- Estructura de tabla para la tabla `memory_car`
 --
 
-CREATE TABLE `juego_memoria` (
+CREATE TABLE `memory_car` (
   `id_juego` int(11) NOT NULL,
-  `juego` int(11) NOT NULL,
-  `titulo_del_juego` varchar(255) NOT NULL,
-  `descripcion_del_tema` varchar(1000) NOT NULL
+  `id_area` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `memory_car`
+--
+
+INSERT INTO `memory_car` (`id_juego`, `id_area`, `id_us`, `fecha_creacion`) VALUES
+(1, 7, 5, '2025-04-28');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `niveles_juego`
+-- Estructura de tabla para la tabla `niveles_memory`
 --
 
-CREATE TABLE `niveles_juego` (
+CREATE TABLE `niveles_memory` (
   `id_nivel` int(11) NOT NULL,
   `id_juego` int(11) NOT NULL,
-  `id_us` int(11) NOT NULL,
-  `nivel_actual_us` int(11) DEFAULT NULL
+  `actividad_juego` text NOT NULL,
+  `desc_actividad` text NOT NULL,
+  `tiempo_para_resolver` time(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `niveles_juego`
+-- Volcado de datos para la tabla `niveles_memory`
 --
 
-INSERT INTO `niveles_juego` (`id_nivel`, `id_juego`, `id_us`, `nivel_actual_us`) VALUES
-(1, 3, 5, NULL);
+INSERT INTO `niveles_memory` (`id_nivel`, `id_juego`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`) VALUES
+(1, 1, 'diferenciar los distintos símbolos esquemáticos', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar los distintos símbolos esquemáticos utilizados en los circuitos electrónicos. Se trabajará en la identificación precisa de cada símbolo y su función dentro del circuito.', '00:00:40.0000');
 
 -- --------------------------------------------------------
 
@@ -187,10 +195,25 @@ CREATE TABLE `preguntas` (
 
 CREATE TABLE `resources_juego` (
   `id_rources` int(11) NOT NULL,
-  `id_juego` int(11) NOT NULL,
-  `url_img` int(11) NOT NULL,
-  `descripcion_img` int(11) NOT NULL
+  `id_nivel` int(11) NOT NULL,
+  `url_img` text NOT NULL,
+  `titulo_img` text NOT NULL,
+  `descripcion_img` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `resources_juego`
+--
+
+INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`, `descripcion_img`) VALUES
+(1, 1, '1', 'Condensador', 'un condensador es un dispositivo capaz de almacenar energía en forma de campo eléctrico. Está formado por dos armaduras metálicas paralelas'),
+(2, 1, '2', 'Electroválvula ', 'Una electroválvula es un dispositivo electromecánico que controla el flujo de fluidos, como líquidos o gases, mediante la aplicación de una corriente eléctrica. Funciona abriendo o cerrando un orificio a través del cual el fluido puede fluir.'),
+(3, 1, '3', 'Fuente de tensión', 'Dispositivo que suministra energía eléctrica a un circuito, proporcionando un voltaje constante o variable que permite el funcionamiento de los componentes electrónicos.'),
+(4, 1, '4', 'Transistor', 'Componente semiconductor que actúa como interruptor o amplificador, controlando el flujo de corriente eléctrica en circuitos electrónicos.'),
+(5, 1, '5', 'Inductor', 'Componente pasivo que almacena energía en un campo magnético cuando circula corriente, utilizado en filtros, transformadores y fuentes de energía.'),
+(6, 1, '6', 'Resistencia', 'Dispositivo que limita o regula el flujo de corriente eléctrica en un circuito, protegiendo componentes y ajustando niveles de voltaje.'),
+(7, 1, '7', 'Transistor de efecto de campo tipo N de canal de empobrecimiento', 'Semiconductor que controla el flujo de corriente aplicando un voltaje negativo, operando en un estado normalmente conductor que puede bloquearse al modificar el campo eléctrico.'),
+(8, 1, '8', 'TRIAC (Interruptor bidireccional controlado por corriente)', 'Dispositivo semiconductor que permite controlar la corriente alterna en ambas direcciones, utilizado en reguladores de potencia, controles de luz y motores.');
 
 -- --------------------------------------------------------
 
@@ -297,18 +320,19 @@ ALTER TABLE `juegos`
   ADD KEY `materia_id` (`materia_id`);
 
 --
--- Indices de la tabla `juego_memoria`
+-- Indices de la tabla `memory_car`
 --
-ALTER TABLE `juego_memoria`
+ALTER TABLE `memory_car`
   ADD PRIMARY KEY (`id_juego`),
-  ADD KEY `juego` (`juego`);
+  ADD KEY `id_area` (`id_area`,`id_us`),
+  ADD KEY `id_us` (`id_us`);
 
 --
--- Indices de la tabla `niveles_juego`
+-- Indices de la tabla `niveles_memory`
 --
-ALTER TABLE `niveles_juego`
+ALTER TABLE `niveles_memory`
   ADD PRIMARY KEY (`id_nivel`),
-  ADD KEY `id_juego` (`id_juego`,`id_us`);
+  ADD KEY `id_juego` (`id_juego`);
 
 --
 -- Indices de la tabla `novedades`
@@ -328,7 +352,8 @@ ALTER TABLE `preguntas`
 --
 ALTER TABLE `resources_juego`
   ADD PRIMARY KEY (`id_rources`),
-  ADD KEY `id_juego` (`id_juego`);
+  ADD KEY `id_juego` (`id_nivel`),
+  ADD KEY `id_nivel` (`id_nivel`);
 
 --
 -- Indices de la tabla `respuestas`
@@ -386,15 +411,15 @@ ALTER TABLE `juegos`
   MODIFY `juego_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `juego_memoria`
+-- AUTO_INCREMENT de la tabla `memory_car`
 --
-ALTER TABLE `juego_memoria`
-  MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `memory_car`
+  MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `niveles_juego`
+-- AUTO_INCREMENT de la tabla `niveles_memory`
 --
-ALTER TABLE `niveles_juego`
+ALTER TABLE `niveles_memory`
   MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -413,7 +438,7 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
-  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
@@ -464,10 +489,17 @@ ALTER TABLE `juegos`
   ADD CONSTRAINT `juegos_ibfk_1` FOREIGN KEY (`materia_id`) REFERENCES `areas` (`materia_id`);
 
 --
--- Filtros para la tabla `juego_memoria`
+-- Filtros para la tabla `memory_car`
 --
-ALTER TABLE `juego_memoria`
-  ADD CONSTRAINT `juego_memoria_ibfk_1` FOREIGN KEY (`juego`) REFERENCES `juegos` (`juego_id`);
+ALTER TABLE `memory_car`
+  ADD CONSTRAINT `memory_car_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
+  ADD CONSTRAINT `memory_car_ibfk_2` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
+
+--
+-- Filtros para la tabla `niveles_memory`
+--
+ALTER TABLE `niveles_memory`
+  ADD CONSTRAINT `niveles_memory_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `memory_car` (`id_juego`);
 
 --
 -- Filtros para la tabla `preguntas`
@@ -479,7 +511,7 @@ ALTER TABLE `preguntas`
 -- Filtros para la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
-  ADD CONSTRAINT `resources_juego_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `juego_memoria` (`id_juego`);
+  ADD CONSTRAINT `resources_juego_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`);
 
 --
 -- Filtros para la tabla `respuestas`

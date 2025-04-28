@@ -261,35 +261,50 @@ app.get('/areas', (req, res) => {
 
 app.get('/juego_memoria', (req, res) => {
     const nivel_juego = req.query.nivel_juego;
-    res.render("juego_memoria",{nivel_juego})
+    res.render("juego_memoria", { nivel_juego })
 
 })
 app.get('/juego_intro', (req, res) => {
-    const id_juego = req.query.id_juego;
-    const id_us = req.session.usuario_id
+    let areas = ["Taller", "Comunicaciones", "Exactas y Naturales", "Educación Física", "Ciencias Sociales", "Taller"];
+    let queries = [];
 
-    const select_juego = 'SELECT * FROM `juegos` WHERE juego_id=?'
-    connection.query(select_juego, [id_juego], (err, result_juego) => {
-        if (err) {
-            console.error('Error al registrarse ', err);
-            res.status(500).send('Error al registrarse ');
-        } else {
-            const select_juegos = 'SELECT * FROM `niveles_juego` WHERE id_juego=? AND id_us=?'
-            connection.query(select_juegos, [id_juego,id_us], (err, result_niveles) => {
+    for (let i = 0; i < areas.length; i++) {
+        let area_nombre = areas[i];
+        let select_juegos_areas = `SELECT 
+            memory_car.id_juego,
+            memory_car.id_area,
+            areas.nombre AS nombre_area,
+            memory_car.id_us,
+            memory_car.fecha_creacion
+            FROM memory_car
+            JOIN areas ON memory_car.id_area = areas.materia_id
+            WHERE areas.nombre = ?`;
+
+        // Meter cada consulta en una Promesa
+        let queryPromise = new Promise((resolve, reject) => {
+            connection.query(select_juegos_areas, [area_nombre], (err, results) => {
                 if (err) {
-                    console.error('Error al registrarse ', err);
-                    res.status(500).send('Error al registrarse ');
+                    reject(err);
                 } else {
-                    res.render("juego_intro", { data_juego: result_juego[0], data_niveles: result_niveles[0] })
+                    resolve(results);
                 }
-            })
+            });
+        });
 
-        }
-    })
-    // res.render("juego_intro")
+        queries.push(queryPromise);
+    }
 
-
-})
+    // Esperar a que todas las consultas terminen
+    Promise.all(queries)
+        .then(results => {
+            console.log(results)
+            res.render("juego_intro", { data_juegos_areas: results });
+        })
+        .catch(err => {
+            console.error('Error al cargar los juegos:', err);
+            res.status(500).send('Error al cargar los juegos');
+        });
+});
 /*<------------------------------------------------------------------------------------------------------>
     Area de funciones.
 */
@@ -324,3 +339,24 @@ function Datatime() {
 
     return `${year}-${month}-${day}`;
 }
+
+
+
+//  <% if (nivel_us == i) { %>
+//     <a href="<%= data_juego.url_juego %>?nivel_juego=<%= nivel_us %>" class="nivel actual <%= mover_der %>">
+//         <li>
+//             <i class="fa-solid fa-star"></i>
+//         </li>
+//     </a>
+// <% } else if (nivel_us > i) { %>
+//     <a href="<%= data_juego.url_juego %>?nivel_juego=<%= i%>" class="nivel superado <%= mover_der %>">
+//         <li>
+//             <i class="fa-solid fa-check"></i>
+//         </li>
+//     </a>
+// <% } else { %>
+//     <span href="<%= data_juego.url_juego %>?nivel_juego=<%= i %>" class="nivel no_superado <%= mover_der %>">
+//         <li>
+//             <i class="fa-solid fa-lock"></i>
+//         </li>
+//     </span>
