@@ -64,7 +64,14 @@ const isLogged = (req, res, next) => {
         next()
     }
 }
+const root_verificar = (req, res, next) => {
+    if (req.session.root == true) {
 
+        next()
+    } else {
+        res.redirect('/')
+    }
+}
 
 
 
@@ -140,7 +147,7 @@ app.post('/registrar', async (req, res) => {
         const hash = await hashPassword(password_us);
         const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email , contraseña, rol_id) VALUES (?,?,?,?,?,?)";
 
-        connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, hash, 2], (err, result) => {
+        connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, hash, "alumno"], (err, result) => {
             if (err) {
                 console.error('Error al registrarse ', err);
                 res.status(500).send('Error al registrarse ');
@@ -159,7 +166,7 @@ app.post('/registrar', async (req, res) => {
                         req.session.nombre_usuario_us = nombre_usuario_us
                         req.session.email_us = email_us
                         req.session.password_us = password_us
-                        req.session.rol_us = 2
+                        req.session.rol_us = "alumno"
                         req.session.user_sesion = true;
                         res.redirect('/index');
                     }
@@ -175,7 +182,27 @@ app.post('/registrar', async (req, res) => {
 
 
 })
+app.get('/dashboard', root_verificar, async (req, res) => {
+    try {
+        const select_users = 'SELECT * FROM `usuarios` WHERE nombre_usuario !="fransucho"';
+        connection.query(select_users, [], (err, result_users) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor ', err);
+                res.status(500).send('Error al ejecutar la query en el servidor');
+            } else {
+                console.log(req.session.nombre_us)
+                res.render('dashboard', { users_res: result_users, user_session_nombre: req.session.nombre_us});
 
+            }
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dashboard', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
+
+})
 
 app.post('/iniciar_sesion', async (req, res) => {
     try {
@@ -205,9 +232,17 @@ app.post('/iniciar_sesion', async (req, res) => {
             req.session.nombre_usuario_us = userResults[0].nombre_usuario;
             req.session.email_us = userResults[0].email;
             req.session.password_us = userResults[0].contraseña;
-            req.session.rol_us = userResults[0].rol_id;
+            req.session.rol_us = userResults[0].rol;
             req.session.user_sesion = true;
-            return res.redirect('/index');
+            if (req.session.rol_us == "root") {
+                req.session.root = true;
+                return res.redirect('/dashboard');
+
+            } else {
+                req.session.root = false;
+                return res.redirect('/index');
+            }
+
         } else {
             return res.render('login.ejs', { error: 'Usuario o contraseña incorrectos' });
         }
@@ -297,7 +332,7 @@ app.get('/juego_intro', (req, res) => {
     // Esperar a que todas las consultas terminen
     Promise.all(queries)
         .then(results => {
-            console.log(results)
+
             res.render("juego_intro", { data_juegos_areas: results });
         })
         .catch(err => {
@@ -305,6 +340,10 @@ app.get('/juego_intro', (req, res) => {
             res.status(500).send('Error al cargar los juegos');
         });
 });
+
+
+
+
 /*<------------------------------------------------------------------------------------------------------>
     Area de funciones.
 */
