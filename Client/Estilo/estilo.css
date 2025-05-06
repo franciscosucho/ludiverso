@@ -89,8 +89,8 @@ body header nav #cont_nav_tit {
 body header nav #cont_nav_tit img {
   transition: all 0.2s ease-in-out;
   display: flex;
-  width: 70px;
-  height: 70px;
+  height: 100%;
+  width: 100%;
 }
 body header nav #cont_nav_links {
   display: flex;
@@ -457,8 +457,8 @@ body footer #container_foot_img {
 body footer #container_foot_img img {
   transition: all 0.2s ease-in-out;
   display: flex;
-  width: 70px;
-  height: 70px;
+  height: 100%;
+  width: 100%;
 }
 body footer .cont_text {
   display: flex;

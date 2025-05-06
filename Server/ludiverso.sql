@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2025 a las 21:34:26
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 30-04-2025 a las 02:14:19
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ CREATE TABLE `areas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `jefe_de_area` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `areas`
@@ -51,7 +51,7 @@ CREATE TABLE `calificaciones` (
   `juego_id` int(11) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL CHECK (`estrellas` between 0 and 5),
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE `estadisticas` (
   `juegos_jugados` int(11) DEFAULT 0,
   `puntaje_total` int(11) DEFAULT 0,
   `ultima_actividad` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `intentos` (
   `juego_id` int(11) DEFAULT NULL,
   `puntaje` int(11) DEFAULT NULL,
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,7 @@ CREATE TABLE `juegos` (
   `valoracion` float NOT NULL,
   `url_juego` varchar(255) NOT NULL,
   `niveles` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `juegos`
@@ -121,7 +121,7 @@ CREATE TABLE `memory_car` (
   `id_area` int(11) NOT NULL,
   `id_us` int(11) NOT NULL,
   `fecha_creacion` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `memory_car`
@@ -142,7 +142,7 @@ CREATE TABLE `niveles_memory` (
   `actividad_juego` text NOT NULL,
   `desc_actividad` text NOT NULL,
   `tiempo_para_resolver` time(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `niveles_memory`
@@ -164,7 +164,7 @@ CREATE TABLE `novedades` (
   `cuerpo_novedad` varchar(3000) DEFAULT NULL,
   `url_foto_novedad` varchar(255) DEFAULT NULL,
   `fecha_novedad` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `novedades`
@@ -185,7 +185,7 @@ CREATE TABLE `preguntas` (
   `juego_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -199,7 +199,7 @@ CREATE TABLE `resources_juego` (
   `url_img` text NOT NULL,
   `titulo_img` text NOT NULL,
   `descripcion_img` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `resources_juego`
@@ -226,27 +226,7 @@ CREATE TABLE `respuestas` (
   `pregunta_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `es_correcta` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `roles`
---
-
-CREATE TABLE `roles` (
-  `rol_id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `roles`
---
-
-INSERT INTO `roles` (`rol_id`, `nombre`) VALUES
-(1, 'Root'),
-(2, 'Alumno'),
-(5, 'Profesor');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -261,23 +241,23 @@ CREATE TABLE `usuarios` (
   `nombre_usuario` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
-  `rol_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `rol` enum('alumno','root','profesor','directivo') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol_id`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 2),
-(6, 'david', 'mingueza', 'davidmingueza', 'davidmingueza@gmail.com', '$2b$10$0EvUQrkWB43ZavtXyX85fe8y/Rzy7DGuqoVatH0lcvQ3hoAhSJUdO', 2),
-(8, 'jorge', 'mingueza', 'jorgemingueza', 'jorgemingueza@gmail.com', '$2b$10$ZB5qktwKxh3MgDCD425YMej0wZj8/zR7GAR9O.mnSDxb10c4Njcfe', 2),
-(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 2),
-(10, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmissron@gmail.com', '$2b$10$0bVwWy.35qE7HmXhmu.7JeLaYt./MDv0Crcdi4x1aYyH8XXlSSPcO', 2),
-(11, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmsissron@gmail.com', '$2b$10$mROJ/C6X7baUf.S4km.fE.rQ2Ra2/xfLyDQzHgOjRQj2Vxk77HpoC', 2),
-(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 2),
-(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 2),
-(14, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelassss@gmail.com', '$2b$10$DxW.Lvdl.At7WPz00C3qbOfBRAbtyV5AyXUbvBOAm5MR8f8y4sw2q', 2);
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'root'),
+(6, 'david', 'mingueza', 'davidmingueza', 'davidmingueza@gmail.com', '$2b$10$0EvUQrkWB43ZavtXyX85fe8y/Rzy7DGuqoVatH0lcvQ3hoAhSJUdO', 'alumno'),
+(8, 'jorge', 'mingueza', 'jorgemingueza', 'jorgemingueza@gmail.com', '$2b$10$ZB5qktwKxh3MgDCD425YMej0wZj8/zR7GAR9O.mnSDxb10c4Njcfe', 'alumno'),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'alumno'),
+(10, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmissron@gmail.com', '$2b$10$0bVwWy.35qE7HmXhmu.7JeLaYt./MDv0Crcdi4x1aYyH8XXlSSPcO', 'alumno'),
+(11, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmsissron@gmail.com', '$2b$10$mROJ/C6X7baUf.S4km.fE.rQ2Ra2/xfLyDQzHgOjRQj2Vxk77HpoC', 'alumno'),
+(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
+(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
+(14, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelassss@gmail.com', '$2b$10$DxW.Lvdl.At7WPz00C3qbOfBRAbtyV5AyXUbvBOAm5MR8f8y4sw2q', 'alumno');
 
 --
 -- Índices para tablas volcadas
@@ -363,18 +343,11 @@ ALTER TABLE `respuestas`
   ADD KEY `pregunta_id` (`pregunta_id`);
 
 --
--- Indices de la tabla `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`rol_id`);
-
---
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuario_id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `rol_id` (`rol_id`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -447,12 +420,6 @@ ALTER TABLE `respuestas`
   MODIFY `respuesta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `roles`
---
-ALTER TABLE `roles`
-  MODIFY `rol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -518,10 +485,4 @@ ALTER TABLE `resources_juego`
 --
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`pregunta_id`);
-
---
--- Filtros para la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`);
 COMMIT;

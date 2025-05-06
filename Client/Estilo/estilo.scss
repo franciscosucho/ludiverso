@@ -3,7 +3,7 @@
     padding: 0px;
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
-
+ 
 }
 
 %poetsen-font {
@@ -88,7 +88,9 @@ body {
             height: 50px;
 
             #cont_nav_tit {
+                
                 img {
+                
                     height: 100%;
                     width: 100%;
                 }
@@ -114,8 +116,8 @@ body {
                 img {
                     transition: all .2s ease-in-out;
                     display: flex;
-                    width: 70px;
-                    height: 70px;
+                    height: 100%;
+                    width: 100%;
                 }
             }
 
@@ -567,8 +569,8 @@ body {
             img {
                 transition: all .2s ease-in-out;
                 display: flex;
-                width: 70px;
-                height: 70px;
+                height: 100%;
+                    width: 100%;
             }
 
 
