@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria h1, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -115,7 +115,7 @@ body header nav #cont_nav_links a .desac {
 }
 body header nav #cont_nav_links a:hover {
   animation: shake 0.5s ease;
-  background-color: #7ab8ff;
+  background-color: #5a98db;
 }
 body main {
   width: 100vw !important;
@@ -532,6 +532,18 @@ body footer .cont_des a {
   height: auto;
   padding: 10px;
 }
+#juego_intro .cont_niveles .cont_areas_niveles {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 30px;
+}
+#juego_intro .cont_niveles .cont_areas_niveles .titulo_area {
+  color: #333333;
+  font-size: 2em;
+}
 #juego_intro .cont_niveles .sub_cont_niveles {
   display: flex;
   justify-content: flex-start;
@@ -605,12 +617,92 @@ body footer .cont_des a {
   height: 90%;
   width: 90%;
 }
-#juego_memoria h1 {
+#juego_memoria .desac {
+  display: none !important;
+}
+#juego_memoria #cont_text_main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+}
+#juego_memoria #cont_text_main * {
   font-weight: 400;
   font-style: normal;
+  text-align: center;
+}
+#juego_memoria #cont_text_main h3 {
+  width: 70%;
+  font-size: 2em;
+  color: #333333;
+}
+#juego_memoria #cont_text_main p {
+  width: 70%;
+  font-size: 1.5em;
+  color: #616161;
+}
+#juego_memoria #cont_text_main h1 {
+  width: 70%;
   font-size: 3em;
   color: #3e86d3;
-  text-align: center;
+}
+#juego_memoria #cont_imagenes {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+  margin-top: 3%;
+}
+#juego_memoria #cont_imagenes .cont_resources {
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  width: 60%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.082);
+  transition: all 0.2s ease-in-out;
+}
+#juego_memoria #cont_imagenes .cont_resources:hover {
+  transform: scale(1.04);
+  background-color: rgba(73, 73, 73, 0.219);
+}
+#juego_memoria #cont_imagenes .cont_resources img {
+  height: 15vh;
+  width: 15vw;
+}
+#juego_memoria #cont_imagenes .cont_resources .cont_text {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  height: 100%;
+  width: 60%;
+}
+#juego_memoria #cont_imagenes #btn_iniciar_juego {
+  padding: 20px;
+  width: 20%;
+  height: 6%;
+  border-radius: 8px;
+  background-color: #3e86d3;
+  border: none;
+  font-size: 1.3em;
+  color: white;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+#juego_memoria #cont_imagenes #btn_iniciar_juego:hover {
+  animation: shake 0.5s ease;
+  background-color: #3979be;
 }
 #juego_memoria .section1 {
   width: auto;

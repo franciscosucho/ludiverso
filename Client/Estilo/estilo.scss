@@ -144,7 +144,7 @@ body {
 
                     &:hover {
                         animation: shake 0.5s ease;
-                        background-color: $Botones_secundarios_o_hover_azul;
+                        background-color: #5a98db;
                     }
                 }
 
@@ -677,6 +677,21 @@ body {
         height: auto;
         padding: 10px;
 
+        .cont_areas_niveles {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            gap: 30px;
+
+            .titulo_area {
+                color: $Texto_principal;
+                @extend %poetsen-font;
+                font-size: 2em;
+            }
+        }
+
         .sub_cont_niveles {
             display: flex;
             justify-content: flex-start;
@@ -684,7 +699,7 @@ body {
             flex-direction: column;
             gap: 80px;
             position: relative;
-        
+
             .nivel {
                 position: relative;
                 background: linear-gradient(to bottom, #3e86d3, #3572b3);
@@ -703,26 +718,26 @@ body {
                 box-shadow: 0 4px 0 #3268a1, 0 4px 8px rgba(0, 0, 0, 0.15);
                 cursor: pointer;
                 transition: all 0.2s ease-in-out;
-        
+
                 i {
                     font-size: 1.8em;
                     color: white;
                 }
-        
+
                 &.no_superado {
                     cursor: not-allowed;
                 }
-        
+
                 &:hover {
                     transform: translateY(-2px);
                     box-shadow: 0 6px 0 #3268a1, 0 6px 12px rgba(0, 0, 0, 0.2);
                 }
-        
+
                 &:active {
                     transform: translateY(2px);
                     box-shadow: 0 2px 0 #3268a1, 0 2px 4px rgba(0, 0, 0, 0.1);
                 }
-        
+
                 // Línea que conecta hacia el siguiente botón
                 &::after {
                     content: '';
@@ -735,12 +750,12 @@ body {
                     transform: translateX(-50%);
                     z-index: 0;
                 }
-        
+
                 // Para evitar línea en el último nivel
                 &:last-child::after {
                     content: none;
                 }
-                
+
             }
         }
 
@@ -768,15 +783,110 @@ body {
         height: 90%;
         width: 90%;
     }
-    h1{
-        @extend %poetsen-font;
-        font-weight: 400;
-        font-style: normal;
-        font-size: 3em;
-        color: $Encabezados_botones_y_primarios;
-        
-        text-align: center;
+    .desac{
+        display: none !important;
     }
+    #cont_text_main {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 30px;
+
+        * {
+            @extend %poetsen-font;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+        }
+
+        h3 {
+            width: 70%;
+            font-size: 2em;
+            color: $Texto_principal;
+        }
+
+        p {
+            width: 70%;
+            font-size: 1.5em;
+            color: $Texto_secundario;
+        }
+
+        h1 {
+            width: 70%;
+            font-size: 3em;
+            color: $Encabezados_botones_y_primarios;
+        }
+    }
+
+    #cont_imagenes {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 40px;
+        margin-top: 3%;
+
+        .cont_resources {
+            
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+            width: 60%;
+            height: auto;
+            background-color: rgba(0, 0, 0, 0.082);
+            transition: all .2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.04);
+                background-color: rgba(73, 73, 73, 0.219);
+            }
+
+            img {
+                height: 15vh;
+                width: 15vw;
+            }
+
+            .cont_text {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+
+                height: 100%;
+                width: 60%;
+
+            }
+        }
+        #btn_iniciar_juego{
+            padding: 20px;
+            width: 20%;
+            height: 6%;
+            border-radius: 8px;
+            background-color: $Encabezados_botones_y_primarios;
+            border: none;
+            font-size: 1.3em;
+            color: white;
+            font-weight: 400;
+            cursor: pointer;
+            @extend %poetsen-font;
+            transition: all .2s ease-in-out;
+            &:hover {
+               
+                animation: shake 0.5s ease;
+                background-color: #3979be;
+               
+            }
+        }
+    }
+
     .section1 {
         width: auto;
         height: auto;
@@ -786,7 +896,7 @@ body {
         flex-direction: row;
         width: 100%;
         gap: 100px;
-    
+
         background-color: rgba(255, 255, 255, 0.2);
         padding: 8px 10px 10px 10px;
         border-radius: 8px;
@@ -820,7 +930,7 @@ body {
             padding: 8px 20px;
             box-sizing: border-box;
             border: 1px solid $Botones_secundarios_o_hover_azul;
-            color:$Botones_secundarios_o_hover_azul;
+            color: $Botones_secundarios_o_hover_azul;
             @extend %poetsen-font;
         }
     }

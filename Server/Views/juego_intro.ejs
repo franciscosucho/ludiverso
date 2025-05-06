@@ -13,26 +13,33 @@
         <main id="juego_intro">
             <section class="cont_text">
                 <h2 class="titulo_juego">
-
+                    Memory card
                 </h2>
                 <h2 class="desc_juego">
 
                 </h2>
             </section>
             <section class="cont_niveles">
-                <ul class="sub_cont_niveles">
-                    <% for(let i=0; i < data_juegos_areas[0].length; i++) { %>
-                        <% let mover_der=(i % 2===0) ? 'mover_der' : '' ; %>
-                            <a href="juego_memoria"
-                                class="nivel actual <%= mover_der %>">
-                                <li>
-                                    <i class="fa-solid fa-star"></i>
-                                </li>
-                            </a>
+                <% for (let i = 0; i < data_juegos_areas.length; i++) { %>
+                    <% if (data_juegos_areas[i].length > 0) { %>
+                        <div class="cont_areas_niveles" id="cont_areas_niveles_<%= data_juegos_areas[i][0].nombre_area %>">
+                            <h4 class="titulo_area"><%= data_juegos_areas[i][0].nombre_area %></h4>
 
-                            <% } %>
+                            <ul class="sub_cont_niveles">
 
-                </ul>
+                                <% for (let j = 0; j < data_juegos_areas[i].length; j++) { %>
+                                    <% let mover_der = (j % 2 === 0) ? 'mover_der' : ''; %>
+                                    <a href="juego_memoria?id_juego=<%=data_juegos_areas[i][j].id_juego%>" class="nivel actual <%= mover_der %>">
+                                        <li>
+                                            <i class="fa-solid fa-star"></i>
+                                        </li>
+                                    </a>
+                                <% } %>
+                            </ul>
+                        </div>
+                    <% } %>
+                <% } %>
+
             </section>
 
         </main>

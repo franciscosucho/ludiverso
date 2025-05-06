@@ -260,12 +260,34 @@ app.get('/areas', (req, res) => {
 })
 
 app.get('/juego_memoria', (req, res) => {
-    const nivel_juego = req.query.nivel_juego;
-    res.render("juego_memoria", { nivel_juego })
+    
+
+    let id_juego = req.query.id_juego;
+    const select_areas = 'SELECT * FROM `niveles_memory` WHERE id_juego=?'
+    connection.query(select_areas, [id_juego], (err, result_juego) => {
+        if (err) {
+            console.error('Error al registrarse ', err);
+            res.status(500).send('Error al registrarse ');
+        } else {
+            let id_nivel = result_juego[0].id_nivel  
+
+            const select_juegos = 'SELECT * FROM `resources_juego` WHERE id_nivel=?'
+            connection.query(select_juegos, [id_nivel], (err, result_resources) => {
+                if (err) {
+                    console.error('Error al registrarse ', err);
+                    res.status(500).send('Error al registrarse ');
+                } else {
+                    res.render("juego_memoria", { data_juego: result_juego, data_resources: result_resources })
+                }
+            })
+
+        }
+    })
 
 })
+
 app.get('/juego_intro', (req, res) => {
-    let areas = ["Taller", "Comunicaciones", "Exactas y Naturales", "Educación Física", "Ciencias Sociales", "Taller"];
+    let areas = ["Taller", "Comunicaciones", "Exactas y Naturales", "Educación Física", "Ciencias Sociales"];
     let queries = [];
 
     for (let i = 0; i < areas.length; i++) {
@@ -294,10 +316,9 @@ app.get('/juego_intro', (req, res) => {
         queries.push(queryPromise);
     }
 
-    // Esperar a que todas las consultas terminen
+    // Esperar a que todas las consultas terminen 
     Promise.all(queries)
         .then(results => {
-            console.log(results)
             res.render("juego_intro", { data_juegos_areas: results });
         })
         .catch(err => {

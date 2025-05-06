@@ -1,9 +1,56 @@
-const main = document.getElementById("juego_memoria");
-const nivel = main.dataset.nivel;
 
-document.addEventListener("DOMContentLoaded",()=>{
-    mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
-})
+const scriptEl = document.getElementById('data-resources');
+const cont_introduccion = document.getElementById("cont_introduccion")
+const cont_primer_des = document.getElementById("cont_primer_des")
+let resources = [];
+
+
+if (scriptEl) {
+    const raw = scriptEl.textContent.trim();
+
+    if (raw) {
+        try {
+            resources = JSON.parse(raw);
+            console.log('Datos cargados:', resources);
+        } catch (err) {
+            console.error('Error al parsear JSON:', err, raw);
+        }
+    } else {
+        console.warn('El contenido de <script> está vacío');
+    }
+} else {
+    console.warn('No se encontró el elemento con id="data-resources"');
+}
+
+
+document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
+    cont_introduccion.classList.toggle("desac");
+    cont_primer_des.classList.toggle("cont_primer_des");
+  
+    let nombre_aletorios = []; // Mueve fuera del bucle si quieres juntar todos
+  
+    for (let i = 0; i < resources.length; i++) {
+      cont_introduccion.innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}.png" alt="">`;
+  
+      nombre_aletorios.push(resources[i].titulo_img);
+  
+      for (let j = 0; j < 3; j++) {
+        let nombre_ale = numeroAleatorio();
+  
+        while (resources[i].titulo_img === resources[nombre_ale].titulo_img) {
+          nombre_ale = numeroAleatorio();
+        }
+  
+        nombre_aletorios.push(resources[nombre_ale].titulo_img);
+      }
+    }
+  
+    console.log(nombre_aletorios); // Verifica qué datos obtuviste
+  });
+
+//--------------------------------------------------------------------------
+
+
 let tarjetasDestapadas = 0;
 let tarjeta1 = null;
 let tarjeta2 = null;
@@ -12,19 +59,8 @@ let segundoResultado = null;
 let movimientos = 0
 let aciertos = 0
 let timer = false;
-let timer_cont = 0
-if (nivel == 1) {
-    timer_cont = 50;
-}
-if (nivel == 2) {
-    timer_cont = 40;
-}
-if (nivel == 3) {
-    timer_cont = 30;
-}
-if (nivel == 4) {
-    timer_cont = 25;
-}
+let timer_cont = 50
+
 let timerInicial = timer_cont;
 let tiempoRegresivoId = null;
 const mostrarTiempo = document.getElementById("t-restante")
@@ -32,10 +68,12 @@ let mostrar_mov = document.getElementById("movimientos")
 let aciertos_dom = document.getElementById("aciertos")
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
+})
 
 let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]
 numeros = numeros.sort(() => { return Math.random() - 0.5 })
-console.log(numeros);
 
 
 function destapar(id) {
@@ -106,4 +144,8 @@ function bloquearTarjetas() {
 
         tarjetaBloqueada.disabled = true;
     }
+}
+
+function numeroAleatorio() {
+    return Math.floor(Math.random() * 8); // genera un número entre 0 y 7
 }

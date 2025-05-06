@@ -8,14 +8,35 @@
     </head>
 <body >
     <%- include('header.ejs') %>
-    <main id="juego_memoria" data-nivel="<%= nivel_juego%>">
-        <section>
-            <h1>!Bienvenido al nivel: <%= nivel_juego%> del Memory card </h1>
+    <main id="juego_memoria" >
+        <section class="cont_introduccion" id="cont_introduccion">
+            <div id="cont_text_main">
+                <h1>!Bienvenido al juego de  Memory card!</h1>
+                <h3> En este nivel aprenderas a  <b><%= data_juego[0].actividad_juego %></b></h3>
+                <p><%= data_juego[0].desc_actividad %></p>
+            </div>
            
+            <article id="cont_imagenes">
+            <% for (let i = 0; i < data_resources.length; i++) { %>
+                <div class="cont_resources">
+                    <img src="./../Resources/Imagenes/juego_memoria/<%= data_resources[i].url_img %>.png" alt="">
+                    <div class="cont_text">
+                        <h3><%= data_resources[i].titulo_img %></h3>
+                        <p> <%= data_resources[i].descripcion_img %></p>
+                    </div>
+                </div>
+
+            <% } %>
+            <button id="btn_iniciar_juego">Iniciar el desafío.</button>
+            </article>
+          
+
+        </section> 
+        <section id="cont_primer_des" class="desac"> 
+            <h2>Une la imagen con su titulo</h2>
         </section>
 
-
-        <section class="section1">
+        <section class="section1 desac">
             <table>
                 <tr>
                     <td> <button id="0" onclick="destapar(0)"></button></td>
@@ -48,8 +69,8 @@
                 <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
             </div>
         </section>
-        <section class="cont_ganar">
-            <h2>Felicitaciones!! lograste superar el nivel <%= nivel_juego%> del Memory card</h2>
+        <section class="cont_ganar desac">
+            <h2>Felicitaciones!! lograste superar el nivel del Memory card</h2>
             <div class="resultados">
                 <p>Tus resultados fueron:</p>
                 <span class="intentos_res"></span>
@@ -62,6 +83,11 @@
       
     </main>
     <%- include('footer.ejs') %></aside>
+    <!-- Inserta los datos como JSON puro (no ejecutable) -->
+    <script id="data-resources" type="application/json">
+        <%- JSON.stringify(data_resources) %>
+      </script>
+
     <script src="/Scripts/juego_memoria.js"></script>
 </body>
 </html>
