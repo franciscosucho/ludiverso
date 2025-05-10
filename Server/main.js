@@ -354,7 +354,7 @@ app.get('/juego_intro', (req, res) => {
     // Esperar a que todas las consultas terminen 
     Promise.all(queries)
         .then(results => {
-            console.log(results)
+          
             res.render("juego_intro", { data_juegos_areas: results });
         })
         .catch(err => {

@@ -780,6 +780,7 @@ body {
     height: auto !important;
     padding: 10% 0px;
     min-height: 100vh;
+    height: auto;
 
     img {
         height: 90%;
@@ -888,7 +889,64 @@ body {
             }
         }
     }
+    #cont_primer_des{
+        width: 100%;
+        height: 100%;
+       
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        h2{
+            @extend %poetsen-font;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+            font-size: 2em;
+            color: $Encabezados_botones_y_primarios;
+        }
+        .div_main_ask{
+            
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: auto;
+            gap: 20px;
+            img{
+                border-radius: 8px;
+                background-color:#7ab8ff5d;
+                width: 40%;
+                height: 40%;
+            }
+            .div_nombres{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
 
+                span{
+                    cursor: pointer;
+                    border-radius: 8px;
+                    font-size: 1.3em;
+                    padding: 20px;
+                    @extend %poetsen-font;
+                    font-weight: 400;
+                    font-style: normal;
+                    text-align: start;
+                    color: $Texto_principal;
+                    background-color: #7ab8ff5d; 
+                    &.acierto{
+                        background-color: #43c443;
+                    }
+                    &.error{
+                        background-color: rgb(201, 63, 63);
+                    }
+                }
+            }
+        }
+        
+    }
     .section1 {
         width: auto;
         height: auto;

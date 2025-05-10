@@ -2,6 +2,7 @@
 const scriptEl = document.getElementById('data-resources');
 const cont_introduccion = document.getElementById("cont_introduccion")
 const cont_primer_des = document.getElementById("cont_primer_des")
+const section1 = document.querySelector(".section1")
 let resources = [];
 
 
@@ -21,32 +22,101 @@ if (scriptEl) {
 } else {
     console.warn('No se encontró el elemento con id="data-resources"');
 }
-
-
 document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
     cont_introduccion.classList.toggle("desac");
-    cont_primer_des.classList.toggle("cont_primer_des");
-  
-    let nombre_aletorios = []; // Mueve fuera del bucle si quieres juntar todos
-  
+    cont_primer_des.classList.toggle("desac");
+
     for (let i = 0; i < resources.length; i++) {
-      cont_introduccion.innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}.png" alt="">`;
-  
-      nombre_aletorios.push(resources[i].titulo_img);
-  
-      for (let j = 0; j < 3; j++) {
-        let nombre_ale = numeroAleatorio();
-  
-        while (resources[i].titulo_img === resources[nombre_ale].titulo_img) {
-          nombre_ale = numeroAleatorio();
+        let div_main_ask = document.createElement("div")
+        div_main_ask.classList.add("div_main_ask")
+        div_main_ask.id = `div_main_ask_${i}`
+        if (i != 0) {
+            div_main_ask.classList.add("desac")
         }
-  
-        nombre_aletorios.push(resources[nombre_ale].titulo_img);
-      }
+        cont_primer_des.appendChild(div_main_ask).innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}.png" alt="" data-nombre="${resources[i].titulo_img}" id="img_id_${i}">`;
+
+        let div_nombres = document.createElement("div");
+        div_nombres.classList.add("div_nombres");
+
+        // Agregar nombres al array y mezclarlos
+        let nombre_aletorios = [];
+        nombre_aletorios.push(resources[i].titulo_img);
+
+        for (let j = 0; j < 3; j++) {
+            let nombre_ale = numeroAleatorio();
+
+            while (nombre_aletorios.includes(resources[nombre_ale].titulo_img)) {
+                nombre_ale = numeroAleatorio();
+            }
+
+            nombre_aletorios.push(resources[nombre_ale].titulo_img);
+        }
+
+        // Mezclar los nombres
+        nombre_aletorios = nombre_aletorios.sort(() => 0.5 - Math.random());
+
+        // Crear los botones de nombres mezclados
+        for (let k = 0; k < nombre_aletorios.length; k++) {
+            div_nombres.innerHTML += `<span class="nombre_img" data-id="${i}">${nombre_aletorios[k]}</span>`;
+        }
+
+        div_main_ask.appendChild(div_nombres);
+        cont_primer_des.appendChild(div_main_ask);
+
+        let contador_preg = document.createElement('div')
+        contador_preg.classList.add("contador_preg")
+
+        for (let l = 0; l < resources.length; l++) {
+            let nivel = document.createElement('span')
+            nivel.classList.add("nivel_span")
+            if (l == 0) {
+                nivel.classList.add("active")
+            }
+            contador_preg.appendChild(nivel);
+        }
+        div_main_ask.appendChild(contador_preg);
     }
-  
-    console.log(nombre_aletorios); // Verifica qué datos obtuviste
-  });
+});
+
+let bloqueado = false; // bandera de bloqueo
+
+document.addEventListener("click", (e) => {
+    if (bloqueado) return; // si está bloqueado, ignorar clics
+
+    if (e.target.classList.contains("nombre_img")) {
+        bloqueado = true; // bloquear al hacer clic
+
+        let texto = e.target.textContent;
+        let id = e.target.dataset.id;
+        let id_prox = parseInt(id) + 1;
+        let text_img = document.getElementById(`img_id_${id}`).dataset.nombre;
+
+        if (texto == text_img) {
+            e.target.classList.add("acierto");
+            setTimeout(() => {
+                e.target.classList.remove("acierto");
+                bloqueado = false; // desbloquear después del timeout
+                if (id_prox == 8) {
+                    cont_primer_des.classList.add("desac")
+                    section1.classList.remove("desac")
+                }
+                else {
+                    document.getElementById(`div_main_ask_${id}`).classList.add("desac")
+                    document.getElementById(`div_main_ask_${id_prox}`).classList.remove("desac")
+                }
+
+            }, 1000);
+        } else {
+            e.target.classList.add("error");
+            setTimeout(() => {
+                e.target.classList.remove("error");
+                bloqueado = false; // desbloquear después del timeout
+            }, 1000);
+        }
+    }
+});
+
+
 
 //--------------------------------------------------------------------------
 
@@ -72,7 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
 })
 
-let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]
+console.log(resources)
+let numeros=[]
+for (let i = 0; i < resources.length; i++) {
+   numeros.push(resources[i].url_img)
+   numeros.push(resources[i].url_img)
+
+}
+console.log(numeros)
+// let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]
 numeros = numeros.sort(() => { return Math.random() - 0.5 })
 
 

@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -612,6 +612,7 @@ body footer .cont_des a {
   height: auto !important;
   padding: 10% 0px;
   min-height: 100vh;
+  height: auto;
 }
 #juego_memoria img {
   height: 90%;
@@ -703,6 +704,58 @@ body footer .cont_des a {
 #juego_memoria #cont_imagenes #btn_iniciar_juego:hover {
   animation: shake 0.5s ease;
   background-color: #3979be;
+}
+#juego_memoria #cont_primer_des {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+#juego_memoria #cont_primer_des h2 {
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  font-size: 2em;
+  color: #3e86d3;
+}
+#juego_memoria #cont_primer_des .div_main_ask {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+  gap: 20px;
+}
+#juego_memoria #cont_primer_des .div_main_ask img {
+  border-radius: 8px;
+  background-color: rgba(122, 184, 255, 0.3647058824);
+  width: 40%;
+  height: 40%;
+}
+#juego_memoria #cont_primer_des .div_main_ask .div_nombres {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#juego_memoria #cont_primer_des .div_main_ask .div_nombres span {
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1.3em;
+  padding: 20px;
+  font-weight: 400;
+  font-style: normal;
+  text-align: start;
+  color: #333333;
+  background-color: rgba(122, 184, 255, 0.3647058824);
+}
+#juego_memoria #cont_primer_des .div_main_ask .div_nombres span.acierto {
+  background-color: #43c443;
+}
+#juego_memoria #cont_primer_des .div_main_ask .div_nombres span.error {
+  background-color: rgb(201, 63, 63);
 }
 #juego_memoria .section1 {
   width: auto;
