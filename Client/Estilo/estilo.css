@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -611,8 +611,8 @@ body footer .cont_des a {
   gap: 80px;
   height: auto !important;
   padding: 10% 0px;
-  min-height: 100vh;
-  height: auto;
+  min-height: 80vh;
+  /* Animación de desplazamiento del degradado */
 }
 #juego_memoria img {
   height: 90%;
@@ -668,6 +668,7 @@ body footer .cont_des a {
   width: 60%;
   height: auto;
   background-color: rgba(0, 0, 0, 0.082);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease-in-out;
 }
 #juego_memoria #cont_imagenes .cont_resources:hover {
@@ -693,8 +694,11 @@ body footer .cont_des a {
   width: 20%;
   height: 6%;
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   background-color: #3e86d3;
   border: none;
+  text-decoration: none;
+  text-align: center;
   font-size: 1.3em;
   color: white;
   font-weight: 400;
@@ -714,6 +718,32 @@ body footer .cont_des a {
   align-items: center;
   gap: 20px;
 }
+#juego_memoria #cont_primer_des #sub_cont_main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: auto;
+  height: auto;
+}
+#juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas {
+  display: flex;
+  padding-top: 20px;
+  gap: 20px;
+  flex-direction: column;
+}
+#juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas {
+  height: 105px;
+  width: 200px;
+  border-radius: 8px;
+  padding: 8px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid #7ab8ff;
+  color: #7ab8ff;
+  font-size: 1.5em;
+}
 #juego_memoria #cont_primer_des h2 {
   font-weight: 400;
   font-style: normal;
@@ -732,8 +762,9 @@ body footer .cont_des a {
 #juego_memoria #cont_primer_des .div_main_ask img {
   border-radius: 8px;
   background-color: rgba(122, 184, 255, 0.3647058824);
-  width: 40%;
-  height: 40%;
+  width: 400px;
+  height: 400px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 #juego_memoria #cont_primer_des .div_main_ask .div_nombres {
   display: flex;
@@ -744,12 +775,18 @@ body footer .cont_des a {
   cursor: pointer;
   border-radius: 8px;
   font-size: 1.3em;
+  width: 350px;
   padding: 20px;
   font-weight: 400;
   font-style: normal;
   text-align: start;
   color: #333333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
   background-color: rgba(122, 184, 255, 0.3647058824);
+}
+#juego_memoria #cont_primer_des .div_main_ask .div_nombres span:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 #juego_memoria #cont_primer_des .div_main_ask .div_nombres span.acierto {
   background-color: #43c443;
@@ -798,6 +835,64 @@ body footer .cont_des a {
   box-sizing: border-box;
   border: 1px solid #7ab8ff;
   color: #7ab8ff;
+}
+#juego_memoria #cont_ganar {
+  background-color: #f0f8ff;
+  padding: 3rem 1rem;
+  border-radius: 16px;
+  max-width: 800px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+#juego_memoria #cont_ganar h2 {
+  font-size: 2rem;
+  color: #1e88e5;
+  margin-bottom: 1rem;
+}
+#juego_memoria .resultados .subtitulo {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+#juego_memoria .cont_results {
+  background-color: #bbdefb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1rem auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #0d47a1;
+  max-width: 600px;
+}
+#juego_memoria .cont_results h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+#juego_memoria .cont_results span {
+  display: block;
+  margin: 0.3rem 0;
+  font-weight: 500;
+}
+#juego_memoria .puntaje_final {
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(90deg, #00c853, #ffd600, #00b0ff);
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+  margin-top: 2rem;
+}
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 #login {

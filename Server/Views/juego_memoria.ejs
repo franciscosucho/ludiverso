@@ -1,93 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <%- include('head.ejs') %>
-            <title>
-               Juego de memoria
-            </title>
-    </head>
-<body >
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Memory card
+        </title>
+</head>
+
+<body>
     <%- include('header.ejs') %>
-    <main id="juego_memoria" >
-        <section class="cont_introduccion" id="cont_introduccion">
-            <div id="cont_text_main">
-                <h1>!Bienvenido al juego de  Memory card!</h1>
-                <h3> En este nivel aprenderas a  <b><%= data_juego[0].actividad_juego %></b></h3>
-                <p><%= data_juego[0].desc_actividad %></p>
-            </div>
-           
-            <article id="cont_imagenes">
-            <% for (let i = 0; i < data_resources.length; i++) { %>
-                <div class="cont_resources">
-                    <img src="./../Resources/Imagenes/juego_memoria/<%= data_resources[i].url_img %>.png" alt="">
-                    <div class="cont_text">
-                        <h3><%= data_resources[i].titulo_img %></h3>
-                        <p> <%= data_resources[i].descripcion_img %></p>
+        <main id="juego_memoria">
+            <section class="cont_introduccion " id="cont_introduccion">
+                <div id="cont_text_main">
+                    <h1>!Bienvenido al juego de Memory card!</h1>
+                    <h3> En este nivel aprenderas a <b>
+                            <%= data_juego[0].actividad_juego %>
+                        </b></h3>
+                    <p>
+                        <%= data_juego[0].desc_actividad %>
+                    </p>
+                </div>
+
+                <article id="cont_imagenes">
+                    <% for (let i=0; i < data_resources.length; i++) { %>
+                        <div class="cont_resources">
+                            <img src="./../Resources/Imagenes/juego_memoria/<%= data_resources[i].url_img %>.png"
+                                alt="">
+                            <div class="cont_text">
+                                <h3>
+                                    <%= data_resources[i].titulo_img %>
+                                </h3>
+                                <p>
+                                    <%= data_resources[i].descripcion_img %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <% } %>
+                            <a href="#cont_primer_des" id="btn_iniciar_juego">Iniciar el desafío</a>
+                </article>
+
+
+            </section>
+            <section id="cont_primer_des" class="desac">
+                <h2>Elige el título correcto para la imagen</h2>
+                <div id="sub_cont_main">
+
+                    <div id="cont_preguntas"></div>
+                    <div class="cont_estadisticas">
+
+                        <h2 id="tiempo" class="estadisticas">0 segundos</h2>
+                        <h2 id="intentos" class="estadisticas">0 Intentos</h2>
                     </div>
                 </div>
 
-            <% } %>
-            <button id="btn_iniciar_juego">Iniciar el desafío.</button>
-            </article>
-          
+            </section>
 
-        </section> 
-        <section id="cont_primer_des" class="desac"> 
-            <h2>Une la imagen con su titulo</h2>
-        </section>
+            <section class="section1 desac">
+                <table>
+                    <tr>
+                        <td> <button id="0" onclick="destapar(0)"></button></td>
+                        <td> <button id="1" onclick="destapar(1)"></button></td>
+                        <td> <button id="2" onclick="destapar(2)"></button></td>
+                        <td> <button id="3" onclick="destapar(3)"></button></td>
+                    </tr>
+                    <tr>
+                        <td> <button id="4" onclick="destapar(4)"></button></td>
+                        <td> <button id="5" onclick="destapar(5)"></button></td>
+                        <td> <button id="6" onclick="destapar(6)"></button></td>
+                        <td> <button id="7" onclick="destapar(7)"></button></td>
+                    </tr>
+                    <tr>
+                        <td> <button id="8" onclick="destapar(8)"></button></td>
+                        <td> <button id="9" onclick="destapar(9)"></button></td>
+                        <td> <button id="10" onclick="destapar(10)"></button></td>
+                        <td> <button id="11" onclick="destapar(11)"></button></td>
+                    </tr>
+                    <tr>
+                        <td> <button id="12" onclick="destapar(12)"></button></td>
+                        <td> <button id="13" onclick="destapar(13)"></button></td>
+                        <td> <button id="14" onclick="destapar(14)"></button></td>
+                        <td> <button id="15" onclick="destapar(15)"></button></td>
+                    </tr>
+                </table>
+                <div class="section2">
+                    <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
+                    <h2 id="t-restante" class="estadisticas">Tiempo 30 segundos</h2>
+                    <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
+                </div>
+            </section>
+            <section id="cont_ganar" class="desac">
+                <h2>🎉 ¡Felicitaciones! Lograste superar el nivel del Memory Card 🎉</h2>
+                <div class="resultados">
+                    <p class="subtitulo">Tus resultados fueron:</p>
+                    <div class="cont_results">
+                        <h3>🖼️ Elige el título correcto para la imagen</h3>
+                        <span id="intentos_intro"></span>
+                        <span id="tiempo_intro"></span>
+                    </div>
+                    <div class="cont_results">
+                        <h3>🧠 Memory card</h3>
+                        <span class="intentos_res"></span>
+                        <span class="aciertos_res"></span>
+                        <span class="tiempo_res"></span>
+                    </div>
+                    <h3 class="puntaje_final"></h3>
+                </div>
+            </section>
 
-        <section class="section1 desac">
-            <table>
-                <tr>
-                    <td> <button id="0" onclick="destapar(0)"></button></td>
-                    <td> <button id="1" onclick="destapar(1)"></button></td>
-                    <td> <button id="2" onclick="destapar(2)"></button></td>
-                    <td> <button id="3" onclick="destapar(3)"></button></td>
-                </tr>
-                <tr>
-                    <td> <button id="4" onclick="destapar(4)"></button></td>
-                    <td> <button id="5" onclick="destapar(5)"></button></td>
-                    <td> <button id="6" onclick="destapar(6)"></button></td>
-                    <td> <button id="7" onclick="destapar(7)"></button></td>
-                </tr>
-                <tr>
-                    <td> <button id="8" onclick="destapar(8)"></button></td>
-                    <td> <button id="9" onclick="destapar(9)"></button></td>
-                    <td> <button id="10" onclick="destapar(10)"></button></td>
-                    <td> <button id="11" onclick="destapar(11)"></button></td>
-                </tr>
-                <tr>
-                    <td> <button id="12" onclick="destapar(12)"></button></td>
-                    <td> <button id="13" onclick="destapar(13)"></button></td>
-                    <td> <button id="14" onclick="destapar(14)"></button></td>
-                    <td> <button id="15" onclick="destapar(15)"></button></td>
-                </tr>
-            </table>
-            <div class="section2">
-                <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
-                <h2 id="t-restante" class="estadisticas">Tiempo 30 segundos</h2>
-                <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
-            </div>
-        </section>
-        <section class="cont_ganar desac">
-            <h2>Felicitaciones!! lograste superar el nivel del Memory card</h2>
-            <div class="resultados">
-                <p>Tus resultados fueron:</p>
-                <span class="intentos_res"></span>
-                <span class="tiempo_res"></span>
-                <span class="puntaje_final"></span>
 
-            </div>
-        </section>
-        
-      
-    </main>
+        </main>
 
-    <!-- Inserta los datos como JSON puro (no ejecutable) -->
-    <script id="data-resources" type="application/json">
+        <!-- Inserta los datos como JSON puro (no ejecutable) -->
+        <script id="data-resources" type="application/json">
         <%- JSON.stringify(data_resources) %>
       </script>
 
-    <script src="/Scripts/juego_memoria.js"></script>
+        <script src="/Scripts/juego_memoria.js"></script>
 </body>
+
 </html>

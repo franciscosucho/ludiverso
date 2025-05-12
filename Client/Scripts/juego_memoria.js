@@ -1,18 +1,27 @@
 
 const scriptEl = document.getElementById('data-resources');
-const cont_introduccion = document.getElementById("cont_introduccion")
-const cont_primer_des = document.getElementById("cont_primer_des")
-const section1 = document.querySelector(".section1")
+const cont_introduccion = document.getElementById("cont_introduccion");
+const cont_primer_des = document.getElementById("cont_primer_des");
+const section1 = document.querySelector(".section1");
+const cont_preguntas = document.getElementById("cont_preguntas")
+const intentos_dom = document.getElementById("intentos")
+const cont_ganar = document.getElementById("cont_ganar")
+var point_sound = new Audio('./../Resources/Sounds/point.mp3');
+var error_sound = new Audio('./../Resources/Sounds/error.mp3');
+var intentos_intro = 0;
+var errores_intro = 0;
+var tiempo_intro = 0;
+
 let resources = [];
+
+
 
 
 if (scriptEl) {
     const raw = scriptEl.textContent.trim();
-
     if (raw) {
         try {
             resources = JSON.parse(raw);
-            console.log('Datos cargados:', resources);
         } catch (err) {
             console.error('Error al parsear JSON:', err, raw);
         }
@@ -22,7 +31,16 @@ if (scriptEl) {
 } else {
     console.warn('No se encontró el elemento con id="data-resources"');
 }
+
+
 document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
+
+    var intervalo = setInterval(() => {
+        tiempo_intro++;
+        document.getElementById("tiempo").textContent = `${tiempo_intro} Segundos`;
+    }, 1000);
+
+
     cont_introduccion.classList.toggle("desac");
     cont_primer_des.classList.toggle("desac");
 
@@ -33,7 +51,7 @@ document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
         if (i != 0) {
             div_main_ask.classList.add("desac")
         }
-        cont_primer_des.appendChild(div_main_ask).innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}.png" alt="" data-nombre="${resources[i].titulo_img}" id="img_id_${i}">`;
+        cont_preguntas.appendChild(div_main_ask).innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}.png" alt="" data-nombre="${resources[i].titulo_img}" id="img_id_${i}">`;
 
         let div_nombres = document.createElement("div");
         div_nombres.classList.add("div_nombres");
@@ -61,7 +79,7 @@ document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
         }
 
         div_main_ask.appendChild(div_nombres);
-        cont_primer_des.appendChild(div_main_ask);
+        cont_preguntas.appendChild(div_main_ask);
 
         let contador_preg = document.createElement('div')
         contador_preg.classList.add("contador_preg")
@@ -76,44 +94,61 @@ document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
         }
         div_main_ask.appendChild(contador_preg);
     }
-});
 
-let bloqueado = false; // bandera de bloqueo
 
-document.addEventListener("click", (e) => {
-    if (bloqueado) return; // si está bloqueado, ignorar clics
+    let bloqueado = false; // bandera de bloqueo
 
-    if (e.target.classList.contains("nombre_img")) {
-        bloqueado = true; // bloquear al hacer clic
+    document.addEventListener("click", (e) => {
+        if (bloqueado) return; // si está bloqueado, ignorar clics
 
-        let texto = e.target.textContent;
-        let id = e.target.dataset.id;
-        let id_prox = parseInt(id) + 1;
-        let text_img = document.getElementById(`img_id_${id}`).dataset.nombre;
+        if (e.target.classList.contains("nombre_img")) {
+            bloqueado = true; // bloquear al hacer clic
 
-        if (texto == text_img) {
-            e.target.classList.add("acierto");
-            setTimeout(() => {
-                e.target.classList.remove("acierto");
-                bloqueado = false; // desbloquear después del timeout
-                if (id_prox == 8) {
-                    cont_primer_des.classList.add("desac")
-                    section1.classList.remove("desac")
-                }
-                else {
-                    document.getElementById(`div_main_ask_${id}`).classList.add("desac")
-                    document.getElementById(`div_main_ask_${id_prox}`).classList.remove("desac")
-                }
+            let texto = e.target.textContent;
+            let id = e.target.dataset.id;
+            let id_prox = parseInt(id) + 1;
+            let text_img = document.getElementById(`img_id_${id}`).dataset.nombre;
+            intentos_intro = intentos_intro + 1;
+            intentos_dom.textContent = `${intentos_intro} Intentos`;
+            if (texto == text_img) {
+                e.target.classList.add("acierto");
+                point_sound.play();
 
-            }, 1000);
-        } else {
-            e.target.classList.add("error");
-            setTimeout(() => {
-                e.target.classList.remove("error");
-                bloqueado = false; // desbloquear después del timeout
-            }, 1000);
+                setTimeout(() => {
+                    point_sound.pause();
+                    point_sound.currentTime = 0;
+                }, 1000);
+
+                setTimeout(() => {
+                    e.target.classList.remove("acierto");
+                    bloqueado = false; // desbloquear después del timeout
+                    if (id_prox == 8) {
+                        cont_primer_des.classList.add("desac")
+                        section1.classList.remove("desac")
+                        clearInterval(intervalo);
+                    }
+                    else {
+                        document.getElementById(`div_main_ask_${id}`).classList.add("desac")
+                        document.getElementById(`div_main_ask_${id_prox}`).classList.remove("desac")
+                    }
+
+                }, 700);
+            } else {
+                e.target.classList.add("error");
+                error_sound.play();
+                setTimeout(() => {
+                    error_sound.pause();
+                    error_sound.currentTime = 0;
+                }, 1000);
+
+                setTimeout(() => {
+                    e.target.classList.remove("error");
+                    bloqueado = false; // desbloquear después del timeout
+                }, 700);
+            }
         }
-    }
+    });
+
 });
 
 
@@ -143,10 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 console.log(resources)
-let numeros=[]
+let numeros = []
 for (let i = 0; i < resources.length; i++) {
-   numeros.push(resources[i].url_img)
-   numeros.push(resources[i].url_img)
+    numeros.push(resources[i].url_img)
+    numeros.push(resources[i].url_img)
 
 }
 console.log(numeros)
@@ -155,8 +190,7 @@ numeros = numeros.sort(() => { return Math.random() - 0.5 })
 
 
 function destapar(id) {
-    var sonido = new Audio('./../Resources/Sounds/flipcard.mp3');
-    sonido.play();
+
     if (timer == false) {
         iniciarTiempo()
         timer = true;
@@ -180,18 +214,35 @@ function destapar(id) {
         movimientos++;
         mostrar_mov.innerHTML = `Movimientos: ${movimientos}`;
         if (primerResultado == segundoResultado) {
+
+            point_sound.play();
+
             tarjetasDestapadas = 0;
             aciertos++;
             aciertos_dom.innerHTML = `Aciertos: ${aciertos}`;
 
             if (aciertos == 8) {
                 clearInterval(tiempoRegresivoId);
-                mostrarTiempo = `Tardaste: ${timerInicial - timer_cont} segundos🎊`;
-                mostrar_mov.innerHTML = `Movimientos: ${movimientos} 🎊`;
-                aciertos_dom.innerHTML = `Aciertos: ${aciertos} 🎊`;
+
+                cont_ganar.classList.toggle("desac")
+                section1.classList.toggle("desac")
+                document.querySelector(".intentos_res").textContent = `${movimientos} Intentos`
+                document.querySelector(".aciertos_res").textContent = `${aciertos} Aciertos`
+                document.querySelector(".tiempo_res").textContent = `Tardaste ${timerInicial - timer_cont} segundos`
+
+
+                document.querySelector("#intentos_intro").textContent = `${intentos_intro} Intentos`
+                document.querySelector("#tiempo_intro").textContent = `${tiempo_intro} Intentos`
+
+                let puntaje = Math.max(0, (aciertos * 100) - (movimientos * 5) - ((timerInicial - timer_cont) * 2));
+                console.log(puntaje)
+                document.querySelector(".puntaje_final").textContent = ` ${puntaje} puntos`;
+
             }
         }
         else {
+
+            error_sound.play();
             setTimeout(() => {
                 tarjeta1.innerHTML = ""
                 tarjeta2.innerHTML = ""
