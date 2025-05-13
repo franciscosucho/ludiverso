@@ -4,7 +4,7 @@
 <head>
     <%- include('head.ejs') %>
         <title>
-            Elogiendo los niveles
+            Eligiendo los niveles
         </title>
 </head>
 
@@ -29,7 +29,7 @@
 
                                 <% for (let j = 0; j < data_juegos_areas[i].length; j++) { %>
                                     <% let mover_der = (j % 2 === 0) ? 'mover_der' : ''; %>
-                                    <a href="juego_memoria?id_juego=<%=data_juegos_areas[i][j].id_juego%>" class="nivel actual <%= mover_der %>">
+                                    <a href="juego_memoria?id_nivel=<%= data_juegos_areas[i][j].id_nivel %>" class="nivel actual <%= mover_der %>">
                                         <li>
                                             <i class="fa-solid fa-star"></i>
                                         </li>

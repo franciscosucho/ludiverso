@@ -1,11 +1,14 @@
 
 const scriptEl = document.getElementById('data-resources');
+const ID_area_JS = document.getElementById('id-area');
+const ID_nivel_JS = document.getElementById('id-nivel');
+
+
 const cont_introduccion = document.getElementById("cont_introduccion");
 const cont_primer_des = document.getElementById("cont_primer_des");
 const section1 = document.querySelector(".section1");
-const cont_preguntas = document.getElementById("cont_preguntas")
-const intentos_dom = document.getElementById("intentos")
-const cont_ganar = document.getElementById("cont_ganar")
+const cont_preguntas = document.getElementById("cont_preguntas");
+const intentos_dom = document.getElementById("intentos");
 var point_sound = new Audio('./../Resources/Sounds/point.mp3');
 var error_sound = new Audio('./../Resources/Sounds/error.mp3');
 var intentos_intro = 0;
@@ -31,6 +34,7 @@ if (scriptEl) {
 } else {
     console.warn('No se encontró el elemento con id="data-resources"');
 }
+
 
 
 document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
@@ -177,14 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
 })
 
-console.log(resources)
+
 let numeros = []
 for (let i = 0; i < resources.length; i++) {
     numeros.push(resources[i].url_img)
     numeros.push(resources[i].url_img)
 
 }
-console.log(numeros)
+
 // let numeros = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8]
 numeros = numeros.sort(() => { return Math.random() - 0.5 })
 
@@ -224,19 +228,13 @@ function destapar(id) {
             if (aciertos == 8) {
                 clearInterval(tiempoRegresivoId);
 
-                cont_ganar.classList.toggle("desac")
-                section1.classList.toggle("desac")
-                document.querySelector(".intentos_res").textContent = `${movimientos} Intentos`
-                document.querySelector(".aciertos_res").textContent = `${aciertos} Aciertos`
-                document.querySelector(".tiempo_res").textContent = `Tardaste ${timerInicial - timer_cont} segundos`
 
 
-                document.querySelector("#intentos_intro").textContent = `${intentos_intro} Intentos`
-                document.querySelector("#tiempo_intro").textContent = `${tiempo_intro} Intentos`
+                setTimeout(() => {
+                    window.location.href = `puntaje_us?intentos_res=${movimientos}&aciertos_res=${aciertos}&tiempo_res=${timerInicial - timer_cont}&intentos_intro=${intentos_intro}&tiempo_intro=${tiempo_intro}&id_nivel=${ID_nivel_JS.textContent}&id_area=${ID_area_JS.textContent}`;
+                }, 5000);
 
-                let puntaje = Math.max(0, (aciertos * 100) - (movimientos * 5) - ((timerInicial - timer_cont) * 2));
-                console.log(puntaje)
-                document.querySelector(".puntaje_final").textContent = ` ${puntaje} puntos`;
+
 
             }
         }

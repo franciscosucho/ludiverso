@@ -86,30 +86,11 @@
                 </table>
                 <div class="section2">
                     <h2 id="aciertos" class="estadisticas">Aciertos: 0</h2>
-                    <h2 id="t-restante" class="estadisticas">Tiempo 30 segundos</h2>
+                    <h2 id="t-restante" class="estadisticas">Tiempo 0 segundos</h2>
                     <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
                 </div>
             </section>
-            <section id="cont_ganar" class="desac">
-                <h2>🎉 ¡Felicitaciones! Lograste superar el nivel del Memory Card 🎉</h2>
-                <div class="resultados">
-                    <p class="subtitulo">Tus resultados fueron:</p>
-                    <div class="cont_results">
-                        <h3>🖼️ Elige el título correcto para la imagen</h3>
-                        <span id="intentos_intro"></span>
-                        <span id="tiempo_intro"></span>
-                    </div>
-                    <div class="cont_results">
-                        <h3>🧠 Memory card</h3>
-                        <span class="intentos_res"></span>
-                        <span class="aciertos_res"></span>
-                        <span class="tiempo_res"></span>
-                    </div>
-                    <h3 class="puntaje_final"></h3>
-                </div>
-            </section>
-
-
+           
         </main>
 
         <!-- Inserta los datos como JSON puro (no ejecutable) -->
@@ -117,6 +98,12 @@
         <%- JSON.stringify(data_resources) %>
       </script>
 
+      <script id="id-nivel" type="application/json">
+        <%- JSON.stringify(id_nivel) %>
+      </script>
+      <script id="id-area" type="application/json">
+        <%- JSON.stringify(id_area) %>
+      </script>
         <script src="/Scripts/juego_memoria.js"></script>
 </body>
 

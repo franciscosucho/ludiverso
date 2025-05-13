@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-04-2025 a las 02:14:19
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Tiempo de generación: 13-05-2025 a las 20:01:01
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -26,7 +26,7 @@ CREATE TABLE `areas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `jefe_de_area` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `areas`
@@ -51,7 +51,7 @@ CREATE TABLE `calificaciones` (
   `juego_id` int(11) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL CHECK (`estrellas` between 0 and 5),
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE `estadisticas` (
   `juegos_jugados` int(11) DEFAULT 0,
   `puntaje_total` int(11) DEFAULT 0,
   `ultima_actividad` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `intentos` (
   `juego_id` int(11) DEFAULT NULL,
   `puntaje` int(11) DEFAULT NULL,
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,7 @@ CREATE TABLE `juegos` (
   `valoracion` float NOT NULL,
   `url_juego` varchar(255) NOT NULL,
   `niveles` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `juegos`
@@ -113,43 +113,47 @@ INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `memory_car`
---
-
-CREATE TABLE `memory_car` (
-  `id_juego` int(11) NOT NULL,
-  `id_area` int(11) NOT NULL,
-  `id_us` int(11) NOT NULL,
-  `fecha_creacion` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `memory_car`
---
-
-INSERT INTO `memory_car` (`id_juego`, `id_area`, `id_us`, `fecha_creacion`) VALUES
-(1, 7, 5, '2025-04-28');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `niveles_memory`
 --
 
 CREATE TABLE `niveles_memory` (
   `id_nivel` int(11) NOT NULL,
-  `id_juego` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `id_creador_us` int(11) NOT NULL,
   `actividad_juego` text NOT NULL,
   `desc_actividad` text NOT NULL,
-  `tiempo_para_resolver` time(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `tiempo_para_resolver` time(4) NOT NULL,
+  `fecha_creacion` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `niveles_memory`
 --
 
-INSERT INTO `niveles_memory` (`id_nivel`, `id_juego`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`) VALUES
-(1, 1, 'diferenciar los distintos símbolos esquemáticos', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar los distintos símbolos esquemáticos utilizados en los circuitos electrónicos. Se trabajará en la identificación precisa de cada símbolo y su función dentro del circuito.', '00:00:40.0000');
+INSERT INTO `niveles_memory` (`id_nivel`, `id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`) VALUES
+(1, 7, 5, 'diferenciar los distintos símbolos esquemáticos', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar los distintos símbolos esquemáticos utilizados en los circuitos electrónicos. Se trabajará en la identificación precisa de cada símbolo y su función dentro del circuito.', '00:00:40.0000', '2025-05-13'),
+(2, 7, 5, 'diferenciar las distintas herramientas utilizadas para carpintería', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar las distintas herramientas utilizadas en carpintería. Se trabajará en la identificación precisa de cada herramienta, su forma y su función específica dentro del taller, comprendiendo su uso correcto y seguro en distintas etapas del trabajo con madera.', '00:00:55.0000', '2025-05-13');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `niveles_us`
+--
+
+CREATE TABLE `niveles_us` (
+  `id_nivel_us` int(11) NOT NULL,
+  `id_nivel` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `niveles_us`
+--
+
+INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES
+(1, 1, 7, 5, '2025-05-13');
 
 -- --------------------------------------------------------
 
@@ -164,7 +168,7 @@ CREATE TABLE `novedades` (
   `cuerpo_novedad` varchar(3000) DEFAULT NULL,
   `url_foto_novedad` varchar(255) DEFAULT NULL,
   `fecha_novedad` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `novedades`
@@ -185,7 +189,7 @@ CREATE TABLE `preguntas` (
   `juego_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -199,7 +203,7 @@ CREATE TABLE `resources_juego` (
   `url_img` text NOT NULL,
   `titulo_img` text NOT NULL,
   `descripcion_img` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `resources_juego`
@@ -213,7 +217,15 @@ INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`
 (5, 1, '5', 'Inductor', 'Componente pasivo que almacena energía en un campo magnético cuando circula corriente, utilizado en filtros, transformadores y fuentes de energía.'),
 (6, 1, '6', 'Resistencia', 'Dispositivo que limita o regula el flujo de corriente eléctrica en un circuito, protegiendo componentes y ajustando niveles de voltaje.'),
 (7, 1, '7', 'Transistor de efecto de campo tipo N de canal de empobrecimiento', 'Semiconductor que controla el flujo de corriente aplicando un voltaje negativo, operando en un estado normalmente conductor que puede bloquearse al modificar el campo eléctrico.'),
-(8, 1, '8', 'TRIAC (Interruptor bidireccional controlado por corriente)', 'Dispositivo semiconductor que permite controlar la corriente alterna en ambas direcciones, utilizado en reguladores de potencia, controles de luz y motores.');
+(8, 1, '8', 'TRIAC (Interruptor bidireccional controlado por corriente)', 'Dispositivo semiconductor que permite controlar la corriente alterna en ambas direcciones, utilizado en reguladores de potencia, controles de luz y motores.'),
+(25, 2, 'bisagra', 'Bisagra de cazoleta', 'También llamada bisagra oculta o europea. Se instala dentro de un agujero circular y permite ajustar puertas de muebles en varias direcciones.'),
+(26, 2, 'escuadra', 'Escuadra combinada', 'Herramienta multifunción con regla y cabezal ajustable que permite trazar y verificar ángulos de 90° y 45°, e incluye nivel y punzón.'),
+(27, 2, 'formon', 'Formón', 'Cincel de carpintero que se usa para tallar o ajustar ensambles en madera. Funciona con la mano o mazo, y viene en varios anchos.'),
+(28, 2, 'gubias', 'Gubias de tallado', 'Herramientas similares a los formones pero con hoja curva o en “U” o “V”, ideales para tallar y esculpir madera de forma decorativa.'),
+(29, 2, 'ingletadora', 'Ingletadora', 'Sierra especial para cortar madera en ángulos precisos como 45° o 90°, usada comúnmente en molduras y marcos. Puede ser manual o eléctrica.'),
+(30, 2, 'sargentopng', 'Sargento de prensa', 'Herramienta de sujeción que mantiene firmemente dos piezas unidas durante el pegado, taladrado o ensamblado.'),
+(31, 2, 'sierra_banco', 'Sierra de banco', 'Herramienta estacionaria con hoja circular que permite cortes rectos y precisos. Se usa para cortes longitudinales o transversales en madera.'),
+(32, 2, 'tarugo', 'Tarugo de madera', 'Cilindro de madera dura que se usa para unir piezas mediante orificios alineados y encolado. Da uniones firmes sin tornillos visibles.');
 
 -- --------------------------------------------------------
 
@@ -226,7 +238,7 @@ CREATE TABLE `respuestas` (
   `pregunta_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `es_correcta` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -242,14 +254,14 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `rol` enum('alumno','root','profesor','directivo') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'root'),
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno'),
 (6, 'david', 'mingueza', 'davidmingueza', 'davidmingueza@gmail.com', '$2b$10$0EvUQrkWB43ZavtXyX85fe8y/Rzy7DGuqoVatH0lcvQ3hoAhSJUdO', 'alumno'),
 (8, 'jorge', 'mingueza', 'jorgemingueza', 'jorgemingueza@gmail.com', '$2b$10$ZB5qktwKxh3MgDCD425YMej0wZj8/zR7GAR9O.mnSDxb10c4Njcfe', 'alumno'),
 (9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'alumno'),
@@ -300,19 +312,22 @@ ALTER TABLE `juegos`
   ADD KEY `materia_id` (`materia_id`);
 
 --
--- Indices de la tabla `memory_car`
---
-ALTER TABLE `memory_car`
-  ADD PRIMARY KEY (`id_juego`),
-  ADD KEY `id_area` (`id_area`,`id_us`),
-  ADD KEY `id_us` (`id_us`);
-
---
 -- Indices de la tabla `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
   ADD PRIMARY KEY (`id_nivel`),
-  ADD KEY `id_juego` (`id_juego`);
+  ADD KEY `id_area` (`id_area`,`id_creador_us`),
+  ADD KEY `id_creador_us` (`id_creador_us`);
+
+--
+-- Indices de la tabla `niveles_us`
+--
+ALTER TABLE `niveles_us`
+  ADD PRIMARY KEY (`id_nivel_us`),
+  ADD KEY `id_nivel` (`id_nivel`,`id_area`,`id_us`,`fecha`),
+  ADD KEY `fecha` (`fecha`),
+  ADD KEY `id_area` (`id_area`),
+  ADD KEY `id_us` (`id_us`);
 
 --
 -- Indices de la tabla `novedades`
@@ -384,16 +399,16 @@ ALTER TABLE `juegos`
   MODIFY `juego_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `memory_car`
---
-ALTER TABLE `memory_car`
-  MODIFY `id_juego` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `niveles_us`
+--
+ALTER TABLE `niveles_us`
+  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -411,7 +426,7 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
-  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
@@ -456,17 +471,19 @@ ALTER TABLE `juegos`
   ADD CONSTRAINT `juegos_ibfk_1` FOREIGN KEY (`materia_id`) REFERENCES `areas` (`materia_id`);
 
 --
--- Filtros para la tabla `memory_car`
---
-ALTER TABLE `memory_car`
-  ADD CONSTRAINT `memory_car_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
-  ADD CONSTRAINT `memory_car_ibfk_2` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
-
---
 -- Filtros para la tabla `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
-  ADD CONSTRAINT `niveles_memory_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `memory_car` (`id_juego`);
+  ADD CONSTRAINT `niveles_memory_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
+  ADD CONSTRAINT `niveles_memory_ibfk_2` FOREIGN KEY (`id_creador_us`) REFERENCES `usuarios` (`usuario_id`);
+
+--
+-- Filtros para la tabla `niveles_us`
+--
+ALTER TABLE `niveles_us`
+  ADD CONSTRAINT `niveles_us_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`),
+  ADD CONSTRAINT `niveles_us_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
+  ADD CONSTRAINT `niveles_us_ibfk_3` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
 -- Filtros para la tabla `preguntas`

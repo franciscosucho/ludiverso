@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Memory card
+        </title>
+</head>
+`puntaje_us?intentos_res=12&aciertos_res=8&tiempo_res=25&intentos_intro=4&tiempo_intro=15&id_nivel=1&id_area=7`;
+<body>
+    <%- include('header.ejs') %>
+        <main id="juego_memoria">
+
+            <section id="cont_ganar" >
+                <h2>🎉 ¡Felicitaciones! Lograste superar el nivel del Memory Card 🎉</h2>
+                <div class="resultados">
+                    <p class="subtitulo">Tus resultados fueron:</p>
+                    <div class="cont_results">
+                        <h3>🖼️ Elige el título correcto para la imagen</h3>
+                        <span id="intentos_intro"> Necesitaste <%= intentos_intro %> Intentos</span>
+                        <span id="tiempo_intro"> Tardaste <%= tiempo_intro %> Segundos</span>
+                    </div>
+                    <div class="cont_results">
+                        <h3>🧠 Memory card</h3>
+                        <span class="intentos_res"> Necesitaste <%= intentos_res %> Intentos</span>
+                        <span class="aciertos_res"> Tuviste <%= aciertos_res %> Aciertos_res</span>
+                        <span class="tiempo_res">Te sobraron <%= tiempo_res %> Segundos</span>
+                    </div>
+                    <h3 class="puntaje_final"> <%= puntaje %></h3>
+                </div>
+            </section>
+
+
+        </main>
+
+</body>
+
+</html>
