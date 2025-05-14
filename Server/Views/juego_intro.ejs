@@ -22,6 +22,7 @@
             <section class="cont_niveles">
                 <% for (let i = 0; i < data_juegos_areas.length; i++) { %>
                     <% if (data_juegos_areas[i].length > 0) { %>
+                        
                         <div class="cont_areas_niveles" id="cont_areas_niveles_<%= data_juegos_areas[i][0].nombre_area %>">
                             <h4 class="titulo_area"><%= data_juegos_areas[i][0].nombre_area %></h4>
 
@@ -29,7 +30,7 @@
 
                                 <% for (let j = 0; j < data_juegos_areas[i].length; j++) { %>
                                     <% let mover_der = (j % 2 === 0) ? 'mover_der' : ''; %>
-                                    <a href="juego_memoria?id_nivel=<%= data_juegos_areas[i][j].id_nivel %>" class="nivel actual <%= mover_der %>">
+                                    <a href="juego_memoria?id_nivel=<%= data_juegos_areas[i][j].id_nivel %>&id_juego=<%=id_juego%>" class="nivel actual <%= mover_der %>">
                                         <li>
                                             <i class="fa-solid fa-star"></i>
                                         </li>

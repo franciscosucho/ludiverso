@@ -7,7 +7,7 @@
             Memory card
         </title>
 </head>
-`puntaje_us?intentos_res=12&aciertos_res=8&tiempo_res=25&intentos_intro=4&tiempo_intro=15&id_nivel=1&id_area=7`;
+
 <body>
     <%- include('header.ejs') %>
         <main id="juego_memoria">
@@ -24,10 +24,11 @@
                     <div class="cont_results">
                         <h3>🧠 Memory card</h3>
                         <span class="intentos_res"> Necesitaste <%= intentos_res %> Intentos</span>
-                        <span class="aciertos_res"> Tuviste <%= aciertos_res %> Aciertos_res</span>
+                        <span class="aciertos_res"> Tuviste <%= aciertos_res %> Aciertos</span>
                         <span class="tiempo_res">Te sobraron <%= tiempo_res %> Segundos</span>
                     </div>
                     <h3 class="puntaje_final"> <%= puntaje %></h3>
+                    <a href="/index" id="btn_volver">🏠 Volver al inicio</a>
                 </div>
             </section>
 

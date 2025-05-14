@@ -1,7 +1,16 @@
 
 const scriptEl = document.getElementById('data-resources');
-const ID_area_JS = document.getElementById('id-area');
-const ID_nivel_JS = document.getElementById('id-nivel');
+
+let ID_area_JS = document.getElementById('id-area');
+ID_area_JS = JSON.parse(ID_area_JS.textContent);
+
+let ID_nivel_JS = document.getElementById('id-nivel');
+ID_nivel_JS = JSON.parse(ID_nivel_JS.textContent);
+
+
+let ID_juego_JS = document.getElementById('id-juego');
+ID_juego_JS = JSON.parse(ID_juego_JS.textContent);
+
 
 
 const cont_introduccion = document.getElementById("cont_introduccion");
@@ -113,43 +122,57 @@ document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
             let id_prox = parseInt(id) + 1;
             let text_img = document.getElementById(`img_id_${id}`).dataset.nombre;
             intentos_intro = intentos_intro + 1;
-            intentos_dom.textContent = `${intentos_intro} Intentos`;
-            if (texto == text_img) {
-                e.target.classList.add("acierto");
-                point_sound.play();
 
+            if (intentos_intro == 11) {
+                clearInterval(intervalo);
                 setTimeout(() => {
-                    point_sound.pause();
-                    point_sound.currentTime = 0;
-                }, 1000);
+                    let fondo_oscuro = document.getElementById("fondo_oscuro");
+                    let cont_perder = document.getElementById("cont_perder_intentos")
+                    fondo_oscuro.classList.remove("desac")
+                    cont_perder.classList.remove("desac")
+                }, 2000);
 
-                setTimeout(() => {
-                    e.target.classList.remove("acierto");
-                    bloqueado = false; // desbloquear después del timeout
-                    if (id_prox == 8) {
-                        cont_primer_des.classList.add("desac")
-                        section1.classList.remove("desac")
-                        clearInterval(intervalo);
-                    }
-                    else {
-                        document.getElementById(`div_main_ask_${id}`).classList.add("desac")
-                        document.getElementById(`div_main_ask_${id_prox}`).classList.remove("desac")
-                    }
-
-                }, 700);
             } else {
-                e.target.classList.add("error");
-                error_sound.play();
-                setTimeout(() => {
-                    error_sound.pause();
-                    error_sound.currentTime = 0;
-                }, 1000);
 
-                setTimeout(() => {
-                    e.target.classList.remove("error");
-                    bloqueado = false; // desbloquear después del timeout
-                }, 700);
+                intentos_dom.textContent = `${intentos_intro} Intentos`;
+                if (texto == text_img) {
+                    e.target.classList.add("acierto");
+                    point_sound.play();
+
+                    setTimeout(() => {
+                        point_sound.pause();
+                        point_sound.currentTime = 0;
+                    }, 1000);
+
+                    setTimeout(() => {
+                        e.target.classList.remove("acierto");
+                        bloqueado = false; // desbloquear después del timeout
+                        if (id_prox == 8) {
+                            cont_primer_des.classList.add("desac")
+                            section1.classList.remove("desac")
+                            clearInterval(intervalo);
+                        }
+                        else {
+                            document.getElementById(`div_main_ask_${id}`).classList.add("desac")
+                            document.getElementById(`div_main_ask_${id_prox}`).classList.remove("desac")
+                        }
+
+                    }, 700);
+                } else {
+                    e.target.classList.add("error");
+                    error_sound.play();
+                    setTimeout(() => {
+                        error_sound.pause();
+                        error_sound.currentTime = 0;
+                    }, 1000);
+
+                    setTimeout(() => {
+                        e.target.classList.remove("error");
+                        bloqueado = false; // desbloquear después del timeout
+                    }, 700);
+                }
             }
+
         }
     });
 
@@ -227,15 +250,10 @@ function destapar(id) {
 
             if (aciertos == 8) {
                 clearInterval(tiempoRegresivoId);
-
-
-
                 setTimeout(() => {
-                    window.location.href = `puntaje_us?intentos_res=${movimientos}&aciertos_res=${aciertos}&tiempo_res=${timerInicial - timer_cont}&intentos_intro=${intentos_intro}&tiempo_intro=${tiempo_intro}&id_nivel=${ID_nivel_JS.textContent}&id_area=${ID_area_JS.textContent}`;
+
+                    window.location.href = `puntaje_us?intentos_res=${movimientos}&aciertos_res=${aciertos}&tiempo_res=${timerInicial - timer_cont}&intentos_intro=${intentos_intro}&tiempo_intro=${tiempo_intro}&id_nivel=${ID_nivel_JS}&id_area=${ID_area_JS}&id_juego=${ID_juego_JS} `;
                 }, 5000);
-
-
-
             }
         }
         else {
@@ -258,9 +276,16 @@ function iniciarTiempo() {
         timer_cont--;
         mostrarTiempo.innerHTML = `Tiempo: ${timer_cont}`;
         if (timer_cont == 0) {
+
             //Detiene el temporizador
-            clearInterval(tiempoRegresivoId)
-            bloquearTarjetas()
+            clearInterval(tiempoRegresivoId);
+            bloquearTarjetas();
+            setTimeout(() => {
+                let fondo_oscuro = document.getElementById("fondo_oscuro");
+                let cont_perder = document.getElementById("cont_perder")
+                fondo_oscuro.classList.remove("desac")
+                cont_perder.classList.remove("desac")
+            }, 2000);
         }
     }, 1000)
 }

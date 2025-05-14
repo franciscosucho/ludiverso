@@ -104,7 +104,7 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/index', (req, res) => {
-    
+
     try {
         const select_juegos = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
         connection.query(select_juegos, [], (err, result_juegos) => {
@@ -159,7 +159,7 @@ app.post('/registrar', async (req, res) => {
                         console.error('Error al registrarse ', err);
                         res.status(500).send('Error al registrarse ');
                     } else {
-                        console.log("id:", result_id)
+                     
 
                         req.session.usuario_id = result_id[0].usuario_id + 1;
                         req.session.nombre_us = nombre_us
@@ -191,7 +191,7 @@ app.get('/dashboard', root_verificar, async (req, res) => {
                 console.error('Error al ejecutar la query en el servidor ', err);
                 res.status(500).send('Error al ejecutar la query en el servidor');
             } else {
-                console.log(req.session.nombre_us)
+                
                 res.render('dashboard', { users_res: result_users, user_session_nombre: req.session.nombre_us });
 
             }
@@ -211,9 +211,7 @@ app.post('/iniciar_sesion', async (req, res) => {
 
         // Si no se envían credenciales,  renderiza la vista sin error
         if (!user_name?.trim() || !password?.trim()) {
-            console.log("Los campos están vacíoss");
-            console.log(user_name)
-            console.log(password)
+         
             return res.render('login.ejs', { error: 'Por favor, completa todos los campos.' });
         }
 
@@ -296,9 +294,9 @@ app.get('/areas', (req, res) => {
 })
 
 app.get('/juego_memoria', (req, res) => {
-
-
+    let id_juego_main = req.query.id_juego;
     let id_juego = req.query.id_nivel;
+
     const select_areas = 'SELECT * FROM `niveles_memory` WHERE id_nivel=?'
     connection.query(select_areas, [id_juego], (err, result_juego) => {
         if (err) {
@@ -313,7 +311,7 @@ app.get('/juego_memoria', (req, res) => {
                     console.error('Error al registrarse ', err);
                     res.status(500).send('Error al registrarse ');
                 } else {
-                    res.render("juego_memoria", { data_juego: result_juego, data_resources: result_resources, id_area: id_area, id_nivel: id_nivel })
+                    res.render("juego_memoria", { data_juego: result_juego, data_resources: result_resources, id_area: id_area, id_nivel: id_nivel, id_juego: id_juego_main })
                 }
             })
 
@@ -323,11 +321,13 @@ app.get('/juego_memoria', (req, res) => {
 })
 
 app.get('/juego_intro', (req, res) => {
+    let id_juego = req.query.id_juego;
     let areas = ["Taller", "Comunicaciones", "Exactas y Naturales", "Educación Física", "Ciencias Sociales"];
     let queries = [];
 
     for (let i = 0; i < areas.length; i++) {
         let area_nombre = areas[i];
+        
         let select_niveles_areas = `
             SELECT 
                 niveles_memory.id_nivel,
@@ -350,13 +350,13 @@ app.get('/juego_intro', (req, res) => {
                 }
             });
         });
-
+        
         queries.push(queryPromise);
     }
 
     Promise.all(queries)
         .then(results => {
-            res.render("juego_intro", { data_juegos_areas: results });
+            res.render("juego_intro", { data_juegos_areas: results, id_juego });
         })
         .catch(err => {
             console.error('Error al cargar los juegos:', err);
@@ -364,35 +364,81 @@ app.get('/juego_intro', (req, res) => {
         });
 });
 
-app.get('/puntaje_us', (req, res) => {
 
-    //http://localhost:5000/puntaje_us?intentos_res=12&aciertos_res=8&tiempo_res=25&intentos_intro=4&tiempo_intro=15&id_nivel=1&id_area=7
-    let id_nivel = req.query.id_nivel;
-    let id_area = req.query.id_area;
-    let intentos_res = req.query.intentos_res;
-    let aciertos_res = req.query.aciertos_res;
-    let tiempo_res = req.query.tiempo_res;
-    let intentos_intro = req.query.intentos_intro;
-    let tiempo_intro = req.query.tiempo_intro;
+app.get('/puntaje_us', (req, res) => {
+    let { id_juego, id_nivel, id_area, intentos_res, aciertos_res, tiempo_res, intentos_intro, tiempo_intro } = req.query;
     let puntaje = Math.max(0, (aciertos_res * 100) - (intentos_res * 5) - (tiempo_res * 2));
     let id_us = req.session.usuario_id;
-    let fecha_act = Datatime()
+    let fecha_act = new Date();
 
-    const select_areas = 'INSERT INTO `niveles_us`( `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES ( ?, ?, ?, ?)'
-    connection.query(select_areas, [id_nivel, id_area,id_us,fecha_act] , (err, result_juego) => {
-        if (err) {
-            console.error('Error al registrarse ', err);
-            res.status(500).send('Error al registrarse ');
-        } else {
-            res.render("puntaje_us", { intentos_res, aciertos_res, tiempo_res, intentos_intro, tiempo_intro, puntaje })
+    // Bandera para saber cuándo se puede renderizar
+    let estadisticasReady = false;
+    let nivelesReady = false;
 
-
+    function tryRender() {
+        if (estadisticasReady && nivelesReady) {
+            res.render("puntaje_us", {
+                intentos_res,
+                aciertos_res,
+                tiempo_res,
+                intentos_intro,
+                tiempo_intro,
+                puntaje
+            });
         }
-    })
+    }
 
+    // Consulta y actualización/creación de estadisticas
+    connection.query('SELECT * FROM `estadisticas` WHERE usuario_id=? AND juego_jugado=?', [id_us, id_juego], (err, result_est) => {
+        if (err) return res.status(500).send('Error en estadísticas');
 
+        if (result_est.length > 0) {
+            // Si ya existe, actualizar solo si el puntaje nuevo es mayor
+            if (result_est[0].puntaje_total <= puntaje) {
+                connection.query(
+                    'UPDATE `estadisticas` SET `puntaje_total`=?, `fecha_actividad`=? WHERE usuario_id=? AND juego_jugado=?',
+                    [puntaje, fecha_act, id_us, id_juego],
+                    () => {
+                        estadisticasReady = true;
+                        tryRender();
+                    }
+                );
+            } else {
+                estadisticasReady = true;
+                tryRender();
+            }
+        } else {
+            // Si no existe, insertar nuevo
+            connection.query(
+                'INSERT INTO `estadisticas`(`usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`) VALUES (?, ?, ?, ?)',
+                [id_us, id_juego, puntaje, fecha_act],
+                () => {
+                    estadisticasReady = true;
+                    tryRender();
+                }
+            );
+        }
+    });
+
+    // Consulta e inserción en niveles_us
+    connection.query('SELECT * FROM `niveles_us` WHERE id_us=? AND id_nivel=?', [id_us, id_nivel], (err, result_niv) => {
+        if (err) return res.status(500).send('Error en niveles_us');
+
+        if (result_niv.length === 0) {
+            connection.query(
+                'INSERT INTO `niveles_us`( `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES (?, ?, ?, ?)',
+                [id_nivel, id_area, id_us, fecha_act],
+                () => {
+                    nivelesReady = true;
+                    tryRender();
+                }
+            );
+        } else {
+            nivelesReady = true;
+            tryRender();
+        }
+    });
 });
-
 
 
 /*<------------------------------------------------------------------------------------------------------>

@@ -90,7 +90,29 @@
                     <h2 id="movimientos" class="estadisticas">Movimientos: 0</h2>
                 </div>
             </section>
-           
+            <div id="fondo_oscuro" class="desac"></div>
+            <section id="cont_perder" class="perder-section desac">
+                <div class="perder-card">
+                    <h2>⏰ ¡Se acabó el tiempo!</h2>
+                    <p>No lograste completar el juego a tiempo. ¡Pero no te desanimes!</p>
+                    <div class="acciones-perder">
+                        <a href="/juego_memoria?id_nivel=<%= id_nivel %>" class="btn reintentar">🔄 Reintentar</a>
+                        <a href="/index" class="btn inicio">🏠 Volver al inicio</a>
+                    </div>
+                </div>
+            </section>
+            <section id="cont_perder_intentos" class="perder-section desac">
+                <div class="perder-card">
+                  <h2>⏰ ¡Llegaste a 11 intentos!</h2>
+                  <p>Parece que aún no has estudiado lo suficiente este nivel. Te recomendamos volver a revisar el contenido antes de intentarlo otra vez. ¡La práctica hace al maestro!</p>
+                  <div class="acciones-perder">
+                    <a href="/juego_memoria?id_nivel=<%= id_nivel %>" class="btn reintentar">🔄 Reintentar</a>
+                    <a href="/index" class="btn inicio">🏠 Volver al inicio</a>
+                  </div>
+                </div>
+              </section>
+
+
         </main>
 
         <!-- Inserta los datos como JSON puro (no ejecutable) -->
@@ -103,6 +125,10 @@
       </script>
       <script id="id-area" type="application/json">
         <%- JSON.stringify(id_area) %>
+      </script>
+
+      <script id="id-juego" type="application/json">
+        <%- JSON.stringify(id_juego) %>
       </script>
         <script src="/Scripts/juego_memoria.js"></script>
 </body>
