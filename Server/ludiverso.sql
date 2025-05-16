@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2025 a las 20:01:01
+-- Tiempo de generación: 16-05-2025 a las 19:12:15
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -62,11 +62,17 @@ CREATE TABLE `calificaciones` (
 CREATE TABLE `estadisticas` (
   `estadistica_id` int(11) NOT NULL,
   `usuario_id` int(11) DEFAULT NULL,
-  `juegos_jugados` int(11) DEFAULT 0,
+  `juego_jugado` int(11) DEFAULT 0,
   `puntaje_total` int(11) DEFAULT 0,
-  `ultima_actividad` datetime DEFAULT NULL
+  `fecha_actividad` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `estadisticas`
+--
+
+INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`) VALUES
+(3, 5, 3, 651, '2025-05-14 14:52:28'),
 -- --------------------------------------------------------
 
 --
@@ -104,7 +110,7 @@ CREATE TABLE `juegos` (
 --
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`) VALUES
-(1, 'Viajeros del Tiempo', 'Los estudiantes forman equipos y viajan simbólicamente a diferentes épocas históricas. Deben resolver desafíos o acertijos relacionados con la cultura, geografía y personajes de esa época para avanzar en el \"tiempo\".', 6, '2025-04-12 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, '0', 0),
+(1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, 'wordle_intro', 0),
 (2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0),
 (3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_memoria', 4),
 (4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0),
@@ -153,7 +159,7 @@ CREATE TABLE `niveles_us` (
 --
 
 INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES
-(1, 1, 7, 5, '2025-05-13');
+(2, 1, 7, 5, '2025-05-14');
 
 -- --------------------------------------------------------
 
@@ -190,6 +196,27 @@ CREATE TABLE `preguntas` (
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rankin_wordle`
+--
+
+CREATE TABLE `rankin_wordle` (
+  `id_ranking` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rankin_wordle`
+--
+
+INSERT INTO `rankin_wordle` (`id_ranking`, `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES
+(1, 5, 2, 35, '2025-05-15');
 
 -- --------------------------------------------------------
 
@@ -271,6 +298,155 @@ INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `e
 (13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
 (14, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelassss@gmail.com', '$2b$10$DxW.Lvdl.At7WPz00C3qbOfBRAbtyV5AyXUbvBOAm5MR8f8y4sw2q', 'alumno');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `wordle`
+--
+
+CREATE TABLE `wordle` (
+  `id_palabra` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `palabra` varchar(255) NOT NULL,
+  `descrip` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `wordle`
+--
+
+INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
+(1, 1, 'alfabeto', 'conjunto de letras de un idioma'),
+(2, 1, 'oracion', 'conjunto de palabras con sentido completo'),
+(3, 1, 'verbo', 'palabra que indica accion o estado'),
+(4, 1, 'sujeto', 'persona o cosa que realiza la accion'),
+(5, 1, 'predicado', 'lo que se dice del sujeto'),
+(6, 1, 'texto', 'conjunto de oraciones con un mensaje'),
+(7, 1, 'letra', 'unidad basica del alfabeto'),
+(8, 1, 'parrafo', 'conjunto de oraciones relacionadas'),
+(9, 1, 'comunicacion', 'proceso de intercambio de informacion'),
+(10, 1, 'mensaje', 'contenido que se transmite'),
+(11, 1, 'escucha', 'accion de oir activamente'),
+(12, 1, 'dialogo', 'intercambio oral entre personas'),
+(13, 1, 'lectura', 'accion de interpretar un texto'),
+(14, 1, 'cuento', 'relato corto de ficcion'),
+(15, 1, 'narracion', 'relato de hechos reales o imaginarios'),
+(16, 1, 'escritura', 'accion de plasmar palabras'),
+(17, 1, 'poesia', 'composicion literaria que expresa sentimientos'),
+(18, 1, 'relato', 'narracion de una historia'),
+(19, 1, 'significado', 'lo que quiere decir una palabra'),
+(20, 1, 'gramatica', 'conjunto de reglas del lenguaje'),
+(21, 1, 'puntuar', 'usar signos para estructurar el texto'),
+(22, 1, 'lenguaje', 'sistema de comunicacion verbal o escrito'),
+(23, 1, 'oralidad', 'forma de comunicarse mediante la voz'),
+(24, 1, 'argumento', 'idea principal de un texto'),
+(25, 1, 'redaccion', 'accion de escribir con claridad y coherencia'),
+(26, 1, 'vocablo', 'palabra en un idioma'),
+(27, 1, 'lexico', 'conjunto de palabras de una lengua'),
+(28, 1, 'metafora', 'comparacion implicita entre dos cosas'),
+(29, 1, 'literal', 'significado exacto de una palabra'),
+(30, 1, 'frase', 'grupo de palabras con sentido'),
+(151, 1, 'mensaje', 'Información transmitida entre emisor y receptor.'),
+(152, 1, 'diálogo', 'Conversación entre dos o más personas.'),
+(153, 1, 'comunicación', 'Proceso de intercambio de información.'),
+(154, 1, 'lenguaje', 'Sistema de signos para comunicarse.'),
+(155, 1, 'señal', 'Indicio que comunica algo.'),
+(156, 1, 'expresión', 'Manifestación de ideas o sentimientos.'),
+(157, 1, 'voz', 'Sonido producido al hablar.'),
+(158, 1, 'texto', 'Conjunto de palabras con sentido.'),
+(159, 1, 'oración', 'Unidad gramatical con sentido completo.'),
+(160, 1, 'lectura', 'Interpretación de textos escritos.'),
+(161, 1, 'escritura', 'Representación gráfica del lenguaje.'),
+(162, 1, 'párrafo', 'Conjunto de oraciones relacionadas.'),
+(163, 1, 'vocabulario', 'Conjunto de palabras de una lengua.'),
+(164, 1, 'mensaje', 'Contenido que se transmite.'),
+(165, 1, 'oralidad', 'Uso del lenguaje hablado.'),
+(166, 1, 'escuchar', 'Acción de oír con atención.'),
+(167, 1, 'noticia', 'Información reciente sobre un hecho.'),
+(168, 1, 'metáfora', 'Comparación implícita entre elementos.'),
+(169, 1, 'literal', 'Sentido exacto de una palabra.'),
+(170, 1, 'frase', 'Grupo de palabras con significado.'),
+(171, 2, 'átomo', 'Unidad básica de la materia.'),
+(172, 2, 'molécula', 'Conjunto de átomos unidos.'),
+(173, 2, 'energía', 'Capacidad para realizar trabajo.'),
+(174, 2, 'fuerza', 'Interacción que cambia el movimiento.'),
+(175, 2, 'gravedad', 'Fuerza que atrae hacia la Tierra.'),
+(176, 2, 'velocidad', 'Rapidez de un movimiento.'),
+(177, 2, 'masa', 'Cantidad de materia en un cuerpo.'),
+(178, 2, 'peso', 'Fuerza que ejerce la gravedad.'),
+(179, 2, 'temperatura', 'Medida del calor de un cuerpo.'),
+(180, 2, 'volumen', 'Espacio que ocupa un cuerpo.'),
+(181, 2, 'densidad', 'Relación entre masa y volumen.'),
+(182, 2, 'ecosistema', 'Conjunto de seres vivos y su entorno.'),
+(183, 2, 'célula', 'Unidad básica de los seres vivos.'),
+(184, 2, 'oxígeno', 'Elemento vital para la respiración.'),
+(185, 2, 'nitrógeno', 'Gas abundante en la atmósfera.'),
+(186, 2, 'fotosíntesis', 'Proceso vegetal para producir alimento.'),
+(187, 2, 'planeta', 'Cuerpo celeste que gira alrededor de una estrella.'),
+(188, 2, 'luz', 'Forma de energía visible.'),
+(189, 2, 'onda', 'Perturbación que se propaga en un medio.'),
+(190, 2, 'ácido', 'Sustancia con pH menor que 7.'),
+(191, 5, 'resistencia', 'Capacidad de sostener un esfuerzo prolongado.'),
+(192, 5, 'fuerza', 'Capacidad de vencer una resistencia.'),
+(193, 5, 'velocidad', 'Capacidad de realizar movimientos rápidos.'),
+(194, 5, 'agilidad', 'Capacidad de cambiar de dirección rápidamente.'),
+(195, 5, 'flexibilidad', 'Capacidad de mover articulaciones con amplitud.'),
+(196, 5, 'coordinación', 'Sincronización de movimientos.'),
+(197, 5, 'equilibrio', 'Control del cuerpo en movimiento o en reposo.'),
+(198, 5, 'postura', 'Posición del cuerpo al estar de pie o sentado.'),
+(199, 5, 'calentamiento', 'Ejercicios previos a la actividad física.'),
+(200, 5, 'estiramiento', 'Ejercicios para alargar los músculos.'),
+(201, 5, 'deporte', 'Actividad física reglamentada.'),
+(202, 5, 'juego', 'Actividad recreativa con reglas.'),
+(203, 5, 'recreación', 'Actividad para el tiempo libre.'),
+(204, 5, 'higiene', 'Conjunto de cuidados del cuerpo.'),
+(205, 5, 'hidratación', 'Consumo adecuado de líquidos.'),
+(206, 5, 'salud', 'Estado de bienestar físico y mental.'),
+(207, 5, 'nutrición', 'Proceso de obtención de nutrientes.'),
+(208, 5, 'carrera', 'Desplazamiento rápido a pie.'),
+(209, 5, 'salto', 'Despegue del cuerpo desde el suelo.'),
+(210, 5, 'resistencia aeróbica', 'Capacidad para mantener esfuerzo con oxígeno.'),
+(211, 6, 'sociedad', 'Conjunto de personas que conviven.'),
+(212, 6, 'cultura', 'Costumbres y conocimientos de un pueblo.'),
+(213, 6, 'historia', 'Estudio de los hechos pasados.'),
+(214, 6, 'economía', 'Administración de recursos y bienes.'),
+(215, 6, 'política', 'Ciencia del gobierno y el poder.'),
+(216, 6, 'estado', 'Organización política de un territorio.'),
+(217, 6, 'ciudadanía', 'Derechos y deberes de los ciudadanos.'),
+(218, 6, 'gobierno', 'Conjunto de autoridades de un estado.'),
+(219, 6, 'democracia', 'Sistema político basado en la participación ciudadana.'),
+(220, 6, 'población', 'Conjunto de habitantes de un lugar.'),
+(221, 6, 'territorio', 'Espacio geográfico delimitado.'),
+(222, 6, 'frontera', 'Límite entre territorios.'),
+(223, 6, 'geografía', 'Ciencia que estudia la superficie terrestre.'),
+(224, 6, 'migración', 'Desplazamiento de personas entre lugares.'),
+(225, 6, 'trabajo', 'Actividad realizada para obtener bienes o servicios.'),
+(226, 6, 'educación', 'Proceso de enseñanza y aprendizaje.'),
+(227, 6, 'familia', 'Grupo de personas unidas por vínculos de parentesco.'),
+(228, 6, 'patrimonio', 'Conjunto de bienes culturales heredados.'),
+(229, 6, 'constitución', 'Norma fundamental de un estado.'),
+(230, 6, 'justicia', 'Principio de equidad y legalidad.'),
+(231, 7, 'martillo', 'Herramienta para golpear.'),
+(232, 7, 'sierra', 'Herramienta para cortar materiales.'),
+(233, 7, 'tornillo', 'Elemento metálico de fijación.'),
+(234, 7, 'tuerca', 'Pieza que enrosca al tornillo.'),
+(235, 7, 'llave inglesa', 'Herramienta ajustable para sujetar tuercas.'),
+(236, 7, 'destornillador', 'Herramienta para atornillar o desatornillar.'),
+(237, 7, 'alicate', 'Herramienta para sujetar o cortar.'),
+(238, 7, 'soldadura', 'Unión de materiales por fusión.'),
+(239, 7, 'taladro', 'Herramienta para perforar.'),
+(240, 7, 'esmeril', 'Herramienta para afilar o desbastar.'),
+(241, 7, 'limadora', 'Máquina para dar forma con precisión.'),
+(242, 7, 'torno', 'Máquina para mecanizar piezas cilíndricas.'),
+(243, 7, 'cinta métrica', 'Instrumento para medir longitudes.'),
+(244, 7, 'escuadra', 'Herramienta para trazos rectos o perpendiculares.'),
+(245, 7, 'nivel', 'Instrumento para verificar horizontalidad.'),
+(246, 7, 'remache', 'Elemento de unión permanente.'),
+(247, 7, 'chapa', 'Lámina delgada de metal.'),
+(248, 7, 'tijera', 'Herramienta para cortar.'),
+(249, 7, 'pintura', 'Sustancia usada para recubrir superficies.'),
+(250, 7, 'cepillo', 'Herramienta para alisar madera.');
+
 --
 -- Índices para tablas volcadas
 --
@@ -294,7 +470,8 @@ ALTER TABLE `calificaciones`
 --
 ALTER TABLE `estadisticas`
   ADD PRIMARY KEY (`estadistica_id`),
-  ADD KEY `usuario_id` (`usuario_id`);
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `juego_jugado` (`juego_jugado`);
 
 --
 -- Indices de la tabla `intentos`
@@ -343,6 +520,13 @@ ALTER TABLE `preguntas`
   ADD KEY `juego_id` (`juego_id`);
 
 --
+-- Indices de la tabla `rankin_wordle`
+--
+ALTER TABLE `rankin_wordle`
+  ADD PRIMARY KEY (`id_ranking`),
+  ADD KEY `id_us` (`id_us`);
+
+--
 -- Indices de la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
@@ -365,6 +549,12 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indices de la tabla `wordle`
+--
+ALTER TABLE `wordle`
+  ADD PRIMARY KEY (`id_palabra`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -384,7 +574,7 @@ ALTER TABLE `calificaciones`
 -- AUTO_INCREMENT de la tabla `estadisticas`
 --
 ALTER TABLE `estadisticas`
-  MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de la tabla `intentos`
@@ -408,7 +598,7 @@ ALTER TABLE `niveles_memory`
 -- AUTO_INCREMENT de la tabla `niveles_us`
 --
 ALTER TABLE `niveles_us`
-  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -421,6 +611,12 @@ ALTER TABLE `novedades`
 --
 ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rankin_wordle`
+--
+ALTER TABLE `rankin_wordle`
+  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `resources_juego`
@@ -441,6 +637,12 @@ ALTER TABLE `usuarios`
   MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT de la tabla `wordle`
+--
+ALTER TABLE `wordle`
+  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -455,14 +657,8 @@ ALTER TABLE `calificaciones`
 -- Filtros para la tabla `estadisticas`
 --
 ALTER TABLE `estadisticas`
-  ADD CONSTRAINT `estadisticas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`);
-
---
--- Filtros para la tabla `intentos`
---
-ALTER TABLE `intentos`
-  ADD CONSTRAINT `intentos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
-  ADD CONSTRAINT `intentos_ibfk_2` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
+  ADD CONSTRAINT `estadisticas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
+  ADD CONSTRAINT `estadisticas_ibfk_2` FOREIGN KEY (`juego_jugado`) REFERENCES `juegos` (`juego_id`);
 
 --
 -- Filtros para la tabla `juegos`
@@ -490,6 +686,12 @@ ALTER TABLE `niveles_us`
 --
 ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
+
+--
+-- Filtros para la tabla `rankin_wordle`
+--
+ALTER TABLE `rankin_wordle`
+  ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
 -- Filtros para la tabla `resources_juego`

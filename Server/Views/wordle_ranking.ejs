@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Memory card
+        </title>
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <main id="wordle">
+            <h1>!Bienvenido al Ranking de wordle!</h1>
+            <section id="ranking">
+                <% data_wordle.forEach((usuario, index)=> { %>
+                    <div class="cont_us_ranking" id="cont_us_ranking_<%= index %>">
+                        <span><%= index+1 %></span>
+                        <span><%= usuario.nombre_usuario %></span>
+                        <span><%= usuario.aciertos %></span>
+                        <span><%= usuario.tiempo %></span>
+                    </div>
+
+                <% })%>
+            </section>
+
+        </main>
+
+</body>
+
+</html>

@@ -159,7 +159,7 @@ app.post('/registrar', async (req, res) => {
                         console.error('Error al registrarse ', err);
                         res.status(500).send('Error al registrarse ');
                     } else {
-                     
+
 
                         req.session.usuario_id = result_id[0].usuario_id + 1;
                         req.session.nombre_us = nombre_us
@@ -191,7 +191,7 @@ app.get('/dashboard', root_verificar, async (req, res) => {
                 console.error('Error al ejecutar la query en el servidor ', err);
                 res.status(500).send('Error al ejecutar la query en el servidor');
             } else {
-                
+
                 res.render('dashboard', { users_res: result_users, user_session_nombre: req.session.nombre_us });
 
             }
@@ -211,7 +211,7 @@ app.post('/iniciar_sesion', async (req, res) => {
 
         // Si no se envían credenciales,  renderiza la vista sin error
         if (!user_name?.trim() || !password?.trim()) {
-         
+
             return res.render('login.ejs', { error: 'Por favor, completa todos los campos.' });
         }
 
@@ -327,7 +327,7 @@ app.get('/juego_intro', (req, res) => {
 
     for (let i = 0; i < areas.length; i++) {
         let area_nombre = areas[i];
-        
+
         let select_niveles_areas = `
             SELECT 
                 niveles_memory.id_nivel,
@@ -350,7 +350,7 @@ app.get('/juego_intro', (req, res) => {
                 }
             });
         });
-        
+
         queries.push(queryPromise);
     }
 
@@ -439,6 +439,95 @@ app.get('/puntaje_us', (req, res) => {
         }
     });
 });
+// |Wordle| <-------------------------------------------------------------------------------------------------------->
+app.get('/wordle_intro', (req, res) => {
+    res.render("wordle_intro", {})
+
+})
+app.get('/wordle', (req, res) => {
+
+    const select_wordle = 'SELECT * FROM `wordle` WHERE 1'
+    connection.query(select_wordle, (err, result_wordle) => {
+        if (err) {
+            console.error('Error al buscar los datos de Wordle ', err);
+            res.status(500).send('Error al buscar los datos de Wordle');
+        } else {
+            res.render("wordle", { data_wordle: result_wordle })
+
+        }
+    })
+
+})
+
+app.post('/game-over-wordle', (req, res) => {
+    const { tiempo, aciertos } = req.body;
+    let id_us = req.session.usuario_id;
+    var date = Datatime()
+    const insert_nl_wd = "INSERT INTO `rankin_wordle`( `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?,?,?,?)"
+    const update_nl_wd = "UPDATE `rankin_wordle` SET `aciertos`=?,`tiempo`=?,`fecha`=? WHERE id_us=?"
+    //
+    const select_nl_wordle = 'SELECT * FROM `rankin_wordle` WHERE id_us=?'
+    connection.query(select_nl_wordle, [id_us], (err, result_nl_wordle) => {
+        if (err) {
+            console.error('Error al registrarse ', err);
+            res.status(500).send('Error al registrarse ');
+        } else {
+            if (result_nl_wordle.length === 0) {
+                connection.query(insert_nl_wd, [id_us, aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
+                    if (err) {
+                        console.error('Error al registrarse ', err);
+                        res.status(500).send('Error al registrarse ');
+                    }
+                })
+            } else {
+                if (select_nl_wordle[0].aciertos < aciertos) {
+                    connection.query(update_nl_wd, [aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
+                        if (err) {
+                            console.error('Error al registrarse ', err);
+                            res.status(500).send('Error al registrarse ');
+                        }
+                    })
+                }
+            }
+        }
+    })
+
+
+    console.log(`Juego terminado. Palabra:  Tiempo: ${tiempo}, Aciertos: ${aciertos}`);
+    res.status(200).send({ success: true });
+});
+
+
+app.get('/wordle_ranking', (req, res) => {
+
+    const select_wordle = `SELECT 
+    r.id_ranking,
+    r.aciertos,
+    r.tiempo,
+    r.fecha,
+    u.nombre,
+    u.apellido,
+    u.nombre_usuario
+FROM 
+    rankin_wordle r
+JOIN 
+    usuarios u ON r.id_us = u.usuario_id
+ORDER BY 
+    r.aciertos DESC, r.tiempo ASC;`
+    connection.query(select_wordle, (err, result_wordle) => {
+        if (err) {
+            console.error('Error al buscar los datos de Wordle ', err);
+            res.status(500).send('Error al buscar los datos de Wordle');
+        } else {
+            res.render("wordle_ranking", { data_wordle: result_wordle })
+
+        }
+    })
+
+})
+
+
+// |Wordle| <-------------------------------------------------------------------------------------------------------->
 
 
 /*<------------------------------------------------------------------------------------------------------>
@@ -476,23 +565,3 @@ function Datatime() {
     return `${year}-${month}-${day}`;
 }
 
-
-
-//  <% if (nivel_us == i) { %>
-//     <a href="<%= data_juego.url_juego %>?nivel_juego=<%= nivel_us %>" class="nivel actual <%= mover_der %>">
-//         <li>
-//             <i class="fa-solid fa-star"></i>
-//         </li>
-//     </a>
-// <% } else if (nivel_us > i) { %>
-//     <a href="<%= data_juego.url_juego %>?nivel_juego=<%= i%>" class="nivel superado <%= mover_der %>">
-//         <li>
-//             <i class="fa-solid fa-check"></i>
-//         </li>
-//     </a>
-// <% } else { %>
-//     <span href="<%= data_juego.url_juego %>?nivel_juego=<%= i %>" class="nivel no_superado <%= mover_der %>">
-//         <li>
-//             <i class="fa-solid fa-lock"></i>
-//         </li>
-//     </span>

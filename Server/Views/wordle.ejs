@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Wordle
+        </title>
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <main id="wordle" class="cont_wordle">
+
+            <section id="cont_pista">
+                <h3>Aqui tienes una pista</h3>
+                <p id="pista"> </p>
+            </section>
+            
+            <section class="cont_main">
+                <article id="cont_est">
+                    <div class="estadisticas">
+                        <h4>Estadisticas</h4>
+                        <span id="tiempo">Tiempo:</span>
+                        <span id="palabras_acer">Palabras acertadas: </span>
+                    </div>
+                    <div class="pistas_adic">
+                        <h4>Pistas adicionales</h4>
+                        <span id="primer_l">Primer letra</span>
+                        <span id="ultima_l">Ultima letra</span>
+                    </div>
+                </article>
+                <article id="game">
+
+                </article>
+            </section>
+
+        </main>
+
+
+        <script id="data-wordle" type="application/json">
+        <%- JSON.stringify(data_wordle) %>
+      </script>
+        <script src="/Scripts/wordle.js"></script>
+</body>
+
+</html>
