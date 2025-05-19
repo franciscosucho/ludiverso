@@ -441,12 +441,22 @@ app.get('/puntaje_us', (req, res) => {
 });
 // |Wordle| <-------------------------------------------------------------------------------------------------------->
 app.get('/wordle_intro', (req, res) => {
+    let id_us = req.session.usuario_id;
+    console.log(id_us)
     res.render("wordle_intro", {})
 
 })
 app.get('/wordle', (req, res) => {
+    let id_area = req.query.area;
+    let select_wordle = ""
+    if (id_area == 66) {
+        select_wordle = `SELECT * FROM wordle WHERE 1`
 
-    const select_wordle = 'SELECT * FROM `wordle` WHERE 1'
+    }
+    else {
+        select_wordle = `SELECT * FROM wordle WHERE id_area=${id_area}`
+    }
+
     connection.query(select_wordle, (err, result_wordle) => {
         if (err) {
             console.error('Error al buscar los datos de Wordle ', err);
@@ -462,6 +472,7 @@ app.get('/wordle', (req, res) => {
 app.post('/game-over-wordle', (req, res) => {
     const { tiempo, aciertos } = req.body;
     let id_us = req.session.usuario_id;
+    console.log(id_us)
     var date = Datatime()
     const insert_nl_wd = "INSERT INTO `rankin_wordle`( `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?,?,?,?)"
     const update_nl_wd = "UPDATE `rankin_wordle` SET `aciertos`=?,`tiempo`=?,`fecha`=? WHERE id_us=?"

@@ -1241,6 +1241,8 @@ body {
     padding: 10% 0px;
     min-height: 80vh;
 
+
+
     h1 {
         @extend %poetsen-font;
         color: $Encabezados_botones_y_primarios;
@@ -1310,28 +1312,144 @@ body {
         }
     }
 
-    #btn_jugar {
-        width: 250px;
-        height: 60px;
-        background-color: $Encabezados_botones_y_primarios;
-        @extend %poetsen-font;
-        text-decoration: none;
+    .cont_btns {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-        cursor: pointer;
-        color: white;
-        font-size: 1.5em;
-        border: none;
-        transition: all .2s ease-in-out;
+        gap: 20px;
+        width: auto;
+        height: auto;
 
-        &:hover {
-            animation: shake 0.5s ease;
-            background-color: #5a98db;
+        .btn_wd {
+            width: 250px;
+            height: 60px;
+            background-color: $Encabezados_botones_y_primarios;
+            @extend %poetsen-font;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5em;
+            border: none;
+            transition: all .2s ease-in-out;
+
+            &:hover {
+                animation: shake 0.5s ease;
+                background-color: #5a98db;
+            }
+        }
+
+        #btn_ranking {
+            background-color: $Texto_principal;
+
+        }
+
+
+
+        .select_dinamica {
+            position: relative;
+            left: 0;
+            display: none;
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            gap: 25px;
+            background-color: rgb(223, 223, 223);
+            flex-direction: column;
+            border-radius: 8px;
+            box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
+            -webkit-box-shadow: 10px 10px 5px 0px   rgba(48, 48, 48, 0.144);
+            -moz-box-shadow: 10px 10px 5px 0px   rgba(48, 48, 48, 0.144);
+
+            h4 {
+                width: 100%;
+                font-size: 2em;
+                text-align: start;
+                @extend %poetsen-font;
+                color: $Encabezados_botones_y_primarios;
+            }
+
+            a {
+                
+                width: 85%;
+                text-align: start;
+                font-size: 1.5em;
+                @extend %poetsen-font;
+                text-decoration: none;
+                color: $Texto_secundario;
+                border-radius: 8px;
+                padding: 8px;
+                transition: all .2s ease-in-out;
+                &:hover{
+                  
+                    background-color: #31313121 !important;
+                }
+            }
         }
     }
 
+
+    #ranking {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 15px;
+        border: 4px solid #3498db; // Azul vibrante
+        background: #f9f9f9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        * {
+            @extend %poetsen-font;
+
+        }
+
+        .titulos_estadisticas {
+            display: flex;
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+
+            h4 {
+                flex: 1;
+                padding: 12px;
+                text-align: center;
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
+        .cont_us_ranking {
+            display: flex;
+            width: 100%;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+
+            &:nth-child(even) {
+                background-color: #f0f8ff;
+            }
+
+            &:hover {
+                background-color: #e6f7ff;
+            }
+
+            span {
+                flex: 1;
+                padding: 10px;
+                text-align: center;
+                font-size: 16px;
+            }
+        }
+    }
 
 }
 
@@ -1348,6 +1466,7 @@ $right :#538d4e;
     gap: 20px;
     height: auto;
     min-height: 60vh !important;
+
     #cont_pista {
 
         width: auto;
@@ -1369,11 +1488,11 @@ $right :#538d4e;
             font-size: 2em;
         }
     }
-    .cont_main{
+
+    .cont_main {
         width: 100%;
-     
         display: flex;
-        
+
         #cont_est {
             width: 65%;
             height: 100%;
@@ -1384,16 +1503,18 @@ $right :#538d4e;
             justify-content: flex-start;
             align-items: center;
             flex-direction: column;
-    
+
             div {
                 * {
                     @extend %poetsen-font;
                 }
-                h4{
+
+                h4 {
                     color: $Botones_secundarios_o_hover_azul;
                     font-size: 1.4em;
                 }
-                span{
+
+                span {
                     width: 80%;
                     transition: all .2s ease-in-out;
                     border-radius: 6px;
@@ -1401,6 +1522,7 @@ $right :#538d4e;
                     font-size: 1.1em;
                     color: $Texto_secundario;
                 }
+
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -1411,11 +1533,13 @@ $right :#538d4e;
                 border: 1px solid $Botones_secundarios_o_hover_azul;
                 padding: 20px;
                 border-radius: 8px;
-                &.pistas_adic{
-                    span{
+
+                &.pistas_adic {
+                    span {
                         width: auto;
                         cursor: pointer;
-                        &:hover{
+
+                        &:hover {
                             background-color: #7ab8ff4f;
                         }
                     }

@@ -10,6 +10,7 @@
 
 <body>
     <%- include('header.ejs') %>
+        <div id="overlay"></div>
         <main id="wordle">
             <h1>!Bienvenido al juego de wordle!</h1>
             <div class="cont_text">
@@ -43,10 +44,53 @@
 
 
             </div>
-            <a href="/wordle_ranking" id="btn_jugar">Ver Ranking!</a>
-            <a href="/wordle" id="btn_jugar">¡Jugar!</a>
+            <div class="cont_btns">
+                <a href="/wordle_ranking" class="btn_wd" id="btn_ranking">Ver Ranking!</a>
+                <button class="btn_wd" id="btn_jugar">¡Jugar!</button>
+                <div class="select_dinamica">
+                    <h4>Adivinar palabras sobre:</h4>
+                    <a href="/wordle?area=1">Comunicaciones</a>
+                    <a href="/wordle?area=2">Exactas y Naturales</a>
+                    <a href="/wordle?area=5">Educación física</a>
+                    <a href="/wordle?area=6">ciencias sociales</a>
+                    <a href="/wordle?area=7">Taller</a>
+                    <a href="/wordle?area=66">Combinado</a>
+                </div>
+            </div>
+
         </main>
+        <script>
+            const btnJugar = document.getElementById("btn_jugar");
+            const overlay = document.getElementById("overlay");
+            const selectDinamica = document.querySelector(".select_dinamica");
+
+            btnJugar.addEventListener("click", () => {
+                overlay.style.display = "flex";
+                selectDinamica.style.display = "flex";
+            });
+
+            overlay.addEventListener("click", () => {
+                overlay.style.display = "none";
+                selectDinamica.style.display = "none";
+            });
+        </script>
 
 </body>
+<style>
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.877);
+        /* negro transparentoso */
+        z-index: 10;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        /* oculto por defecto */
+    }
+</style>
 
 </html>

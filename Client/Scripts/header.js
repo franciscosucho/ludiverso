@@ -67,3 +67,32 @@ document.addEventListener('DOMContentLoaded', function () {
         requestAnimationFrame(animation);
     }
 });
+
+
+
+
+function setModo(modo) {
+    document.documentElement.setAttribute("data-tema", modo); // aplicar tema
+    document.cookie = "modo=" + modo + "; path=/; max-age=31536000"; // dura 1 año
+}
+
+function leerModoDeCookie() {
+    const cookies = document.cookie.split("; ");
+    const modo = cookies.find(row => row.startsWith("modo="));
+    return modo ? modo.split("=")[1] : null;
+}
+
+// Al cargar la página, aplicamos el modo guardado
+window.addEventListener("DOMContentLoaded", () => {
+    const modo = leerModoDeCookie();
+    if (modo) {
+        setModo(modo);
+    }
+}); 
+
+// Ejemplo: al hacer clic en un botón, cambia el modo
+document.getElementById("btn_tema").addEventListener("click", () => {
+    const actual = document.documentElement.getAttribute("data-tema") || "claro";
+    const nuevo = actual === "oscuro" ? "claro" : "oscuro";
+    setModo(nuevo);
+});

@@ -4,6 +4,16 @@
             <img src="Resources/Imagenes/logo_ludi.png" alt="">
         </a>
         <div class="container_nav" id="cont_nav_links">
+            <% if (typeof error !== 'undefined' && error) { %>
+                <a href="#" class="link">
+                    <i class="fa-solid "></i>
+                </a>
+              <% } else{ %>
+                <a href="#" class="link">
+                    <i class="fa-solid fa-sun "></i>
+                </a>
+                
+            <% } %>
 
             <a href="#" class="links">
                 <span class="text_links">Juegos</span>

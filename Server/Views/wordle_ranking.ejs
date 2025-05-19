@@ -13,7 +13,14 @@
         <main id="wordle">
             <h1>!Bienvenido al Ranking de wordle!</h1>
             <section id="ranking">
+                <div class="titulos_estadisticas">
+                    <h4 id="titulo_pos">Posición</h4>
+                    <h4 id="titulo_name">Nombre</h4>
+                    <h4 id="titulo_aciertos">Aciertos</h4>
+                    <h4 id="titulo_timpo">Tiempo</h4>
+                </div>
                 <% data_wordle.forEach((usuario, index)=> { %>
+               
                     <div class="cont_us_ranking" id="cont_us_ranking_<%= index %>">
                         <span><%= index+1 %></span>
                         <span><%= usuario.nombre_usuario %></span>
