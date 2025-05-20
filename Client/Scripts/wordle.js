@@ -252,7 +252,7 @@ function startup() {
 
     const game = document.getElementById('game');
 
-    pista.textContent = `"${state.descrip}"`;
+    pista.textContent = `Pista: "${state.descrip}"`;
     drawGrid(game);
     registerKeyboardEvents();
 }

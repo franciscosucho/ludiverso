@@ -80,30 +80,15 @@ app.get('/', (req, res) => {
     // Mientras este en produccion para ahorrar tiempo
     // res.redirect('/index');
 
-
-
     res.redirect('/login')
-    // try {
-    //     const insert_usuario = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
-    //     connection.query(insert_usuario, [], (err, result_juegos) => {
-    //         if (err) {
-    //             console.error('Error al registrarse ', err);
-    //             res.status(500).send('Error al registrarse ');
-    //         } else {
-    //             res.render('index', { juegos: result_juegos });
-    //         }
-    //     })
-    // }catch (err) {
-    //     console.error('Error al abrir la pagina principal:', err);
-    //     res.render('index', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
-    // }
+
 })
 
 app.get('/login', (req, res) => {
     res.render('login');
 })
 
-app.get('/index', (req, res) => {
+app.get('/index', isLogged, (req, res) => {
 
     try {
         const select_juegos = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
@@ -440,13 +425,14 @@ app.get('/puntaje_us', (req, res) => {
     });
 });
 // |Wordle| <-------------------------------------------------------------------------------------------------------->
-app.get('/wordle_intro', (req, res) => {
+app.get('/wordle_intro', isLogged, (req, res) => {
     let id_us = req.session.usuario_id;
     console.log(id_us)
     res.render("wordle_intro", {})
 
 })
-app.get('/wordle', (req, res) => {
+app.get('/wordle', isLogged, (req, res) => {
+
     let id_area = req.query.area;
     let select_wordle = ""
     if (id_area == 66) {
@@ -484,6 +470,7 @@ app.post('/game-over-wordle', (req, res) => {
             res.status(500).send('Error al registrarse ');
         } else {
             if (result_nl_wordle.length === 0) {
+                console.log("no hay datos anteriores datos")
                 connection.query(insert_nl_wd, [id_us, aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
                     if (err) {
                         console.error('Error al registrarse ', err);
@@ -491,7 +478,8 @@ app.post('/game-over-wordle', (req, res) => {
                     }
                 })
             } else {
-                if (select_nl_wordle[0].aciertos < aciertos) {
+                if (aciertos >= select_nl_wordle[0].aciertos) {
+                    console.log("actulizando los datos")
                     connection.query(update_nl_wd, [aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
                         if (err) {
                             console.error('Error al registrarse ', err);
@@ -500,6 +488,7 @@ app.post('/game-over-wordle', (req, res) => {
                     })
                 }
             }
+            console.log("No se actulizaron  los datos")
         }
     })
 
@@ -509,7 +498,7 @@ app.post('/game-over-wordle', (req, res) => {
 });
 
 
-app.get('/wordle_ranking', (req, res) => {
+app.get('/wordle_ranking', isLogged, (req, res) => {
 
     const select_wordle = `SELECT 
     r.id_ranking,

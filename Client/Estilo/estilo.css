@@ -6,10 +6,35 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
+}
+
+/* variables para el DOM en general.<-----------------------------------------------------------> */
+:root {
+  --color-fondo: #ffffff;
+  --color-texto: #000000;
+  --Fondo_principal: #ffffff;
+  --Texto_principal: #333333;
+  --Texto_secundario: #616161;
+  --Encabezados_botones_y_primarios: #3e86d3;
+  --Botones_secundarios_o_hover_azul: #7ab8ff;
+  --Botones_secundarios_o_hover_verde: #a8d08d;
+  --fondo_azul_claro: rgba(165, 190, 245, 0.336);
+}
+
+:root[data-tema=oscuro] {
+  --color-fondo: #121212;
+  --color-texto: #f0f0f0;
+  --Fondo_principal: #1e1e1e;
+  --Texto_principal: #dddddd;
+  --Texto_secundario: #b6b6b6;
+  --Encabezados_botones_y_primarios: #3e86d3;
+  --Botones_secundarios_o_hover_azul: #7ab8ff;
+  --Botones_secundarios_o_hover_verde: #c1e7aa;
+  --fondo_azul_claro: rgba(93, 113, 155, 0.336);
 }
 
 @keyframes shake {
@@ -56,7 +81,7 @@ body header {
   width: 100vw;
   position: fixed;
   z-index: 1000;
-  background-color: #3e86d3;
+  background-color: var(--Encabezados_botones_y_primarios) !important;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -122,7 +147,7 @@ body main {
   min-height: 80vw !important;
   height: 100%;
   padding-top: 0%;
-  background-color: #f5f5f5;
+  background-color: var(--Fondo_principal);
   padding-bottom: 3%;
 }
 body main .secciones {
@@ -140,7 +165,7 @@ body main .secciones#sec_img {
   margin-top: 2% !important;
 }
 body main .secciones#sec_novedades .cont_novedades {
-  background-color: rgba(228, 228, 228, 0.658);
+  background-color: var(--fondo_azul_claro);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -170,25 +195,25 @@ body main .secciones#sec_novedades .cont_novedades .cont_text_novedad {
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .fecha_novedad {
   font-size: 0.9em;
   font-weight: 800;
-  color: #222;
+  color: var(--Texto_principal);
   width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .titulo_novedad {
   font-size: 2em;
   font-weight: 800;
-  color: #7ab8ff;
+  color: var(--Botones_secundarios_o_hover_azul);
   width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .sub_titulo_novedades {
   font-size: 1.4em;
   font-weight: 500;
-  color: #222;
+  color: var(--Texto_principal);
   width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .cont_text_novedad .cuepo_novedad {
   font-size: 1.1em;
   font-weight: 300;
-  color: #414141;
+  color: var(--Texto_secundario);
   width: 80%;
 }
 body main .secciones#sec_novedades .cont_novedades .img_novedad {
@@ -204,7 +229,7 @@ body main .secciones#sec_novedades #ver_menos_nov {
   height: 60px;
   font-size: 1.2em;
   font-weight: 600;
-  background-color: #7ab8ff;
+  background-color: var(--Botones_secundarios_o_hover_azul);
   color: white;
   border: none;
   cursor: pointer;
@@ -233,16 +258,18 @@ body main .secciones#sec_sobre_nosotros .cont_text_ludi {
   width: 60%;
 }
 body main .secciones#sec_sobre_nosotros .cont_text_ludi b {
+  color: var(--Texto_principal);
   font-size: 2em;
 }
 body main .secciones#sec_sobre_nosotros .cont_text_ludi p {
+  color: var(--Texto_secundario);
   width: 60%;
   font-size: 1.2em;
 }
 body main .secciones#sec_sobre_nosotros .cont_text_ludi #btn_conocer_mas {
   padding: 20px;
   border-radius: 8px;
-  background-color: #7ab8ff;
+  background-color: var(--Botones_secundarios_o_hover_azul);
   height: 60px;
   font-size: 1em;
   font-weight: 800;
@@ -260,7 +287,7 @@ body main .secciones#sec_sobre_nosotros .cont_text_ludi.desac {
   display: none;
 }
 body main .secciones .sub_titulo {
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
   font-size: 4em;
 }
 body main .secciones .cont_dos {
@@ -432,7 +459,7 @@ body main #sec_img .cont_main_juego .cont_info_juego a {
   border-radius: 10px;
   padding: 20px;
   font-weight: bold;
-  background-color: #3e86d3;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
   width: 200px;
   text-align: center;
@@ -441,7 +468,7 @@ body main #sec_img .cont_main_juego .cont_info_juego a {
 body footer {
   width: 100%;
   height: 10vh;
-  background-color: #3e86d3;
+  background-color: var(--Encabezados_botones_y_primarios);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -518,7 +545,7 @@ body footer .cont_des a {
   font-style: normal;
   font-size: 4em;
   text-decoration: underline;
-  color: #3e86d3;
+  color: vat(--Encabezados_botones_y_primarios);
 }
 #juego_intro .cont_text .desc_juego {
   font-size: 1.3em;
@@ -541,7 +568,7 @@ body footer .cont_des a {
   gap: 30px;
 }
 #juego_intro .cont_niveles .cont_areas_niveles .titulo_area {
-  color: #333333;
+  color: var(--Texto_principal);
   font-size: 2em;
 }
 #juego_intro .cont_niveles .sub_cont_niveles {
@@ -637,17 +664,17 @@ body footer .cont_des a {
 #juego_memoria #cont_text_main h3 {
   width: 70%;
   font-size: 2em;
-  color: #333333;
+  color: var(--Texto_principal);
 }
 #juego_memoria #cont_text_main p {
   width: 70%;
   font-size: 1.5em;
-  color: #616161;
+  color: var(--Texto_secundario);
 }
 #juego_memoria #cont_text_main h1 {
   width: 70%;
   font-size: 3em;
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
 }
 #juego_memoria #cont_imagenes {
   display: flex;
@@ -694,7 +721,7 @@ body footer .cont_des a {
   height: 6%;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  background-color: #3e86d3;
+  background-color: var(--Encabezados_botones_y_primarios);
   border: none;
   text-decoration: none;
   text-align: center;
@@ -739,8 +766,8 @@ body footer .cont_des a {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  border: 1px solid #7ab8ff;
-  color: #7ab8ff;
+  border: 1px solid var(--Botones_secundarios_o_hover_azul);
+  color: var(--Botones_secundarios_o_hover_azul);
   font-size: 1.5em;
 }
 #juego_memoria #cont_primer_des h2 {
@@ -748,7 +775,7 @@ body footer .cont_des a {
   font-style: normal;
   text-align: center;
   font-size: 2em;
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
 }
 #juego_memoria #cont_primer_des .div_main_ask {
   padding: 20px;
@@ -779,7 +806,7 @@ body footer .cont_des a {
   font-weight: 400;
   font-style: normal;
   text-align: start;
-  color: #333333;
+  color: var(--Texto_principal);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease;
   background-color: rgba(122, 184, 255, 0.3647058824);
@@ -832,8 +859,8 @@ body footer .cont_des a {
   border-radius: 8px;
   padding: 8px 20px;
   box-sizing: border-box;
-  border: 1px solid #7ab8ff;
-  color: #7ab8ff;
+  border: 1px solid var(--Botones_secundarios_o_hover_azul);
+  color: var(--Botones_secundarios_o_hover_azul);
 }
 #juego_memoria #fondo_oscuro {
   position: fixed;
@@ -964,7 +991,7 @@ body footer .cont_des a {
 #juego_memoria #cont_ganar #btn_volver {
   margin-top: 2rem;
   text-decoration: none;
-  background-color: #3e86d3;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
@@ -973,7 +1000,7 @@ body footer .cont_des a {
   transition: background-color 0.3s;
 }
 #juego_memoria #cont_ganar #btn_volver:hover {
-  background-color: #7ab8ff;
+  background-color: var(--Botones_secundarios_o_hover_azul);
 }
 @keyframes shine {
   0% {
@@ -998,7 +1025,7 @@ body footer .cont_des a {
   min-height: 80vh;
 }
 #wordle h1 {
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
 }
 #wordle .cont_text {
   display: flex;
@@ -1009,6 +1036,7 @@ body footer .cont_des a {
   width: 50%;
 }
 #wordle .cont_text p {
+  color: var(--Texto_principal);
   font-weight: 500;
   font-size: 1.3em;
 }
@@ -1028,7 +1056,7 @@ body footer .cont_des a {
   gap: 20px;
 }
 #wordle .cont_colores .cont_sig_color p {
-  color: #333333;
+  color: var(--Texto_principal);
   font-weight: 500;
 }
 #wordle .cont_colores .cont_sig_color h3 {
@@ -1061,7 +1089,7 @@ body footer .cont_des a {
 #wordle .cont_btns .btn_wd {
   width: 250px;
   height: 60px;
-  background-color: #3e86d3;
+  background-color: var(--Encabezados_botones_y_primarios);
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -1078,7 +1106,7 @@ body footer .cont_des a {
   background-color: #5a98db;
 }
 #wordle .cont_btns #btn_ranking {
-  background-color: #333333;
+  background-color: #4b4a4a;
 }
 #wordle .cont_btns .select_dinamica {
   position: relative;
@@ -1100,14 +1128,14 @@ body footer .cont_des a {
   width: 100%;
   font-size: 2em;
   text-align: start;
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
 }
 #wordle .cont_btns .select_dinamica a {
   width: 85%;
   text-align: start;
   font-size: 1.5em;
   text-decoration: none;
-  color: #616161;
+  color: #383838;
   border-radius: 8px;
   padding: 8px;
   transition: all 0.2s ease-in-out;
@@ -1123,7 +1151,7 @@ body footer .cont_des a {
   padding: 30px;
   border-radius: 15px;
   border: 4px solid #3498db;
-  background: #f9f9f9;
+  background: var(--Fondo_principal);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 #wordle #ranking .titulos_estadisticas {
@@ -1181,11 +1209,11 @@ body footer .cont_des a {
   gap: 20px;
 }
 .cont_wordle #cont_pista h3 {
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
   font-size: 2.5em;
 }
 .cont_wordle #cont_pista p {
-  color: #333333;
+  color: var(--Texto_principal);
   font-size: 2em;
 }
 .cont_wordle .cont_main {
@@ -1211,12 +1239,12 @@ body footer .cont_des a {
   gap: 20px;
   width: 40%;
   height: 50%;
-  border: 1px solid #7ab8ff;
+  border: 1px solid var(--Botones_secundarios_o_hover_azul);
   padding: 20px;
   border-radius: 8px;
 }
 .cont_wordle .cont_main #cont_est div h4 {
-  color: #7ab8ff;
+  color: var(--Botones_secundarios_o_hover_azul);
   font-size: 1.4em;
 }
 .cont_wordle .cont_main #cont_est div span {
@@ -1225,7 +1253,7 @@ body footer .cont_des a {
   border-radius: 6px;
   padding: 6px;
   font-size: 1.1em;
-  color: #616161;
+  color: var(--Texto_secundario);
 }
 .cont_wordle .cont_main #cont_est div.pistas_adic span {
   width: auto;
@@ -1260,6 +1288,7 @@ body footer .cont_des a {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--color-texto);
   transition: background-color 0.3s ease;
 }
 .cont_wordle .right {
@@ -1474,7 +1503,7 @@ body footer .cont_des a {
   font-weight: 400;
   font-style: normal;
   font-size: 4em;
-  color: #3e86d3;
+  color: var(--Encabezados_botones_y_primarios);
 }
 #main_areas #cont_main_areas .cont_text {
   display: flex;
@@ -1506,11 +1535,11 @@ body footer .cont_des a {
   gap: 8px;
 }
 #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3 {
-  color: #7ab8ff;
+  color: var(--Botones_secundarios_o_hover_azul);
   font-size: 2em;
 }
 #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4 {
-  color: #616161;
+  color: var(--Texto_secundario);
   font-size: 1.3em;
   font-family: "Poetsen One", sans-serif;
 }
@@ -1601,7 +1630,7 @@ body footer .cont_des a {
   padding: 10px;
   border-radius: 20px;
   text-decoration: none;
-  background-color: #7ab8ff;
+  background-color: var(--Botones_secundarios_o_hover_azul);
   color: white;
   font-size: 1.2em;
   font-weight: 800;
@@ -1611,7 +1640,7 @@ body footer .cont_des a {
   background-color: #6ca3e2;
 }
 #main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc:hover {
-  border: 3px solid #3e86d3;
+  border: 3px solid var(--Encabezados_botones_y_primarios);
 }
 #main_areas #cont_main_areas .cont_juegos_areas #tit_juegos {
   font-size: 4em;

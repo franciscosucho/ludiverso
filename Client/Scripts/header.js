@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const target = document.getElementById(targetId);       // busca el ID
 
             if (target) {
-                scrollToElement(target, 200); 
+                scrollToElement(target, 200);
             }
         });
     });
@@ -72,8 +72,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function setModo(modo) {
-    document.documentElement.setAttribute("data-tema", modo); // aplicar tema
-    document.cookie = "modo=" + modo + "; path=/; max-age=31536000"; // dura 1 año
+    document.documentElement.setAttribute("data-tema", modo);
+    document.cookie = "modo=" + modo + "; path=/; max-age=31536000";
+
+    const icono = document.getElementById("icon_tema_tema");
+    if (modo === "oscuro") {
+        icono.classList.remove("fa-sun");
+        icono.classList.add("fa-moon");
+    } else {
+        icono.classList.remove("fa-moon");
+        icono.classList.add("fa-sun");
+    }
 }
 
 function leerModoDeCookie() {
@@ -82,17 +91,16 @@ function leerModoDeCookie() {
     return modo ? modo.split("=")[1] : null;
 }
 
-// Al cargar la página, aplicamos el modo guardado
 window.addEventListener("DOMContentLoaded", () => {
-    const modo = leerModoDeCookie();
-    if (modo) {
-        setModo(modo);
-    }
-}); 
+    const modo = leerModoDeCookie() || "claro";
+  
+    setModo(modo);
+});
 
-// Ejemplo: al hacer clic en un botón, cambia el modo
-document.getElementById("btn_tema").addEventListener("click", () => {
+document.getElementById("icon_tema").addEventListener("click", () => {
     const actual = document.documentElement.getAttribute("data-tema") || "claro";
     const nuevo = actual === "oscuro" ? "claro" : "oscuro";
+    console.log(actual)
+    console.log(nuevo)
     setModo(nuevo);
 });

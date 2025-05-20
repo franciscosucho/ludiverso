@@ -12,12 +12,41 @@
     font-style: normal;
 }
 
-$Fondo_principal: #ffff;
-$Texto_principal: #333333;
-$Texto_secundario: #616161;
-$Encabezados_botones_y_primarios: #3e86d3;
-$Botones_secundarios_o_hover_azul: #7ab8ff;
-$Botones_secundarios_o_hover_verde: #a8d08d;
+
+
+/* variables para el DOM en general.<-----------------------------------------------------------> */
+
+:root {
+    // Modo claro (por defecto)
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #3e86d3;
+    --Botones_secundarios_o_hover_azul: #7ab8ff;
+    --Botones_secundarios_o_hover_verde: #a8d08d;
+    --fondo_azul_claro: rgba(165, 190, 245, 0.336);
+
+}
+
+:root[data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #3e86d3; // un azul más claro
+    --Botones_secundarios_o_hover_azul: #7ab8ff;
+    --Botones_secundarios_o_hover_verde: #c1e7aa;
+    --fondo_azul_claro: rgba(93, 113, 155, 0.336);
+}
+
+
+
+
 //-----------------------------------------
 // Colores para los cuadros de las materias.
 $color_sociales: #90caf9; // celeste medio → representa lo social, lo abierto
@@ -77,7 +106,7 @@ body {
         width: 100vw;
         position: fixed;
         z-index: 1000;
-        background-color: $Encabezados_botones_y_primarios;
+        background-color: var(--Encabezados_botones_y_primarios) !important;
         display: flex;
         justify-content: flex-start;
         align-items: center;
@@ -159,7 +188,7 @@ body {
         min-height: 80vw !important;
         height: 100%;
         padding-top: 0%;
-        background-color: #f5f5f5;
+        background-color: var(--Fondo_principal);
         padding-bottom: 3%;
 
         .secciones {
@@ -180,7 +209,7 @@ body {
             &#sec_novedades {
 
                 .cont_novedades {
-                    background-color: rgba(228, 228, 228, 0.658);
+                    background-color:var(--fondo_azul_claro);
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
@@ -210,31 +239,36 @@ body {
                         align-items: flex-start;
                         flex-direction: column;
 
+                        * {
+                            @extend %poetsen-font;
+                        }
+
                         .fecha_novedad {
+
                             font-size: .9em;
                             font-weight: 800;
-                            color: #222;
+                            color: var(--Texto_principal);
                             width: 80%;
                         }
 
                         .titulo_novedad {
                             font-size: 2em;
                             font-weight: 800;
-                            color: $Botones_secundarios_o_hover_azul;
+                            color: var(--Botones_secundarios_o_hover_azul);
                             width: 80%;
                         }
 
                         .sub_titulo_novedades {
                             font-size: 1.4em;
                             font-weight: 500;
-                            color: #222;
+                            color: var(--Texto_principal);
                             width: 80%;
                         }
 
                         .cuepo_novedad {
                             font-size: 1.1em;
                             font-weight: 300;
-                            color: #414141;
+                            color: var(--Texto_secundario);
                             width: 80%;
                         }
                     }
@@ -255,7 +289,7 @@ body {
                     height: 60px;
                     font-size: 1.2em;
                     font-weight: 600;
-                    background-color: $Botones_secundarios_o_hover_azul;
+                    background-color: var(--Botones_secundarios_o_hover_azul);
                     color: white;
                     border: none;
                     cursor: pointer;
@@ -287,19 +321,22 @@ body {
                     width: 60%;
 
                     b {
+                        color: var(--Texto_principal);
                         font-size: 2em;
+                        @extend %poetsen-font;
                     }
 
                     p {
+                        color: var(--Texto_secundario);
                         width: 60%;
                         font-size: 1.2em;
-
+                        @extend %poetsen-font;
                     }
 
                     #btn_conocer_mas {
                         padding: 20px;
                         border-radius: 8px;
-                        background-color: $Botones_secundarios_o_hover_azul;
+                        background-color: var(--Botones_secundarios_o_hover_azul);
                         height: 60px;
                         font-size: 1em;
                         font-weight: 800;
@@ -324,7 +361,7 @@ body {
             }
 
             .sub_titulo {
-                color: $Encabezados_botones_y_primarios;
+                color: var(--Encabezados_botones_y_primarios);
                 font-size: 4em;
                 @extend %poetsen-font;
             }
@@ -539,7 +576,7 @@ body {
                         border-radius: 10px;
                         padding: 20px;
                         font-weight: bold;
-                        background-color: $Encabezados_botones_y_primarios;
+                        background-color: var(--Encabezados_botones_y_primarios);
                         color: white;
                         width: 200px;
                         text-align: center;
@@ -553,7 +590,7 @@ body {
     footer {
         width: 100%;
         height: 10vh;
-        background-color: $Encabezados_botones_y_primarios;
+        background-color: var(--Encabezados_botones_y_primarios);
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -661,7 +698,7 @@ body {
             font-style: normal;
             font-size: 4em;
             text-decoration: underline;
-            color: $Encabezados_botones_y_primarios;
+            color: vat(--Encabezados_botones_y_primarios);
         }
 
         .desc_juego {
@@ -688,7 +725,7 @@ body {
             gap: 30px;
 
             .titulo_area {
-                color: $Texto_principal;
+                color: var(--Texto_principal);
                 @extend %poetsen-font;
                 font-size: 2em;
             }
@@ -809,19 +846,19 @@ body {
         h3 {
             width: 70%;
             font-size: 2em;
-            color: $Texto_principal;
+            color: var(--Texto_principal);
         }
 
         p {
             width: 70%;
             font-size: 1.5em;
-            color: $Texto_secundario;
+            color: var(--Texto_secundario);
         }
 
         h1 {
             width: 70%;
             font-size: 3em;
-            color: $Encabezados_botones_y_primarios;
+            color: var(--Encabezados_botones_y_primarios);
         }
     }
 
@@ -877,7 +914,7 @@ body {
             height: 6%;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-            background-color: $Encabezados_botones_y_primarios;
+            background-color: var(--Encabezados_botones_y_primarios);
             border: none;
             text-decoration: none;
             text-align: center;
@@ -930,8 +967,8 @@ body {
                     justify-content: center;
                     align-items: center;
                     box-sizing: border-box;
-                    border: 1px solid $Botones_secundarios_o_hover_azul;
-                    color: $Botones_secundarios_o_hover_azul;
+                    border: 1px solid var(--Botones_secundarios_o_hover_azul);
+                    color: var(--Botones_secundarios_o_hover_azul);
                     @extend %poetsen-font;
                     font-size: 1.5em
                 }
@@ -945,7 +982,7 @@ body {
             font-style: normal;
             text-align: center;
             font-size: 2em;
-            color: $Encabezados_botones_y_primarios;
+            color: var(--Encabezados_botones_y_primarios);
         }
 
         .div_main_ask {
@@ -980,7 +1017,7 @@ body {
                     font-weight: 400;
                     font-style: normal;
                     text-align: start;
-                    color: $Texto_principal;
+                    color: var(--Texto_principal);
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
                     transition: box-shadow 0.3s ease;
                     background-color: #7ab8ff5d;
@@ -1044,8 +1081,8 @@ body {
             border-radius: 8px;
             padding: 8px 20px;
             box-sizing: border-box;
-            border: 1px solid $Botones_secundarios_o_hover_azul;
-            color: $Botones_secundarios_o_hover_azul;
+            border: 1px solid var(--Botones_secundarios_o_hover_azul);
+            color: var(--Botones_secundarios_o_hover_azul);
             @extend %poetsen-font;
         }
     }
@@ -1203,7 +1240,7 @@ body {
         #btn_volver {
             margin-top: 2rem;
             text-decoration: none;
-            background-color: $Encabezados_botones_y_primarios;
+            background-color: var(--Encabezados_botones_y_primarios);
             color: white;
             padding: 0.75rem 1.25rem;
             border-radius: 8px;
@@ -1212,7 +1249,7 @@ body {
             transition: background-color 0.3s;
 
             &:hover {
-                background-color: $Botones_secundarios_o_hover_azul;
+                background-color: var(--Botones_secundarios_o_hover_azul);
             }
         }
     }
@@ -1245,7 +1282,7 @@ body {
 
     h1 {
         @extend %poetsen-font;
-        color: $Encabezados_botones_y_primarios;
+        color: var(--Encabezados_botones_y_primarios);
     }
 
     .cont_text {
@@ -1257,6 +1294,7 @@ body {
         width: 50%;
 
         p {
+            color: var(--Texto_principal);
             @extend %poetsen-font;
             font-weight: 500;
             font-size: 1.3em;
@@ -1279,7 +1317,7 @@ body {
             gap: 20px;
 
             p {
-                color: $Texto_principal;
+                color: var(--Texto_principal);
                 font-weight: 500;
                 @extend %poetsen-font;
             }
@@ -1321,7 +1359,7 @@ body {
         .btn_wd {
             width: 250px;
             height: 60px;
-            background-color: $Encabezados_botones_y_primarios;
+            background-color: var(--Encabezados_botones_y_primarios);
             @extend %poetsen-font;
             text-decoration: none;
             display: flex;
@@ -1341,7 +1379,7 @@ body {
         }
 
         #btn_ranking {
-            background-color: $Texto_principal;
+            background-color: #4b4a4a
 
         }
 
@@ -1360,30 +1398,31 @@ body {
             flex-direction: column;
             border-radius: 8px;
             box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
-            -webkit-box-shadow: 10px 10px 5px 0px   rgba(48, 48, 48, 0.144);
-            -moz-box-shadow: 10px 10px 5px 0px   rgba(48, 48, 48, 0.144);
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
 
             h4 {
                 width: 100%;
                 font-size: 2em;
                 text-align: start;
                 @extend %poetsen-font;
-                color: $Encabezados_botones_y_primarios;
+                color: var(--Encabezados_botones_y_primarios);
             }
 
             a {
-                
+
                 width: 85%;
                 text-align: start;
                 font-size: 1.5em;
                 @extend %poetsen-font;
                 text-decoration: none;
-                color: $Texto_secundario;
+                color: #383838;
                 border-radius: 8px;
                 padding: 8px;
                 transition: all .2s ease-in-out;
-                &:hover{
-                  
+
+                &:hover {
+
                     background-color: #31313121 !important;
                 }
             }
@@ -1399,7 +1438,7 @@ body {
         padding: 30px;
         border-radius: 15px;
         border: 4px solid #3498db; // Azul vibrante
-        background: #f9f9f9;
+        background: var(--Fondo_principal);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
         * {
@@ -1477,13 +1516,13 @@ $right :#538d4e;
         gap: 20px;
 
         h3 {
-            color: $Encabezados_botones_y_primarios;
+            color: var(--Encabezados_botones_y_primarios);
             @extend %poetsen-font;
             font-size: 2.5em;
         }
 
         p {
-            color: $Texto_principal;
+            color: var(--Texto_principal);
             @extend %poetsen-font;
             font-size: 2em;
         }
@@ -1510,7 +1549,7 @@ $right :#538d4e;
                 }
 
                 h4 {
-                    color: $Botones_secundarios_o_hover_azul;
+                    color: var(--Botones_secundarios_o_hover_azul);
                     font-size: 1.4em;
                 }
 
@@ -1520,7 +1559,7 @@ $right :#538d4e;
                     border-radius: 6px;
                     padding: 6px;
                     font-size: 1.1em;
-                    color: $Texto_secundario;
+                    color: var(--Texto_secundario);
                 }
 
                 display: flex;
@@ -1530,7 +1569,7 @@ $right :#538d4e;
                 gap: 20px;
                 width: 40%;
                 height: 50%;
-                border: 1px solid $Botones_secundarios_o_hover_azul;
+                border: 1px solid var(--Botones_secundarios_o_hover_azul);
                 padding: 20px;
                 border-radius: 8px;
 
@@ -1576,6 +1615,7 @@ $right :#538d4e;
         display: flex;
         align-items: center;
         justify-content: center;
+        color: var(--color-texto);
         transition: background-color 0.3s ease;
     }
 
@@ -1846,7 +1886,7 @@ $right :#538d4e;
             font-weight: 400;
             font-style: normal;
             font-size: 4em;
-            color: $Encabezados_botones_y_primarios;
+            color: var(--Encabezados_botones_y_primarios);
         }
 
         .cont_text {
@@ -1884,13 +1924,13 @@ $right :#538d4e;
 
                     h3 {
                         @extend %poetsen-font;
-                        color: $Botones_secundarios_o_hover_azul;
+                        color: var(--Botones_secundarios_o_hover_azul);
                         font-size: 2em;
                     }
 
                     h4 {
                         @extend %poetsen-font;
-                        color: $Texto_secundario;
+                        color: var(--Texto_secundario);
                         font-size: 1.3em;
                         font-family: "Poetsen One", sans-serif;
                     }
@@ -1998,7 +2038,7 @@ $right :#538d4e;
                                 border-radius: 20px;
                                 text-decoration: none;
 
-                                background-color: $Botones_secundarios_o_hover_azul;
+                                background-color: var(--Botones_secundarios_o_hover_azul);
                                 color: #ffff;
                                 font-size: 1.2em;
                                 font-weight: 800;
@@ -2015,7 +2055,7 @@ $right :#538d4e;
 
 
                     &:hover {
-                        border: 3px solid $Encabezados_botones_y_primarios;
+                        border: 3px solid var(--Encabezados_botones_y_primarios);
                     }
                 }
             }
