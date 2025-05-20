@@ -28,7 +28,7 @@
     --Botones_secundarios_o_hover_azul: #7ab8ff;
     --Botones_secundarios_o_hover_verde: #a8d08d;
     --fondo_azul_claro: rgba(165, 190, 245, 0.336);
-
+    --fondo_azul_claro_hv:rgba(152, 176, 228, 0.336);
 }
 
 :root[data-tema="oscuro"] {
@@ -100,7 +100,7 @@ body {
     height: 100%;
     overflow-y: hidden;
     width: 100% !important;
-
+    background-color: var(--Fondo_principal);
     header {
         height: 10vh;
         width: 100vw;
@@ -698,7 +698,7 @@ body {
             font-style: normal;
             font-size: 4em;
             text-decoration: underline;
-            color: vat(--Encabezados_botones_y_primarios);
+            color:  var(--Encabezados_botones_y_primarios)
         }
 
         .desc_juego {
@@ -880,13 +880,13 @@ body {
             gap: 20px;
             width: 60%;
             height: auto;
-            background-color: rgba(0, 0, 0, 0.082);
+            background-color: var(--fondo_azul_claro);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: all .2s ease-in-out;
 
             &:hover {
                 transform: scale(1.04);
-                background-color: rgba(73, 73, 73, 0.219);
+                background-color:var(--fondo_azul_claro_hv);
             }
 
             img {
@@ -904,7 +904,7 @@ body {
 
                 height: 100%;
                 width: 60%;
-
+                color: var(--Texto_principal);
             }
         }
 
@@ -1049,7 +1049,7 @@ body {
         width: 100%;
         gap: 100px;
 
-        background-color: rgba(255, 255, 255, 0.2);
+     
         padding: 8px 10px 10px 10px;
         border-radius: 8px;
 

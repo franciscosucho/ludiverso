@@ -131,7 +131,7 @@ app.post('/registrar', async (req, res) => {
 
 
         const hash = await hashPassword(password_us);
-        const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email , contraseña, rol_id) VALUES (?,?,?,?,?,?)";
+        const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email , contraseña, rol) VALUES (?,?,?,?,?,?)";
 
         connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, hash, "alumno"], (err, result) => {
             if (err) {
@@ -205,7 +205,7 @@ app.post('/iniciar_sesion', async (req, res) => {
 
         if (userResults.length === 0) {
             return res.render('login.ejs', { error: 'Usuario o contraseña incorrectos' });
-        }
+        } 
 
         const hashedPassword = userResults[0].contraseña;
         const isMatch = await verifyPassword(password, hashedPassword);
@@ -304,15 +304,25 @@ app.get('/juego_memoria', (req, res) => {
     })
 
 })
-
 app.get('/juego_intro', (req, res) => {
     let id_juego = req.query.id_juego;
+    let id_us = req.session.usuario_id;
     let areas = ["Taller", "Comunicaciones", "Exactas y Naturales", "Educación Física", "Ciencias Sociales"];
-    let queries = [];
 
-    for (let i = 0; i < areas.length; i++) {
-        let area_nombre = areas[i];
+    // Promesa para obtener los niveles del usuario
+    const getNivelesUsuario = new Promise((resolve, reject) => {
+        const select_nivel_us = 'SELECT * FROM `niveles_us` WHERE id_us=?';
+        connection.query(select_nivel_us, [id_us], (err, result_nl_us) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result_nl_us);
+            }
+        });
+    });
 
+    // Promesas para obtener niveles por área
+    const areaQueries = areas.map(area_nombre => {
         let select_niveles_areas = `
             SELECT 
                 niveles_memory.id_nivel,
@@ -326,7 +336,7 @@ app.get('/juego_intro', (req, res) => {
             JOIN areas ON niveles_memory.id_area = areas.materia_id
             WHERE areas.nombre = ?`;
 
-        let queryPromise = new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             connection.query(select_niveles_areas, [area_nombre], (err, results) => {
                 if (err) {
                     reject(err);
@@ -335,22 +345,26 @@ app.get('/juego_intro', (req, res) => {
                 }
             });
         });
+    });
 
-        queries.push(queryPromise);
-    }
-
-    Promise.all(queries)
-        .then(results => {
-            res.render("juego_intro", { data_juegos_areas: results, id_juego });
+    // Ejecutar todas las promesas
+    Promise.all([getNivelesUsuario, ...areaQueries])
+        .then(([result_nl_us, ...result_areas]) => {
+            res.render("juego_intro", {
+                data_juegos_areas: result_areas,
+                id_juego,
+                data_niveles_us: result_nl_us
+            });
         })
         .catch(err => {
-            console.error('Error al cargar los juegos:', err);
-            res.status(500).send('Error al cargar los juegos');
+            console.error('Error al cargar los datos:', err);
+            res.status(500).send('Error al cargar los datos');
         });
 });
 
 
 app.get('/puntaje_us', (req, res) => {
+
     let { id_juego, id_nivel, id_area, intentos_res, aciertos_res, tiempo_res, intentos_intro, tiempo_intro } = req.query;
     let puntaje = Math.max(0, (aciertos_res * 100) - (intentos_res * 5) - (tiempo_res * 2));
     let id_us = req.session.usuario_id;
@@ -406,21 +420,28 @@ app.get('/puntaje_us', (req, res) => {
     });
 
     // Consulta e inserción en niveles_us
-    connection.query('SELECT * FROM `niveles_us` WHERE id_us=? AND id_nivel=?', [id_us, id_nivel], (err, result_niv) => {
+    connection.query('SELECT * FROM `niveles_us` WHERE id_us=? AND id_area=?', [id_us, id_area], (err, result_niv) => {
         if (err) return res.status(500).send('Error en niveles_us');
+        let nivel_us = parseInt(id_nivel) + 1;
 
         if (result_niv.length === 0) {
             connection.query(
                 'INSERT INTO `niveles_us`( `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES (?, ?, ?, ?)',
-                [id_nivel, id_area, id_us, fecha_act],
+                [nivel_us, id_area, id_us, fecha_act],
                 () => {
                     nivelesReady = true;
                     tryRender();
                 }
             );
         } else {
-            nivelesReady = true;
-            tryRender();
+            connection.query(
+                'UPDATE `niveles_us` SET `id_nivel`= ? ,`fecha`= ? WHERE id_us= ? AND id_area= ?',
+                [nivel_us, fecha_act, id_us, id_area],
+                () => {
+                    nivelesReady = true;
+                    tryRender();
+                }
+            );
         }
     });
 });

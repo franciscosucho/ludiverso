@@ -19,33 +19,49 @@
 
                 </h2>
             </section>
+            <%
+            // Agrupar niveles desbloqueados por área
+            let nivelesPorArea = {};
+            
+            for (let nl of data_niveles_us) {
+                if (!nivelesPorArea[nl.id_area] || nl.id_nivel > nivelesPorArea[nl.id_area]) {
+                    nivelesPorArea[nl.id_area] = nl.id_nivel; // Nivel más alto por área
+                }
+            }
+            %>
+            
             <section class="cont_niveles">
-                <% for (let i = 0; i < data_juegos_areas.length; i++) { %>
-                    <% if (data_juegos_areas[i].length > 0) { %>
-                        
-                        <div class="cont_areas_niveles" id="cont_areas_niveles_<%= data_juegos_areas[i][0].nombre_area %>">
-                            <h4 class="titulo_area"><%= data_juegos_areas[i][0].nombre_area %></h4>
-
-                            <ul class="sub_cont_niveles">
-
-                                <% for (let j = 0; j < data_juegos_areas[i].length; j++) { %>
-                                    <% let mover_der = (j % 2 === 0) ? 'mover_der' : ''; %>
-                                    <a href="juego_memoria?id_nivel=<%= data_juegos_areas[i][j].id_nivel %>&id_juego=<%=id_juego%>" class="nivel actual <%= mover_der %>">
-                                        <li>
-                                            <i class="fa-solid fa-star"></i>
-                                        </li>
+                <% for (let i = 0; i < data_juegos_areas.length; i++) { 
+                    if (data_juegos_areas[i].length > 0) {
+                        let area_id = data_juegos_areas[i][0].id_area;
+                        let nivelMaxUsuario = nivelesPorArea[area_id] || 1; // Si no tiene niveles, se libera solo el primero
+                %>
+                    <div class="cont_areas_niveles" id="cont_areas_niveles_<%= data_juegos_areas[i][0].nombre_area %>">
+                        <h4 class="titulo_area"><%= data_juegos_areas[i][0].nombre_area %></h4>
+                        <ul class="sub_cont_niveles">
+                            <% for (let j = 0; j < data_juegos_areas[i].length; j++) {
+                                let nivel = data_juegos_areas[i][j];
+                                let mover_der = (j % 2 === 0) ? 'mover_der' : '';
+                                let desbloqueado = nivel.id_nivel <= nivelMaxUsuario;
+                            %>
+                                <% if (desbloqueado) { %>
+                                    <a href="juego_memoria?id_nivel=<%= nivel.id_nivel %>&id_juego=<%=id_juego%>" class="nivel actual <%= mover_der %>">
+                                        <li><i class="fa-solid fa-star"></i></li>
                                     </a>
+                                <% } else { %>
+                                    <div class="nivel bloqueado <%= mover_der %>">
+                                        <li><i class="fa-solid fa-lock"></i></li>
+                                    </div>
                                 <% } %>
-                            </ul>
-                        </div>
-                    <% } %>
-                <% } %>
-
+                            <% } %>
+                        </ul>
+                    </div>
+                <% } } %>
             </section>
 
         </main>
         <%- include('footer.ejs') %></aside>
-            <script src="/Scripts/juego_memoria.js"></script>
+          
 </body>
 
 </html>

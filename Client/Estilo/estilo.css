@@ -23,6 +23,7 @@
   --Botones_secundarios_o_hover_azul: #7ab8ff;
   --Botones_secundarios_o_hover_verde: #a8d08d;
   --fondo_azul_claro: rgba(165, 190, 245, 0.336);
+  --fondo_azul_claro_hv:rgba(152, 176, 228, 0.336);
 }
 
 :root[data-tema=oscuro] {
@@ -75,6 +76,7 @@ body {
   height: 100%;
   overflow-y: hidden;
   width: 100% !important;
+  background-color: var(--Fondo_principal);
 }
 body header {
   height: 10vh;
@@ -545,7 +547,7 @@ body footer .cont_des a {
   font-style: normal;
   font-size: 4em;
   text-decoration: underline;
-  color: vat(--Encabezados_botones_y_primarios);
+  color: var(--Encabezados_botones_y_primarios);
 }
 #juego_intro .cont_text .desc_juego {
   font-size: 1.3em;
@@ -693,13 +695,13 @@ body footer .cont_des a {
   gap: 20px;
   width: 60%;
   height: auto;
-  background-color: rgba(0, 0, 0, 0.082);
+  background-color: var(--fondo_azul_claro);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.2s ease-in-out;
 }
 #juego_memoria #cont_imagenes .cont_resources:hover {
   transform: scale(1.04);
-  background-color: rgba(73, 73, 73, 0.219);
+  background-color: var(--fondo_azul_claro_hv);
 }
 #juego_memoria #cont_imagenes .cont_resources img {
   height: 15vh;
@@ -714,6 +716,7 @@ body footer .cont_des a {
   padding: 10px;
   height: 100%;
   width: 60%;
+  color: var(--Texto_principal);
 }
 #juego_memoria #cont_imagenes #btn_iniciar_juego {
   padding: 20px;
@@ -829,7 +832,6 @@ body footer .cont_des a {
   flex-direction: row;
   width: 100%;
   gap: 100px;
-  background-color: rgba(255, 255, 255, 0.2);
   padding: 8px 10px 10px 10px;
   border-radius: 8px;
 }
