@@ -32,7 +32,7 @@ app.use(
 
 
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'Views'));
 
 //  permite que los archivos dentro de /Client sean accesibles desde el navegador
 app.use(express.static(path.join(__dirname, '../Client')));
@@ -168,19 +168,12 @@ app.post('/registrar', async (req, res) => {
 
 
 })
+/* Toda la logica que tenga el dashboard del admin. 
+<--------------------------------------------------------------------------------------------->*/
 app.get('/dashboard', root_verificar, async (req, res) => {
     try {
-        const select_users = 'SELECT * FROM `usuarios` WHERE nombre_usuario !="fransucho"';
-        connection.query(select_users, [], (err, result_users) => {
-            if (err) {
-                console.error('Error al ejecutar la query en el servidor ', err);
-                res.status(500).send('Error al ejecutar la query en el servidor');
-            } else {
+        res.render('dashboard', { user_session_nombre: req.session.nombre_us });
 
-                res.render('dashboard', { users_res: result_users, user_session_nombre: req.session.nombre_us });
-
-            }
-        })
     }
 
     catch (err) {
@@ -190,6 +183,106 @@ app.get('/dashboard', root_verificar, async (req, res) => {
 
 })
 
+app.get('/dash_users', root_verificar, async (req, res) => {
+    const { usuario_id, nombre, apellido, nombre_usuario, email, rol } = req.query;
+
+    try {
+        let query = `
+            SELECT 
+                usuario_id, nombre, apellido, nombre_usuario, email, contraseña, rol 
+            FROM 
+                usuarios 
+            WHERE 1
+        `;
+        const params = [];
+
+        if (usuario_id) {
+            query += ' AND usuario_id = ?';
+            params.push(usuario_id);
+        }
+        if (nombre) {
+            query += ' AND nombre LIKE ?';
+            params.push(`%${nombre}%`);
+        }
+        if (apellido) {
+            query += ' AND apellido LIKE ?';
+            params.push(`%${apellido}%`);
+        }
+        if (nombre_usuario) {
+            query += ' AND nombre_usuario LIKE ?';
+            params.push(`%${nombre_usuario}%`);
+        }
+        if (email) {
+            query += ' AND email LIKE ?';
+            params.push(`%${email}%`);
+        }
+        if (rol) {
+            query += ' AND rol = ?';
+            params.push(rol);
+        }
+
+        connection.query(query, params, (err, result_users) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            }
+
+            res.render('dash_users', {
+                users_res: result_users,
+                user_session_nombre: req.session.nombre_us
+            });
+        });
+    } catch (err) {
+        console.error('Error al abrir la página principal:', err);
+        res.render('dashboard', {
+            error: 'Ocurrió un error al momento de abrir la página principal'
+        });
+    }
+});
+
+app.post('/borrar_user', async (req, res) => {
+    let id_user = req.body.id_user;
+
+    let delete_query = "DELETE FROM `usuarios` WHERE usuario_id = ?";
+    connection.query(delete_query, [id_user], (err, result_users) => {
+        if (err) {
+            console.error('Error al ejecutar la query en el servidor', err);
+            return res.status(500).send('Error al ejecutar la query en el servidor');
+        }
+
+        res.redirect('/dash_users');
+    });
+});
+app.get('/editar_user', async (req, res) => {
+    let id_user = req.query.id_user;
+
+    let query_select = "SELECT * FROM `usuarios` WHERE  usuario_id=?";
+    connection.query(query_select, [id_user], (err, result_users) => {
+        if (err) {
+            console.error('Error al ejecutar la query en el servidor', err);
+            return res.status(500).send('Error al ejecutar la query en el servidor');
+        }
+        console.log(result_users[0].nombre)
+        res.render('editar_user',{data_user:result_users});
+    });
+});
+
+app.post('/editar_us_post'), async (req, res) => {
+    const { usuario_id, nombre, apellido, nombre_usuario, email, rol } = req.query;
+
+    let query_select = "SELECT * FROM `usuarios` WHERE  usuario_id=?";
+    connection.query(query_select, [id_user], (err, result_users) => {
+        if (err) {
+            console.error('Error al ejecutar la query en el servidor', err);
+            return res.status(500).send('Error al ejecutar la query en el servidor');
+        }
+
+        res.redirect('/editar_user');
+    });
+}
+
+
+/* <---------------------------------------------------------------->*/
 app.post('/iniciar_sesion', async (req, res) => {
     try {
         const { user_name, password } = req.body;
@@ -205,7 +298,7 @@ app.post('/iniciar_sesion', async (req, res) => {
 
         if (userResults.length === 0) {
             return res.render('login.ejs', { error: 'Usuario o contraseña incorrectos' });
-        } 
+        }
 
         const hashedPassword = userResults[0].contraseña;
         const isMatch = await verifyPassword(password, hashedPassword);

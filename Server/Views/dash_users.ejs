@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Dashboard root
+        </title>
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <main id="dashboard">
+            <h2>Bienvenido al panel de administracion de usuarios </h2>
+            <section class="admin-users">
+                <form action="/dash_users" method="get">
+                    <h4>Buscar usuario por:</h4>
+
+                    <div>
+                        <label for="usuario_id">Por ID</label>
+                        <input type="number" placeholder="ID del usuario" name="usuario_id">
+                    </div>
+                    <div>
+                        <label for="nombre">Por Nombre </label>
+                        <input type="text" placeholder="Nombre del usuario" name="nombre">
+                    </div>
+                    <div>
+                        <label for="apellido">Por Apellido </label>
+                        <input type="text" placeholder="Apellido del usuario" name="apellido">
+                    </div>
+                    <div>
+                        <label for="nombre_usuario">Por Nombre de usuario </label>
+                        <input type="text" placeholder="Nombre de usuario" name="nombre_usuario">
+                    </div>
+                    <div>
+                        <label for="email">Por Email </label>
+                        <input type="email" placeholder="Email de usuario" name="email">
+                    </div>
+                    <div>
+                        <label for="rol">Por Rol </label>
+                        <select name="rol">
+                            <option value="">Rol</option>
+                            <option value="Alumno">Alumno</option>
+                            <option value="Profesor">Profesor</option>
+                            <option value="Directivo">Directivo</option>
+                            <option value="Root">Root</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="btn_buscar_users">Buscar</button>
+                </form>
+
+                <a class="btn-reset" href="/dash_users">Ver lista completa de usuarios</a>
+
+                <div class="user-list">
+                    <% if (users_res && users_res.length> 0) { %>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users_res.forEach(user=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= user.usuario_id %>
+                                        </td>
+                                        <td>
+                                            <%= user.nombre %>
+                                        </td>
+                                        <td>
+                                            <%= user.apellido %>
+                                        </td>
+                                        <td>
+                                            <%= user.nombre_usuario %>
+                                        </td>
+                                        <td>
+                                            <%= user.email %>
+                                        </td>
+                                        <td>
+                                            <%= user.rol %>
+                                        </td>
+                                        <td class="celda-borrar">
+                                            <button class="btn-borrar" data-id="<%= user.usuario_id %>"
+                                                data-form="form_borrar_user_<%= user.usuario_id %>"
+                                                data-input="input_borrar_user_<%= user.usuario_id %>">
+                                                <i class="fa-solid fa-user-slash"></i>
+                                            </button>
+                                            
+                                            <form id="form_borrar_user_<%= user.usuario_id %>" action="/borrar_user"
+                                                method="POST" style="display: none;">
+                                                <input type="hidden" name="id_user"
+                                                    id="input_borrar_user_<%= user.usuario_id %>">
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <a href="/editar_user?id_user=<%= user.usuario_id %>">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                        <% } else { %>
+                            <p>No se encontraron usuarios.</p>
+                            <% } %>
+                </div>
+            </section>
+        </main>
+        <%- include('footer.ejs') %></aside>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const botonesBorrar = document.querySelectorAll(".btn-borrar");
+
+                    botonesBorrar.forEach(btn => {
+                        btn.addEventListener("click", (e) => {
+                            e.preventDefault();
+
+                            const userId = btn.dataset.id;
+                            const formId = btn.dataset.form;
+                            const inputId = btn.dataset.input;
+
+                            const confirmar = confirm("¿Seguro que deseas borrar este usuario?");
+                            if (!confirmar) return;
+
+                            const input = document.getElementById(inputId);
+                            const form = document.getElementById(formId);
+
+                            input.value = userId;
+                            form.submit();
+                        });
+                    });
+                });</script>
+</body>
+
+</html>

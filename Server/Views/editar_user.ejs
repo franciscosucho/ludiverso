@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Dashboard root
+        </title>
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <main id="dashboard">
+            <h2>Bienvenido al panel de administracion de usuarios </h2>
+            <section class="admin-users">
+                <form action="/editar_us_post" method="post">
+                    <form id="form_editar_user" action="/editar_us_post" method="POST">
+                        <div class="cont_input">
+                            <label for="id_user">ID user</label>
+                            <input type="number" name="id_user" id="id_user" placeholder="<%= data_user[0].usuario_id %>" readonly>
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">nombre user</label>
+                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].nombre %>">
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">apellido user</label>
+                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].apellido %>">
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">nombre usuario user</label>
+                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].nombre_usuario %>">
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">email user</label>
+                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].email %>">
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">rol user</label>
+                            <select name="" id="">
+                                <option value="<%= data_user[0].rol %>"><%= data_user[0].rol %></option>
+                              
+                                <option value="Alumno">Alumno</option>
+                                <option value="profesor">profesor</option>
+                                <option value="directivo">directivo</option>
+                                <option value="Root">Root</option>
+                            </select>
+                        </div>
+                        <button type="submit"></button>
+                    </form>
+
+            </section>
+        </main>
+        <%- include('footer.ejs') %></aside>
+</body>
+
+</html>

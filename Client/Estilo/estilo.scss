@@ -28,13 +28,15 @@
     --Botones_secundarios_o_hover_azul: #7ab8ff;
     --Botones_secundarios_o_hover_verde: #a8d08d;
     --fondo_azul_claro: rgba(165, 190, 245, 0.336);
-    --fondo_azul_claro_hv:rgba(152, 176, 228, 0.336);
+    --fondo_azul_claro_hv: rgba(152, 176, 228, 0.336);
+    --hover_card: #e0f0ff;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
 }
 
 :root[data-tema="oscuro"] {
     --color-fondo: #121212;
     --color-texto: #f0f0f0;
-
     --Fondo_principal: #1e1e1e;
     --Texto_principal: #dddddd;
     --Texto_secundario: #b6b6b6;
@@ -42,6 +44,9 @@
     --Botones_secundarios_o_hover_azul: #7ab8ff;
     --Botones_secundarios_o_hover_verde: #c1e7aa;
     --fondo_azul_claro: rgba(93, 113, 155, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
 }
 
 
@@ -101,6 +106,7 @@ body {
     overflow-y: hidden;
     width: 100% !important;
     background-color: var(--Fondo_principal);
+
     header {
         height: 10vh;
         width: 100vw;
@@ -209,7 +215,7 @@ body {
             &#sec_novedades {
 
                 .cont_novedades {
-                    background-color:var(--fondo_azul_claro);
+                    background-color: var(--fondo_azul_claro);
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
@@ -585,6 +591,197 @@ body {
                 }
             }
         }
+
+        &#dashboard {
+            min-height: 60vw !important;
+            padding-top: 10%;
+            gap: 100px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+
+            h2 {
+                font-size: 3em;
+                @extend %poetsen-font;
+                color: var(--Encabezados_botones_y_primarios);
+            }
+
+            .admin-grid {
+
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 1.5rem;
+                padding: 0 2rem;
+                max-width: 1000px;
+                margin: 0 auto;
+
+            }
+
+            .admin-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: var(--Fondo_principal);
+                border-radius: 20px;
+                padding: 2rem 1rem;
+                color: #333;
+                text-decoration: none;
+                font-size: 1.2rem;
+                font-weight: 600;
+                box-shadow: 5px 5px 15px var(--box_shadow), -5px -5px 15px var(--box_shadow_2);
+                transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s;
+
+                span {
+                    margin-top: 0.5rem;
+                }
+
+                &:hover {
+                    transform: translateY(-6px);
+                    background: var(--hover_card);
+                    box-shadow: 0 12px 24px var(--box_shadow)
+                }
+
+                &.active {
+                    background: #3b82f6;
+                    color: white;
+                    box-shadow: 0 12px 20px rgba(59, 130, 246, 0.4);
+                }
+            }
+
+            .admin-users {
+                width: auto;
+                margin: 2rem auto;
+                padding: 2rem;
+                background: #f9f9f9;
+                border-radius: 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                flex-direction: column;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+                form {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem 2rem;
+                    margin-bottom: 2rem;
+
+                    h4 {
+                        grid-column: 1 / -1;
+                        font-size: 1.5rem;
+                        color: #333;
+                        margin-bottom: 1rem;
+                    }
+
+                    div {
+                        display: flex;
+                        flex-direction: column;
+
+                        label {
+                            font-weight: 600;
+                            margin-bottom: 0.3rem;
+                            color: #444;
+                        }
+
+                        input,
+                        select {
+                            padding: 0.5rem;
+                            border: 1px solid #ccc;
+                            border-radius: 0.5rem;
+                            font-size: 1rem;
+                            transition: border-color 0.3s ease;
+
+                            &:focus {
+                                border-color: #007bff;
+                                outline: none;
+                            }
+                        }
+                    }
+
+                    button[type="submit"] {
+                        grid-column: 1 / -1;
+                        padding: 0.8rem;
+                        background-color: #007bff;
+                        color: white;
+                        border: none;
+                        border-radius: 0.5rem;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+
+                        &:hover {
+                            background-color: #0056b3;
+                        }
+                    }
+                }
+
+                .user-list {
+                    overflow-x: auto;
+
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        background: white;
+                        border-radius: 0.5rem;
+                        overflow: hidden;
+
+                        thead {
+                            width: 100%;
+                            background-color: #007bff;
+                            color: white;
+
+                            th {
+                                padding: 1rem;
+                                text-align: left;
+                                font-weight: 600;
+                            }
+                        }
+
+                        tbody {
+                            tr {
+                                &:nth-child(even) {
+                                    background-color: #f2f2f2;
+                                }
+
+                                td {
+                                    padding: 0.75rem 1rem;
+                                    border-bottom: 1px solid #e0e0e0;
+                                    color: #333;
+                                 
+                                    button {
+                                        cursor: pointer;
+                                        border: none;
+                                        background-color: transparent;
+                                        color: #333;
+                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .btn-reset {
+                    display: inline-block;
+                    margin-top: 1rem;
+                    padding: 0.5rem 1rem;
+                    background-color: #6c757d;
+                    color: white;
+                    border: none;
+                    border-radius: 0.5rem;
+                    text-decoration: none;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background-color: #5a6268;
+                    }
+                }
+            }
+        }
     }
 
     footer {
@@ -698,7 +895,7 @@ body {
             font-style: normal;
             font-size: 4em;
             text-decoration: underline;
-            color:  var(--Encabezados_botones_y_primarios)
+            color: var(--Encabezados_botones_y_primarios)
         }
 
         .desc_juego {
@@ -886,7 +1083,7 @@ body {
 
             &:hover {
                 transform: scale(1.04);
-                background-color:var(--fondo_azul_claro_hv);
+                background-color: var(--fondo_azul_claro_hv);
             }
 
             img {
@@ -1049,7 +1246,7 @@ body {
         width: 100%;
         gap: 100px;
 
-     
+
         padding: 8px 10px 10px 10px;
         border-radius: 8px;
 
@@ -1380,7 +1577,6 @@ body {
 
         #btn_ranking {
             background-color: #4b4a4a
-
         }
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-05-2025 a las 19:12:15
+-- Tiempo de generación: 23-05-2025 a las 13:57:49
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -72,7 +72,149 @@ CREATE TABLE `estadisticas` (
 --
 
 INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`) VALUES
-(3, 5, 3, 651, '2025-05-14 14:52:28'),
+(3, 5, 3, 666, '2025-05-20 14:37:26'),
+(4, NULL, 3, 651, '2025-05-14 14:57:25'),
+(5, NULL, 3, 651, '2025-05-14 15:01:51'),
+(6, NULL, 3, 651, '2025-05-14 15:02:39'),
+(7, NULL, 3, 651, '2025-05-14 15:03:11'),
+(8, NULL, 3, 651, '2025-05-14 15:03:11'),
+(9, NULL, 3, 651, '2025-05-14 15:03:13'),
+(10, NULL, 3, 651, '2025-05-14 15:03:13'),
+(11, NULL, 3, 651, '2025-05-14 15:03:16'),
+(12, NULL, 3, 651, '2025-05-14 15:03:16'),
+(13, NULL, 3, 651, '2025-05-14 15:03:16'),
+(14, NULL, 3, 651, '2025-05-14 15:03:19'),
+(15, NULL, 3, 651, '2025-05-14 15:03:19'),
+(16, NULL, 3, 651, '2025-05-14 15:03:19'),
+(17, NULL, 3, 651, '2025-05-14 15:03:23'),
+(18, NULL, 3, 651, '2025-05-14 15:03:23'),
+(19, NULL, 3, 651, '2025-05-14 15:03:24'),
+(20, NULL, 3, 651, '2025-05-14 15:03:24'),
+(21, NULL, 3, 651, '2025-05-14 15:03:34'),
+(22, NULL, 3, 651, '2025-05-14 15:03:37'),
+(23, NULL, 3, 651, '2025-05-14 15:03:37'),
+(24, NULL, 3, 651, '2025-05-14 15:03:55'),
+(25, NULL, 3, 651, '2025-05-14 15:03:55'),
+(26, NULL, 3, 651, '2025-05-14 15:03:55'),
+(27, NULL, 3, 651, '2025-05-14 15:03:55'),
+(28, NULL, 3, 651, '2025-05-14 15:03:55'),
+(29, NULL, 3, 651, '2025-05-14 15:03:56'),
+(30, NULL, 3, 651, '2025-05-14 15:03:56'),
+(31, NULL, 3, 651, '2025-05-14 15:03:59'),
+(32, NULL, 3, 651, '2025-05-14 15:03:59'),
+(33, NULL, 3, 651, '2025-05-14 15:04:00'),
+(34, NULL, 3, 651, '2025-05-14 15:04:00'),
+(35, NULL, 3, 651, '2025-05-14 15:04:00'),
+(36, NULL, 3, 651, '2025-05-14 15:04:12'),
+(37, NULL, 3, 651, '2025-05-14 15:04:13'),
+(38, NULL, 3, 651, '2025-05-14 15:05:09'),
+(39, NULL, 3, 651, '2025-05-14 15:05:09'),
+(40, NULL, 3, 651, '2025-05-14 15:05:24'),
+(41, NULL, 3, 651, '2025-05-14 15:05:56'),
+(42, NULL, 3, 651, '2025-05-14 15:05:56'),
+(43, NULL, 3, 651, '2025-05-14 15:05:57'),
+(44, NULL, 3, 651, '2025-05-14 15:05:57'),
+(45, NULL, 3, 651, '2025-05-14 15:06:06'),
+(46, NULL, 3, 651, '2025-05-14 15:06:06'),
+(47, NULL, 3, 651, '2025-05-14 15:06:06'),
+(48, NULL, 3, 651, '2025-05-14 15:06:07'),
+(49, NULL, 3, 651, '2025-05-14 15:06:17'),
+(50, NULL, 3, 651, '2025-05-14 15:06:17'),
+(51, NULL, 3, 651, '2025-05-14 15:06:18'),
+(52, NULL, 3, 651, '2025-05-14 15:06:18'),
+(53, NULL, 3, 651, '2025-05-14 15:06:18'),
+(54, NULL, 3, 651, '2025-05-14 15:06:26'),
+(55, NULL, 3, 651, '2025-05-14 15:06:27'),
+(56, NULL, 3, 651, '2025-05-14 15:06:27'),
+(57, NULL, 3, 651, '2025-05-14 15:06:27'),
+(58, NULL, 3, 651, '2025-05-14 15:06:27'),
+(59, NULL, 3, 651, '2025-05-14 15:06:28'),
+(60, NULL, 3, 651, '2025-05-14 15:06:28'),
+(61, NULL, 3, 651, '2025-05-14 15:06:28'),
+(62, NULL, 3, 651, '2025-05-14 15:06:34'),
+(63, NULL, 3, 651, '2025-05-14 15:06:35'),
+(64, NULL, 3, 651, '2025-05-14 15:06:35'),
+(65, NULL, 3, 651, '2025-05-14 15:06:35'),
+(66, NULL, 3, 651, '2025-05-14 15:06:35'),
+(67, NULL, 3, 651, '2025-05-14 15:06:46'),
+(68, NULL, 3, 651, '2025-05-14 15:06:46'),
+(69, NULL, 3, 651, '2025-05-14 15:06:47'),
+(70, NULL, 3, 651, '2025-05-14 15:06:47'),
+(71, NULL, 3, 651, '2025-05-14 15:06:47'),
+(72, NULL, 3, 651, '2025-05-14 15:06:52'),
+(73, NULL, 3, 651, '2025-05-14 15:06:52'),
+(74, NULL, 3, 651, '2025-05-14 15:06:53'),
+(75, NULL, 3, 651, '2025-05-14 15:06:53'),
+(76, NULL, 3, 651, '2025-05-14 15:06:53'),
+(77, NULL, 3, 651, '2025-05-14 15:06:56'),
+(78, NULL, 3, 651, '2025-05-14 15:06:56'),
+(79, NULL, 3, 651, '2025-05-14 15:06:56'),
+(80, NULL, 3, 651, '2025-05-14 15:06:57'),
+(81, NULL, 3, 651, '2025-05-14 15:06:57'),
+(82, NULL, 3, 651, '2025-05-14 15:07:04'),
+(83, NULL, 3, 651, '2025-05-14 15:07:05'),
+(84, NULL, 3, 651, '2025-05-14 15:07:14'),
+(85, NULL, 3, 651, '2025-05-14 15:07:15'),
+(86, NULL, 3, 651, '2025-05-14 15:07:15'),
+(87, NULL, 3, 651, '2025-05-14 15:07:18'),
+(88, NULL, 3, 651, '2025-05-14 15:07:19'),
+(89, NULL, 3, 651, '2025-05-14 15:07:19'),
+(90, NULL, 3, 651, '2025-05-14 15:07:19'),
+(91, NULL, 3, 651, '2025-05-14 15:07:19'),
+(92, NULL, 3, 651, '2025-05-14 15:07:26'),
+(93, NULL, 3, 651, '2025-05-14 15:07:26'),
+(94, NULL, 3, 651, '2025-05-14 15:07:27'),
+(95, NULL, 3, 651, '2025-05-14 15:07:40'),
+(96, NULL, 3, 651, '2025-05-14 15:07:41'),
+(97, NULL, 3, 651, '2025-05-14 15:07:41'),
+(98, NULL, 3, 651, '2025-05-14 15:07:58'),
+(99, NULL, 3, 651, '2025-05-14 15:07:58'),
+(100, NULL, 3, 651, '2025-05-14 15:07:58'),
+(101, NULL, 3, 651, '2025-05-14 15:07:58'),
+(102, NULL, 3, 651, '2025-05-14 15:08:05'),
+(103, NULL, 3, 651, '2025-05-14 15:08:05'),
+(104, NULL, 3, 651, '2025-05-14 15:08:05'),
+(105, NULL, 3, 651, '2025-05-14 15:08:06'),
+(106, NULL, 3, 651, '2025-05-14 15:08:06'),
+(107, NULL, 3, 651, '2025-05-14 15:08:13'),
+(108, NULL, 3, 651, '2025-05-14 15:08:13'),
+(109, NULL, 3, 651, '2025-05-14 15:08:13'),
+(110, NULL, 3, 651, '2025-05-14 15:08:13'),
+(111, NULL, 3, 651, '2025-05-14 15:08:14'),
+(112, NULL, 3, 651, '2025-05-14 15:08:14'),
+(113, NULL, 3, 651, '2025-05-14 15:08:14'),
+(114, NULL, 3, 651, '2025-05-14 15:08:14'),
+(115, NULL, 3, 651, '2025-05-14 15:08:26'),
+(116, NULL, 3, 651, '2025-05-14 15:08:26'),
+(117, NULL, 3, 651, '2025-05-14 15:08:26'),
+(118, NULL, 3, 651, '2025-05-14 15:08:26'),
+(119, NULL, 3, 651, '2025-05-14 15:08:40'),
+(120, NULL, 3, 651, '2025-05-14 15:08:40'),
+(121, NULL, 3, 651, '2025-05-14 15:08:41'),
+(122, NULL, 3, 651, '2025-05-14 15:08:41'),
+(123, NULL, 3, 651, '2025-05-14 15:08:41'),
+(124, NULL, 3, 651, '2025-05-14 15:08:45'),
+(125, NULL, 3, 651, '2025-05-14 15:08:46'),
+(126, NULL, 3, 651, '2025-05-14 15:08:46'),
+(127, NULL, 3, 651, '2025-05-14 15:08:46'),
+(128, NULL, 3, 651, '2025-05-14 15:08:46'),
+(129, NULL, 3, 651, '2025-05-14 15:08:51'),
+(130, NULL, 3, 651, '2025-05-14 15:08:51'),
+(131, NULL, 3, 651, '2025-05-14 15:08:51'),
+(132, NULL, 3, 651, '2025-05-14 15:08:51'),
+(133, NULL, 3, 651, '2025-05-14 15:08:51'),
+(134, NULL, 3, 651, '2025-05-14 15:08:52'),
+(135, NULL, 3, 651, '2025-05-14 15:08:52'),
+(136, NULL, 3, 651, '2025-05-14 15:09:01'),
+(137, NULL, 3, 651, '2025-05-14 15:09:11'),
+(138, NULL, 3, 651, '2025-05-14 15:09:11'),
+(139, NULL, 3, 651, '2025-05-14 15:09:13'),
+(140, NULL, 3, 651, '2025-05-14 15:09:18'),
+(141, NULL, 3, 651, '2025-05-14 15:09:26'),
+(142, NULL, 3, 651, '2025-05-14 15:09:26'),
+(143, NULL, 3, 651, '2025-05-14 15:09:26'),
+(144, NULL, 3, 651, '2025-05-14 15:09:26');
+
 -- --------------------------------------------------------
 
 --
@@ -112,7 +254,7 @@ CREATE TABLE `juegos` (
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`) VALUES
 (1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, 'wordle_intro', 0),
 (2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0),
-(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_memoria', 4),
+(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_intro', 4),
 (4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0),
 (5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0);
 
@@ -159,7 +301,7 @@ CREATE TABLE `niveles_us` (
 --
 
 INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES
-(2, 1, 7, 5, '2025-05-14');
+(3, 2, 7, 5, '2025-05-20');
 
 -- --------------------------------------------------------
 
@@ -289,14 +431,10 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
 (5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno'),
-(6, 'david', 'mingueza', 'davidmingueza', 'davidmingueza@gmail.com', '$2b$10$0EvUQrkWB43ZavtXyX85fe8y/Rzy7DGuqoVatH0lcvQ3hoAhSJUdO', 'alumno'),
-(8, 'jorge', 'mingueza', 'jorgemingueza', 'jorgemingueza@gmail.com', '$2b$10$ZB5qktwKxh3MgDCD425YMej0wZj8/zR7GAR9O.mnSDxb10c4Njcfe', 'alumno'),
 (9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'alumno'),
-(10, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmissron@gmail.com', '$2b$10$0bVwWy.35qE7HmXhmu.7JeLaYt./MDv0Crcdi4x1aYyH8XXlSSPcO', 'alumno'),
-(11, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmsissron@gmail.com', '$2b$10$mROJ/C6X7baUf.S4km.fE.rQ2Ra2/xfLyDQzHgOjRQj2Vxk77HpoC', 'alumno'),
 (12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
 (13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
-(14, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelassss@gmail.com', '$2b$10$DxW.Lvdl.At7WPz00C3qbOfBRAbtyV5AyXUbvBOAm5MR8f8y4sw2q', 'alumno');
+(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root');
 
 -- --------------------------------------------------------
 
@@ -598,7 +736,7 @@ ALTER TABLE `niveles_memory`
 -- AUTO_INCREMENT de la tabla `niveles_us`
 --
 ALTER TABLE `niveles_us`
-  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -616,7 +754,7 @@ ALTER TABLE `preguntas`
 -- AUTO_INCREMENT de la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
-  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `resources_juego`
@@ -634,7 +772,7 @@ ALTER TABLE `respuestas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `wordle`
@@ -691,7 +829,7 @@ ALTER TABLE `preguntas`
 -- Filtros para la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
-  ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
+  ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `resources_juego`
