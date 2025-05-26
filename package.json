@@ -24,6 +24,7 @@
     "express-session": "^1.18.1",
     "fast-csv": "^5.0.2",
     "morgan": "^1.10.0",
+    "multer": "^2.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.11.4",
     "path": "^0.12.7",

@@ -11,43 +11,58 @@
 <body>
     <%- include('header.ejs') %>
         <main id="dashboard">
-            <h2>Bienvenido al panel de administracion de usuarios </h2>
+            <h2>Editar usuario: "<%= data_user[0].nombre_usuario %>" </h2>
             <section class="admin-users">
-                <form action="/editar_us_post" method="post">
-                    <form id="form_editar_user" action="/editar_us_post" method="POST">
-                        <div class="cont_input">
-                            <label for="id_user">ID user</label>
-                            <input type="number" name="id_user" id="id_user" placeholder="<%= data_user[0].usuario_id %>" readonly>
-                        </div>
-                        <div class="cont_input">
-                            <label for="id_user">nombre user</label>
-                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].nombre %>">
-                        </div>
-                        <div class="cont_input">
-                            <label for="id_user">apellido user</label>
-                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].apellido %>">
-                        </div>
-                        <div class="cont_input">
-                            <label for="id_user">nombre usuario user</label>
-                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].nombre_usuario %>">
-                        </div>
-                        <div class="cont_input">
-                            <label for="id_user">email user</label>
-                            <input type="text" name="id_user" id="id_user" placeholder="<%= data_user[0].email %>">
-                        </div>
-                        <div class="cont_input">
-                            <label for="id_user">rol user</label>
-                            <select name="" id="">
-                                <option value="<%= data_user[0].rol %>"><%= data_user[0].rol %></option>
-                              
-                                <option value="Alumno">Alumno</option>
-                                <option value="profesor">profesor</option>
-                                <option value="directivo">directivo</option>
-                                <option value="Root">Root</option>
-                            </select>
-                        </div>
-                        <button type="submit"></button>
-                    </form>
+                <form id="form_editar_user" action="/editar_us_post" method="POST">
+                    <div class="cont_input">
+                        <label for="id_userss">ID user</label>
+                        <input type="text" name="id_userss" id="id_userss" placeholder="<%= data_user[0].usuario_id %>"
+                            readonly value="<%= data_user[0].usuario_id %>">
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">nombre user</label>
+                        <input type="text" name="nombre_user" id="nombre_user" placeholder="<%= data_user[0].nombre %>"
+                            readonly>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">apellido user</label>
+                        <input type="text" name="apellido_user" id="apellido_user"
+                            placeholder="<%= data_user[0].apellido %>" readonly>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">nombre usuario user</label>
+                        <input type="text" name="nombre_us_user" id="nombre_us_user"
+                            placeholder="<%= data_user[0].nombre_usuario %>" readonly>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">email user</label>
+                        <input type="text" name="email_user" id="email_user" placeholder="<%= data_user[0].email %>"
+                            readonly>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">rol user</label>
+                        <select name="rol_us" id="rol_us">
+                            <option value="<%= data_user[0].rol %>">
+                                <%= data_user[0].rol %>
+                            </option>
+
+                            <% if (data_user[0].rol !=='alumno' ) { %>
+                                <option value="alumno">Alumno</option>
+                                <% } %>
+                                    <% if (data_user[0].rol !=='profesor' ) { %>
+                                        <option value="profesor">Profesor</option>
+                                        <% } %>
+                                            <% if (data_user[0].rol !=='directivo' ) { %>
+                                                <option value="directivo">Directivo</option>
+                                                <% } %>
+                                                    <% if (data_user[0].rol !=='root' ) { %>
+                                                        <option value="root">Root</option>
+                                                        <% } %>
+
+                        </select>
+                    </div>
+                    <button type="submit">Editar</button>
+                </form>
 
             </section>
         </main>

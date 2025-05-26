@@ -50,7 +50,6 @@
                     <button type="submit" id="btn_buscar_users">Buscar</button>
                 </form>
 
-                <a class="btn-reset" href="/dash_users">Ver lista completa de usuarios</a>
 
                 <div class="user-list">
                     <% if (users_res && users_res.length> 0) { %>
@@ -114,6 +113,7 @@
                             <p>No se encontraron usuarios.</p>
                             <% } %>
                 </div>
+                <a class="btn-reset" href="/dash_users">Ver lista completa de usuarios</a>
             </section>
         </main>
         <%- include('footer.ejs') %></aside>
@@ -140,7 +140,9 @@
                             form.submit();
                         });
                     });
-                });</script>
+                });
+             
+            </script>
 </body>
 
 </html>

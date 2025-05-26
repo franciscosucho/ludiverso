@@ -1,7 +1,14 @@
 const express = require('express')
+const app = express()
+
 const session = require('express-session')
 const mysql = require('mysql2');
-const app = express()
+
+
+
+
+
+
 const bcrypt = require('bcrypt');
 const path = require('path');
 const { PORT } = require('./config.js');
@@ -11,6 +18,16 @@ const { clave_sesion } = require('./config.js');
 // Middlewares globales
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+
+// Configuración de multer
+const multer = require('multer');
+const fs = require('fs');
+
+const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
+
+
 
 
 
@@ -262,24 +279,89 @@ app.get('/editar_user', async (req, res) => {
             console.error('Error al ejecutar la query en el servidor', err);
             return res.status(500).send('Error al ejecutar la query en el servidor');
         }
-        console.log(result_users[0].nombre)
-        res.render('editar_user',{data_user:result_users});
+
+        res.render('editar_user', { data_user: result_users });
     });
 });
 
-app.post('/editar_us_post'), async (req, res) => {
-    const { usuario_id, nombre, apellido, nombre_usuario, email, rol } = req.query;
+app.post('/editar_us_post', (req, res) => {
+    let { id_userss, rol_us } = req.body;
+    console.log(rol_us)
 
-    let query_select = "SELECT * FROM `usuarios` WHERE  usuario_id=?";
-    connection.query(query_select, [id_user], (err, result_users) => {
+    let query_select = "UPDATE `usuarios` SET `rol`=? WHERE usuario_id=?";
+    connection.query(query_select, [rol_us, id_userss], (err, result_users) => {
         if (err) {
             console.error('Error al ejecutar la query en el servidor', err);
             return res.status(500).send('Error al ejecutar la query en el servidor');
         }
 
-        res.redirect('/editar_user');
+        res.redirect('/dash_users');
     });
+})
+
+app.get('/dash_novedades', async (req, res) => {
+    try {
+        let query_select = "SELECT * FROM `novedades` WHERE 1";
+        connection.query(query_select, (err, result_nov) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            }
+            res.render('dash_novedades', { novedades: result_nov });
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dash_novedades', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
+});
+app.post('/borrar_novedad', async (req, res) => {
+    let { input_borrar_nov } = req.body;
+    console.log(input_borrar_nov)
+
+    let delete_query = "DELETE FROM `novedades` WHERE `id_novedad`=?";
+    connection.query(delete_query, [input_borrar_nov], (err, results) => {
+        if (err) {
+            console.error('Error al ejecutar la query en el servidor', err);
+            return res.status(500).send('Error al ejecutar la query en el servidor');
+        }
+
+        res.redirect('dash_novedades');
+    });
+});
+
+// Ruta para recibir el archivo
+app.post('/dash_agregar_nov', upload_nov.single('url_nov'), (req, res) => {
+    let { titulo_nov, subtitulo_nov, cuerpo_nov } = req.body;
+    let fecha = Datatime()
+
+    console.log(req.file);
+    let url_img = saveImage(req.file);
+    if (!req.file) {
+        return res.status(400).send('No se subió ninguna imagen');
+    }
+    else {
+        let query_select = "INSERT INTO `novedades`( `titulo_novedad`, `subtitulo_novedad`, `cuerpo_novedad`, `url_foto_novedad`, `fecha_novedad`) VALUES (?, ?, ? , ?, ?) ";
+        connection.query(query_select, [titulo_nov, subtitulo_nov, cuerpo_nov, url_img, fecha], (err, result_users) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            }
+
+            res.redirect('/dash_novedades');
+        });
+    }
+
+});
+
+function saveImage(file) {
+    const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
+    const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
+    fs.renameSync(file.path, newPath);
+    return url_nov;
 }
+
 
 
 /* <---------------------------------------------------------------->*/
