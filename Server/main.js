@@ -189,13 +189,13 @@ app.post('/registrar', async (req, res) => {
 <--------------------------------------------------------------------------------------------->*/
 app.get('/dashboard', root_verificar, async (req, res) => {
     try {
-        res.render('dashboard', { user_session_nombre: req.session.nombre_us });
+        res.render('dashboard/dashboard', { user_session_nombre: req.session.nombre_us });
 
     }
 
     catch (err) {
         console.error('Error al abrir la pagina principal:', err);
-        res.render('dashboard', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+        res.render('dashboard/dashboard', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
     }
 
 })
@@ -244,7 +244,7 @@ app.get('/dash_users', root_verificar, async (req, res) => {
                 return res.status(500).send('Error al ejecutar la query en el servidor');
             }
 
-            res.render('dash_users', {
+            res.render('dashboard/dash_users', {
                 users_res: result_users,
                 user_session_nombre: req.session.nombre_us
             });
@@ -267,7 +267,7 @@ app.post('/borrar_user', async (req, res) => {
             return res.status(500).send('Error al ejecutar la query en el servidor');
         }
 
-        res.redirect('/dash_users');
+        res.redirect('/dashboard/dash_users');
     });
 });
 app.get('/editar_user', async (req, res) => {
@@ -295,7 +295,7 @@ app.post('/editar_us_post', (req, res) => {
             return res.status(500).send('Error al ejecutar la query en el servidor');
         }
 
-        res.redirect('/dash_users');
+        res.redirect('/dashboard//dash_users');
     });
 })
 
@@ -307,7 +307,7 @@ app.get('/dash_novedades', async (req, res) => {
                 console.error('Error al ejecutar la query en el servidor', err);
                 return res.status(500).send('Error al ejecutar la query en el servidor');
             }
-            res.render('dash_novedades', { novedades: result_nov });
+            res.render('dashboard/dash_novedades', { novedades: result_nov });
         })
     }
 
@@ -318,7 +318,7 @@ app.get('/dash_novedades', async (req, res) => {
 });
 app.post('/borrar_novedad', async (req, res) => {
     let { input_borrar_nov } = req.body;
-    console.log(input_borrar_nov)
+
 
     let delete_query = "DELETE FROM `novedades` WHERE `id_novedad`=?";
     connection.query(delete_query, [input_borrar_nov], (err, results) => {
@@ -327,7 +327,57 @@ app.post('/borrar_novedad', async (req, res) => {
             return res.status(500).send('Error al ejecutar la query en el servidor');
         }
 
-        res.redirect('dash_novedades');
+        res.redirect('dashboard/dash_novedades');
+    });
+});
+
+app.get('/dash_nov_editar', async (req, res) => {
+    let { input_editar } = req.query;
+
+    let select_query = "SELECT * FROM `novedades` WHERE `id_novedad`=?";
+    connection.query(select_query, [input_editar], (err, results_nov) => {
+        if (err) {
+            console.error('Error al ejecutar la query en el servidor', err);
+            return res.status(500).send('Error al ejecutar la query en el servidor');
+        }
+
+        res.render('dashboard/dash_nov_editar', { novedad:results_nov });
+    });
+});
+app.post('/editar_novedad', upload_nov.single('url_nov'), (req, res) => {
+    const { id_novedad, titulo_novedad, subtitulo_novedad, cuerpo_novedad, fecha_novedad } = req.body;
+    let url_foto_novedad;
+    console.log(id_novedad)
+    if (req.file) {
+        url_foto_novedad = 'Resources/Imagenes/Novedades/' + req.file.filename;
+    }
+
+    // Construimos la query SQL
+    let updateQuery = `
+        UPDATE novedades 
+        SET titulo_novedad = ?, subtitulo_novedad = ?, cuerpo_novedad = ?, fecha_novedad = ?
+        ${url_foto_novedad ? ', url_foto_novedad = ?' : ''}
+        WHERE id_novedad = ?
+    `;
+
+    // Valores a insertar en la query
+    let values = [
+        titulo_novedad,
+        subtitulo_novedad,
+        cuerpo_novedad,
+        fecha_novedad
+    ];
+
+    if (url_foto_novedad) values.push(url_foto_novedad);
+    values.push(id_novedad);
+
+    connection.query(updateQuery, values, (err, result) => {
+        if (err) {
+            console.error('Error al actualizar novedad:', err);
+            return res.status(500).send('Error al actualizar novedad');
+        }
+
+        res.redirect('/dashboard');
     });
 });
 
@@ -349,7 +399,7 @@ app.post('/dash_agregar_nov', upload_nov.single('url_nov'), (req, res) => {
                 return res.status(500).send('Error al ejecutar la query en el servidor');
             }
 
-            res.redirect('/dash_novedades');
+            res.redirect('/dashboard/dash_novedades');
         });
     }
 

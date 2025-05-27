@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../head.ejs') %>
+        <title>
+            Dashboard root
+        </title>
+</head>
+
+<body>
+    <%- include('../header.ejs') %>
+        <main id="dashboard">
+            <h2>Editar novedad "<%= novedad[0].titulo_novedad %> "</h2>
+
+            <section class="editar_novedades">
+                <div class="cont_novedades">
+
+                    <form   action="/editar_novedad" class="cont_text_novedad" id="form_editar_novedad" enctype="multipart/form-data" method="POST">
+                        <!-- Fecha -->
+                        <input class="id_novedad" name="id_novedad" value="<%= novedad[0].id_novedad %>" style="display: none;">
+                    
+                        <input class="fecha_novedad"
+                            value="<%= new Date(novedad[0].fecha_novedad).toISOString().split('T')[0] %>" maxlength="40"
+                            name="fecha_novedad" type="date">
+                    
+                        <!-- Título -->
+                        <input class="titulo_novedad" value="<%= novedad[0].titulo_novedad %>" maxlength="255" name="titulo_novedad">
+                    
+                        <!-- Subtítulo -->
+                        <input class="sub_titulo_novedades" value="<%= novedad[0].subtitulo_novedad %>" maxlength="255"
+                            name="subtitulo_novedad">
+                    
+                        <!-- Cuerpo -->
+                        <textarea name="cuerpo_novedad" id="cuerpo_novedad" maxlength="3000" class="cuerpo_novedad"
+                            cols="80"><%= novedad[0].cuerpo_novedad %></textarea>
+                    
+                        <!-- Imagen -->
+                        <label for="nueva_imagen">Cambiar imagen:</label>
+                        <input type="file" id="nueva_imagen" name="nueva_imagen" accept="image/*">
+                    
+                        <button type="submit">Editar</button>
+                    </form>
+
+                    <!-- Vista previa de imagen -->
+                    <img id="preview_img" src="<%= novedad[0].url_foto_novedad %>" alt="Imagen sobre novedades."
+                        class="img_novedad">
+
+                </div>
+            </section>
+        </main>
+        <script>
+            const inputImagen = document.getElementById('nueva_imagen');
+            const preview = document.getElementById('preview_img');
+            const form = document.getElementById('form_editar_novedad');
+        
+            // Vista previa de imagen
+            inputImagen.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        
+            // Confirmación antes de enviar
+            form.addEventListener('submit', function (e) {
+                const confirmar = confirm("¿Estás seguro de que querés guardar los cambios?");
+                if (!confirmar) {
+                    e.preventDefault(); // Cancela el envío del formulario
+                }
+            });
+        </script>
+        
+
+</body>
+
+</html>

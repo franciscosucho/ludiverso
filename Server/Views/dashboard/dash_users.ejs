@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <%- include('head.ejs') %>
+    <%- include('../head.ejs') %>
         <title>
-            Dashboard root
+            Dashboard users
         </title>
 </head>
 
 <body>
-    <%- include('header.ejs') %>
+    <%- include('../header.ejs') %>
         <main id="dashboard">
             <h2>Bienvenido al panel de administracion de usuarios </h2>
             <section class="admin-users">
@@ -116,7 +116,7 @@
                 <a class="btn-reset" href="/dash_users">Ver lista completa de usuarios</a>
             </section>
         </main>
-        <%- include('footer.ejs') %></aside>
+      
 
             <script>
                 document.addEventListener("DOMContentLoaded", () => {

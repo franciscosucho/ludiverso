@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-    <%- include('head.ejs') %>
+    <%- include('../head.ejs') %>
         <title>
-            Dashboard root
+            Dashboard novedades
         </title>
 </head>
 
 <body>
-    <%- include('header.ejs') %>
+    <%- include('../header.ejs') %>
         <main id="dashboard">
             <h2>Bienvenido al panel de administracion de novedades </h2>
             <div class="admin-grid">
@@ -43,12 +43,13 @@
 
                             <!-- Botón editar con tooltip -->
                             <div class="btn_opc tooltip">
-                                <span class="btn_opc_form" id="btn-editar<%= index %>"
-                                    data-id="<%= novedad.id_novedad %>"
-                                    data-form="form_borrar_user_<%= novedad.id_novedad %>"
-                                    data-input="input_borrar_user_<%= novedad.id_novedad %>">
+                                <button class="btn_opc_form btn-editar" data-nov-id="<%= novedad.id_novedad %>"
+                                    type="submit">
                                     <i class="fa-solid fa-pen"></i>
-                                </span>
+                                </button>
+                                <form   id="form_editar_novedad_<%= novedad.id_novedad %>" action="/dash_nov_editar" method="GET" enctype="multipart/form-data" style="display: none;">
+                                    <input name="input_editar" id="input_editar" value="<%= novedad.id_novedad %>">
+                                </form>
                                 <span class="tooltiptext">Editar novedad</span>
                             </div>
                         </div>
@@ -92,76 +93,82 @@
 
             </section>
 
-            <form action="/dash_agregar_nov" method="POST" enctype="multipart/form-data" id="form_agregar_nov"
-                class="desac">
-                <div class="cont_input">
-                    <label for="id_user">titulo novedad </label>
-                    <input type="text" name="titulo_nov" id="titulo_nov" placeholder="" maxlength="255" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">subtitulo novedad</label>
-                    <input type="text" name="subtitulo_nov" id="subtitulo_nov" placeholder="" maxlength="255" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">cuerpo novedad</label>
-                    <input type="text" name="cuerpo_nov" id="cuerpo_nov" placeholder="" maxlength="2000" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">url foto novedad</label>
-                    <input type="file" name="url_nov" id="url_nov" placeholder="" required>
-                </div>
-                <button type="submit">enviar</button>
-            </form>
+            <section id="form_agregar_nov" class="desac cont_formularios">
+                <form action="/dash_agregar_nov" method="POST" enctype="multipart/form-data" id="">
+                    <h3> Agregar novedad</h3>
+                    <div class="cont_input">
+                        <label for="id_user">titulo novedad </label>
+                        <input type="text" name="titulo_nov" id="titulo_nov" placeholder="" maxlength="255" required>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">subtitulo novedad</label>
+                        <input type="text" name="subtitulo_nov" id="subtitulo_nov" placeholder="" maxlength="255"
+                            required>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">cuerpo novedad</label>
+                        <input type="text" name="cuerpo_nov" id="cuerpo_nov" placeholder="" maxlength="2000" required>
+                    </div>
+                    <div class="cont_input">
+                        <label for="id_user">url foto novedad</label>
+                        <input type="file" name="url_nov" id="url_nov" placeholder="" required>
+                    </div>
+                    <div class="cont_btns">
+                        <button id="pre_visualizar" type="button">Previsualizar</button>
+                        <button type="submit">enviar</button>
+                    </div>
 
-            <form action="/dash_agregar_nov" method="POST" enctype="multipart/form-data" id="form_editar_nov"
-                class="desac">
-                <div class="cont_input">
-                    <label for="id_user">titulo novedad </label>
-                    <input type="text" name="titulo_nov" id="titulo_nov" placeholder="" maxlength="255" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">subtitulo novedad</label>
-                    <input type="text" name="subtitulo_nov" id="subtitulo_nov" placeholder="" maxlength="255" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">cuerpo novedad</label>
-                    <input type="text" name="cuerpo_nov" id="cuerpo_nov" placeholder="" maxlength="2000" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">url foto novedad</label>
-                    <input type="file" name="url_nov" id="url_nov" placeholder="" required>
-                </div>
-                <button type="submit">enviar</button>
-            </form>
+                </form>
+                <div id="preview_container"></div>
+            </section>
 
-            <form action="/dash_agregar_nov" method="POST" enctype="multipart/form-data" id="form_eliminar_nov"
-                class="desac">
-                <div class="cont_input">
-                    <label for="id_user">titulo novedad </label>
-                    <input type="text" name="titulo_nov" id="titulo_nov" placeholder="" maxlength="255" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">subtitulo novedad</label>
-                    <input type="text" name="subtitulo_nov" id="subtitulo_nov" placeholder="" maxlength="255" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">cuerpo novedad</label>
-                    <input type="text" name="cuerpo_nov" id="cuerpo_nov" placeholder="" maxlength="2000" required>
-                </div>
-                <div class="cont_input">
-                    <label for="id_user">url foto novedad</label>
-                    <input type="file" name="url_nov" id="url_nov" placeholder="" required>
-                </div>
-                <button type="submit">enviar</button>
-            </form>
+            <section id="form_editar_nov" class="desac cont_formularios">
+                <form action="/dash_nov_editar" method="GET" enctype="multipart/form-data">
+                    <h3> Editar novedad</h3>
+                    <div class="cont_input">
+                        <label for="input_editar">titulo novedad </label>
+                        <select name="input_editar" id="input_editar">
+                            <% novedades.forEach((novedad, index)=> { %>
+                                <option value="<%= novedad.id_novedad %>">
+                                    <%= novedad.titulo_novedad%>
+                                </option>
+                                <% })%>
+                        </select>
+                    </div>
+                    <div class="cont_btns">
 
+                        <button type="submit">enviar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="form_eliminar_nov" class="desac cont_formularios">
+
+                <form action="/borrar_novedad" method="POST">
+                    <h3> Borrar novedad</h3>
+                    <div class=" cont_input">
+                        <label for="id_user">titulo novedad </label>
+                        <select name="input_borrar_nov">
+                            <% novedades.forEach((novedad, index)=> { %>
+                                <option value="<%= novedad.id_novedad %>">
+                                    <%= novedad.titulo_novedad%>
+                                </option>
+                                <% })%>
+                        </select>
+                    </div>
+                    <div class="cont_btns">
+
+                        <button type="submit" class="btn-borrar">enviar</button>
+                    </div>
+                </form>
+            </section>
 
 
 
         </main>
-    
 
-            <script src="Scripts/dash_nov.js"></script>
+
+        <script src="Scripts/dash_nov.js"></script>
 </body>
 
 </html>

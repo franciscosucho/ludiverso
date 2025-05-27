@@ -2,18 +2,18 @@
 <html lang="en">
 
 <head>
-    <%- include('head.ejs') %>
+    <%- include('../head.ejs') %>
         <title>
             Dashboard root
         </title>
 </head>
 
 <body>
-    <%- include('header.ejs') %>
+    <%- include('../header.ejs') %>
         <main id="dashboard">
             <h2>Bienvenido al panel del administrador <%= user_session_nombre %> </h2>
             <section class="admin-grid">
-                <a class="admin-card active" href="/dash_users">🏠<span>Dashboard</span></a>
+                <a class="admin-card active" href="#">🏠<span>Dashboard</span></a>
                 <a class="admin-card" href="/dash_users">👤<span>Usuarios</span></a>
                 <a class="admin-card" href="/dashboard/usuarios">🧠<span>Juegos</span></a>
                 <a class="admin-card" href="/dash_novedades">🧠<span>Novedades</span></a>
@@ -22,7 +22,7 @@
                 <a class="admin-card" href="/dashboard/usuarios">⚙️<span>Configuración</span></a>
             </section>
         </main>
-        <%- include('footer.ejs') %></aside>
+        
 </body>
 
 </html>
