@@ -22,10 +22,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `areas` (
-  `materia_id` int(11) NOT NULL,
+  `materia_id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
-  `jefe_de_area` varchar(255) NOT NULL
+  `jefe_de_area` varchar(255) NOT NULL,
+  PRIMARY KEY (`materia_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -255,7 +256,7 @@ INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_
 (1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, 'wordle_intro', 0),
 (2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0),
 (3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_intro', 4),
-(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0),
+(4, 'Ahorcado', 'Juego del ahorcado donde deberás adivinar palabras relacionadas con diferentes áreas de estudio. ¡Demuestra tus conocimientos!', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/ahorcado.png', 5, 'ahorcado_intro', 0),
 (5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0);
 
 -- --------------------------------------------------------
@@ -390,7 +391,7 @@ INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`
 (25, 2, 'bisagra', 'Bisagra de cazoleta', 'También llamada bisagra oculta o europea. Se instala dentro de un agujero circular y permite ajustar puertas de muebles en varias direcciones.'),
 (26, 2, 'escuadra', 'Escuadra combinada', 'Herramienta multifunción con regla y cabezal ajustable que permite trazar y verificar ángulos de 90° y 45°, e incluye nivel y punzón.'),
 (27, 2, 'formon', 'Formón', 'Cincel de carpintero que se usa para tallar o ajustar ensambles en madera. Funciona con la mano o mazo, y viene en varios anchos.'),
-(28, 2, 'gubias', 'Gubias de tallado', 'Herramientas similares a los formones pero con hoja curva o en “U” o “V”, ideales para tallar y esculpir madera de forma decorativa.'),
+(28, 2, 'gubias', 'Gubias de tallado', 'Herramientas similares a los formones pero con hoja curva o en "U" o "V", ideales para tallar y esculpir madera de forma decorativa.'),
 (29, 2, 'ingletadora', 'Ingletadora', 'Sierra especial para cortar madera en ángulos precisos como 45° o 90°, usada comúnmente en molduras y marcos. Puede ser manual o eléctrica.'),
 (30, 2, 'sargentopng', 'Sargento de prensa', 'Herramienta de sujeción que mantiene firmemente dos piezas unidas durante el pegado, taladrado o ensamblado.'),
 (31, 2, 'sierra_banco', 'Sierra de banco', 'Herramienta estacionaria con hoja circular que permite cortes rectos y precisos. Se usa para cortes longitudinales o transversales en madera.'),
@@ -435,6 +436,61 @@ INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `e
 (12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
 (13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
 (15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `palabras_ahorcado`
+--
+
+CREATE TABLE `palabras_ahorcado` (
+  `id_palabra` int(11) NOT NULL AUTO_INCREMENT,
+  `palabra` varchar(100) NOT NULL,
+  `pista` varchar(255) NOT NULL,
+  `materia_id` int(11) NOT NULL,
+  PRIMARY KEY (`id_palabra`),
+  FOREIGN KEY (`materia_id`) REFERENCES `areas`(`materia_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `palabras_ahorcado`
+--
+
+INSERT INTO `palabras_ahorcado` (`palabra`, `pista`, `materia_id`) VALUES
+-- Comunicaciones (materia_id: 1)
+('PERIODICO', 'Medio de comunicación impreso', 1),
+('REPORTERO', 'Persona que recoge y transmite noticias', 1),
+('ENTREVISTA', 'Conversación para obtener información', 1),
+('NOTICIA', 'Información sobre un hecho reciente', 1),
+('ARTICULO', 'Texto periodístico sobre un tema', 1),
+
+-- Exactas y Naturales (materia_id: 2)
+('MATEMATICA', 'Ciencia de los números y formas', 2),
+('QUIMICA', 'Estudio de la materia y sus cambios', 2),
+('FISICA', 'Ciencia que estudia la energía y materia', 2),
+('BIOLOGIA', 'Estudio de los seres vivos', 2),
+('ATOMO', 'Partícula más pequeña de un elemento', 2),
+
+-- Educación Física (materia_id: 5)
+('DEPORTE', 'Actividad física competitiva', 5),
+('ATLETISMO', 'Conjunto de pruebas deportivas', 5),
+('NATACION', 'Deporte acuático', 5),
+('FUTBOL', 'Deporte de equipo con balón', 5),
+('BASQUET', 'Deporte con canasta y pelota', 5),
+
+-- Ciencias Sociales (materia_id: 6)
+('HISTORIA', 'Estudio del pasado', 6),
+('GEOGRAFIA', 'Estudio de la Tierra', 6),
+('ECONOMIA', 'Estudio de la producción y consumo', 6),
+('POLITICA', 'Actividad de gobierno', 6),
+('CULTURA', 'Conjunto de costumbres y creencias', 6),
+
+-- Taller (materia_id: 7)
+('HERRAMIENTA', 'Instrumento para trabajar', 7),
+('MARTILLO', 'Herramienta para golpear', 7),
+('DESTORNILLADOR', 'Herramienta para tornillos', 7),
+('SERRUCHO', 'Herramienta para cortar', 7),
+('TALADRO', 'Herramienta para perforar', 7);
 
 -- --------------------------------------------------------
 
@@ -590,12 +646,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 --
 
 --
--- Indices de la tabla `areas`
---
-ALTER TABLE `areas`
-  ADD PRIMARY KEY (`materia_id`);
-
---
 -- Indices de la tabla `calificaciones`
 --
 ALTER TABLE `calificaciones`
@@ -695,12 +745,6 @@ ALTER TABLE `wordle`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `areas`
---
-ALTER TABLE `areas`
-  MODIFY `materia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `calificaciones`
@@ -820,6 +864,12 @@ ALTER TABLE `niveles_us`
   ADD CONSTRAINT `niveles_us_ibfk_3` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
+-- Filtros para la tabla `novedades`
+--
+ALTER TABLE `novedades`
+  ADD CONSTRAINT `novedades_ibfk_1` FOREIGN KEY (`id_novedad`) REFERENCES `novedades` (`id_novedad`);
+
+--
 -- Filtros para la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
@@ -829,7 +879,7 @@ ALTER TABLE `preguntas`
 -- Filtros para la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
-  ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
 -- Filtros para la tabla `resources_juego`
@@ -842,4 +892,15 @@ ALTER TABLE `resources_juego`
 --
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`pregunta_id`);
-COMMIT;
+
+--
+-- Filtros para la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`);
+
+--
+-- Filtros para la tabla `wordle`
+--
+ALTER TABLE `wordle`
+  ADD CONSTRAINT `wordle_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);

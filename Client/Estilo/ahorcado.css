@@ -1,0 +1,74 @@
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.hangman-container {
+    margin: 20px 0;
+    min-height: 200px;
+}
+
+.word-display {
+    font-size: 2em;
+    letter-spacing: 10px;
+    margin: 20px 0;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 5px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.key {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #fff;
+    transition: background-color 0.3s;
+}
+
+.key:hover {
+    background: #f0f0f0;
+}
+
+.key.used {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.key.correct {
+    background: #90EE90;
+}
+
+.key.wrong {
+    background: #FFB6C1;
+}
+
+.hint {
+    margin: 20px 0;
+    font-style: italic;
+    color: #666;
+}
+
+.game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    text-align: center;
+    display: none;
+}
+
+.game-over.show {
+    display: block;
+} 

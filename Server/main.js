@@ -37,11 +37,12 @@ const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 app.use(
     session({
         secret: "Pzdb3Jc%V8pB},p8|$>4r%t'|cs;kzaq8=X",
-        resave: false,
+        resave: true,
         saveUninitialized: true,
         cookie: {
             secure: false,
             maxAge: 30 * 60 * 1000, // 30 minutos en milisegundos 
+            httpOnly: true
         },
     })
 );
@@ -75,10 +76,13 @@ app.listen(PORT, () => {
 
 
 const isLogged = (req, res, next) => {
+    console.log('Middleware isLogged - Session:', req.session);
     if (req.session.user_sesion == '' || typeof req.session.user_sesion == 'undefined') {
-        res.redirect('/')
+        console.log('No hay sesión activa, redirigiendo a /');
+        res.redirect('/');
     } else {
-        next()
+        console.log('Sesión activa, continuando...');
+        next();
     }
 }
 const root_verificar = (req, res, next) => {
@@ -760,4 +764,39 @@ function Datatime() {
 
     return `${year}-${month}-${day}`;
 }
+
+// rutas para el juego del ahorcado
+app.get('/ahorcado_intro', isLogged, (req, res) => {
+    console.log('Accediendo a /ahorcado_intro');
+    const select_areas = 'SELECT * FROM areas';
+    connection.query(select_areas, [], (err, areas) => {
+        if (err) {
+            console.error('Error al obtener las áreas:', err);
+            res.status(500).send('Error al obtener las áreas');
+        } else {
+            console.log('Áreas obtenidas:', areas);
+            res.render('ahorcado_intro', { areas });
+        }
+    });
+});
+
+app.get('/ahorcado', isLogged, (req, res) => {
+    const materiaId = req.query.materia;
+    
+    // bbtener una palabra aleatoria de la materia seleccionada
+    const select_palabra = 'SELECT palabra, pista FROM palabras_ahorcado WHERE materia_id = ? ORDER BY RAND() LIMIT 1';
+    connection.query(select_palabra, [materiaId], (err, result) => {
+        if (err) {
+            console.error('Error al obtener la palabra:', err);
+            res.status(500).send('Error al obtener la palabra');
+        } else if (result.length === 0) {
+            res.status(404).send('No se encontraron palabras para esta materia');
+        } else {
+            res.render('ahorcado', {
+                palabra: result[0].palabra,
+                pista: result[0].pista
+            });
+        }
+    });
+});
 
