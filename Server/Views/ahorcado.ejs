@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>Ahorcado - Ludiverso</title>
+        <link rel="stylesheet" href="/Estilo/ahorcado.css">
+</head>
+
+
+
+
+<body>
+    <%- include('header') %>
+
+        <div class="game-container">
+            <h1>Juego del Ahorcado</h1>
+            <div class="hangman-container">
+                <canvas id="hangmanCanvas" width="300" height="300"></canvas>
+            </div>
+            <div class="word-display" id="wordDisplay" data-word="<%= palabra %>"></div>
+            <div class="hint" id="hint" data-hint="<%= pista %>"></div>
+            <div class="keyboard" id="keyboard"></div>
+        </div>
+
+        <div class="game-over" id="gameOver">
+            <h2 id="gameOverMessage"></h2>
+            <p>La palabra era: <span id="correctWord"></span></p>
+            <button onclick="window.location.reload()">Jugar de nuevo</button>
+            <button onclick="window.location.href='/ahorcado_intro'">Cambiar área</button>
+        </div>
+
+        <script src="/Scripts/ahorcado.js"></script>
+</body>
+
+</html>

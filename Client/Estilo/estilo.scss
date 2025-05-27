@@ -868,9 +868,11 @@ body {
                     }
                 }
             }
-            .editar_novedades{
+
+            .editar_novedades {
                 width: 80%;
             }
+
             .admin-novedades {
                 display: flex;
                 justify-content: center;
@@ -1093,7 +1095,7 @@ body {
                     gap: 1.5rem;
                     font-family: 'Segoe UI', sans-serif;
 
-                    h3{
+                    h3 {
                         @extend %poetsen-font;
                         font-size: 2em;
                         color: var(--Botones_secundarios_o_hover_azul);
@@ -1103,55 +1105,55 @@ body {
                         display: flex;
                         flex-direction: column;
                         margin-bottom: 1.5rem;
-                      
+
                         label {
-                          font-weight: 600;
-                          margin-bottom: 0.5rem;
-                          color: var(--color-texto);
-                          font-size: 1.1rem;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
+                            color: var(--color-texto);
+                            font-size: 1.1rem;
                         }
-                      
+
                         input[type="text"],
                         input[type="file"],
                         select {
-                          padding: 0.8rem 1rem;
-                          border-radius: 0.8rem;
-                          border: 2px solid transparent;
-                          background-color: #1e1e1e;
-                          color: white;
-                          font-size: 1rem;
-                          transition: border-color 0.3s ease, box-shadow 0.3s ease;
-                      
-                          &:focus {
-                            border-color: var(--azul_principal);
-                            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-                            outline: none;
-                          }
-                      
-                          &::placeholder {
-                            color: #aaa;
-                          }
-                        }
-                      
-                        input[type="file"] {
-                          cursor: pointer;
-                      
-                          &::-webkit-file-upload-button {
-                            background-color: var(--azul_principal);
+                            padding: 0.8rem 1rem;
+                            border-radius: 0.8rem;
+                            border: 2px solid transparent;
+                            background-color: #1e1e1e;
                             color: white;
-                            border: none;
-                            border-radius: 6px;
-                            padding: 0.4rem 0.8rem;
-                            font-weight: 600;
-                            cursor: pointer;
-                            transition: background-color 0.3s ease;
-                      
-                            &:hover {
-                              background-color: lighten(#007bff, 10%);
+                            font-size: 1rem;
+                            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+                            &:focus {
+                                border-color: var(--azul_principal);
+                                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+                                outline: none;
                             }
-                          }
+
+                            &::placeholder {
+                                color: #aaa;
+                            }
                         }
-                      }
+
+                        input[type="file"] {
+                            cursor: pointer;
+
+                            &::-webkit-file-upload-button {
+                                background-color: var(--azul_principal);
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                padding: 0.4rem 0.8rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: background-color 0.3s ease;
+
+                                &:hover {
+                                    background-color: lighten(#007bff, 10%);
+                                }
+                            }
+                        }
+                    }
 
 
                     .cont_btns {
@@ -1190,6 +1192,118 @@ body {
                     }
                 }
 
+            }
+
+            .admin-juegos {
+                width: 100%;
+                height: auto;
+                min-height: 50vh;
+                display: flex;
+
+                &#cont_wordle {
+                    height: auto;
+                    width: 100%;
+                   
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: 40px;
+                    .cont_opc {
+                        width: 100%;
+                        height: auto;
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-start;
+                        gap: 40px;
+
+                        div {
+                            border-radius: 10px;
+                            height: 25vh;
+                            width: 20%;
+                            transition: all 0.3s ease;
+                            cursor: pointer;
+                            border: 3px solid transparent;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: var(--fondo_azul_claro);
+                           
+                            span{
+                                color: var(--color-texto);
+                                font-size: 1.5em;
+                                font-weight: 500;
+                                @extend %poetsen-font;
+                            }
+                            &:hover {
+                                transform: translateY(-5px);
+                                border-color: var(--Encabezados_botones_y_primarios);
+                            }
+                        }
+                    }
+
+                    form{
+                        
+                        
+                    }
+                }
+
+
+                #cont_main_juegos {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    /* centra horizontalmente */
+                    align-items: center;
+                    /* centra verticalmente (opcional) */
+                    flex-wrap: wrap;
+                    /* permite que bajen si no entran */
+                    gap: 20px;
+                    padding: 20px;
+                }
+
+
+                .cont_juego {
+                    cursor: pointer;
+                    width: 300px;
+                    height: 400px;
+                    background-size: cover;
+
+                    background-position: center;
+
+                    background-repeat: no-repeat;
+                    border-radius: 10px;
+
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    display: flex;
+                    justify-content: center;
+                    padding: 20px;
+                    align-items: flex-start;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    border: 3px solid transparent;
+
+                    &:hover {
+                        transform: translateY(-5px);
+                        border-color: var(--Encabezados_botones_y_primarios);
+                    }
+
+                    span {
+
+                        font-size: 1.5em;
+                        font-weight: 500;
+                        color: var(--Encabezados_botones_y_primarios);
+                        background-color: #ffffffec;
+                        padding: 10px;
+                        border-radius: 10px;
+                        text-align: center;
+                        @extend %poetsen-font;
+
+                    }
+
+
+                }
             }
         }
     }

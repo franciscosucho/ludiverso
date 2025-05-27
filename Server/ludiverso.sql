@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2025 a las 04:27:26
+-- Tiempo de generación: 27-05-2025 a las 21:41:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -244,19 +244,20 @@ CREATE TABLE `juegos` (
   `url_img` varchar(255) NOT NULL,
   `valoracion` float NOT NULL,
   `url_juego` varchar(255) NOT NULL,
-  `niveles` int(10) NOT NULL
+  `niveles` int(10) NOT NULL,
+  `url_dash` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `juegos`
 --
 
-INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`) VALUES
-(1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, 'wordle_intro', 0),
-(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0),
-(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_intro', 4),
-(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0),
-(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0);
+INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
+(1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, 'wordle_intro', 0, 'dash_wordle'),
+(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0, ''),
+(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_intro', 4, 'dash_memory'),
+(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0, ''),
+(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0, '');
 
 -- --------------------------------------------------------
 
@@ -325,6 +326,50 @@ CREATE TABLE `novedades` (
 INSERT INTO `novedades` (`id_novedad`, `titulo_novedad`, `subtitulo_novedad`, `cuerpo_novedad`, `url_foto_novedad`, `fecha_novedad`) VALUES
 (1, 'Torneo de actividades Ludicas', 'Se realizara un torneo sobre actividades ludicas en la Escuela de Educación Secundaria Técnica Nro 1 Eduardo Ader', 'El  dia lunes 20 del mes de octubre los estudiantes de la institucion Técnica Nro 1 \"Eduardo Ader, podran competir entre ellos el los distintos juegos en los que se cuenta en la aplicacion. El evento se hara en la franja horaria de 10hs hasta las 11.55hs, para poder participar se deberan inscribir con anterioridad', 'Resources/Imagenes/Novedades/torneo.png', '2025-01-01'),
 (2, 'Nuevos juegos en Ludiversoo', 'Con el equipo de ludivero desarrollamos nuevos juegos para ustedes. Dentro de poco estaran disponibles', 'Nos complace anunciar que con el equipo de Ludivero hemos estado trabajando arduamente para ofrecerles una emocionante selección de nuevos juegos. Nuestro objetivo es brindarles experiencias aún más entretenidas y divertidas que disfrutarán en sus momentos libres.\r\nEstos nuevos juegos están diseñados pensando en ustedes, con características innovadoras y dinámicas que prometen captar su atención y mantenerlos enganchados. Dentro de poco, estarán disponibles para que todos puedan disfrutarlos. Estamos seguros de que les encantarán tanto como a nosotros.\r\n¡Manténganse atentos para más detalles sobre el lanzamiento! ¡No querrán perdérselos!', 'Resources/Imagenes/Novedades/torneo.png', '2025-04-12');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `palabras_ahorcado`
+--
+
+CREATE TABLE `palabras_ahorcado` (
+  `id_palabra` int(11) NOT NULL,
+  `palabra` varchar(100) NOT NULL,
+  `pista` varchar(255) NOT NULL,
+  `materia_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `palabras_ahorcado`
+--
+
+INSERT INTO `palabras_ahorcado` (`id_palabra`, `palabra`, `pista`, `materia_id`) VALUES
+(1, 'PERIODICO', 'Medio de comunicación impreso', 1),
+(2, 'REPORTERO', 'Persona que recoge y transmite noticias', 1),
+(3, 'ENTREVISTA', 'Conversación para obtener información', 1),
+(4, 'NOTICIA', 'Información sobre un hecho reciente', 1),
+(5, 'ARTICULO', 'Texto periodístico sobre un tema', 1),
+(6, 'MATEMATICA', 'Ciencia de los números y formas', 2),
+(7, 'QUIMICA', 'Estudio de la materia y sus cambios', 2),
+(8, 'FISICA', 'Ciencia que estudia la energía y materia', 2),
+(9, 'BIOLOGIA', 'Estudio de los seres vivos', 2),
+(10, 'ATOMO', 'Partícula más pequeña de un elemento', 2),
+(11, 'DEPORTE', 'Actividad física competitiva', 5),
+(12, 'ATLETISMO', 'Conjunto de pruebas deportivas', 5),
+(13, 'NATACION', 'Deporte acuático', 5),
+(14, 'FUTBOL', 'Deporte de equipo con balón', 5),
+(15, 'BASQUET', 'Deporte con canasta y pelota', 5),
+(16, 'HISTORIA', 'Estudio del pasado', 6),
+(17, 'GEOGRAFIA', 'Estudio de la Tierra', 6),
+(18, 'ECONOMIA', 'Estudio de la producción y consumo', 6),
+(19, 'POLITICA', 'Actividad de gobierno', 6),
+(20, 'CULTURA', 'Conjunto de costumbres y creencias', 6),
+(21, 'HERRAMIENTA', 'Instrumento para trabajar', 7),
+(22, 'MARTILLO', 'Herramienta para golpear', 7),
+(23, 'DESTORNILLADOR', 'Herramienta para tornillos', 7),
+(24, 'SERRUCHO', 'Herramienta para cortar', 7),
+(25, 'TALADRO', 'Herramienta para perforar', 7);
 
 -- --------------------------------------------------------
 
@@ -583,7 +628,27 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (247, 7, 'chapa', 'Lámina delgada de metal.'),
 (248, 7, 'tijera', 'Herramienta para cortar.'),
 (249, 7, 'pintura', 'Sustancia usada para recubrir superficies.'),
-(250, 7, 'cepillo', 'Herramienta para alisar madera.');
+(250, 7, 'cepillo', 'Herramienta para alisar madera.'),
+(251, 7, 'cepillo', 'Herramienta para alisar madera.'),
+(252, 7, 'pintura', 'Sustancia usada para recubrir superficies.'),
+(253, 7, 'tijera', 'Herramienta para cortar.'),
+(254, 7, 'chapas', 'Lámina delgada de metal.'),
+(255, 7, 'remache', 'Elemento de unión permanente.'),
+(256, 7, 'nivel', 'Herramienta para verificar horizontalidad.'),
+(257, 7, 'escuadra', 'Herramienta para trazos rectos o perpendiculares.'),
+(258, 7, 'cinta métrica', 'Instrumento para medir longitudes.'),
+(259, 7, 'torno', 'Máquina para mecanizar piezas cilíndricas.'),
+(260, 7, 'limadora', 'Máquina para dar forma con precisión.'),
+(261, 7, 'esmeril', 'Herramienta para afilar o desbastar.'),
+(262, 7, 'taladro', 'Herramienta para perforar.'),
+(263, 7, 'soldadura', 'Unión de materiales por fusión.'),
+(264, 7, 'alicate', 'Herramienta para sujetar o cortar.'),
+(265, 7, 'destornillador', 'Herramienta para atornillar o desatornillar.'),
+(266, 7, 'llave inglesa', 'Herramienta ajustable para sujetar tuercas.'),
+(267, 7, 'tuerca', 'Pieza que enrosca el tornillo.'),
+(268, 7, 'tornillo', 'Elemento metálico de fijación.'),
+(269, 7, 'sierra', 'Herramienta para cortar materiales.'),
+(270, 7, 'martillo', 'Herramienta para golpear.');
 
 --
 -- Índices para tablas volcadas
@@ -649,6 +714,13 @@ ALTER TABLE `niveles_us`
 --
 ALTER TABLE `novedades`
   ADD PRIMARY KEY (`id_novedad`);
+
+--
+-- Indices de la tabla `palabras_ahorcado`
+--
+ALTER TABLE `palabras_ahorcado`
+  ADD PRIMARY KEY (`id_palabra`),
+  ADD KEY `materia_id` (`materia_id`);
 
 --
 -- Indices de la tabla `preguntas`
@@ -745,6 +817,12 @@ ALTER TABLE `novedades`
   MODIFY `id_novedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT de la tabla `palabras_ahorcado`
+--
+ALTER TABLE `palabras_ahorcado`
+  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
 -- AUTO_INCREMENT de la tabla `preguntas`
 --
 ALTER TABLE `preguntas`
@@ -778,7 +856,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `wordle`
 --
 ALTER TABLE `wordle`
-  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
+  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
 
 --
 -- Restricciones para tablas volcadas
@@ -818,6 +896,12 @@ ALTER TABLE `niveles_us`
   ADD CONSTRAINT `niveles_us_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`),
   ADD CONSTRAINT `niveles_us_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
   ADD CONSTRAINT `niveles_us_ibfk_3` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
+
+--
+-- Filtros para la tabla `palabras_ahorcado`
+--
+ALTER TABLE `palabras_ahorcado`
+  ADD CONSTRAINT `palabras_ahorcado_ibfk_1` FOREIGN KEY (`materia_id`) REFERENCES `areas` (`materia_id`);
 
 --
 -- Filtros para la tabla `preguntas`

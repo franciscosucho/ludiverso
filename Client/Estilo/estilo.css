@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .cont_formularios form h3, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .cont_formularios form h3, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -965,6 +965,93 @@ body main#dashboard .cont_formularios form .cont_btns button:active {
 }
 body main#dashboard .cont_formularios form .cont_btns button#pre_visualizar {
   background-color: var(--box_shadow);
+}
+body main#dashboard .admin-juegos {
+  width: 100%;
+  height: auto;
+  min-height: 50vh;
+  display: flex;
+}
+body main#dashboard .admin-juegos#cont_wordle {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+body main#dashboard .admin-juegos#cont_wordle .cont_opc {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+}
+body main#dashboard .admin-juegos#cont_wordle .cont_opc div {
+  border-radius: 10px;
+  height: 25vh;
+  width: 20%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 3px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--fondo_azul_claro);
+}
+body main#dashboard .admin-juegos#cont_wordle .cont_opc div span {
+  color: var(--color-texto);
+  font-size: 1.5em;
+  font-weight: 500;
+}
+body main#dashboard .admin-juegos#cont_wordle .cont_opc div:hover {
+  transform: translateY(-5px);
+  border-color: var(--Encabezados_botones_y_primarios);
+}
+body main#dashboard .admin-juegos #cont_main_juegos {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* centra horizontalmente */
+  align-items: center;
+  /* centra verticalmente (opcional) */
+  flex-wrap: wrap;
+  /* permite que bajen si no entran */
+  gap: 20px;
+  padding: 20px;
+}
+body main#dashboard .admin-juegos .cont_juego {
+  cursor: pointer;
+  width: 300px;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  align-items: flex-start;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 3px solid transparent;
+}
+body main#dashboard .admin-juegos .cont_juego:hover {
+  transform: translateY(-5px);
+  border-color: var(--Encabezados_botones_y_primarios);
+}
+body main#dashboard .admin-juegos .cont_juego span {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: var(--Encabezados_botones_y_primarios);
+  background-color: rgba(255, 255, 255, 0.9254901961);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
 }
 body footer {
   width: 100%;

@@ -5,10 +5,6 @@ const session = require('express-session')
 const mysql = require('mysql2');
 
 
-
-
-
-
 const bcrypt = require('bcrypt');
 const path = require('path');
 const { PORT } = require('./config.js');
@@ -26,6 +22,8 @@ const multer = require('multer');
 const fs = require('fs');
 
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
+
+
 
 
 
@@ -89,6 +87,15 @@ const root_verificar = (req, res, next) => {
         res.redirect('/')
     }
 }
+
+const uploadRoute = require('./routes/upload');
+
+app.use('/upload', uploadRoute);
+
+
+
+
+
 
 
 
@@ -341,7 +348,7 @@ app.get('/dash_nov_editar', async (req, res) => {
             return res.status(500).send('Error al ejecutar la query en el servidor');
         }
 
-        res.render('dashboard/dash_nov_editar', { novedad:results_nov });
+        res.render('dashboard/dash_nov_editar', { novedad: results_nov });
     });
 });
 app.post('/editar_novedad', upload_nov.single('url_nov'), (req, res) => {
@@ -381,6 +388,8 @@ app.post('/editar_novedad', upload_nov.single('url_nov'), (req, res) => {
     });
 });
 
+
+
 // Ruta para recibir el archivo
 app.post('/dash_agregar_nov', upload_nov.single('url_nov'), (req, res) => {
     let { titulo_nov, subtitulo_nov, cuerpo_nov } = req.body;
@@ -404,6 +413,46 @@ app.post('/dash_agregar_nov', upload_nov.single('url_nov'), (req, res) => {
     }
 
 });
+
+
+app.get('/dash_juegos', root_verificar, async (req, res) => {
+
+    try {
+        let query_select = "SELECT * FROM `juegos` WHERE 1";
+        connection.query(query_select, (err, result_juego) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            }
+            res.render('dashboard/dash_juegos', { juegos: result_juego });
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dash_juegos', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
+
+})
+app.get('/dash_wordle', root_verificar, async (req, res) => {
+
+    try {
+        let query_select = "SELECT * FROM `wordle` WHERE 1";
+        connection.query(query_select, (err, result_juego) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            }
+            res.render('dashboard/dash_wordle', { juegos: result_juego });
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dash_wordle', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
+
+})
 
 function saveImage(file) {
     const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
@@ -776,6 +825,7 @@ ORDER BY
 // |Wordle| <-------------------------------------------------------------------------------------------------------->
 
 
+
 /*<------------------------------------------------------------------------------------------------------>
     Area de funciones.
 */
@@ -810,4 +860,42 @@ function Datatime() {
 
     return `${year}-${month}-${day}`;
 }
+
+
+// rutas para el juego del ahorcado
+app.get('/ahorcado_intro', isLogged, (req, res) => {
+    console.log('Accediendo a /ahorcado_intro');
+    const select_areas = 'SELECT * FROM areas';
+    connection.query(select_areas, [], (err, areas) => {
+        if (err) {
+            console.error('Error al obtener las áreas:', err);
+            res.status(500).send('Error al obtener las áreas');
+        } else {
+            console.log('Áreas obtenidas:', areas);
+            res.render('ahorcado_intro', { areas });
+        }
+    });
+});
+
+app.get('/ahorcado', isLogged, (req, res) => {
+    const materiaId = req.query.materia;
+
+    // bbtener una palabra aleatoria de la materia seleccionada
+    const select_palabra = 'SELECT palabra, pista FROM palabras_ahorcado WHERE materia_id = ? ORDER BY RAND() LIMIT 1';
+    connection.query(select_palabra, [materiaId], (err, result) => {
+        if (err) {
+            console.error('Error al obtener la palabra:', err);
+            res.status(500).send('Error al obtener la palabra');
+        } else if (result.length === 0) {
+            res.status(404).send('No se encontraron palabras para esta materia');
+        } else {
+            res.render('ahorcado', {
+                palabra: result[0].palabra,
+                pista: result[0].pista
+            });
+        }
+    });
+});
+
+
 

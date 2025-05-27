@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../head.ejs') %>
+        <title>
+            Dashboard users
+        </title>
+</head>
+
+<body>
+    <%- include('../header.ejs') %>
+        <main id="dashboard">
+            <h2>Bienvenido al panel de administracion de juegos </h2>
+            
+            <section class="admin-juegos">
+                <article id="cont_main_juegos">
+                    <% juegos.forEach((juego, index)=> { %>
+                        <a  style="background-image: url('<%= juego.url_img %>');" class="cont_juego" id="cont_juego<%= juego.juego_id %>" href="<%= juego.url_dash %>">
+    
+                            <span><%= juego.titulo %></span>
+                        </a>
+                        <% }) %>
+                </article>
+                
+            </section>
+        </main>
+
+
+
+</body>
+
+</html>

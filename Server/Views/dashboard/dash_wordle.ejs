@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../head.ejs') %>
+        <title>
+            Dashboard users
+        </title>
+</head>
+
+<body>
+    <%- include('../header.ejs') %>
+        <main id="dashboard">
+            <h2>Bienvenido al panel de administracion del juego Wordle </h2>
+
+            <section class="admin-juegos" id="cont_wordle">
+                <article class="cont_opc">
+                    <div>
+                        <span>Ver lista de palabras</span>
+                    </div>
+                    <div id="cargar_lista">
+                        <span>
+                            cargar Json con palabras
+                        </span>
+
+                    </div>
+                </article>
+                <form action="/upload" method="post" enctype="multipart/form-data" id="form_cargar_lista">
+                    <h4>Cargar Lista de palabras en formato JSON</h4>
+                    <div>
+                      <label for="archivo">Archivo</label>
+                      <input type="file" name="archivo" accept=".csv, .xlsx, .xls, .json, .txt" />
+                    </div>
+                    <button type="submit">Subir archivo</button>
+                  </form>
+
+            </section>
+        </main>
+        <script>
+            document.getElementById("cargar_lista").addEventListener("click", () => {
+                alert("ss")
+                document.getElementById("form_cargar_lista").classList.remove("desac")
+            })
+        </script>
+
+</body>
+
+</html>
