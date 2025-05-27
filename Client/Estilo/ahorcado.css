@@ -18,6 +18,26 @@
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 15px var(--box_shadow);
+    position: relative;
+}
+
+.hangman-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--fondo_azul_claro);
+    border-radius: 15px;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+#hangmanCanvas {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 5px var(--Encabezados_botones_y_primarios));
 }
 
 .word-display {

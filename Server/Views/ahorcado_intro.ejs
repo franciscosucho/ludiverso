@@ -46,12 +46,32 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                var(--Encabezados_botones_y_primarios) 0%,
+                var(--Botones_secundarios_o_hover_azul) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
         }
 
         .area-card:hover {
             transform: translateY(-5px);
             border-color: var(--Encabezados_botones_y_primarios);
-            background: var(--hover_card);
+        }
+
+        .area-card:hover::before {
+            opacity: 0.1;
         }
 
         .area-card img {
@@ -61,13 +81,16 @@
             border-radius: 50%;
             border: 3px solid var(--Encabezados_botones_y_primarios);
             padding: 5px;
-            background: white;
+            background: var(--Fondo_principal);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         .area-card:hover img {
             transform: scale(1.05);
-            box-shadow: 0 0 15px var(--Botones_secundarios_o_hover_azul);
+            box-shadow: 0 0 20px var(--Botones_secundarios_o_hover_azul);
         }
 
         .area-card h3 {
@@ -75,6 +98,8 @@
             color: var(--Texto_principal);
             font-size: 1.4em;
             font-weight: 600;
+            position: relative;
+            z-index: 1;
         }
 
         .area-card p {
@@ -82,6 +107,8 @@
             font-size: 1em;
             margin: 0;
             line-height: 1.4;
+            position: relative;
+            z-index: 1;
         }
 
         @media (max-width: 768px) {
