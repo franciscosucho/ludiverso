@@ -4,7 +4,7 @@ let word = document.getElementById('wordDisplay').getAttribute('data-word');
 let hint = document.getElementById('hint').getAttribute('data-hint');
 let guessedLetters = new Set();
 let wrongGuesses = 0;
-const maxWrongGuesses = 6;
+const maxWrongGuesses = 7;
 
 // dibujar el ahorcado
 function drawHangman() {
