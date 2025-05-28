@@ -263,24 +263,74 @@ router.get('/dash_juegos', root_verificar, async (req, res) => {
 
 })
 router.get('/dash_wordle', root_verificar, async (req, res) => {
+    try {
+        const query_wordle = "SELECT * FROM `wordle` WHERE 1";
+        connection.query(query_wordle, (err, result_juego) => {
+            if (err) {
+                console.error('Error al ejecutar la primera query', err);
+                return res.status(500).send('Error en la primera consulta');
+            }
+
+            const query_areas = "SELECT * FROM `areas` WHERE 1";
+            connection.query(query_areas, (err, result_juego_areas) => {
+                if (err) {
+                    console.error('Error al ejecutar la segunda query', err);
+                    return res.status(500).send('Error en la segunda consulta');
+                }
+
+                res.render('dashboard/dash_wordle', {
+                    palabras: result_juego,
+                    session: req.session,
+                    areas: result_juego_areas
+                });
+            });
+        });
+
+    } catch (err) {
+        console.error('Error al abrir la página:', err);
+        res.status(500).render('dashboard/dash_wordle', {
+            error: 'Ocurrió un error al abrir la página principal'
+        });
+    }
+});
+
+
+
+router.post('/borrar_wordle', async (req, res) => {
+    let { id_palabra } = req.body;
+    console.log("ID a borrar:", id_palabra);
 
     try {
-        let query_select = "SELECT * FROM `wordle` WHERE 1";
-        connection.query(query_select, (err, result_juego) => {
+        let DELETE_word = "DELETE FROM `wordle` WHERE `id_palabra`=?";
+        connection.query(DELETE_word, [id_palabra], (err, result_juego) => {
             if (err) {
                 console.error('Error al ejecutar la query en el servidor', err);
                 return res.status(500).send('Error al ejecutar la query en el servidor');
             }
-            res.render('dashboard/dash_wordle', { juegos: result_juego, session: req.session });
-        })
-    }
-
-    catch (err) {
+            res.redirect('dash_wordle');
+        });
+    } catch (err) {
         console.error('Error al abrir la pagina principal:', err);
-        res.render('dash_wordle', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+        res.render('dash_wordle', { error: 'Ocurrió un error al momento de abrir la página principal' });
     }
+});
 
-})
+router.post("/editar_palabra_wordle", async (req, res) => {
+    let { input_id, input_area, input_palabra, input_desc } = req.body;
+    try {
+        let edit_word = "UPDATE `wordle` SET `id_area`=?,`palabra`=?,`descrip`=? WHERE id_palabra=?";
+        connection.query(edit_word, [input_area, input_palabra, input_desc, input_id], (err, result_juego) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            }
+            res.redirect('dash_wordle');
+        });
+    } catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dash_wordle', { error: 'Ocurrió un error al momento de abrir la página principal' });
+    }
+});
 
 function saveImage(file) {
     const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`

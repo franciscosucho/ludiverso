@@ -22,7 +22,7 @@ var point_sound = new Audio('./../Resources/Sounds/point.mp3');
 var error_sound = new Audio('./../Resources/Sounds/error.mp3');
 var intentos_intro = 0;
 var errores_intro = 0;
-var tiempo_intro = 0;
+var tiempo_intro = 0; 
 
 let resources = [];
 

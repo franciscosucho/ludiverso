@@ -685,6 +685,116 @@ body {
                 color: var(--Encabezados_botones_y_primarios);
             }
 
+            form {
+                max-width: 600px;
+                margin: 2rem auto;
+                padding: 2rem;
+                background: linear-gradient(145deg, var(--color-fondo), var(--color-fondo));
+                border-radius: 1rem;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                font-family: 'Segoe UI', sans-serif;
+
+                h3 {
+                    @extend %poetsen-font;
+                    font-size: 2em;
+                    color: var(--Botones_secundarios_o_hover_azul);
+                }
+
+                .cont_input {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 1.5rem;
+
+                    label {
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                        color: var(--color-texto);
+                        font-size: 1.1rem;
+                    }
+
+                    input[type="text"],
+                    input[type="file"],
+                    select {
+                        padding: 0.8rem 1rem;
+                        border-radius: 0.8rem;
+                        border: 2px solid transparent;
+                        background-color: #1e1e1e;
+                        color: white;
+                        font-size: 1rem;
+                        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+                        &:focus {
+                            border-color: var(--azul_principal);
+                            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+                            outline: none;
+                        }
+
+                        &::placeholder {
+                            color: #aaa;
+                        }
+                    }
+
+                    input[type="file"] {
+                        cursor: pointer;
+
+                        &::-webkit-file-upload-button {
+                            background-color: var(--azul_principal);
+                            color: white;
+                            border: none;
+                            border-radius: 6px;
+                            padding: 0.4rem 0.8rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+
+                            &:hover {
+                                background-color: lighten(#007bff, 10%);
+                            }
+                        }
+                    }
+                }
+
+
+                .cont_btns {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    gap: 30px;
+                    height: auto;
+
+                    button {
+                        padding: 0.9rem 1.5rem;
+                        background-color: #007BFF;
+                        color: white;
+                        border: none;
+                        border-radius: 0.6rem;
+                        font-size: 1rem;
+                        font-weight: bold;
+                        cursor: pointer;
+                        align-self: center;
+                        transition: background-color 0.3s, transform 0.2s;
+
+                        &:hover {
+                            background-color: #0056b3;
+                            transform: scale(1.05);
+                        }
+
+                        &:active {
+                            transform: scale(0.97);
+                        }
+
+                        &#pre_visualizar {
+                            background-color: var(--box_shadow);
+                        }
+                    }
+                }
+            }
+
             .admin-grid {
 
                 display: grid;
@@ -1082,115 +1192,7 @@ body {
 
                 }
 
-                form {
-                    max-width: 600px;
-                    margin: 2rem auto;
-                    padding: 2rem;
-                    background: linear-gradient(145deg, var(--color-fondo), var(--color-fondo));
-                    border-radius: 1rem;
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-                    display: flex;
-                    flex-direction: column;
-                    gap: 1.5rem;
-                    font-family: 'Segoe UI', sans-serif;
-
-                    h3 {
-                        @extend %poetsen-font;
-                        font-size: 2em;
-                        color: var(--Botones_secundarios_o_hover_azul);
-                    }
-
-                    .cont_input {
-                        display: flex;
-                        flex-direction: column;
-                        margin-bottom: 1.5rem;
-
-                        label {
-                            font-weight: 600;
-                            margin-bottom: 0.5rem;
-                            color: var(--color-texto);
-                            font-size: 1.1rem;
-                        }
-
-                        input[type="text"],
-                        input[type="file"],
-                        select {
-                            padding: 0.8rem 1rem;
-                            border-radius: 0.8rem;
-                            border: 2px solid transparent;
-                            background-color: #1e1e1e;
-                            color: white;
-                            font-size: 1rem;
-                            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-                            &:focus {
-                                border-color: var(--azul_principal);
-                                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-                                outline: none;
-                            }
-
-                            &::placeholder {
-                                color: #aaa;
-                            }
-                        }
-
-                        input[type="file"] {
-                            cursor: pointer;
-
-                            &::-webkit-file-upload-button {
-                                background-color: var(--azul_principal);
-                                color: white;
-                                border: none;
-                                border-radius: 6px;
-                                padding: 0.4rem 0.8rem;
-                                font-weight: 600;
-                                cursor: pointer;
-                                transition: background-color 0.3s ease;
-
-                                &:hover {
-                                    background-color: lighten(#007bff, 10%);
-                                }
-                            }
-                        }
-                    }
-
-
-                    .cont_btns {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 100%;
-                        gap: 30px;
-                        height: auto;
-
-                        button {
-                            padding: 0.9rem 1.5rem;
-                            background-color: #007BFF;
-                            color: white;
-                            border: none;
-                            border-radius: 0.6rem;
-                            font-size: 1rem;
-                            font-weight: bold;
-                            cursor: pointer;
-                            align-self: center;
-                            transition: background-color 0.3s, transform 0.2s;
-
-                            &:hover {
-                                background-color: #0056b3;
-                                transform: scale(1.05);
-                            }
-
-                            &:active {
-                                transform: scale(0.97);
-                            }
-
-                            &#pre_visualizar {
-                                background-color: var(--box_shadow);
-                            }
-                        }
-                    }
-                }
 
             }
 
@@ -1244,7 +1246,74 @@ body {
                         }
                     }
 
-                    form {}
+                    #cont_form {
+
+                        #form_cargar_lista {
+                            display: flex;
+                            gap: 40px;
+                       
+                            justify-content: center;
+                            align-self: flex-start;
+                            flex-direction: column;
+                        }
+                    }
+
+                    #cont_lista {
+                        width: 60%;
+                        max-height: 500px;
+                        overflow-y: auto;
+                        overflow-x: auto;
+
+
+                        table {
+                            width: 100%;
+
+                            border-collapse: collapse;
+                            background: white;
+                            border-radius: 0.5rem;
+                            height: 100%;
+
+                            thead {
+                                width: 100%;
+                                background-color: #007bff;
+                                color: white;
+
+                                th {
+                                    padding: 1rem;
+                                    text-align: left;
+                                    font-weight: 600;
+                                }
+                            }
+
+                            tbody {
+                                tr {
+                                    &:nth-child(even) {
+                                        background-color: #f2f2f2;
+                                    }
+
+                                    td {
+                                        padding: 0.75rem 1rem;
+                                        border-bottom: 1px solid #e0e0e0;
+                                        color: #333;
+
+                                        button {
+                                            cursor: pointer;
+                                            border: none;
+                                            background-color: transparent;
+                                            color: #333;
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    #editar_palabra{
+                    
+                        form{
+                            width: 600px;
+                        }
+                    }
                 }
 
 
@@ -2105,10 +2174,11 @@ body {
 
 
         .select_dinamica {
-            position: relative;
-            left: 0;
+            position: absolute;
+            left: 40%;
+            top: 50%;
             display: none;
-            z-index: 2000;
+            z-index: 200;
             justify-content: center;
             align-items: center;
             padding: 80px;

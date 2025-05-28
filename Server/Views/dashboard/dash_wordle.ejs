@@ -15,7 +15,7 @@
 
             <section class="admin-juegos" id="cont_wordle">
                 <article class="cont_opc">
-                    <div>
+                    <div id="ver_lista">
                         <span>Ver lista de palabras</span>
                     </div>
                     <div id="cargar_lista">
@@ -25,22 +25,156 @@
 
                     </div>
                 </article>
-                <form action="/upload" method="post" enctype="multipart/form-data" id="form_cargar_lista">
-                    <h4>Cargar Lista de palabras en formato JSON</h4>
-                    <div>
-                      <label for="archivo">Archivo</label>
-                      <input type="file" name="archivo" accept=".csv, .xlsx, .xls, .json, .txt" />
-                    </div>
-                    <button type="submit">Subir archivo</button>
-                  </form>
+                <article id="cont_form" class="desac">
+                    <form action="/upload" method="post" enctype="multipart/form-data" id="form_cargar_lista">
+                        <h3>Cargar Lista de palabras en formato JSON</h3>
 
+                        <div class="cont_input">
+                            <label for="archivo">Archivo</label>
+                            <input type="file" name="archivo" accept=".csv, .xlsx, .xls, .json, .txt" required />
+                        </div>
+
+                        <div class="cont_btns">
+                            <button type="submit">Subir archivo</button>
+                        </div>
+
+                    </form>
+                </article>
+                <article id="cont_lista" class="desac">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Area</th>
+                                <th>Palabra</th>
+                                <th>Descripcion</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% palabras.forEach((palabra, index)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= palabra.id_palabra %>
+                                    </td>
+                                    <td>
+                                        <% if(palabra.id_area=="1" ) { %>
+                                            Comunicaciones
+                                            <% } else if(palabra.id_area=="2" ) { %>
+                                                Exactas y Naturales
+                                                <% } else if(palabra.id_area=="5" ) { %>
+                                                    Educación Física
+                                                    <% } else if(palabra.id_area=="6" ) { %>
+                                                        Ciencias Sociales
+                                                        <% } else if(palabra.id_area=="7" ) { %>
+                                                            Taller
+                                                            <% } %>
+                                    </td>
+                                    <td>
+                                        <%= palabra.palabra %>
+                                    </td>
+                                    <td>
+                                        <%= palabra.descrip %>
+                                    </td>
+                                    <td class="celda-borrar">
+
+                                        <button class="btn-borrar" data-id="<%= palabra.id_palabra %>"
+                                            data-form="form_borrar_user_<%= palabra.id_palabra %>"
+                                            data-input="input_borrar_user_<%= palabra.id_palabra %>">
+                                            <i class="fa-solid fa-user-slash"></i>
+                                        </button>
+
+                                        <form id="form_borrar_user_<%= palabra.id_palabra %>" action="/borrar_wordle"
+                                            method="POST" style="display: none;">
+                                            <input type="hidden" name="id_palabra"
+                                                id="input_borrar_user_<%= palabra.id_palabra %>">
+                                        </form>
+                                    </td>
+                                    <td class="editar_palabra" data-id="<%= palabra.id_palabra %>"
+                                        data-area="<%= palabra.id_area%>" data-palabra="<%= palabra.palabra %>"
+                                        data-desc="  <%= palabra.descrip %>">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+
+
+                </article>
+
+
+                <article id="editar_palabra" class="desac">
+                    <form action="/editar_palabra_wordle" method="post" id="form_cargar_lista">
+                        <h3>Editar palabra: </h3>
+                        <input type="text" id="input_id" name="input_id" style="display:none;" />
+                        <div class="cont_input">
+                            <label for="Area">Area</label>
+                            <select name="input_area" id="input_area">
+                                <% areas.forEach((area)=> { %>
+                                    <option value="<%= area.materia_id %>"><%= area.nombre %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+
+                        <div class="cont_input">
+                            <label for="archivo">Palabra</label>
+                            <input type="text" name="input_palabra" required maxlength="255" id="input_palabra" />
+                        </div>
+                        <div class="cont_input">
+                            <label for="archivo">Descripcion</label>
+                            <input type="text" name="input_desc" required maxlength="255" id="input_desc" />
+                        </div>
+                        <div class="cont_btns">
+                            <button type="submit">Editar</button>
+                        </div>
+
+                    </form>
+                </article>
             </section>
         </main>
         <script>
             document.getElementById("cargar_lista").addEventListener("click", () => {
-                alert("ss")
-                document.getElementById("form_cargar_lista").classList.remove("desac")
+
+                document.getElementById("cont_form").classList.remove("desac")
             })
+            document.getElementById("ver_lista").addEventListener("click", () => {
+
+                document.getElementById("cont_lista").classList.remove("desac")
+            })
+
+            document.querySelectorAll('.btn-borrar').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const formId = btn.getAttribute('data-form');
+                    const inputId = btn.getAttribute('data-input');
+                    const id = btn.getAttribute('data-id');
+
+                    document.getElementById(inputId).value = id;
+                    document.getElementById(formId).submit();
+                });
+            });
+            document.querySelectorAll('.editar_palabra').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    document.getElementById("editar_palabra").classList.remove("desac");
+                    document.getElementById("cont_lista").classList.add("desac");
+
+                    const id = this.dataset.id;
+                    const area = this.dataset.area;
+                    const palabra = this.dataset.palabra;
+                    const descripcion = this.dataset.desc;
+
+
+                    document.getElementById("input_id").value = id;
+                    document.getElementById("input_palabra").value = palabra;
+                    document.getElementById("input_desc").value = descripcion;
+                    document.getElementById("input_area").value = area;
+
+                });
+            });
+
         </script>
 
 </body>

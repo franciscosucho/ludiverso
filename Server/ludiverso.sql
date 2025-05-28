@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-05-2025 a las 21:41:23
+-- Tiempo de generación: 28-05-2025 a las 21:00:40
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -476,7 +476,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
 (5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno'),
-(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'alumno'),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo'),
 (12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
 (13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
 (15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root');
@@ -499,7 +499,7 @@ CREATE TABLE `wordle` (
 --
 
 INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
-(1, 1, 'alfabeto', 'conjunto de letras de un idioma'),
+(1, 1, 'alfabetos', '        conjunto de letras de un idiomas'),
 (2, 1, 'oracion', 'conjunto de palabras con sentido completo'),
 (3, 1, 'verbo', 'palabra que indica accion o estado'),
 (4, 1, 'sujeto', 'persona o cosa que realiza la accion'),
@@ -648,7 +648,26 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (267, 7, 'tuerca', 'Pieza que enrosca el tornillo.'),
 (268, 7, 'tornillo', 'Elemento metálico de fijación.'),
 (269, 7, 'sierra', 'Herramienta para cortar materiales.'),
-(270, 7, 'martillo', 'Herramienta para golpear.');
+(270, 7, 'martillo', 'Herramienta para golpear.'),
+(271, 7, 'cepillo', 'Herramienta para alisar madera.'),
+(272, 7, 'pintura', 'Sustancia usada para recubrir superficies.'),
+(273, 7, 'tijera', 'Herramienta para cortar.'),
+(274, 7, 'chapas', 'Lámina delgada de metal.'),
+(275, 7, 'remache', 'Elemento de unión permanente.'),
+(276, 7, 'nivel', 'Herramienta para verificar horizontalidad.'),
+(277, 7, 'escuadra', 'Herramienta para trazos rectos o perpendiculares.'),
+(278, 7, 'cinta métrica', 'Instrumento para medir longitudes.'),
+(279, 7, 'torno', 'Máquina para mecanizar piezas cilíndricas.'),
+(280, 7, 'limadora', 'Máquina para dar forma con precisión.'),
+(281, 7, 'esmeril', 'Herramienta para afilar o desbastar.'),
+(282, 7, 'taladro', 'Herramienta para perforar.'),
+(283, 7, 'soldadura', 'Unión de materiales por fusión.'),
+(284, 7, 'alicate', 'Herramienta para sujetar o cortar.'),
+(285, 7, 'destornillador', 'Herramienta para atornillar o desatornillar.'),
+(286, 7, 'llave inglesa', 'Herramienta ajustable para sujetar tuercas.'),
+(287, 7, 'tuerca', 'Pieza que enrosca el tornillo.'),
+(288, 7, 'tornillo', 'Elemento metálico de fijación.'),
+(289, 7, 'sierra', 'Herramienta para cortar materiales.');
 
 --
 -- Índices para tablas volcadas
@@ -856,7 +875,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `wordle`
 --
 ALTER TABLE `wordle`
-  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
+  MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=291;
 
 --
 -- Restricciones para tablas volcadas

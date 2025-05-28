@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .cont_formularios form h3, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard form h3, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -547,6 +547,106 @@ body main#dashboard h2 {
   font-size: 3em;
   color: var(--Encabezados_botones_y_primarios);
 }
+body main#dashboard form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, var(--color-fondo), var(--color-fondo));
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-family: "Segoe UI", sans-serif;
+}
+body main#dashboard form h3 {
+  font-size: 2em;
+  color: var(--Botones_secundarios_o_hover_azul);
+}
+body main#dashboard form .cont_input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+body main#dashboard form .cont_input label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--color-texto);
+  font-size: 1.1rem;
+}
+body main#dashboard form .cont_input input[type=text],
+body main#dashboard form .cont_input input[type=file],
+body main#dashboard form .cont_input select {
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  border: 2px solid transparent;
+  background-color: #1e1e1e;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+body main#dashboard form .cont_input input[type=text]:focus,
+body main#dashboard form .cont_input input[type=file]:focus,
+body main#dashboard form .cont_input select:focus {
+  border-color: var(--azul_principal);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+body main#dashboard form .cont_input input[type=text]::-moz-placeholder, body main#dashboard form .cont_input input[type=file]::-moz-placeholder, body main#dashboard form .cont_input select::-moz-placeholder {
+  color: #aaa;
+}
+body main#dashboard form .cont_input input[type=text]::placeholder,
+body main#dashboard form .cont_input input[type=file]::placeholder,
+body main#dashboard form .cont_input select::placeholder {
+  color: #aaa;
+}
+body main#dashboard form .cont_input input[type=file] {
+  cursor: pointer;
+}
+body main#dashboard form .cont_input input[type=file]::-webkit-file-upload-button {
+  background-color: var(--azul_principal);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+body main#dashboard form .cont_input input[type=file]::-webkit-file-upload-button:hover {
+  background-color: #3395ff;
+}
+body main#dashboard form .cont_btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
+  height: auto;
+}
+body main#dashboard form .cont_btns button {
+  padding: 0.9rem 1.5rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+body main#dashboard form .cont_btns button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+body main#dashboard form .cont_btns button:active {
+  transform: scale(0.97);
+}
+body main#dashboard form .cont_btns button#pre_visualizar {
+  background-color: var(--box_shadow);
+}
 body main#dashboard .admin-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -866,106 +966,6 @@ body main#dashboard .admin-novedades #cont_carrusel #cont_contador span.actual {
 body main#dashboard .cont_formularios#form_agregar_nov {
   width: 80%;
 }
-body main#dashboard .cont_formularios form {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: linear-gradient(145deg, var(--color-fondo), var(--color-fondo));
-  border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  font-family: "Segoe UI", sans-serif;
-}
-body main#dashboard .cont_formularios form h3 {
-  font-size: 2em;
-  color: var(--Botones_secundarios_o_hover_azul);
-}
-body main#dashboard .cont_formularios form .cont_input {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.5rem;
-}
-body main#dashboard .cont_formularios form .cont_input label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--color-texto);
-  font-size: 1.1rem;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=text],
-body main#dashboard .cont_formularios form .cont_input input[type=file],
-body main#dashboard .cont_formularios form .cont_input select {
-  padding: 0.8rem 1rem;
-  border-radius: 0.8rem;
-  border: 2px solid transparent;
-  background-color: #1e1e1e;
-  color: white;
-  font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=text]:focus,
-body main#dashboard .cont_formularios form .cont_input input[type=file]:focus,
-body main#dashboard .cont_formularios form .cont_input select:focus {
-  border-color: var(--azul_principal);
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-  outline: none;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=text]::-moz-placeholder, body main#dashboard .cont_formularios form .cont_input input[type=file]::-moz-placeholder, body main#dashboard .cont_formularios form .cont_input select::-moz-placeholder {
-  color: #aaa;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=text]::placeholder,
-body main#dashboard .cont_formularios form .cont_input input[type=file]::placeholder,
-body main#dashboard .cont_formularios form .cont_input select::placeholder {
-  color: #aaa;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=file] {
-  cursor: pointer;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=file]::-webkit-file-upload-button {
-  background-color: var(--azul_principal);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.4rem 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  -webkit-transition: background-color 0.3s ease;
-  transition: background-color 0.3s ease;
-}
-body main#dashboard .cont_formularios form .cont_input input[type=file]::-webkit-file-upload-button:hover {
-  background-color: #3395ff;
-}
-body main#dashboard .cont_formularios form .cont_btns {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 30px;
-  height: auto;
-}
-body main#dashboard .cont_formularios form .cont_btns button {
-  padding: 0.9rem 1.5rem;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 0.6rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  align-self: center;
-  transition: background-color 0.3s, transform 0.2s;
-}
-body main#dashboard .cont_formularios form .cont_btns button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-body main#dashboard .cont_formularios form .cont_btns button:active {
-  transform: scale(0.97);
-}
-body main#dashboard .cont_formularios form .cont_btns button#pre_visualizar {
-  background-color: var(--box_shadow);
-}
 body main#dashboard .admin-juegos {
   width: 100%;
   height: auto;
@@ -1009,6 +1009,53 @@ body main#dashboard .admin-juegos#cont_wordle .cont_opc div span {
 body main#dashboard .admin-juegos#cont_wordle .cont_opc div:hover {
   transform: translateY(-5px);
   border-color: var(--Encabezados_botones_y_primarios);
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_form #form_cargar_lista {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-self: flex-start;
+  flex-direction: column;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista {
+  width: 60%;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 0.5rem;
+  height: 100%;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table thead {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table thead th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #333;
+}
+body main#dashboard .admin-juegos#cont_wordle #editar_palabra form {
+  width: 600px;
 }
 body main#dashboard .admin-juegos #cont_main_juegos {
   width: 100%;
@@ -1697,10 +1744,11 @@ body footer .cont_des a {
   background-color: #4b4a4a;
 }
 #wordle .cont_btns .select_dinamica {
-  position: relative;
-  left: 0;
+  position: absolute;
+  left: 40%;
+  top: 50%;
   display: none;
-  z-index: 2000;
+  z-index: 200;
   justify-content: center;
   align-items: center;
   padding: 80px;

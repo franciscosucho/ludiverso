@@ -26,11 +26,6 @@ const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 
 
 
-
-
-
-
-
 // // Configuración de express-session
 app.use(
     session({
@@ -285,7 +280,7 @@ app.get('/areas', (req, res) => {
 app.get('/juego_memoria', (req, res) => {
     let id_juego_main = req.query.id_juego;
     let id_juego = req.query.id_nivel;
-
+    id_juego_main= parseInt(id_juego_main)
     const select_areas = 'SELECT * FROM `niveles_memory` WHERE id_nivel=?'
     connection.query(select_areas, [id_juego], (err, result_juego) => {
         if (err) {
@@ -455,7 +450,6 @@ app.get('/puntaje_us', (req, res) => {
 // |Wordle| <-------------------------------------------------------------------------------------------------------->
 app.get('/wordle_intro', isLogged, (req, res) => {
     let id_us = req.session.usuario_id;
-    console.log(id_us)
     res.render("wordle_intro", { session: req.session })
 
 })
@@ -486,7 +480,6 @@ app.get('/wordle', isLogged, (req, res) => {
 app.post('/game-over-wordle', (req, res) => {
     const { tiempo, aciertos } = req.body;
     let id_us = req.session.usuario_id;
-    console.log(id_us)
     var date = Datatime()
     const insert_nl_wd = "INSERT INTO `rankin_wordle`( `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?,?,?,?)"
     const update_nl_wd = "UPDATE `rankin_wordle` SET `aciertos`=?,`tiempo`=?,`fecha`=? WHERE id_us=?"
@@ -597,7 +590,6 @@ function Datatime() {
 
 // rutas para el juego del ahorcado
 app.get('/ahorcado_intro', isLogged, (req, res) => {
-    console.log('Accediendo a /ahorcado_intro');
     const select_areas = 'SELECT * FROM areas';
     connection.query(select_areas, [], (err, areas) => {
         if (err) {

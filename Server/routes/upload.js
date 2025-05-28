@@ -23,14 +23,16 @@ router.post('/', upload.single('archivo'), async (req, res) => {
     const ext = path.extname(file.originalname).toLowerCase();
 
     try {
+        let resultado;
         if (ext === '.csv') {
-            await importarCSV(file.path);
+            resultado = await importarCSV(file.path);
         } else if (ext === '.xlsx' || ext === '.xls') {
-            await importarExcel(file.path);
+            resultado = await importarExcel(file.path);
         } else {
             return res.status(400).send('Formato no soportado.');
         }
-        res.redirect('/dashboard'); // O tu vista principal
+
+        res.send(`Importación finalizada. Palabras insertadas: ${resultado.insertadas}. Duplicadas ignoradas: ${resultado.duplicadas}.`);
     } catch (error) {
         console.error('Error al importar:', error);
         res.status(500).send('Error al importar datos');
@@ -42,20 +44,36 @@ router.post('/', upload.single('archivo'), async (req, res) => {
 async function importarCSV(filePath) {
     const conn = await pool.getConnection();
     const rows = [];
+    let insertadas = 0;
+    let duplicadas = 0;
 
     return new Promise((resolve, reject) => {
         fs.createReadStream(filePath)
             .pipe(csv())
             .on('data', row => rows.push(row))
             .on('end', async () => {
-                for (const { id_area, palabra, descrip } of rows) {
-                    await conn.query(
-                        'INSERT INTO wordle (id_area, palabra, descrip) VALUES (?, ?, ?)',
-                        [id_area, palabra, descrip]
-                    );
+                try {
+                    for (const { id_area, palabra, descrip } of rows) {
+                        const [result] = await conn.query(
+                            'SELECT COUNT(*) AS count FROM wordle WHERE palabra = ? AND id_area = ?',
+                            [palabra, id_area]
+                        );
+                        if (result[0].count === 0) {
+                            await conn.query(
+                                'INSERT INTO wordle (id_area, palabra, descrip) VALUES (?, ?, ?)',
+                                [id_area, palabra, descrip]
+                            );
+                            insertadas++;
+                        } else {
+                            duplicadas++;
+                        }
+                    }
+                    resolve({ insertadas, duplicadas });
+                } catch (err) {
+                    reject(err);
+                } finally {
+                    conn.release();
                 }
-                conn.release();
-                resolve();
             })
             .on('error', reject);
     });
@@ -66,13 +84,29 @@ async function importarExcel(filePath) {
     const workbook = xlsx.readFile(filePath);
     const datos = xlsx.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
 
-    for (const { id_area, palabra, descrip } of datos) {
-        await conn.query(
-            'INSERT INTO wordle (id_area, palabra, descrip) VALUES (?, ?, ?)',
-            [id_area, palabra, descrip]
-        );
+    let insertadas = 0;
+    let duplicadas = 0;
+
+    try {
+        for (const { id_area, palabra, descrip } of datos) {
+            const [result] = await conn.query(
+                'SELECT COUNT(*) AS count FROM wordle WHERE palabra = ? AND id_area = ?',
+                [palabra, id_area]
+            );
+            if (result[0].count === 0) {
+                await conn.query(
+                    'INSERT INTO wordle (id_area, palabra, descrip) VALUES (?, ?, ?)',
+                    [id_area, palabra, descrip]
+                );
+                insertadas++;
+            } else {
+                duplicadas++;
+            }
+        }
+        return { insertadas, duplicadas };
+    } finally {
+        conn.release();
     }
-    conn.release();
 }
 
 module.exports = router;
