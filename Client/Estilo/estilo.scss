@@ -1203,12 +1203,13 @@ body {
                 &#cont_wordle {
                     height: auto;
                     width: 100%;
-                   
+
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-start;
                     align-items: center;
                     gap: 40px;
+
                     .cont_opc {
                         width: 100%;
                         height: auto;
@@ -1228,13 +1229,14 @@ body {
                             justify-content: center;
                             align-items: center;
                             background-color: var(--fondo_azul_claro);
-                           
-                            span{
+
+                            span {
                                 color: var(--color-texto);
                                 font-size: 1.5em;
                                 font-weight: 500;
                                 @extend %poetsen-font;
                             }
+
                             &:hover {
                                 transform: translateY(-5px);
                                 border-color: var(--Encabezados_botones_y_primarios);
@@ -1242,10 +1244,7 @@ body {
                         }
                     }
 
-                    form{
-                        
-                        
-                    }
+                    form {}
                 }
 
 

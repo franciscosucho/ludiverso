@@ -1,8 +1,17 @@
 <header>
+
     <nav>
-        <a href="/index" class="container_nav" id="cont_nav_tit">
-            <img src="Resources/Imagenes/logo_ludi.png" alt="">
-        </a>
+       
+        <% if (session.rol_us == "root") { %>
+            <a href="/dashboard" class="container_nav" id="cont_nav_tit">
+                <img src="/Resources/Imagenes/logo_ludi.png" alt="">
+            </a>
+        <% } else{ %>
+            <a href="/index" class="container_nav" id="cont_nav_tit">
+                <img src="/Resources/Imagenes/logo_ludi.png" alt="">
+            </a>
+        <% } %>
+
         <div class="container_nav" id="cont_nav_links">
             <a href="#" class="link" id="icon_tema">
                 <i class="fa-solid icon_theme" id="icon_tema_tema"></i>

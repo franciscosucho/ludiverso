@@ -6,10 +6,11 @@
         <title>
             Dashboard root
         </title>
+        
 </head>
 
 <body>
-    <%- include('../header.ejs') %>
+    <%- include('../header.ejs', { session}) %>
         <main id="dashboard">
             <h2>Bienvenido al panel del administrador <%= user_session_nombre %> </h2>
             <section class="admin-grid">
