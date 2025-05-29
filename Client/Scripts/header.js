@@ -8,7 +8,7 @@ function handleScroll() {
         scrolledPast = true;
         icons_links.forEach(icon => {
             icon.classList.toggle("desac")
-        });
+        }); 
         text_links.forEach(text => {
             text.classList.toggle("desac")
         });

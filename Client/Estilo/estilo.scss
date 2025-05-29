@@ -196,7 +196,7 @@ body {
         width: 100vw !important;
         min-height: 80vw !important;
         height: 100%;
-        padding-top: 0%;
+        padding-top: 100px !important;
         background-color: var(--Fondo_principal);
         padding-bottom: 3%;
 
@@ -211,9 +211,7 @@ body {
             margin-top: 8%;
             padding-top: 5%;
 
-            &#sec_img {
-                margin-top: 2% !important;
-            }
+
 
             &#sec_novedades {
 
@@ -487,8 +485,7 @@ body {
                 height: 90%;
                 width: 90%;
                 border-radius: 10px;
-                background-size: cover;
-                background-repeat: no-repeat;
+
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -538,19 +535,21 @@ body {
 
                 .cont_tex {
                     padding-left: 20px;
-                    padding-top: 20px;
+                    padding-top: 5px;
+
                     width: 100%;
                     display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    justify-content: space-around;
+                    align-items: flex-start;
+
                     color: white;
 
                     .nombre_juego {
-                        position: absolute;
-                        left: 50%;
-                        font-size: 2em;
+
+                        font-size: 1.6em;
                         font-weight: bold;
-                        transform: translateX(-50%);
+                        background-color: var(--fondo_azul_claro);
+                        padding: 5px;
                     }
 
                     .nombre_materia {
@@ -558,7 +557,8 @@ body {
                         color: white;
                         font-size: 1.6em;
                         font-weight: bold;
-
+                        padding: 5px;
+                        background-color: var(--fondo_azul_claro);
                     }
 
                 }
@@ -597,12 +597,20 @@ body {
 
         &#dashboard {
             min-height: 60vw !important;
-            padding-top: 10%;
-            gap: 100px;
+
+            gap: 50px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
             flex-direction: column;
+
+            h2 {
+                width: 70%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
 
             .cont_novedades {
                 background-color: var(--fondo_azul_claro);
@@ -801,7 +809,7 @@ body {
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
                 gap: 1.5rem;
                 padding: 0 2rem;
-                max-width: 1000px;
+                width: 70%;
                 margin: 0 auto;
 
             }
@@ -842,18 +850,17 @@ body {
 
             .admin-users {
                 width: auto;
-                margin: 2rem auto;
-                padding: 2rem;
-                background: #f9f9f9;
+
                 border-radius: 1rem;
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 gap: 40px;
                 flex-direction: column;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
 
                 form {
+                    box-shadow: 0 0 15px rgba(0, 0, 0, 0.336);
                     width: 100%;
                     display: grid;
                     grid-template-columns: 1fr 1fr;
@@ -918,6 +925,7 @@ body {
 
                 .user-list {
                     overflow-x: auto;
+                    box-shadow: 0 0 15px rgba(0, 0, 0, 0.336);
 
                     table {
                         width: 100%;
@@ -964,9 +972,11 @@ body {
 
                 .btn-reset {
                     display: inline-block;
+                    @extend %poetsen-font;
+                    font-weight: 400px;
                     margin-top: 1rem;
-                    padding: 0.5rem 1rem;
-                    background-color: #6c757d;
+                    padding: 15px;
+                    background-color: var(--Encabezados_botones_y_primarios);
                     color: white;
                     border: none;
                     border-radius: 0.5rem;
@@ -1233,6 +1243,7 @@ body {
                             background-color: var(--fondo_azul_claro);
 
                             span {
+                                text-align: center;
                                 color: var(--color-texto);
                                 font-size: 1.5em;
                                 font-weight: 500;
@@ -1251,7 +1262,7 @@ body {
                         #form_cargar_lista {
                             display: flex;
                             gap: 40px;
-                       
+
                             justify-content: center;
                             align-self: flex-start;
                             flex-direction: column;
@@ -1296,6 +1307,44 @@ body {
                                         border-bottom: 1px solid #e0e0e0;
                                         color: #333;
 
+                                        &.celda-borrar {
+                                            i {
+                                                font-size: 1em;
+                                                cursor: pointer;
+                                                height: 40px;
+                                                width: 40px;
+                                                padding: 15x;
+                                                border-radius: 50%;
+                                                transition: all .2s ease-in-out;
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+
+                                                &:hover {
+                                                    background-color: rgba(54, 54, 54, 0.226);
+                                                }
+                                            }
+                                        }
+
+                                        &.editar_palabra {
+                                            i {
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+                                                font-size: 1em;
+                                                cursor: pointer;
+                                                height: 40px;
+                                                width: 40px;
+                                                padding: 15x;
+                                                border-radius: 50%;
+                                                transition: all .2s ease-in-out;
+
+                                                &:hover {
+                                                    background-color: rgba(54, 54, 54, 0.226);
+                                                }
+                                            }
+                                        }
+
                                         button {
                                             cursor: pointer;
                                             border: none;
@@ -1308,9 +1357,10 @@ body {
                             }
                         }
                     }
-                    #editar_palabra{
-                    
-                        form{
+
+                    #editar_palabra {
+
+                        form {
                             width: 600px;
                         }
                     }
@@ -2859,3 +2909,76 @@ $right :#538d4e;
 
 
 //<------------------------------------------------------------------------------->
+
+@media (max-width: 900px) {
+    #index_main {
+        #sec_img {
+            .cont_main_juego {
+                .cont_main {
+                    .cont_tex {}
+
+                }
+            }
+        }
+
+
+    }
+}
+
+@media (max-width: 1000px) {
+    header {
+        nav {
+            #cont_nav_links {
+                .links {
+                    i {
+                        height: 30px !important;
+                        display: flex !important;
+                        justify-content: center !important;
+                        align-items: center !important;
+                    }
+
+                    .text_links {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        nav {
+            #cont_nav_links {
+
+                display: flex !important;
+                justify-content: flex-start !important;
+                align-self: flex-start !important;
+                gap: 30px !important;
+                margin: 0px !important;
+                padding: 0px !important;
+                margin-right: 30px !important;
+
+                a {
+                    margin: 0px !important;
+                    padding: 0px 10px !important;
+                    height: 50% !important;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    i {
+                        height: 30px !important;
+                        display: flex !important;
+                        justify-content: center !important;
+                        align-items: center !important;
+                    }
+
+                    .text_links {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

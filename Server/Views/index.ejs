@@ -8,9 +8,9 @@
 
 <body>
         <%- include('header.ejs') %>
-    <main>
+    <main id="index_main">
         <section id="sec_img" class="secciones">
-
+ 
             <% juegos.forEach((juego, index)=> { %>
                 <% if (index==0) { %>
                     <article id="cont_main_juego_<%=index%>" class="cont_main_juego"

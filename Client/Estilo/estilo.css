@@ -6,7 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard form h3, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
+#main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard .admin-users .btn-reset, body main#dashboard form h3, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -158,7 +158,7 @@ body main {
   width: 100vw !important;
   min-height: 80vw !important;
   height: 100%;
-  padding-top: 0%;
+  padding-top: 100px !important;
   background-color: var(--Fondo_principal);
   padding-bottom: 3%;
 }
@@ -172,9 +172,6 @@ body main .secciones {
   gap: 20px;
   margin-top: 8%;
   padding-top: 5%;
-}
-body main .secciones#sec_img {
-  margin-top: 2% !important;
 }
 body main .secciones#sec_novedades .cont_novedades {
   background-color: var(--fondo_azul_claro);
@@ -388,8 +385,6 @@ body main #sec_img .cont_main_juego {
   height: 90%;
   width: 90%;
   border-radius: 10px;
-  background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -430,25 +425,26 @@ body main #sec_img .cont_main_juego .cont_arrow i:hover {
 }
 body main #sec_img .cont_main_juego .cont_tex {
   padding-left: 20px;
-  padding-top: 20px;
+  padding-top: 5px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
   color: white;
 }
 body main #sec_img .cont_main_juego .cont_tex .nombre_juego {
-  position: absolute;
-  left: 50%;
-  font-size: 2em;
+  font-size: 1.6em;
   font-weight: bold;
-  transform: translateX(-50%);
+  background-color: var(--fondo_azul_claro);
+  padding: 5px;
 }
 body main #sec_img .cont_main_juego .cont_tex .nombre_materia {
   text-decoration: none;
   color: white;
   font-size: 1.6em;
   font-weight: bold;
+  padding: 5px;
+  background-color: var(--fondo_azul_claro);
 }
 body main #sec_img .cont_main_juego .cont_info_juego {
   background-color: rgba(51, 95, 153, 0.589);
@@ -479,12 +475,18 @@ body main #sec_img .cont_main_juego .cont_info_juego a {
 }
 body main#dashboard {
   min-height: 60vw !important;
-  padding-top: 10%;
-  gap: 100px;
+  gap: 50px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+}
+body main#dashboard h2 {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 body main#dashboard .cont_novedades {
   background-color: var(--fondo_azul_claro);
@@ -652,7 +654,7 @@ body main#dashboard .admin-grid {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1.5rem;
   padding: 0 2rem;
-  max-width: 1000px;
+  width: 70%;
   margin: 0 auto;
 }
 body main#dashboard .admin-card {
@@ -686,18 +688,15 @@ body main#dashboard .admin-card.active {
 }
 body main#dashboard .admin-users {
   width: auto;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #f9f9f9;
   border-radius: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 40px;
   flex-direction: column;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 body main#dashboard .admin-users form {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.336);
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -751,6 +750,7 @@ body main#dashboard .admin-users form button[type=submit]:hover {
 }
 body main#dashboard .admin-users .user-list {
   overflow-x: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.336);
 }
 body main#dashboard .admin-users .user-list table {
   width: 100%;
@@ -785,9 +785,10 @@ body main#dashboard .admin-users .user-list table tbody tr td button {
 }
 body main#dashboard .admin-users .btn-reset {
   display: inline-block;
+  font-weight: 400px;
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #6c757d;
+  padding: 15px;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -1002,6 +1003,7 @@ body main#dashboard .admin-juegos#cont_wordle .cont_opc div {
   background-color: var(--fondo_azul_claro);
 }
 body main#dashboard .admin-juegos#cont_wordle .cont_opc div span {
+  text-align: center;
   color: var(--color-texto);
   font-size: 1.5em;
   font-weight: 500;
@@ -1047,6 +1049,36 @@ body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #e0e0e0;
   color: #333;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td.celda-borrar i {
+  font-size: 1em;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: 15x;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td.celda-borrar i:hover {
+  background-color: rgba(54, 54, 54, 0.226);
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td.editar_palabra i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: 15x;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td.editar_palabra i:hover {
+  background-color: rgba(54, 54, 54, 0.226);
 }
 body main#dashboard .admin-juegos#cont_wordle #cont_lista table tbody tr td button {
   cursor: pointer;
@@ -2280,4 +2312,44 @@ body footer .cont_des a {
 }
 #main_areas #cont_main_areas .cont_juegos_areas #tit_juegos {
   font-size: 4em;
+}
+
+@media (max-width: 1000px) {
+  header nav #cont_nav_links .links i {
+    height: 30px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  header nav #cont_nav_links .links .text_links {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  header nav #cont_nav_links {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-self: flex-start !important;
+    gap: 30px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    margin-right: 30px !important;
+  }
+  header nav #cont_nav_links a {
+    margin: 0px !important;
+    padding: 0px 10px !important;
+    height: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  header nav #cont_nav_links a i {
+    height: 30px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  header nav #cont_nav_links a .text_links {
+    display: none;
+  }
 }/*# sourceMappingURL=estilo.css.map */

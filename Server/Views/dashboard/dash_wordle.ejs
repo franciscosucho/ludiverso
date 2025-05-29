@@ -48,8 +48,8 @@
                                 <th>Area</th>
                                 <th>Palabra</th>
                                 <th>Descripcion</th>
-                                <th></th>
-                                <th></th>
+                                <th>Borrar</th>
+                                <th>Editar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -140,9 +140,10 @@
             document.getElementById("cargar_lista").addEventListener("click", () => {
 
                 document.getElementById("cont_form").classList.remove("desac")
+                document.getElementById("cont_lista").classList.add("desac")
             })
             document.getElementById("ver_lista").addEventListener("click", () => {
-
+                document.getElementById("cont_form").classList.add("desac")
                 document.getElementById("cont_lista").classList.remove("desac")
             })
 
