@@ -4,6 +4,7 @@ const router = express.Router();
 const connection = require('./../config/db.js');
 const multer = require('multer');
 const fs = require('fs');
+const path = require("path");
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 
 // Middleware
@@ -14,6 +15,29 @@ const root_verificar = (req, res, next) => {
         res.redirect('/');
     }
 };
+
+// Almacenamiento personalizado (puede usar `originalname` si querés)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/"); // asegurate de que esta carpeta exista
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        const ext = path.extname(file.originalname);
+        cb(null, uniqueName + ext);
+    },
+});
+
+const upload_juego = multer({ storage });
+
+// Aceptar múltiples imágenes con el mismo nombre
+const uploadMultiple = upload_juego.fields([
+    { name: "imagenes[]", maxCount: 8 }, // debe coincidir exactamente con el name del input
+]);
+
+
+
+
 
 // Rutas
 router.get('/dashboard', root_verificar, async (req, res) => {
@@ -329,6 +353,58 @@ router.post("/editar_palabra_wordle", async (req, res) => {
     } catch (err) {
         console.error('Error al abrir la pagina principal:', err);
         res.render('dash_wordle', { error: 'Ocurrió un error al momento de abrir la página principal' });
+    }
+});
+router.get("/dash_memory", async (req, res) => {
+    try {
+        let select_memory = "SELECT * FROM `niveles_memory` WHERE 1";
+        connection.query(select_memory, (err, result_memory) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            } else {
+                select_memory = "SELECT * FROM `resources_juego` WHERE 1"
+                connection.query(select_memory, (err, result_resources) => {
+                    if (err) {
+                        console.error('Error al ejecutar la query en el servidor', err);
+                        return res.status(500).send('Error al ejecutar la query en el servidor');
+                    }
+                    res.render('dashboard/dash_memory', { niveles: result_memory, resources: result_resources, session: req.session, });
+                })
+            }
+
+        });
+    } catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dashboard/dash_memory', { error: 'Ocurrió un error al momento de abrir la página principal' });
+    }
+});
+
+router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
+    try {
+        const { titulo_juego, subtitulo_juego, tiempo, titulos_img, descripciones_img } = req.body;
+        const archivos = req.files["imagenes[]"];
+
+        if (!archivos || archivos.length !== titulos_img.length) {
+            return res.status(400).send("Cantidad de imágenes y datos no coinciden");
+        }
+
+        const imagenesData = archivos.map((archivo, i) => ({
+            archivo: archivo.filename,
+            titulo: titulos_img[i],
+            descripcion: descripciones_img[i],
+        }));
+
+        // Guardar en base de datos o lo que necesites hacer
+        console.log("Juego:", titulo_juego, subtitulo_juego, tiempo);
+        console.log("Imágenes:", imagenesData);
+
+        res.send("Juego y archivos guardados correctamente");
+    } catch (err) {
+        console.error("Error al procesar el juego:", err);
+        res.render("dashboard/dash_memory", {
+            error: "Ocurrió un error al momento de subir el juego",
+        });
     }
 });
 

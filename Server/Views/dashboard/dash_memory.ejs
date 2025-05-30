@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../head.ejs') %>
+        <title>
+            Dashboard users
+        </title>
+</head>
+
+<body>
+    <%- include('../header.ejs') %>
+        <main id="dashboard">
+            <h2>Bienvenido al panel de administracion del juego Memory card </h2>
+
+            <section class="admin-juegos" id="cont_wordle">
+                <article class="cont_opc">
+                    <div id="ver_lista">
+                        <span>Ver lista de niveles</span>
+                    </div>
+                    <div id="ver_agre">
+                        <span>
+                            Crear nivel
+                        </span>
+
+                    </div>
+                </article>
+
+                <section class="admin-novedades desac" id="admin-novedades">
+                    <% niveles.forEach((nivel, index)=> { %>
+
+                        <article id="cont_novedades<%=index%>" class="cont_novedades_main desac_nov">
+                            <div class="cont_opciones">
+                                <!-- Botón borrar con tooltip -->
+                                <div class="btn_opc tooltip">
+                                    <button class="btn_opc_form btn-borrar" data-nov-id="<%= nivel.id_nivel %>"
+                                        type="submit">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                    <form id="form_borrar_novedad_<%= nivel.id_nivel %>" action="/borrar_novedad"
+                                        method="POST" style="display: none;">
+                                        <input type="hidden" name="input_borrar_nov"
+                                            id="input_borrar_nov_<%= nivel.id_nivel %>" value="<%= nivel.id_nivel %>">
+                                    </form>
+
+                                    <span class="tooltiptext">Eliminar novedad</span>
+                                </div>
+
+                                <!-- Botón editar con tooltip -->
+                                <div class="btn_opc tooltip">
+                                    <button class="btn_opc_form btn-editar" data-nov-id="<%= nivel.id_nivel %>"
+                                        type="submit">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                    <form id="form_editar_novedad_<%=nivel.id_nivel %>" action="/dash_nov_editar"
+                                        method="GET" enctype="multipart/form-data" style="display: none;">
+                                        <input name="input_editar" id="input_editar" value="<%= nivel.id_nivel %>">
+                                    </form>
+                                    <span class="tooltiptext">Editar novedad</span>
+                                </div>
+                            </div>
+                            <div class="cont_novedades">
+
+                                <div class="cont_text_novedad">
+                                    <b class="fecha_novedad">
+                                        <%= new Date(nivel.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC' ,
+                                            year: 'numeric' , month: 'long' , day: 'numeric' , }) %>
+                                    </b>
+                                    <h3 class="titulo_novedad">
+                                        <%= nivel.actividad_juego %>
+                                    </h3>
+                                    <h4 class="sub_titulo_novedades">
+                                        <%= nivel.desc_actividad %>
+                                    </h4>
+
+
+                                </div>
+                                <div class="cont_rosources">
+                                    <% resources.forEach((resource, index_re)=> { %>
+                                        <% if( nivel.id_nivel==resource.id_nivel ) { %>
+                                            <div class="resource" id="resource_<%= index_re %>">
+                                                <img src="./../Resources/Imagenes/juego_memoria/<%= resource.url_img %>.png"
+                                                    alt="<%= resource.titulo_img %>">
+                                                <div class="cont_text_img">
+                                                    <span>
+                                                        <%= resource.titulo_img%>
+                                                    </span>
+                                                    <span>
+                                                        <%= resource.descripcion_img%>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <% } %>
+                                                <% }) %>
+                                </div>
+                            </div>
+                        </article>
+                        <% }) %>
+                            <div id="cont_carrusel">
+                                <i class="fa-solid fa-arrow-left" id="arrow-left"></i>
+                                <div id="cont_contador">
+                                    <% niveles.forEach((nivel_carru, index_carru)=> { %>
+
+                                        <span class="circulos" id="circulo_<%= index_carru %>">
+
+                                        </span>
+
+                                        <% }) %>
+                                </div>
+                                <i class="fa-solid fa-arrow-right" id="arrow-right"></i>
+                            </div>
+
+                </section>
+
+                <section id="form_agregar_juego" class="desac cont_formularios">
+                    <form action="/dash_agregar_juego" method="POST" enctype="multipart/form-data" id="">
+                        <h3> Agregar juego</h3>
+                        <div class="cont_input">
+                            <label for="id_user">Titulo juego </label>
+                            <input type="text" name="titulo_juego" id="titulo_juego" placeholder="Escriba el Titulo del juego" maxlength="255" required>
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">Descripción del juego</label>
+                            <input type="text" name="subtitulo_juego" id="subtitulo_juego" placeholder="Escriba la Descripción del jego" maxlength="255"
+                                required>
+                        </div>
+                        <div class="cont_input">
+                            <label for="id_user">tiempo para resolverlo</label>
+                            <input type="number" name="tiempo" id="tiempo" placeholder=""  required>
+                        </div>
+                        <% for (let i = 0; i < 8; i++) { %>
+                            <div class="image-card">
+                              <h4>Imagen <%= i + 1 %></h4>
+                              <div class="grid-img-inputs">
+                                <input type="file" name="imagenes[]" required>
+                                <input type="text" name="titulos_img[]" placeholder="Título de la imagen" required>
+                                <input type="text" name="descripciones_img[]" placeholder="Descripción" required>
+                              </div>
+                            </div>
+                          <% } %>
+                        <div class="cont_btns">
+                      
+                            <button type="submit">enviar</button>
+                        </div>
+    
+                    </form>
+                </section>
+                
+            </section>
+        </main>
+
+        <script src="Scripts/dash_juegos.js"></script>
+</body>
+
+</html>
