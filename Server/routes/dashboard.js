@@ -6,7 +6,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require("path");
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
-
+const sharp = require("sharp") 
 
 function saveImage(file) {
     const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
@@ -51,6 +51,35 @@ const uploadMultiple = upload_juego.fields([
 ]);
 
 
+
+// Estrategia de almacenamiento en memoria
+const storageStrategy = multer.memoryStorage();
+const uploadMultiple_sharp = multer({ storage: storageStrategy });
+
+// Ruta para convertir varias imágenes
+router.post("/cambiar_formato", uploadMultiple_sharp.array('imagen'), async (req, res) => {
+    try {
+        const archivos = req.files; // ← array de archivos
+        const outputPath = path.join(__dirname, '../../Client/Resources/Imagenes/juego_memoria');
+
+        if (!fs.existsSync(outputPath)) fs.mkdirSync(outputPath, { recursive: true });
+
+        // Procesar todas las imágenes
+        for (const archivo of archivos) {
+            const buffer = await sharp(archivo.buffer)
+                .webp({ quality: 80 })
+                .toBuffer();
+
+            const nombreSalida = archivo.originalname.replace(/\.[^/.]+$/, "") + ".webp";
+            fs.writeFileSync(path.join(outputPath, nombreSalida), buffer);
+        }
+
+        res.send(`Se convirtieron y guardaron ${archivos.length} imágenes exitosamente.`);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error al convertir las imágenes.");
+    }
+});
 
 
 
@@ -371,7 +400,7 @@ router.post("/editar_palabra_wordle", async (req, res) => {
         res.render('dash_wordle', { error: 'Ocurrió un error al momento de abrir la página principal' });
     }
 });
-router.get("/dash_memory",isLogged, async (req, res) => {
+router.get("/dash_memory", isLogged, async (req, res) => {
     try {
         let select_memory = "SELECT * FROM `niveles_memory` ORDER BY `id_nivel` DESC;";
         connection.query(select_memory, (err, result_memory) => {
