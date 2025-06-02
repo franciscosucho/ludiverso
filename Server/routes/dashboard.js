@@ -7,6 +7,21 @@ const fs = require('fs');
 const path = require("path");
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 
+
+function saveImage(file) {
+    const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
+    const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
+    fs.renameSync(file.path, newPath);
+    return url_nov;
+}
+const isLogged = (req, res, next) => {
+    if (req.session.user_sesion == '' || typeof req.session.user_sesion == 'undefined') {
+        res.redirect('/')
+    } else {
+        next()
+    }
+}
+
 // Middleware
 const root_verificar = (req, res, next) => {
     if (req.session.root === true) {
@@ -19,7 +34,7 @@ const root_verificar = (req, res, next) => {
 // Almacenamiento personalizado (puede usar `originalname` si querés)
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/"); // asegurate de que esta carpeta exista
+        cb(null, "Client/Resources/Imagenes/juego_memoria"); // asegurate de que esta carpeta exista
     },
     filename: (req, file, cb) => {
         const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -34,6 +49,7 @@ const upload_juego = multer({ storage });
 const uploadMultiple = upload_juego.fields([
     { name: "imagenes[]", maxCount: 8 }, // debe coincidir exactamente con el name del input
 ]);
+
 
 
 
@@ -355,9 +371,9 @@ router.post("/editar_palabra_wordle", async (req, res) => {
         res.render('dash_wordle', { error: 'Ocurrió un error al momento de abrir la página principal' });
     }
 });
-router.get("/dash_memory", async (req, res) => {
+router.get("/dash_memory",isLogged, async (req, res) => {
     try {
-        let select_memory = "SELECT * FROM `niveles_memory` WHERE 1";
+        let select_memory = "SELECT * FROM `niveles_memory` ORDER BY `id_nivel` DESC;";
         connection.query(select_memory, (err, result_memory) => {
             if (err) {
                 console.error('Error al ejecutar la query en el servidor', err);
@@ -368,8 +384,18 @@ router.get("/dash_memory", async (req, res) => {
                     if (err) {
                         console.error('Error al ejecutar la query en el servidor', err);
                         return res.status(500).send('Error al ejecutar la query en el servidor');
+                    } else {
+                        const query_areas = "SELECT * FROM `areas` WHERE 1";
+                        connection.query(query_areas, (err, data_areas) => {
+                            if (err) {
+                                console.error('Error al ejecutar la segunda query', err);
+                                return res.status(500).send('Error en la segunda consulta');
+                            }
+                            res.render('dashboard/dash_memory', { niveles: result_memory, resources: result_resources, session: req.session, areas: data_areas });
+                        });
+
                     }
-                    res.render('dashboard/dash_memory', { niveles: result_memory, resources: result_resources, session: req.session, });
+
                 })
             }
 
@@ -380,9 +406,12 @@ router.get("/dash_memory", async (req, res) => {
     }
 });
 
+
 router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
     try {
-        const { titulo_juego, subtitulo_juego, tiempo, titulos_img, descripciones_img } = req.body;
+        let id_us = req.session.usuario_id;
+        let fecha = Datatime(); // asegurate de tener esta función definida
+        const { titulo_juego, subtitulo_juego, tiempo, titulos_img, area, descripciones_img } = req.body;
         const archivos = req.files["imagenes[]"];
 
         if (!archivos || archivos.length !== titulos_img.length) {
@@ -395,11 +424,28 @@ router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
             descripcion: descripciones_img[i],
         }));
 
-        // Guardar en base de datos o lo que necesites hacer
-        console.log("Juego:", titulo_juego, subtitulo_juego, tiempo);
-        console.log("Imágenes:", imagenesData);
+        let insertJuego = "INSERT INTO `niveles_memory`(`id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`) VALUES (?, ?, ?, ?, ?, ?)";
+        connection.query(insertJuego, [area, id_us, titulo_juego, subtitulo_juego, tiempo, fecha], (err, result_juego) => {
+            if (err) {
+                console.error('Error al insertar el juego:', err);
+                return res.status(500).send('Error al insertar el juego');
+            }
 
-        res.send("Juego y archivos guardados correctamente");
+            let id_nivel_insertado = result_juego.insertId;
+
+            imagenesData.forEach(imagen => {
+                let insertImg = "INSERT INTO `resources_juego`(`id_nivel`, `url_img`, `titulo_img`, `descripcion_img`) VALUES (?, ?, ?, ?)";
+                connection.query(insertImg, [id_nivel_insertado, imagen.archivo, imagen.titulo, imagen.descripcion], (err) => {
+                    if (err) {
+                        console.error('Error al insertar imagen:', err);
+                        // Podés manejar errores individuales si querés
+                    }
+                });
+            });
+
+            res.redirect('dash_memory');
+        });
+
     } catch (err) {
         console.error("Error al procesar el juego:", err);
         res.render("dashboard/dash_memory", {
@@ -408,13 +454,16 @@ router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
     }
 });
 
-function saveImage(file) {
-    const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
-    const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
-    fs.renameSync(file.path, newPath);
-    return url_nov;
-}
 
 
 // Exporta todas las rutas definidas
 module.exports = router;
+function Datatime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+

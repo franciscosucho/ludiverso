@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2025 a las 21:00:40
+-- Tiempo de generación: 02-06-2025 a las 19:56:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -269,8 +269,8 @@ CREATE TABLE `niveles_memory` (
   `id_nivel` int(11) NOT NULL,
   `id_area` int(11) NOT NULL,
   `id_creador_us` int(11) NOT NULL,
-  `actividad_juego` text NOT NULL,
-  `desc_actividad` text NOT NULL,
+  `actividad_juego` varchar(1000) NOT NULL,
+  `desc_actividad` varchar(1000) NOT NULL,
   `tiempo_para_resolver` time(4) NOT NULL,
   `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -281,7 +281,15 @@ CREATE TABLE `niveles_memory` (
 
 INSERT INTO `niveles_memory` (`id_nivel`, `id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`) VALUES
 (1, 7, 5, 'diferenciar los distintos símbolos esquemáticos', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar los distintos símbolos esquemáticos utilizados en los circuitos electrónicos. Se trabajará en la identificación precisa de cada símbolo y su función dentro del circuito.', '00:00:40.0000', '2025-05-13'),
-(2, 7, 5, 'diferenciar las distintas herramientas utilizadas para carpintería', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar las distintas herramientas utilizadas en carpintería. Se trabajará en la identificación precisa de cada herramienta, su forma y su función específica dentro del taller, comprendiendo su uso correcto y seguro en distintas etapas del trabajo con madera.', '00:00:55.0000', '2025-05-13');
+(2, 7, 5, 'diferenciar las distintas herramientas utilizadas para carpintería', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar las distintas herramientas utilizadas en carpintería. Se trabajará en la identificación precisa de cada herramienta, su forma y su función específica dentro del taller, comprendiendo su uso correcto y seguro en distintas etapas del trabajo con madera.', '00:00:55.0000', '2025-05-13'),
+(3, 2, 15, ' Identificar moléculas simples y sus elementos constitutivos', 'En la actividad de hoy, los estudiantes aprenderán a reconocer algunas de las moléculas más simples que encontramos en la vida cotidiana. El objetivo es que puedan identificar su composición química, sus elementos constituyentes y la función o presencia d', '00:00:50.0000', '2025-05-31'),
+(4, 2, 15, 'Figuras geométricas planas y sus propiedades', 'En esta actividad, los estudiantes repasarán y reforzarán sus conocimientos sobre figuras geométricas planas. A través del juego, deberán relacionar cada figura con sus propiedades fundamentales, como la cantidad de lados, vértices, simetría o clasificación según sus ángulos. Esta dinámica contribuye a desarrollar la visualización espacial y el vocabulario técnico relacionado con la geometría.', '00:00:50.0000', '2025-06-01'),
+(5, 5, 15, 'Capacidades físicas y sistemas del cuerpo en el ejercicio', 'Este nivel desafía a los estudiantes a identificar distintas capacidades físicas fundamentales para el rendimiento corporal, así como los principales sistemas del cuerpo que intervienen durante la actividad física. Se busca desarrollar una comprensión más técnica del cuerpo humano en movimiento, vinculando biología con práctica deportiva.', '00:00:50.0000', '2025-06-01'),
+(6, 5, 15, ' Técnicas de natación y fundamentos acuáticos', 'En esta actividad, los estudiantes deberán identificar los principales estilos de natación competitiva, así como habilidades y elementos esenciales asociados al rendimiento en el agua. Este nivel promueve el conocimiento técnico del deporte, estimula el reconocimiento visual de movimientos y refuerza la comprensión de la biomecánica básica aplicada a la natación.', '00:00:50.0000', '2025-06-01'),
+(7, 6, 15, ' Formas del relieve terrestre: Mesetas, llanuras y montañas', 'En este nivel, los estudiantes aprenderán a reconocer distintos tipos de relieve presentes en la superficie terrestre. A través del juego de memoria, identificarán visualmente cada formación geográfica, asociándola con sus características principales, su origen y su distribución en el planeta. Este conocimiento es clave para la comprensión de los paisajes naturales y su influencia en la vida humana y el clima.', '00:00:50.0000', '2025-06-02'),
+(8, 6, 15, 'Culturas y creencias: los pueblos originarios de Argentina', 'Este nivel introduce a los estudiantes en el mundo de la antropología a través del reconocimiento de culturas, rituales y sistemas de creencias de los pueblos originarios de Argentina. Se busca promover el respeto por la diversidad cultural y el conocimiento de las tradiciones ancestrales que forman parte de la identidad del país. Las cartas mostrarán elementos simbólicos, costumbres y prácticas religiosas que han sido parte de la vida de estas comunidades.', '00:00:50.0000', '2025-06-02'),
+(9, 1, 15, ' El circuito de la comunicación', 'En este nivel, los estudiantes descubrirán los componentes fundamentales del circuito de la comunicación. A través de la asociación de imágenes y conceptos clave, aprenderán a reconocer cada elemento del proceso comunicativo y su función. Se busca que los chicos puedan identificar en diversas situaciones quién es el emisor, receptor, cuál es el canal, el código, el mensaje y el referente.', '00:00:50.0000', '2025-06-02'),
+(10, 1, 15, 'Tipos de textos y recursos de cohesión', 'En este nivel, los chicos aprenderán a diferenciar los principales tipos de textos que usamos para comunicarnos: narrativos, descriptivos, instructivos y más. Además, conocerán algunos recursos de cohesión importantes como la sinonimia o la hiponimia, que ayudan a dar fluidez y coherencia a los mensajes escritos. Esta actividad refuerza habilidades de lectura y escritura desde un enfoque lúdico.', '00:00:50.0000', '2025-06-02');
 
 -- --------------------------------------------------------
 
@@ -302,7 +310,7 @@ CREATE TABLE `niveles_us` (
 --
 
 INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES
-(3, 2, 7, 5, '2025-05-20');
+(3, 2, 7, 5, '2025-05-31');
 
 -- --------------------------------------------------------
 
@@ -424,22 +432,86 @@ CREATE TABLE `resources_juego` (
 --
 
 INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`, `descripcion_img`) VALUES
-(1, 1, '1', 'Condensador', 'un condensador es un dispositivo capaz de almacenar energía en forma de campo eléctrico. Está formado por dos armaduras metálicas paralelas'),
-(2, 1, '2', 'Electroválvula ', 'Una electroválvula es un dispositivo electromecánico que controla el flujo de fluidos, como líquidos o gases, mediante la aplicación de una corriente eléctrica. Funciona abriendo o cerrando un orificio a través del cual el fluido puede fluir.'),
-(3, 1, '3', 'Fuente de tensión', 'Dispositivo que suministra energía eléctrica a un circuito, proporcionando un voltaje constante o variable que permite el funcionamiento de los componentes electrónicos.'),
-(4, 1, '4', 'Transistor', 'Componente semiconductor que actúa como interruptor o amplificador, controlando el flujo de corriente eléctrica en circuitos electrónicos.'),
-(5, 1, '5', 'Inductor', 'Componente pasivo que almacena energía en un campo magnético cuando circula corriente, utilizado en filtros, transformadores y fuentes de energía.'),
-(6, 1, '6', 'Resistencia', 'Dispositivo que limita o regula el flujo de corriente eléctrica en un circuito, protegiendo componentes y ajustando niveles de voltaje.'),
-(7, 1, '7', 'Transistor de efecto de campo tipo N de canal de empobrecimiento', 'Semiconductor que controla el flujo de corriente aplicando un voltaje negativo, operando en un estado normalmente conductor que puede bloquearse al modificar el campo eléctrico.'),
-(8, 1, '8', 'TRIAC (Interruptor bidireccional controlado por corriente)', 'Dispositivo semiconductor que permite controlar la corriente alterna en ambas direcciones, utilizado en reguladores de potencia, controles de luz y motores.'),
-(25, 2, 'bisagra', 'Bisagra de cazoleta', 'También llamada bisagra oculta o europea. Se instala dentro de un agujero circular y permite ajustar puertas de muebles en varias direcciones.'),
-(26, 2, 'escuadra', 'Escuadra combinada', 'Herramienta multifunción con regla y cabezal ajustable que permite trazar y verificar ángulos de 90° y 45°, e incluye nivel y punzón.'),
-(27, 2, 'formon', 'Formón', 'Cincel de carpintero que se usa para tallar o ajustar ensambles en madera. Funciona con la mano o mazo, y viene en varios anchos.'),
-(28, 2, 'gubias', 'Gubias de tallado', 'Herramientas similares a los formones pero con hoja curva o en “U” o “V”, ideales para tallar y esculpir madera de forma decorativa.'),
-(29, 2, 'ingletadora', 'Ingletadora', 'Sierra especial para cortar madera en ángulos precisos como 45° o 90°, usada comúnmente en molduras y marcos. Puede ser manual o eléctrica.'),
-(30, 2, 'sargentopng', 'Sargento de prensa', 'Herramienta de sujeción que mantiene firmemente dos piezas unidas durante el pegado, taladrado o ensamblado.'),
-(31, 2, 'sierra_banco', 'Sierra de banco', 'Herramienta estacionaria con hoja circular que permite cortes rectos y precisos. Se usa para cortes longitudinales o transversales en madera.'),
-(32, 2, 'tarugo', 'Tarugo de madera', 'Cilindro de madera dura que se usa para unir piezas mediante orificios alineados y encolado. Da uniones firmes sin tornillos visibles.');
+(1, 1, '1.png', 'Condensador', 'un condensador es un dispositivo capaz de almacenar energía en forma de campo eléctrico. Está formado por dos armaduras metálicas paralelas'),
+(2, 1, '2.png', 'Electroválvula ', 'Una electroválvula es un dispositivo electromecánico que controla el flujo de fluidos, como líquidos o gases, mediante la aplicación de una corriente eléctrica. Funciona abriendo o cerrando un orificio a través del cual el fluido puede fluir.'),
+(3, 1, '3.png', 'Fuente de tensión', 'Dispositivo que suministra energía eléctrica a un circuito, proporcionando un voltaje constante o variable que permite el funcionamiento de los componentes electrónicos.'),
+(4, 1, '4.png', 'Transistor', 'Componente semiconductor que actúa como interruptor o amplificador, controlando el flujo de corriente eléctrica en circuitos electrónicos.'),
+(5, 1, '5.png', 'Inductor', 'Componente pasivo que almacena energía en un campo magnético cuando circula corriente, utilizado en filtros, transformadores y fuentes de energía.'),
+(6, 1, '6.png', 'Resistencia', 'Dispositivo que limita o regula el flujo de corriente eléctrica en un circuito, protegiendo componentes y ajustando niveles de voltaje.'),
+(7, 1, '7.png', 'Transistor de efecto de campo tipo N de canal de empobrecimiento', 'Semiconductor que controla el flujo de corriente aplicando un voltaje negativo, operando en un estado normalmente conductor que puede bloquearse al modificar el campo eléctrico.'),
+(8, 1, '8.png', 'TRIAC (Interruptor bidireccional controlado por corriente)', 'Dispositivo semiconductor que permite controlar la corriente alterna en ambas direcciones, utilizado en reguladores de potencia, controles de luz y motores.'),
+(25, 2, 'bisagra.png', 'Bisagra de cazoleta', 'También llamada bisagra oculta o europea. Se instala dentro de un agujero circular y permite ajustar puertas de muebles en varias direcciones.'),
+(26, 2, 'escuadra.png', 'Escuadra combinada', 'Herramienta multifunción con regla y cabezal ajustable que permite trazar y verificar ángulos de 90° y 45°, e incluye nivel y punzón.'),
+(27, 2, 'formon.png', 'Formón', 'Cincel de carpintero que se usa para tallar o ajustar ensambles en madera. Funciona con la mano o mazo, y viene en varios anchos.'),
+(28, 2, 'gubias.png', 'Gubias de tallado', 'Herramientas similares a los formones pero con hoja curva o en “U” o “V”, ideales para tallar y esculpir madera de forma decorativa.'),
+(29, 2, 'ingletadora.png', 'Ingletadora', 'Sierra especial para cortar madera en ángulos precisos como 45° o 90°, usada comúnmente en molduras y marcos. Puede ser manual o eléctrica.'),
+(30, 2, 'sargento.png', 'Sargento de prensa', 'Herramienta de sujeción que mantiene firmemente dos piezas unidas durante el pegado, taladrado o ensamblado.'),
+(31, 2, 'sierra_banco.png', 'Sierra de banco', 'Herramienta estacionaria con hoja circular que permite cortes rectos y precisos. Se usa para cortes longitudinales o transversales en madera.'),
+(32, 2, 'tarugo.png', 'Tarugo de madera', 'Cilindro de madera dura que se usa para unir piezas mediante orificios alineados y encolado. Da uniones firmes sin tornillos visibles.'),
+(33, 3, 'agua.webp', 'Agua (H₂O)', 'Compuesta por dos átomos de hidrógeno y uno de oxígeno. Es esencial para la vida y está presente en la mayoría de los seres vivos.'),
+(34, 3, 'dio.webp', 'Dióxido de carbono (CO₂)', 'Gas que exhalamos al respirar y que las plantas utilizan en la fotosíntesis para producir oxígeno y glucosa.'),
+(35, 3, 'oxigeno.webp', 'Oxígeno (O₂)', 'Molécula formada por dos átomos de oxígeno. Es vital para la respiración de los seres vivos aeróbicos.'),
+(36, 3, 'nitrogeno.webp', 'Nitrógeno (N₂)', 'Gas incoloro e inodoro que representa el 78% del aire atmosférico. No es respirable directamente, pero las plantas lo absorben en forma de compuestos.'),
+(37, 3, 'metano.webp', 'Metano (CH₄)', 'Compuesto formado por un átomo de carbono y cuatro de hidrógeno. Es un gas inflamable utilizado como fuente de energía.'),
+(38, 3, 'amoniaco.webp', 'Amoníaco (NH₃)', 'Molécula compuesta por un átomo de nitrógeno y tres de hidrógeno. Se encuentra en productos de limpieza y fertilizantes.'),
+(39, 3, 'ozono.webp', 'Ozono (O₃)', 'Compuesta por tres átomos de oxígeno. Forma una capa en la atmósfera que nos protege de los rayos ultravioleta del Sol.'),
+(40, 3, 'naci.webp', 'Cloruro de sodio (NaCl)', 'La sal de mesa común. Formada por un átomo de sodio y uno de cloro. Se utiliza para sazonar alimentos y conservarlos.'),
+(41, 4, '1748818402968-503140899.webp', 'Triángulo equilátero', 'Figura de tres lados iguales y tres ángulos internos de 60°. Es simétrica y se clasifica como regular.'),
+(42, 4, '1748818402968-532937819.webp', 'Cuadrado', 'Tiene cuatro lados y cuatro ángulos rectos. Todos sus lados son iguales.'),
+(43, 4, '1748818402969-488272125.webp', 'Rectángulo', 'Cuatro lados, con lados opuestos iguales y cuatro ángulos rectos.'),
+(44, 4, '1748818402969-122345557.webp', 'Círculo', 'Figura curva sin lados ni vértices. Su distancia del centro al borde se llama radio.'),
+(45, 4, '1748818402970-487335458.webp', 'Trapecio', 'Cuadrilátero con solo un par de lados paralelos. Puede ser isósceles, escaleno o rectángulo.'),
+(46, 4, '1748818402970-372430830.webp', 'Rombo', 'Cuatro lados iguales, pero ángulos no necesariamente rectos. Tiene dos ejes de simetría.'),
+(47, 4, '1748818402970-911226367.webp', 'Pentágono', 'Figura de cinco lados y cinco vértices'),
+(48, 4, '1748818402971-213377059.webp', 'Hexágono', 'Figura de seis lados, presente en estructuras como los panales de abejas.'),
+(49, 5, '1748819587423-195685390.webp', 'Resistencia cardiovascular', 'Capacidad del corazón y los pulmones para suministrar oxígeno al cuerpo durante esfuerzos prolongados.'),
+(50, 5, '1748819587423-782792734.webp', 'Fuerza muscular', 'Habilidad para ejercer tensión muscular contra una resistencia.'),
+(51, 5, '1748819587423-244251105.webp', 'Flexibilidad', 'Capacidad de las articulaciones para moverse con amplitud.'),
+(52, 5, '1748819587424-667810245.webp', 'Velocidad', 'Capacidad de realizar un movimiento en el menor tiempo posible.'),
+(53, 5, '1748819587425-936641393.webp', 'Coordinación', 'Habilidad para sincronizar correctamente los movimientos del cuerpo.'),
+(54, 5, '1748819587427-517369837.webp', 'Sistema respiratorio', 'Encargado de suministrar oxígeno y eliminar dióxido de carbono durante el ejercicio.'),
+(55, 5, '1748819587427-164275319.webp', 'Sistema circulatorio', 'Transporta oxígeno y nutrientes a los músculos durante la actividad física.'),
+(56, 5, '1748819587428-736594567.webp', 'Sistema muscular', 'Proporciona el movimiento y la estabilidad necesarios para la actividad física.'),
+(57, 6, '1748820596511-894359523.webp', 'Crol (libre)', 'Estilo de nado más rápido y común, caracterizado por brazadas alternas y patada de batido.'),
+(58, 6, '1748820596511-70945417.webp', 'Espalda', 'Estilo que se realiza boca arriba, con brazadas continuas hacia atrás y patada de batido.'),
+(59, 6, '1748820596511-186179739.webp', 'Pecho (braza)', 'Estilo simétrico donde los brazos se extienden hacia adelante y se acompañan con una patada tipo rana.'),
+(60, 6, '1748820596511-600350456.webp', 'Mariposa', 'Estilo exigente que combina movimientos simultáneos de brazos en forma de arco con una patada tipo delfín.'),
+(61, 6, '1748820596512-295568465.webp', 'Viraje', 'Movimiento técnico que se utiliza al llegar al borde de la piscina para impulsarse y continuar el recorrido.'),
+(62, 6, '1748820596512-169264313.webp', 'Salida de plataforma', 'Técnica de inicio explosivo desde una plataforma elevada, importante para competiciones.'),
+(63, 6, '1748820596512-586264129.webp', 'Respiración lateral', 'Técnica usada principalmente en el crol, donde se gira la cabeza a un lado para tomar aire sin interrumpir el ritmo.'),
+(64, 6, '1748820596512-177402206.webp', 'Flotación horizontal', 'Habilidad básica para mantenerse en equilibrio en el agua con el cuerpo alineado.'),
+(65, 7, '1748875722671-784710228.webp', 'Meseta', 'Terreno plano ubicado a gran altitud. Se forma por erosión o movimientos tectónicos y se caracteriza por tener pendientes abruptas en sus bordes.'),
+(66, 7, '1748875722671-650224202.webp', 'Llanura', 'Zona extensa y plana a baja altitud. Es común en áreas cercanas a ríos y se utiliza frecuentemente para la agricultura.'),
+(67, 7, '1748875722671-909980956.webp', 'Montaña', 'Elevación natural del terreno con gran pendiente. Se forma por el choque de placas tectónicas.'),
+(68, 7, '1748875722674-590310675.webp', 'Valle', 'Depresión del terreno entre montañas o colinas, usualmente recorrida por un río.'),
+(69, 7, '1748875722675-110704468.webp', 'Cañón', 'Garganta profunda y estrecha formada por la erosión de un río durante millones de años.'),
+(70, 7, '1748875722677-867206732.webp', 'Colina', 'Elevación del terreno más baja y suave que una montaña. Se forma por acumulación de sedimentos o erosión.'),
+(71, 7, '1748875722677-592484276.webp', 'Depresión', 'Zona del terreno que está por debajo del nivel del mar o del relieve circundante. Puede ser natural o resultado de hundimientos.'),
+(72, 7, '1748875722679-494957354.webp', 'Delta fluvial', 'Área de acumulación de sedimentos en la desembocadura de un río, con forma triangular y múltiples brazos de agua.'),
+(73, 8, '1748876281163-769694826.webp', 'Pueblo Mapuche', 'Pueblo originario del sur argentino. Conocidos por su resistencia histórica y sus prácticas comunitarias. Valoran fuertemente la naturaleza y la tierra (\"Ñuke Mapu\").'),
+(74, 8, '1748876281166-529558687.webp', 'Machis (Curanderos Mapuche)', 'Líderes espirituales que practican rituales de sanación. Son figuras clave dentro de la espiritualidad mapuche.'),
+(75, 8, '1748876281167-237900435.webp', 'Pueblo Qom (Toba)', 'Habitan el norte del país. Su cultura se basa en la vida en comunidad, la caza, la pesca y el respeto por los ancestros.'),
+(76, 8, '1748876281169-564909121.webp', 'Ceremonia del Inti Raymi', 'Ritual de origen andino que celebra al Sol. Aunque se origina en Perú, pueblos del noroeste argentino también lo practican.'),
+(77, 8, '1748876281170-941494508.webp', 'Yupana (Ábaco Andino)', 'Herramienta de cálculo usada por culturas andinas como los quechuas y aimaras. Refleja un sistema de conocimiento ancestral.'),
+(78, 8, '1748876281171-999485924.webp', 'Wiphala', 'Bandera de colores que representa a los pueblos originarios andinos. Simboliza la armonía y la convivencia con la naturaleza.'),
+(79, 8, '1748876281171-543558064.webp', 'La Pachamama', 'Madre Tierra en la cosmovisión andina. Cada agosto, se le hacen ofrendas para agradecer sus frutos y pedir protección.'),
+(80, 8, '1748876281213-964018406.webp', 'Chamanismo Guaraní', 'Sistema de creencias del pueblo guaraní basado en espíritus de la naturaleza. Los chamanes median entre el mundo espiritual y el terrenal.'),
+(81, 9, '1748876927396-404809487.webp', 'Emisor', 'Persona o entidad que produce y envía el mensaje. Por ejemplo, un profesor que da una clase.'),
+(82, 9, '1748876927396-701545612.webp', 'Receptor', 'Quien recibe e interpreta el mensaje. En una charla, el oyente cumple este rol.'),
+(83, 9, '1748876927396-685898123.webp', 'Mensaje', 'La información que se transmite entre el emisor y el receptor. Puede ser verbal o no verbal.'),
+(84, 9, '1748876927396-465766718.webp', 'Canal', 'El medio por el cual se transmite el mensaje. Puede ser el aire, una carta, un celular, etc.'),
+(85, 9, '1748876927397-445144732.webp', 'Código', 'Sistema de signos que el emisor y el receptor deben compartir. Por ejemplo, el idioma español.'),
+(86, 9, '1748876927397-341022291.webp', 'Referente', 'El tema o realidad a la que hace referencia el mensaje. Por ejemplo, hablar sobre el clima.'),
+(87, 9, '1748876927397-50021191.webp', 'Comunicación verbal', 'Cuando el mensaje se transmite con palabras habladas o escritas. Ejemplo: una conversación.'),
+(88, 9, '1748876927418-208465032.webp', 'Comunicación no verbal', 'Mensajes transmitidos sin palabras, como gestos, expresiones faciales o posturas.'),
+(89, 10, '1748877784757-304561550.webp', 'Texto narrativo', 'Cuenta una historia real o ficticia con personajes, un conflicto y un desenlace. Ejemplo: un cuento.'),
+(90, 10, '1748877784757-433672678.webp', 'Texto descriptivo', 'Explica cómo es algo o alguien usando muchos detalles. Ejemplo: una descripción de una persona.'),
+(91, 10, '1748877784759-925654626.webp', 'Texto argumentativo', 'Presenta una idea u opinión con razones para convencer. Ejemplo: una carta de opinión.'),
+(92, 10, '1748877784759-565576324.webp', 'Texto instructivo', 'Da pasos o indicaciones para hacer algo. Ejemplo: una receta de cocina.'),
+(93, 10, '1748877784760-378970160.webp', 'Sinonimia', 'Palabras diferentes con significados parecidos. Ejemplo: “feliz” y “contento”.'),
+(94, 10, '1748877784760-125614741.webp', 'Antonimia', 'Palabras con significados opuestos. Ejemplo: “grande” y “pequeño”.'),
+(95, 10, '1748877784761-839011025.webp', 'Hiperonimia', 'Palabra general que agrupa otras más específicas. Ejemplo: “fruta” es hiperónimo de “manzana”.'),
+(96, 10, '1748877784761-342142657.webp', 'Hiponimia', 'Palabra específica que pertenece a un grupo más general. Ejemplo: “perro” es hipónimo de “animal”.');
 
 -- --------------------------------------------------------
 
@@ -821,13 +893,13 @@ ALTER TABLE `juegos`
 -- AUTO_INCREMENT de la tabla `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `niveles_us`
 --
 ALTER TABLE `niveles_us`
-  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -857,7 +929,7 @@ ALTER TABLE `rankin_wordle`
 -- AUTO_INCREMENT de la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
-  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`

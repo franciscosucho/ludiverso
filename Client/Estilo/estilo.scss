@@ -478,13 +478,25 @@ body {
             width: 100vw;
             height: 90vh;
             display: flex;
-            justify-content: center;
+            padding-top: 0%;
             align-items: center;
+            margin-top: 3% !important;
 
             .cont_main_juego {
                 height: 90%;
                 width: 90%;
                 border-radius: 10px;
+                max-width: 100%;
+
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                image-rendering: crisp-edges;
+                /* o pixelated */
+                image-rendering: -moz-crisp-edges;
+                /* Firefox */
+                image-rendering: -webkit-optimize-contrast;
+                /* Chrome */
 
                 display: flex;
                 justify-content: space-between;
@@ -544,22 +556,19 @@ body {
 
                     color: white;
 
-                    .nombre_juego {
-
-                        font-size: 1.6em;
-                        font-weight: bold;
-                        background-color: var(--fondo_azul_claro);
-                        padding: 5px;
-                    }
-
-                    .nombre_materia {
+                    h2,
+                    a {
+                        padding: 20px !important;
+                        background-color: rgba(0, 0, 0, 0.788) !important;
                         text-decoration: none;
                         color: white;
                         font-size: 1.6em;
                         font-weight: bold;
                         padding: 5px;
-                        background-color: var(--fondo_azul_claro);
+                        border-radius: 8px;
+                        background-color: rgba(0, 0, 0, 0.507);
                     }
+
 
                 }
 
@@ -568,6 +577,7 @@ body {
                     margin-bottom: 8%;
                     padding: 30px;
                     border-radius: 30px;
+                    height: auto;
                     width: 50%;
                     display: flex;
                     justify-content: center;
@@ -1827,8 +1837,34 @@ body {
 
 }
 
+@media (max-width:460px) {
+    #sec_areas {
+        #cont_areas {
+            .cont_dos {
+                display: flex !important;
+                flex-direction: column !important;
+
+
+            }
+
+            .cont_areas {
+                width: 70vw !important;
+            }
+
+
+        }
+    }
+
+}
+
+
 @media (max-width: 960px) {
     #sec_areas {
+        .sub_titulo{
+            font-size: 4em;
+            width: 80vw !important;
+            text-align: center;
+        }
         #cont_areas {
             flex-direction: column;
 
@@ -1848,6 +1884,65 @@ body {
             }
         }
 
+
+    }
+
+}
+
+@media (max-width:650px) {
+    #sec_novedades {
+        .sub_titulo{
+            font-size: 4em;
+            width: 80vw !important;
+            text-align: center;
+        }
+        .cont_novedades {
+            display: flex;
+            flex-direction: column-reverse !important;
+
+            .cont_text_novedad {
+                padding: 0px !important;
+                width: 100% !important;
+
+                .titulo_novedad {
+                    width: 100% !important;
+                    font-size: 1.8em !important;
+
+                }
+
+                .sub_titulo_novedades {
+                    width: 100% !important;
+                    font-size: 1.2em !important;
+
+                }
+
+                .cuepo_novedad {
+                    width: 100% !important;
+                    font-size: 1em !important;
+
+                }
+            }
+
+            img {
+                width: 70vw !important;
+                height: auto !important;
+            }
+        }
+    }
+
+}
+
+@media (max-width:650px) {
+    #sec_sobre_nosotros {
+      
+        .cont_text_ludi{
+            width: 100% !important;
+        }
+        .sub_titulo{
+            font-size: 4em;
+            width: 80vw !important;
+            text-align: center;
+        }
 
     }
 
@@ -1898,6 +1993,8 @@ body {
         width: 80%;
         height: auto;
         padding: 10px;
+        gap: 40px;
+
 
         .cont_areas_niveles {
             display: flex;
@@ -3254,21 +3351,6 @@ $right :#538d4e;
 
 //<------------------------------------------------------------------------------->
 
-@media (max-width: 900px) {
-    #index_main {
-        #sec_img {
-            .cont_main_juego {
-                .cont_main {
-                    .cont_tex {}
-
-                }
-            }
-        }
-
-
-    }
-}
-
 @media (max-width: 1000px) {
     header {
         nav {
@@ -3289,6 +3371,43 @@ $right :#538d4e;
         }
     }
 }
+
+@media (max-width: 600px) {
+    body {
+        main {
+            #sec_img {
+                .cont_main_juego {
+                    .cont_main {
+
+                        justify-content: space-around;
+                        gap: 40px;
+
+                        .cont_tex {
+                            display: flex;
+                            flex-direction: column !important;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 20px;
+
+                            a,
+                            h2 {
+                                padding: 20px !important;
+                                background-color: rgba(0, 0, 0, 0.788) !important;
+                            }
+
+                        }
+
+                        .cont_info_juego {
+                            width: 90%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 @media (max-width: 600px) {
     header {

@@ -16,6 +16,7 @@
             <section class="admin-juegos" id="cont_wordle">
                 <article class="cont_opc">
                     <div id="ver_lista">
+
                         <span>Ver lista de niveles</span>
                     </div>
                     <div id="ver_agre">
@@ -80,7 +81,7 @@
                                     <% resources.forEach((resource, index_re)=> { %>
                                         <% if( nivel.id_nivel==resource.id_nivel ) { %>
                                             <div class="resource" id="resource_<%= index_re %>">
-                                                <img src="./../Resources/Imagenes/juego_memoria/<%= resource.url_img %>.png"
+                                                <img src="./../Resources/Imagenes/juego_memoria/<%= resource.url_img %>"
                                                     alt="<%= resource.titulo_img %>">
                                                 <div class="cont_text_img">
                                                     <span>
@@ -118,36 +119,52 @@
                     <form action="/dash_agregar_juego" method="POST" enctype="multipart/form-data" id="">
                         <h3> Agregar juego</h3>
                         <div class="cont_input">
-                            <label for="id_user">Titulo juego </label>
-                            <input type="text" name="titulo_juego" id="titulo_juego" placeholder="Escriba el Titulo del juego" maxlength="255" required>
+                            <label for="titulo_juego">Titulo juego </label>
+                            <input type="text" name="titulo_juego" id="titulo_juego"
+                                placeholder="Escriba el Titulo del juego" maxlength="255" required>
                         </div>
                         <div class="cont_input">
-                            <label for="id_user">Descripción del juego</label>
-                            <input type="text" name="subtitulo_juego" id="subtitulo_juego" placeholder="Escriba la Descripción del jego" maxlength="255"
-                                required>
+                            <label for="subtitulo_juego">Descripción del juego</label>
+                            <input type="text" name="subtitulo_juego" id="subtitulo_juego"
+                                placeholder="Escriba la Descripción del jego" maxlength="2000" required>
                         </div>
                         <div class="cont_input">
-                            <label for="id_user">tiempo para resolverlo</label>
-                            <input type="number" name="tiempo" id="tiempo" placeholder=""  required>
+                            <label for="tiempo">tiempo para resolverlo</label>
+                            <input type="number" name="tiempo" id="tiempo" placeholder="" required>
                         </div>
-                        <% for (let i = 0; i < 8; i++) { %>
+                        <div class="cont_input desac">
+                            <label for="id_nivel"></label>
+                            <input type="text" name="id_nivel" id="id_nivel" value="<%= niveles[0].id_nivel %>">
+                        </div>
+                        <div class="cont_input">
+                            <label for="area">Area del juego </label>
+                            <select name="area" id="area">
+                                <% areas.forEach((area)=> { %>
+                                    <option value="<%= area.materia_id %>">
+                                        <%= area.nombre %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+                        <% for (let i=0; i < 8; i++) { %>
                             <div class="image-card">
-                              <h4>Imagen <%= i + 1 %></h4>
-                              <div class="grid-img-inputs">
-                                <input type="file" name="imagenes[]" required>
-                                <input type="text" name="titulos_img[]" placeholder="Título de la imagen" required>
-                                <input type="text" name="descripciones_img[]" placeholder="Descripción" required>
-                              </div>
+                                <h4>Imagen <%= i + 1 %>
+                                </h4>
+                                <div class="grid-img-inputs">
+                                    <input type="file" name="imagenes[]" required>
+                                    <input type="text" name="titulos_img[]" placeholder="Título de la imagen" required>
+                                    <input type="text" name="descripciones_img[]" placeholder="Descripción" required>
+                                </div>
                             </div>
-                          <% } %>
-                        <div class="cont_btns">
-                      
-                            <button type="submit">enviar</button>
-                        </div>
-    
+                            <% } %>
+                                <div class="cont_btns">
+
+                                    <button type="submit">enviar</button>
+                                </div>
+
                     </form>
                 </section>
-                
+
             </section>
         </main>
 

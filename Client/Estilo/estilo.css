@@ -378,13 +378,24 @@ body main #sec_img {
   width: 100vw;
   height: 90vh;
   display: flex;
-  justify-content: center;
+  padding-top: 0%;
   align-items: center;
+  margin-top: 3% !important;
 }
 body main #sec_img .cont_main_juego {
   height: 90%;
   width: 90%;
   border-radius: 10px;
+  max-width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: crisp-edges;
+  /* o pixelated */
+  image-rendering: -moz-crisp-edges;
+  /* Firefox */
+  image-rendering: -webkit-optimize-contrast;
+  /* Chrome */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -432,25 +443,24 @@ body main #sec_img .cont_main_juego .cont_tex {
   align-items: flex-start;
   color: white;
 }
-body main #sec_img .cont_main_juego .cont_tex .nombre_juego {
-  font-size: 1.6em;
-  font-weight: bold;
-  background-color: var(--fondo_azul_claro);
-  padding: 5px;
-}
-body main #sec_img .cont_main_juego .cont_tex .nombre_materia {
+body main #sec_img .cont_main_juego .cont_tex h2,
+body main #sec_img .cont_main_juego .cont_tex a {
+  padding: 20px !important;
+  background-color: rgba(0, 0, 0, 0.788) !important;
   text-decoration: none;
   color: white;
   font-size: 1.6em;
   font-weight: bold;
   padding: 5px;
-  background-color: var(--fondo_azul_claro);
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.507);
 }
 body main #sec_img .cont_main_juego .cont_info_juego {
   background-color: rgba(51, 95, 153, 0.589);
   margin-bottom: 8%;
   padding: 30px;
   border-radius: 30px;
+  height: auto;
   width: 50%;
   display: flex;
   justify-content: center;
@@ -1449,7 +1459,21 @@ body footer .cont_des a {
     font-size: 1.6em !important;
   }
 }
+@media (max-width: 460px) {
+  #sec_areas #cont_areas .cont_dos {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #sec_areas #cont_areas .cont_areas {
+    width: 70vw !important;
+  }
+}
 @media (max-width: 960px) {
+  #sec_areas .sub_titulo {
+    font-size: 4em;
+    width: 80vw !important;
+    text-align: center;
+  }
   #sec_areas #cont_areas {
     flex-direction: column;
   }
@@ -1463,6 +1487,47 @@ body footer .cont_des a {
   #sec_areas #cont_areas #cont_central {
     height: 30vh !important;
     width: 68%;
+  }
+}
+@media (max-width: 650px) {
+  #sec_novedades .sub_titulo {
+    font-size: 4em;
+    width: 80vw !important;
+    text-align: center;
+  }
+  #sec_novedades .cont_novedades {
+    display: flex;
+    flex-direction: column-reverse !important;
+  }
+  #sec_novedades .cont_novedades .cont_text_novedad {
+    padding: 0px !important;
+    width: 100% !important;
+  }
+  #sec_novedades .cont_novedades .cont_text_novedad .titulo_novedad {
+    width: 100% !important;
+    font-size: 1.8em !important;
+  }
+  #sec_novedades .cont_novedades .cont_text_novedad .sub_titulo_novedades {
+    width: 100% !important;
+    font-size: 1.2em !important;
+  }
+  #sec_novedades .cont_novedades .cont_text_novedad .cuepo_novedad {
+    width: 100% !important;
+    font-size: 1em !important;
+  }
+  #sec_novedades .cont_novedades img {
+    width: 70vw !important;
+    height: auto !important;
+  }
+}
+@media (max-width: 650px) {
+  #sec_sobre_nosotros .cont_text_ludi {
+    width: 100% !important;
+  }
+  #sec_sobre_nosotros .sub_titulo {
+    font-size: 4em;
+    width: 80vw !important;
+    text-align: center;
   }
 }
 /*Intro de juegos <------------------------------------------------------------------->*/
@@ -1503,6 +1568,7 @@ body footer .cont_des a {
   width: 80%;
   height: auto;
   padding: 10px;
+  gap: 40px;
 }
 #juego_intro .cont_niveles .cont_areas_niveles {
   display: flex;
@@ -2601,6 +2667,27 @@ body footer .cont_des a {
   }
   header nav #cont_nav_links .links .text_links {
     display: none;
+  }
+}
+@media (max-width: 600px) {
+  body main #sec_img .cont_main_juego .cont_main {
+    justify-content: space-around;
+    gap: 40px;
+  }
+  body main #sec_img .cont_main_juego .cont_main .cont_tex {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  body main #sec_img .cont_main_juego .cont_main .cont_tex a,
+  body main #sec_img .cont_main_juego .cont_main .cont_tex h2 {
+    padding: 20px !important;
+    background-color: rgba(0, 0, 0, 0.788) !important;
+  }
+  body main #sec_img .cont_main_juego .cont_main .cont_info_juego {
+    width: 90%;
   }
 }
 @media (max-width: 600px) {

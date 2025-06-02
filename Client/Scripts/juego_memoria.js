@@ -64,7 +64,7 @@ document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
         if (i != 0) {
             div_main_ask.classList.add("desac")
         }
-        cont_preguntas.appendChild(div_main_ask).innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}.png" alt="" data-nombre="${resources[i].titulo_img}" id="img_id_${i}">`;
+        cont_preguntas.appendChild(div_main_ask).innerHTML += `<img src="./../Resources/Imagenes/juego_memoria/${resources[i].url_img}" alt="" data-nombre="${resources[i].titulo_img}" id="img_id_${i}">`;
 
         let div_nombres = document.createElement("div");
         div_nombres.classList.add("div_nombres");
@@ -228,14 +228,14 @@ function destapar(id) {
     if (tarjetasDestapadas == 1) {
         tarjeta1 = document.getElementById(id);
         primerResultado = numeros[id];
-        tarjeta1.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${primerResultado}.png" alt="">`;
+        tarjeta1.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${primerResultado}" alt="">`;
         //deshabilitar primer boton quer toca el user.
         tarjeta1.disabled = true;
     }
     else if (tarjetasDestapadas == 2) {
         tarjeta2 = document.getElementById(id)
         segundoResultado = numeros[id];
-        tarjeta2.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${segundoResultado}.png" alt="">`;
+        tarjeta2.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${segundoResultado}" alt="">`;
         tarjeta2.disabled = true;
 
         movimientos++;
@@ -292,7 +292,7 @@ function iniciarTiempo() {
 function bloquearTarjetas() {
     for (let i = 0; i <= 15; i++) {
         let tarjetaBloqueada = document.getElementById(i)
-        tarjetaBloqueada.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${numeros[i]}.png" alt="">`;
+        tarjetaBloqueada.innerHTML = `<img src="./../Resources/Imagenes/juego_memoria/${numeros[i]}" alt="">`;
 
         tarjetaBloqueada.disabled = true;
     }
