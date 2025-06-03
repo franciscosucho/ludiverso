@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include('head.ejs') %>
+    <title>Ranking Ahorcado</title>
+    <style>
+        .ranking-container {
+            max-width: 1200px;
+            margin: 120px auto 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .ranking-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--Encabezados_botones_y_primarios);
+        }
+
+        .ranking-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background: var(--Encabezados_botones_y_primarios);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-button.active {
+            background: var(--Encabezados_botones_y_primarios_hover);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: var(--Encabezados_botones_y_primarios);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .ranking-table th {
+            background: var(--Encabezados_botones_y_primarios);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .ranking-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ranking-row {
+            transition: background-color 0.3s;
+        }
+
+        .ranking-row:hover {
+            background: #f5f5f5;
+        }
+
+        .ranking-row.victoria {
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .ranking-row.derrota {
+            background: rgba(220, 53, 69, 0.1);
+        }
+
+        .medal {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--Encabezados_botones_y_primarios);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background: var(--Encabezados_botones_y_primarios_hover);
+        }
+
+        .area-title {
+            color: var(--Encabezados_botones_y_primarios);
+            margin: 2rem 0 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+    <main>
+        <div class="ranking-container">
+            <div class="ranking-header">
+                <h1>🏆 Ranking del Ahorcado</h1>
+                <p>¡Compite por el primer lugar en cada área!</p>
+            </div>
+
+            <div class="ranking-filters">
+                <button class="filter-button <%= !area ? 'active' : '' %>" onclick="window.location.href='/ahorcado_ranking'">Todas las áreas</button>
+                <% areas.forEach(area => { %>
+                    <button class="filter-button <%= selectedArea == area.materia_id ? 'active' : '' %>" 
+                            onclick="window.location.href='/ahorcado_ranking?area=<%= area.materia_id %>'">
+                        <%= area.nombre %>
+                    </button>
+                <% }) %>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total de Partidas</h3>
+                    <p><%= data_ahorcado.length %></p>
+                </div>
+                <div class="stat-card">
+                    <h3>Victorias</h3>
+                    <p><%= data_ahorcado.filter(d => d.victoria).length %></p>
+                </div>
+                <div class="stat-card">
+                    <h3>Mejor Tiempo</h3>
+                    <p><%= Math.min(...data_ahorcado.map(d => d.tiempo)) %> seg</p>
+                </div>
+            </div>
+
+            <% if (selectedArea) { %>
+                <h2 class="area-title">Ranking de <%= areas.find(a => a.materia_id == selectedArea).nombre %></h2>
+            <% } %>
+
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Jugador</th>
+                        <th>Área</th>
+                        <th>Aciertos</th>
+                        <th>Fallos</th>
+                        <th>Tiempo</th>
+                        <th>Palabra</th>
+                        <th>Resultado</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% data_ahorcado.forEach((usuario, index) => { %>
+                        <tr class="ranking-row <%= usuario.victoria ? 'victoria' : 'derrota' %>">
+                            <td>
+                                <% if (index === 0) { %>
+                                    <span class="medal">🥇</span>
+                                <% } else if (index === 1) { %>
+                                    <span class="medal">🥈</span>
+                                <% } else if (index === 2) { %>
+                                    <span class="medal">🥉</span>
+                                <% } else { %>
+                                    <%= index + 1 %>
+                                <% } %>
+                            </td>
+                            <td><%= usuario.nombre_usuario %></td>
+                            <td><%= areas.find(a => a.materia_id == usuario.id_area).nombre %></td>
+                            <td><%= usuario.aciertos %></td>
+                            <td><%= usuario.intentos_fallidos %></td>
+                            <td><%= usuario.tiempo %> seg</td>
+                            <td><%= usuario.palabra_jugada %></td>
+                            <td><%= usuario.victoria ? '✅ Victoria' : '❌ Derrota' %></td>
+                            <td><%= new Date(usuario.fecha).toLocaleDateString() %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="/ahorcado_intro" class="back-button">← Volver al Juego</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html> 

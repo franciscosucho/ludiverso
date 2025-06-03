@@ -12,6 +12,31 @@
             padding: 0 20px;
         }
 
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-section h1 {
+            margin: 0;
+        }
+
+        .ranking-button {
+            background-color: var(--Encabezados_botones_y_primarios);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .ranking-button:hover {
+            background-color: var(--Botones_secundarios_o_hover_azul);
+        }
+
         .container h1 {
             color: var(--Encabezados_botones_y_primarios);
             font-size: 2.5em;
@@ -136,7 +161,10 @@
     <%- include('header') %>
     
     <div class="container">
-        <h1>Juego del Ahorcado</h1>
+        <div class="header-section">
+            <h1>Juego del Ahorcado</h1>
+            <a href="/ahorcado_ranking" class="ranking-button">Ver Ranking</a>
+        </div>
         <p>Selecciona un área para comenzar a jugar. ¡Demuestra tus conocimientos!</p>
         
         <div class="area-container">

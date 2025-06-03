@@ -641,6 +641,30 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (249, 7, 'pintura', 'Sustancia usada para recubrir superficies.'),
 (250, 7, 'cepillo', 'Herramienta para alisar madera.');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ranking_ahorcado`
+--
+
+DROP TABLE IF EXISTS `ranking_ahorcado`;
+CREATE TABLE `ranking_ahorcado` (
+  `id_ranking` int(11) NOT NULL AUTO_INCREMENT,
+  `id_us` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `intentos_fallidos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `victoria` boolean NOT NULL DEFAULT false,
+  `palabra_jugada` varchar(50) NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`id_ranking`),
+  KEY `id_us` (`id_us`),
+  KEY `id_area` (`id_area`),
+  CONSTRAINT `ranking_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
+  CONSTRAINT `ranking_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tablas volcadas
 --

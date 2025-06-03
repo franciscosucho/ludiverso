@@ -6,6 +6,15 @@ let guessedLetters = new Set();
 let wrongGuesses = 0;
 const maxWrongGuesses = 7;
 
+// Variables para el ranking
+let startTime = Date.now();
+let correctGuesses = 0;
+let incorrectGuesses = 0;
+let currentArea = new URLSearchParams(window.location.search).get('materia');
+let totalWordsCompleted = 0;
+let gameOver = false;
+let usedWords = new Set([word]); // Inicializamos con la palabra actual
+
 // dibujar el ahorcado
 function drawHangman() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -118,29 +127,130 @@ function guessLetter(letter) {
     
     if (word.includes(letter)) {
         key.classList.add('correct');
+        correctGuesses++;
         displayWord();
         checkWin();
     } else {
         key.classList.add('wrong');
         wrongGuesses++;
+        incorrectGuesses++;
         drawHangman();
         checkLose();
     }
 }
 
-// verificar victoria
+// verificar si se ha ganado
 function checkWin() {
-    const isComplete = word.split('').every(letter => guessedLetters.has(letter));
-    if (isComplete) {
-        showGameOver(true);
+    const currentWord = document.getElementById('wordDisplay').textContent.replace(/\s/g, '');
+    if (currentWord === word) {
+        totalWordsCompleted++;
+        // Solicitar nueva palabra al servidor
+        fetch(`/next-word?area=${currentArea}&completed=${totalWordsCompleted}&usedWords=${Array.from(usedWords).join(',')}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.completed) {
+                    // Si ya completó todas las palabras del área
+                    const tiempo = Math.floor((Date.now() - startTime) / 1000);
+                    sendScore(tiempo, correctGuesses, incorrectGuesses, true);
+                    showGameOver(true);
+                    disableKeyboard();
+                } else {
+                    // Continuar con la siguiente palabra
+                    word = data.palabra;
+                    hint = data.pista;
+                    usedWords.add(word); // Agregar la nueva palabra al conjunto de usadas
+                    resetGameState();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 }
 
-// verificar derrota
+// verificar si se ha perdido
 function checkLose() {
     if (wrongGuesses >= maxWrongGuesses) {
+        const tiempo = Math.floor((Date.now() - startTime) / 1000);
+        sendScore(tiempo, correctGuesses, incorrectGuesses, false);
         showGameOver(false);
+        disableKeyboard();
+        gameOver = true;
     }
+}
+
+// resetear el estado del juego para la siguiente palabra
+function resetGameState() {
+    guessedLetters.clear();
+    wrongGuesses = 0;
+    document.getElementById('hint').textContent = `Pista: ${hint}`;
+    
+    // Resetear el teclado virtual
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => {
+        key.classList.remove('correct', 'wrong');
+        key.disabled = false;
+    });
+    
+    // Limpiar y redibujar el canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawHangman();
+    displayWord();
+}
+
+// deshabilitar el teclado cuando termina el juego
+function disableKeyboard() {
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => {
+        key.disabled = true;
+    });
+    // También removemos el event listener del teclado físico
+    document.removeEventListener('keydown', handleKeyPress);
+}
+
+// manejador de eventos del teclado físico
+function handleKeyPress(event) {
+    const key = event.key.toUpperCase();
+    if (/^[A-ZÑ]$/.test(key)) {
+        guessLetter(key);
+    }
+}
+
+// enviar puntuación
+function sendScore(tiempo, aciertos, intentos_fallidos, victoria) {
+    if (gameOver) return; // Evitar envíos múltiples
+    
+    fetch('/game-over-ahorcado', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            tiempo: tiempo,
+            aciertos: aciertos,
+            intentos_fallidos: intentos_fallidos,
+            victoria: victoria,
+            palabra_jugada: word,
+            id_area: currentArea
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Puntuación registrada:', data);
+        if (data.success) {
+            // Agregar botón para ver ranking después de 1 segundo
+            setTimeout(() => {
+                const gameOver = document.getElementById('gameOver');
+                const rankingButton = document.createElement('button');
+                rankingButton.textContent = 'Ver Ranking';
+                rankingButton.onclick = () => window.location.href = '/ahorcado_ranking?area=' + currentArea;
+                gameOver.appendChild(rankingButton);
+            }, 1000);
+        }
+    })
+    .catch(error => {
+        console.error('Error al registrar puntuación:', error);
+    });
 }
 
 // mostrar fin del juego
@@ -151,7 +261,7 @@ function showGameOver(won) {
     
     message.textContent = won ? '¡Felicidades! ¡Has ganado!' : '¡Game Over!';
     correctWord.textContent = word;
-    gameOver.classList.add('show');
+    gameOver.style.display = 'flex';
 }
 
 // inicializar juego
@@ -162,12 +272,7 @@ function initGame() {
     drawHangman();
     
     // agregar manejador de eventos de teclado
-    document.addEventListener('keydown', (event) => {
-        const key = event.key.toUpperCase();
-        if (/^[A-ZÑ]$/.test(key)) {
-            guessLetter(key);
-        }
-    });
+    document.addEventListener('keydown', handleKeyPress);
 }
 
 // iniciar el juego cuando se carga la página
