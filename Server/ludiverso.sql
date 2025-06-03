@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2025 a las 19:56:42
+-- Tiempo de generación: 03-06-2025 a las 21:22:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -893,7 +893,7 @@ ALTER TABLE `juegos`
 -- AUTO_INCREMENT de la tabla `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `niveles_us`
@@ -929,7 +929,7 @@ ALTER TABLE `rankin_wordle`
 -- AUTO_INCREMENT de la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
-  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`

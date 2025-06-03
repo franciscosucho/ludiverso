@@ -6,8 +6,8 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require("path");
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
-const sharp = require("sharp") 
-
+const sharp = require("sharp")
+const crypto = require('crypto');
 function saveImage(file) {
     const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
     const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
@@ -56,30 +56,6 @@ const uploadMultiple = upload_juego.fields([
 const storageStrategy = multer.memoryStorage();
 const uploadMultiple_sharp = multer({ storage: storageStrategy });
 
-// Ruta para convertir varias imágenes
-router.post("/cambiar_formato", uploadMultiple_sharp.array('imagen'), async (req, res) => {
-    try {
-        const archivos = req.files; // ← array de archivos
-        const outputPath = path.join(__dirname, '../../Client/Resources/Imagenes/juego_memoria');
-
-        if (!fs.existsSync(outputPath)) fs.mkdirSync(outputPath, { recursive: true });
-
-        // Procesar todas las imágenes
-        for (const archivo of archivos) {
-            const buffer = await sharp(archivo.buffer)
-                .webp({ quality: 80 })
-                .toBuffer();
-
-            const nombreSalida = archivo.originalname.replace(/\.[^/.]+$/, "") + ".webp";
-            fs.writeFileSync(path.join(outputPath, nombreSalida), buffer);
-        }
-
-        res.send(`Se convirtieron y guardaron ${archivos.length} imágenes exitosamente.`);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error al convertir las imágenes.");
-    }
-});
 
 
 
@@ -436,23 +412,50 @@ router.get("/dash_memory", isLogged, async (req, res) => {
 });
 
 
-router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
+
+
+
+
+router.post("/dash_agregar_juego", uploadMultiple_sharp.array('imagen'), async (req, res) => {
     try {
+        let fecha = Datatime();
         let id_us = req.session.usuario_id;
-        let fecha = Datatime(); // asegurate de tener esta función definida
         const { titulo_juego, subtitulo_juego, tiempo, titulos_img, area, descripciones_img } = req.body;
-        const archivos = req.files["imagenes[]"];
+
+        const archivos = req.files;
 
         if (!archivos || archivos.length !== titulos_img.length) {
             return res.status(400).send("Cantidad de imágenes y datos no coinciden");
         }
 
+        const outputPath = path.join(__dirname, '../../Client/Resources/Imagenes/juego_memoria');
+        if (!fs.existsSync(outputPath)) fs.mkdirSync(outputPath, { recursive: true });
+
+        // Este array almacenará los nombres aleatorios generados
+        const nombresFinales = [];
+
+        for (const archivo of archivos) {
+            const buffer = await sharp(archivo.buffer)
+                .webp({ quality: 80 })
+                .toBuffer();
+
+            let nombreAleatorio;
+            do {
+                nombreAleatorio = crypto.randomBytes(8).toString('hex') + ".webp";
+            } while (fs.existsSync(path.join(outputPath, nombreAleatorio)));
+
+            fs.writeFileSync(path.join(outputPath, nombreAleatorio), buffer);
+            nombresFinales.push(nombreAleatorio);
+
+
+        }
         const imagenesData = archivos.map((archivo, i) => ({
-            archivo: archivo.filename,
+            archivo: nombresFinales[i], // ← el nombre con el que se guardó
             titulo: titulos_img[i],
             descripcion: descripciones_img[i],
         }));
 
+        // Inserción en DB 
         let insertJuego = "INSERT INTO `niveles_memory`(`id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`) VALUES (?, ?, ?, ?, ?, ?)";
         connection.query(insertJuego, [area, id_us, titulo_juego, subtitulo_juego, tiempo, fecha], (err, result_juego) => {
             if (err) {
@@ -467,7 +470,6 @@ router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
                 connection.query(insertImg, [id_nivel_insertado, imagen.archivo, imagen.titulo, imagen.descripcion], (err) => {
                     if (err) {
                         console.error('Error al insertar imagen:', err);
-                        // Podés manejar errores individuales si querés
                     }
                 });
             });
@@ -475,14 +477,11 @@ router.post("/dash_agregar_juego", uploadMultiple, async (req, res) => {
             res.redirect('dash_memory');
         });
 
+
     } catch (err) {
         console.error("Error al procesar el juego:", err);
-        res.render("dashboard/dash_memory", {
-            error: "Ocurrió un error al momento de subir el juego",
-        });
     }
 });
-
 
 
 // Exporta todas las rutas definidas
