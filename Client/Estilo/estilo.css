@@ -2032,7 +2032,7 @@ body footer .cont_des a {
   flex-direction: column;
   gap: 80px;
   height: auto !important;
-  padding: 10% 0px;
+  padding: 200px 0px !important;
   min-height: 80vh;
 }
 #wordle h1 {
@@ -2078,8 +2078,8 @@ body footer .cont_des a {
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  height: 140px;
-  width: 120px;
+  min-height: 140px !important;
+  min-width: 120px !important;
   color: white;
 }
 #wordle .cont_colores .cont_sig_color h3#sig_verde {
@@ -2120,9 +2120,10 @@ body footer .cont_des a {
   background-color: #4b4a4a;
 }
 #wordle .cont_btns .select_dinamica {
-  position: absolute;
-  left: 40%;
+  position: fixed;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* centra en ambos ejes */
   display: none;
   z-index: 200;
   justify-content: center;

@@ -1860,11 +1860,12 @@ body {
 
 @media (max-width: 960px) {
     #sec_areas {
-        .sub_titulo{
+        .sub_titulo {
             font-size: 4em;
             width: 80vw !important;
             text-align: center;
         }
+
         #cont_areas {
             flex-direction: column;
 
@@ -1891,11 +1892,12 @@ body {
 
 @media (max-width:650px) {
     #sec_novedades {
-        .sub_titulo{
+        .sub_titulo {
             font-size: 4em;
             width: 80vw !important;
             text-align: center;
         }
+
         .cont_novedades {
             display: flex;
             flex-direction: column-reverse !important;
@@ -1934,11 +1936,12 @@ body {
 
 @media (max-width:650px) {
     #sec_sobre_nosotros {
-      
-        .cont_text_ludi{
+
+        .cont_text_ludi {
             width: 100% !important;
         }
-        .sub_titulo{
+
+        .sub_titulo {
             font-size: 4em;
             width: 80vw !important;
             text-align: center;
@@ -2555,7 +2558,8 @@ body {
     flex-direction: column;
     gap: 80px;
     height: auto !important;
-    padding: 10% 0px;
+    padding: 200px 0px !important;
+
     min-height: 80vh;
 
 
@@ -2611,8 +2615,8 @@ body {
                 justify-content: center;
                 align-items: center;
                 border-radius: 4px;
-                height: 140px;
-                width: 120px;
+                min-height: 140px !important;
+                min-width: 120px !important;
                 color: white;
 
                 &#sig_verde {
@@ -2665,9 +2669,11 @@ body {
 
 
         .select_dinamica {
-            position: absolute;
-            left: 40%;
+            position: fixed;
             top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* centra en ambos ejes */
+            
             display: none;
             z-index: 200;
             justify-content: center;
@@ -2680,7 +2686,6 @@ body {
             box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
             -webkit-box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
             -moz-box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
-
             h4 {
                 width: 100%;
                 font-size: 2em;

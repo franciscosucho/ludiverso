@@ -87,13 +87,9 @@ function registerKeyboardEvents() {
         if (key === 'Enter') {
             if (state.currentCol === cols) {
                 const word = getCurrentWord();
-                // if (isWordValid(word)) {
+             
                 revealWord(word);
-                state.currentRow++;
-                state.currentCol = 0;
-                // } else {
-                //     alert('Palabra no válida.');
-                // }
+                
             }
         }
         if (key === 'Backspace') {
@@ -131,11 +127,11 @@ function revealWord(guess) {
     const row = state.currentRow;
     const duration = 500;
     const cols = state.grid[0].length;
+    const secret = state.secret;
 
     for (let i = 0; i < cols; i++) {
         const box = document.getElementById(`box${row}${i}`);
         const letter = box.textContent;
-        const secret = state.secret;
 
         setTimeout(() => {
             if (letter === secret[i]) {
@@ -151,23 +147,25 @@ function revealWord(guess) {
         box.style.animationDelay = `${(i * duration) / 2}ms`;
     }
 
-    const isWinner = guess === state.secret;
+    const isWinner = guess === secret;
     const isGameOver = state.currentRow === 5;
+
+    // Tiempo total de animación hasta la última letra
+    const totalAnimTime = ((cols - 1) * duration) / 2 + duration;
 
     setTimeout(() => {
         if (isWinner) {
             aciertos++;
-            clearGrid();
+            setTimeout(() => {
+                clearGrid();
+            }, 300); // pequeño delay para que se vea la última animación
         } else if (isGameOver) {
-            alert(`¡Fin del juego! La palabra era: ${state.secret}`);
+            alert(`¡Fin del juego! La palabra era: ${secret}`);
             clearInterval(intervalo);
             fetch('/game-over-wordle', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-    
                     tiempo: tiempo_intro,
                     aciertos: aciertos
                 })
@@ -179,8 +177,11 @@ function revealWord(guess) {
                 .catch(error => {
                     console.error('Error al enviar los datos:', error);
                 });
+        } else {
+            state.currentRow++;
+            state.currentCol = 0;
         }
-    }, 3 * duration);
+    }, totalAnimTime + 100); // esperamos a que terminen todas las animaciones
 }
 
 function isLetter(key) {
