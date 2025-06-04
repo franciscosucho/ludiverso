@@ -3,6 +3,23 @@ var tiempo_intro = 0
 var aciertos = 0
 let intervalo;
 
+const estadisticas = document.querySelector(".estadisticas")
+const pistas_adic = document.querySelector(".pistas_adic")
+const text_est = document.querySelectorAll(".text_est")
+const text_pistas = document.querySelectorAll(".text_pistas")
+estadisticas.addEventListener("click",()=>{
+    text_est.forEach(text => {
+        text.classList.toggle("desac")
+    });
+})
+pistas_adic.addEventListener("click",()=>{
+    text_pistas.forEach(text => {
+        text.classList.toggle("desac")
+    });
+})
+
+
+
 let resources = [];
 
 if (data_wordle) {

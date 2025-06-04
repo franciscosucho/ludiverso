@@ -2562,10 +2562,9 @@ body {
 
     min-height: 80vh;
 
-
-
     h1 {
         @extend %poetsen-font;
+        text-align: center;
         color: var(--Encabezados_botones_y_primarios);
     }
 
@@ -2672,8 +2671,9 @@ body {
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* centra en ambos ejes */
-            
+            transform: translate(-50%, -50%);
+            /* centra en ambos ejes */
+
             display: none;
             z-index: 200;
             justify-content: center;
@@ -2686,6 +2686,7 @@ body {
             box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
             -webkit-box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
             -moz-box-shadow: 10px 10px 5px 0px rgba(48, 48, 48, 0.144);
+
             h4 {
                 width: 100%;
                 font-size: 2em;
@@ -2829,6 +2830,8 @@ $right :#538d4e;
             flex-direction: column;
 
             div {
+                cursor: pointer;
+
                 * {
                     @extend %poetsen-font;
                 }
@@ -2839,12 +2842,17 @@ $right :#538d4e;
                 }
 
                 span {
+                    display: block;
                     width: 80%;
                     transition: all .2s ease-in-out;
                     border-radius: 6px;
                     padding: 6px;
                     font-size: 1.1em;
                     color: var(--Texto_secundario);
+
+                    &.desac {
+                        display: none;
+                    }
                 }
 
                 display: flex;
@@ -2871,29 +2879,34 @@ $right :#538d4e;
             }
         }
     }
-
     #game {
-        display: flex;
-        justify-content: flex-start;
-        align-items: start;
-        margin-top: 3rem;
+      
         width: 100%;
-        height: auto;
-        min-height: 400px;
+        max-width: 100%;
+        padding: 20px 10px;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-
+    
     .grid {
         display: grid;
         grid-template-columns: repeat(var(--columns, 5), 1fr);
-        gap: 10px;
-        margin-bottom: 20px;
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
     }
-
+    
     .box {
-        width: 50px;
-        height: 50px;
+        width: 100%;
+        aspect-ratio: 1 / 1; /* mantiene forma cuadrada */
+        max-width: 50px;
+        max-height: 50px;
         border: 2px solid #555;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: bold;
         text-align: center;
         text-transform: uppercase;
@@ -2902,50 +2915,31 @@ $right :#538d4e;
         justify-content: center;
         color: var(--color-texto);
         transition: background-color 0.3s ease;
+        background-color: transparent;
     }
-
-    .right {
-        background-color: #6aaa64;
-        color: white;
-    }
-
-    .wrong {
-        background-color: #c9b458;
-        color: white;
-    }
-
-    .empty {
-        background-color: #787c7e;
-        color: white;
-    }
-
-    .box.empty {
-        background: $empty;
-    }
-
-    .box.wrong {
-        background: $wrong;
-    }
-
-    .box.right {
-        background: $right;
-    }
-
+    
+    /* Estados */
+    .right { background-color: #6aaa64; color: white; }
+    .wrong { background-color: #c9b458; color: white; }
+    .empty { background-color: #787c7e; color: white; }
+    
+    /* Animación */
     .animated {
         animation: flip 0.5s ease;
     }
-
+    
     @keyframes flip {
-        0% {
-            transform: scaleY(1);
-        }
-
-        50% {
-            transform: scaleY(0);
-        }
-
-        100% {
-            transform: scaleY(1);
+        0% { transform: scaleY(1); }
+        50% { transform: scaleY(0); }
+        100% { transform: scaleY(1); }
+    }
+    
+    /* Responsive: menor tamaño en móviles */
+    @media (max-width: 600px) {
+        .box {
+            font-size: 1rem;
+            max-width: 40px;
+            max-height: 40px;
         }
     }
 
@@ -3446,6 +3440,133 @@ $right :#538d4e;
                         display: none;
                     }
                 }
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 500px) {
+    #wordle {
+
+
+        .cont_text {
+            width: 80%;
+        }
+
+        .cont_colores {
+            padding-left: 0px;
+            width: 80%;
+        }
+
+        .cont_btns {
+            .btn_wd {
+                width: 50% !important;
+                font-size: 1.3em;
+                padding: 30px;
+            }
+        }
+
+        .select_dinamica {
+            width: 80%;
+            height: 60%;
+            padding: 10px !important;
+
+            h4 {
+                padding: 0px !important;
+                text-align: center !important;
+                width: 100%;
+            }
+
+            a {
+                padding: 0px !important;
+                width: 100%;
+                text-align: center !important;
+            }
+        }
+    }
+}
+
+
+
+
+@media (max-width: 500px) {
+    #wordle {
+
+        #cont_pista {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            h3 {
+                font-size: 2em !important;
+                text-align: center;
+                width: 80%;
+            }
+
+            p {
+                width: 80%;
+                text-align: center;
+                font-size: 1.6em !important;
+            }
+        }
+
+        .cont_main {
+            flex-direction: column !important;
+
+            #cont_est {
+                padding: 0px !important;
+                width: 100% !important;
+                display: flex;
+                flex-direction: row !important;
+                justify-content: center;
+                height: auto !important;
+                min-height: 100px;
+                align-items: flex-start !important;
+
+                .estadisticas {
+                    height: auto !important;
+                    overflow-y: hidden;
+                    justify-content: center !important;
+                    align-items: center !important;
+
+                    h4 {
+                        width: 80%;
+                        height: 50px;
+                        font-size: 1.1em;
+
+                    }
+                }
+
+                .pistas_adic {
+                    display: flex;
+                    justify-content: center !important;
+                    align-items: center !important;
+
+                    height: auto !important;
+                    overflow-y: hidden;
+
+                    h4 {
+                        width: 80%;
+                        height: 50px;
+                        font-size: 1.1em;
+
+                    }
+                }
+            }
+
+            #game {
+
+                .box {
+                    max-width: 40px;
+                    font-size: 1rem;
+                }
+
+                #game {
+                    padding: 10px;
+                }
+
             }
         }
     }
