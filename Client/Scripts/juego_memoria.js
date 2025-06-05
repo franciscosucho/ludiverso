@@ -45,7 +45,6 @@ if (scriptEl) {
 }
 
 
-
 document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
 
     var intervalo = setInterval(() => {
@@ -182,7 +181,10 @@ document.getElementById("btn_iniciar_juego").addEventListener("click", () => {
 
 //--------------------------------------------------------------------------
 
-
+document.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("cont_introduccion").classList.toggle("desac")
+    section1.classList.remove("desac")
+})
 let tarjetasDestapadas = 0;
 let tarjeta1 = null;
 let tarjeta2 = null;

@@ -31,6 +31,7 @@
   --hover_card: #e0f0ff;
   --box_shadow: #c5c5c5;
   --box_shadow_2: #ffffff;
+  --back_card: #e0f0ff17;
 }
 
 :root[data-tema=oscuro] {
@@ -46,6 +47,7 @@
   --box_shadow: rgba(0, 0, 0, 0.7);
   --box_shadow_2: rgba(0, 0, 0, 0.7);
   --hover_card: rgb(26, 26, 26);
+  --back_card: #2e2e2e32;
 }
 
 @keyframes shake {
@@ -1699,8 +1701,8 @@ body footer .cont_des a {
   padding: 10px;
   border-radius: 8px;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
   width: 60%;
   height: auto;
@@ -1729,8 +1731,8 @@ body footer .cont_des a {
 }
 #juego_memoria #cont_imagenes #btn_iniciar_juego {
   padding: 20px;
-  width: 20%;
-  height: 6%;
+  width: 250px;
+  height: 50px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   background-color: var(--Encabezados_botones_y_primarios);
@@ -1742,6 +1744,9 @@ body footer .cont_des a {
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #juego_memoria #cont_imagenes #btn_iniciar_juego:hover {
   animation: shake 0.5s ease;
@@ -1851,15 +1856,15 @@ body footer .cont_des a {
   height: 100px;
   width: 100px;
   font-size: 40px;
-  color: rgb(255, 255, 255);
+  background-color: var(--back_card);
   font-weight: bolder;
 }
 #juego_memoria .section2 {
-  background-color: rgba(255, 255, 255, 0.2);
   padding: 15px;
   display: flex;
   border-radius: 8px;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   flex-direction: column;
   width: 250px;
@@ -1870,6 +1875,9 @@ body footer .cont_des a {
   border-radius: 8px;
   padding: 8px 20px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid var(--Botones_secundarios_o_hover_azul);
   color: var(--Botones_secundarios_o_hover_azul);
 }
@@ -2305,7 +2313,8 @@ body footer .cont_des a {
 }
 .cont_wordle .box {
   width: 100%;
-  aspect-ratio: 1/1; /* mantiene forma cuadrada */
+  aspect-ratio: 1/1;
+  /* mantiene forma cuadrada */
   max-width: 50px;
   max-height: 50px;
   border: 2px solid #555;
@@ -2820,5 +2829,105 @@ body footer .cont_des a {
   }
   #wordle .cont_main #game #game {
     padding: 10px;
+  }
+}
+@media (max-width: 500px) {
+  #juego_memoria .cont_introduccion #cont_imagenes .cont_resources {
+    width: 80% !important;
+  }
+}
+@media (max-width: 1117px) {
+  #juego_memoria #cont_primer_des h2 {
+    font-size: 1em;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main {
+    flex-direction: column-reverse !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas {
+    width: 100%;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas {
+    font-size: 0.8em;
+    width: 160px;
+    height: auto;
+    min-height: 50px;
+    padding: 10px !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask {
+    flex-direction: column !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask img {
+    width: 250px !important;
+    height: 250px !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask .div_nombres {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask .div_nombres .nombre_img {
+    font-size: 0.8em;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40% !important;
+  }
+}
+@media (max-width: 688px) {
+  #juego_memoria #cont_primer_des h2 {
+    font-size: 1em;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask {
+    flex-direction: column !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask img {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask .div_nombres {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  #juego_memoria #cont_primer_des #sub_cont_main #cont_preguntas .div_main_ask .div_nombres .nombre_img {
+    font-size: 0.8em;
+    height: 90px;
+    width: 45% !important;
+  }
+}
+@media (max-width: 1000px) {
+  #juego_memoria .section1 {
+    flex-direction: column-reverse !important;
+    gap: 10px !important;
+  }
+  #juego_memoria .section1 .section2 {
+    width: 80% !important;
+    height: auto !important;
+    flex-direction: row !important;
+  }
+}
+@media (max-width: 800px) {
+  #juego_memoria .section1 {
+    height: 80vh;
+    flex-direction: column-reverse !important;
+    gap: 10px !important;
+  }
+  #juego_memoria .section1 .section2 {
+    width: 100% !important;
+    height: auto !important;
+    flex-direction: row !important;
+  }
+  #juego_memoria .section1 .section2 .estadisticas {
+    padding: 10px !important;
+    height: 60px;
+    font-size: 0.9em;
   }
 }/*# sourceMappingURL=estilo.css.map */
