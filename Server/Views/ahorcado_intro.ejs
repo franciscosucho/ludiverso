@@ -1,165 +1,188 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <%- include('head.ejs') %>
-        <title>Ahorcado - Ludiverso</title>
-        <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado - Ludiverso</title>
+    <link rel="stylesheet" href="/Estilo/estilo.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 120px auto 40px;
+            padding: 0 20px;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-section h1 {
+            margin: 0;
+        }
+
+        .ranking-button {
+            background-color: var(--Encabezados_botones_y_primarios);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .ranking-button:hover {
+            background-color: var(--Botones_secundarios_o_hover_azul);
+        }
+
+        .container h1 {
+            color: var(--Encabezados_botones_y_primarios);
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            color: var(--Texto_secundario);
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .area-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .area-card {
+            background: var(--Fondo_principal);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--box_shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                var(--Encabezados_botones_y_primarios) 0%,
+                var(--Botones_secundarios_o_hover_azul) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .area-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--Encabezados_botones_y_primarios);
+        }
+
+        .area-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .area-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--Encabezados_botones_y_primarios);
+            padding: 5px;
+            background: var(--Fondo_principal);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .area-card:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--Botones_secundarios_o_hover_azul);
+        }
+
+        .area-card h3 {
+            margin: 0;
+            color: var(--Texto_principal);
+            font-size: 1.4em;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .area-card p {
+            color: var(--Texto_secundario);
+            font-size: 1em;
+            margin: 0;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
             .container {
-                max-width: 1200px;
-                margin: 120px auto 40px;
-                padding: 0 20px;
-            }
-
-            .container h1 {
-                color: var(--Encabezados_botones_y_primarios);
-                font-size: 2.5em;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-
-            .container p {
-                color: var(--Texto_secundario);
-                text-align: center;
-                font-size: 1.2em;
-                margin-bottom: 40px;
+                margin-top: 100px;
             }
 
             .area-container {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 30px;
-                padding: 20px;
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .area-card {
-                background: var(--Fondo_principal);
-                border-radius: 15px;
-                padding: 25px;
-                text-align: center;
-                box-shadow: 0 4px 15px var(--box_shadow);
-                transition: all 0.3s ease;
-                cursor: pointer;
-                border: 2px solid transparent;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .area-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(135deg,
-                        var(--Encabezados_botones_y_primarios) 0%,
-                        var(--Botones_secundarios_o_hover_azul) 100%);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                z-index: 0;
-            }
-
-            .area-card:hover {
-                transform: translateY(-5px);
-                border-color: var(--Encabezados_botones_y_primarios);
-            }
-
-            .area-card:hover::before {
-                opacity: 0.1;
+                padding: 20px;
             }
 
             .area-card img {
-                width: 120px;
-                height: 120px;
-                object-fit: cover;
-                border-radius: 50%;
-                border: 3px solid var(--Encabezados_botones_y_primarios);
-                padding: 5px;
-                background: var(--Fondo_principal);
-                transition: all 0.3s ease;
-                position: relative;
-                z-index: 1;
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                width: 100px;
+                height: 100px;
             }
-
-            .area-card:hover img {
-                transform: scale(1.05);
-                box-shadow: 0 0 20px var(--Botones_secundarios_o_hover_azul);
-            }
-
-            .area-card h3 {
-                margin: 0;
-                color: var(--Texto_principal);
-                font-size: 1.4em;
-                font-weight: 600;
-                position: relative;
-                z-index: 1;
-            }
-
-            .area-card p {
-                color: var(--Texto_secundario);
-                font-size: 1em;
-                margin: 0;
-                line-height: 1.4;
-                position: relative;
-                z-index: 1;
-            }
-
-            @media (max-width: 768px) {
-                .container {
-                    margin-top: 100px;
-                }
-
-                .area-container {
-                    grid-template-columns: 1fr;
-                    gap: 20px;
-                }
-
-                .area-card {
-                    padding: 20px;
-                }
-
-                .area-card img {
-                    width: 100px;
-                    height: 100px;
-                }
-            }
-        </style>
+        }
+    </style>
 </head>
-
-
 <body>
     <%- include('header') %>
-
-        <div class="container">
+    
+    <div class="container">
+        <div class="header-section">
             <h1>Juego del Ahorcado</h1>
-            <p>Selecciona un área para comenzar a jugar. ¡Demuestra tus conocimientos!</p>
-
-            <div class="area-container">
-                <% areas.forEach(area=> { %>
-                    <div class="area-card" onClick="seleccionarArea('<%= area.materia_id %>')">
-                        <img src="/Resources/Imagenes/<%= area.nombre.toLowerCase() %>.webp" alt="<%= area.nombre %>">
-                        <h3>
-                            <%= area.nombre %>
-                        </h3>
-                        <p>
-                            <%= area.descripcion %>
-                        </p>
-                    </div>
-                    <% }); %>
-            </div>
+            <a href="/ahorcado_ranking" class="ranking-button">Ver Ranking</a>
         </div>
+        <p>Selecciona un área para comenzar a jugar. ¡Demuestra tus conocimientos!</p>
+        
+        <div class="area-container">
+            <% areas.forEach(area => { %>
+                <div class="area-card" onclick="seleccionarArea('<%= area.materia_id %>')">
+                    <img src="/Resources/Imagenes/<%= area.nombre.toLowerCase() %>.webp" alt="<%= area.nombre %>">
+                    <h3><%= area.nombre %></h3>
+                    <p><%= area.descripcion %></p>
+                </div>
+            <% }); %>
+        </div>
+    </div>
 
-        <script>
-            function seleccionarArea(materiaId) {
-                window.location.href = `/ahorcado?materia=${materiaId}`;
-            }
-        </script>
+    <script>
+        function seleccionarArea(materiaId) {
+            window.location.href = `/ahorcado?materia=${materiaId}`;
+        }
+    </script>
 </body>
-
-</html>
+</html> 

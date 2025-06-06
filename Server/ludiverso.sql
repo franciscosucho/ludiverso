@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-06-2025 a las 21:22:18
+-- Tiempo de generación: 06-06-2025 a las 16:50:54
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -253,10 +253,10 @@ CREATE TABLE `juegos` (
 --
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
-(1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/viajes_del_tiempo.png', 5, 'wordle_intro', 0, 'dash_wordle'),
+(1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/wordle.webp', 5, 'wordle_intro', 0, 'dash_wordle'),
 (2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0, ''),
-(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/taller_inventos.png', 4, 'juego_intro', 4, 'dash_memory'),
-(4, 'Noticiero Escolar', 'Los estudiantes crean un mini noticiero: redactan noticias, practican la lectura en voz alta y presentan frente a sus compañeros. Se refuerzan habilidades de expresión oral, redacción y escucha.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/noticiero_escolar.png', 4, '0', 0, ''),
+(3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/memory_card.webp', 4, 'juego_intro', 4, 'dash_memory'),
+(4, 'Ahorcado', 'Ahorcado es un juego de palabras en el que el estudiante debe descubrir una palabra oculta letra por letra antes de completar la figura del ahorcado.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/ahorcado.webp', 4, 'ahorcado_intro', 0, ''),
 (5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0, '');
 
 -- --------------------------------------------------------
