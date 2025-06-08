@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rompecabezas del Mapa Mundial</title>
+</head>
+
+<body>
+
+    <title>Rompecabezas del Mapa Mundial</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            max-width: 1600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-selector {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .difficulty-title {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .difficulty-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .difficulty-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .difficulty-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .difficulty-btn.active {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            }
+
+            to {
+                box-shadow: 0 6px 25px rgba(231, 76, 60, 0.6);
+            }
+        }
+
+        .difficulty-info {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .timer,
+        .moves,
+        .progress {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .reference-image {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .reference-image img {
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .puzzle-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .board-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pieces-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .puzzle-board {
+            display: grid;
+            gap: 3px;
+            background: #34495e;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .puzzle-piece {
+            background-image: url('https://s1.significados.com/foto/mapamundi-paises-colores.jpg');
+            background-repeat: no-repeat;
+            border: 3px solid #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .puzzle-piece:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .empty-slot {
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px dashed #bdc3c7;
+            background-image: none;
+        }
+
+        .pieces-container {
+            display: grid;
+            gap: 15px;
+            background: rgba(52, 73, 94, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 2px dashed #95a5a6;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: celebration 0.6s ease-out;
+        }
+
+        @keyframes celebration {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .selected {
+            border: 4px solid #f39c12 !important;
+            transform: scale(1.1);
+            z-index: 5;
+        }
+
+        .correct-position {
+            border: 4px solid #27ae60 !important;
+            animation: correctPulse 0.6s ease-out;
+        }
+
+        @keyframes correctPulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .puzzle-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .puzzle-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .difficulty-options {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>🌍 Rompecabezas del Mapa Mundial 🧩</h1>
+
+            <div class="difficulty-selector">
+                <div class="difficulty-title">🎯 Selecciona el Nivel de Dificultad</div>
+                <div class="difficulty-options">
+                    <button class="difficulty-btn active" onclick="selectDifficulty('easy')" data-level="easy">
+                        🟢 Fácil<br><small>3x4 (12 piezas)</small>
+                    </button>
+                    <button class="difficulty-btn" onclick="selectDifficulty('medium')" data-level="medium">
+                        🟡 Medio<br><small>4x6 (24 piezas)</small>
+                    </button>
+                    <button class="difficulty-btn" onclick="selectDifficulty('hard')" data-level="hard">
+                        🟠 Difícil<br><small>6x8 (48 piezas)</small>
+                    </button>
+                </div>
+                <div class="difficulty-info" id="difficultyInfo">
+                    🟢 <strong>Nivel Fácil:</strong> 12 piezas grandes - Perfecto para principiantes
+                </div>
+            </div>
+
+            <div class="reference-image">
+                <h3 style="color: #2c3e50; margin-bottom: 10px;">🖼️ Imagen de Referencia</h3>
+                <img src="https://s1.significados.com/foto/mapamundi-paises-colores.jpg"
+                    alt="Mapa Mundial de Referencia">
+            </div>
+
+            <div class="game-info">
+                <div class="timer">⏱️ Tiempo: <span id="time">00:00</span></div>
+                <div class="moves">🔄 Movimientos: <span id="moves">0</span></div>
+                <div class="progress">🎯 Progreso: <span id="progress">0%</span></div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="controls">
+                <button onclick="startGame()">🎮 Nuevo Juego</button>
+                <button onclick="showSolution()">🔍 Ver Solución</button>
+            </div>
+
+            <div class="puzzle-container">
+                <div>
+                    <h3 style="text-align: center; color: #2c3e50;">🎯 Tablero del Rompecabezas</h3>
+                    <div class="puzzle-board" id="puzzleBoard"></div>
+                </div>
+
+                <div>
+                    <h3 style="text-align: center; color: #2c3e50;">🧩 Piezas Disponibles</h3>
+                    <div class="pieces-container" id="piecesContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="successMessage" class="success-message hidden">
+            <h2>🎉 ¡Excelente Trabajo! 🎉</h2>
+            <p>Has completado el rompecabezas del mapa mundial</p>
+            <p><strong>Dificultad:</strong> <span id="completedDifficulty"></span></p>
+            <p id="finalTime"></p>
+            <p id="finalMoves"></p>
+            <button onclick="startGame()">🔄 Jugar de Nuevo</button>
+            <button onclick="increaseDifficulty()">⬆️ Siguiente Nivel</button>
+        </div>
+
+        <script src="Scripts/rompecabezas.js"></script>
+    </body>
+
+</html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2025 a las 16:50:54
+-- Tiempo de generación: 08-06-2025 a las 13:26:22
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -79,9 +79,6 @@ INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `pun
 (7, NULL, 3, 651, '2025-05-14 15:03:11'),
 (8, NULL, 3, 651, '2025-05-14 15:03:11');
 
-
-
-
 -- --------------------------------------------------------
 
 --
@@ -121,7 +118,7 @@ CREATE TABLE `juegos` (
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
 (1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/wordle.webp', 5, 'wordle_intro', 0, 'dash_wordle'),
-(2, 'Laboratorio en Peligro', 'Juego de escape room donde los alumnos deben resolver acertijos de matemáticas y experimentos básicos de ciencias para evitar un accidente ficticio en el laboratorio.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, '0', 0, ''),
+(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, 'rompecabezas', 0, ''),
 (3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/memory_card.webp', 4, 'juego_intro', 4, 'dash_memory'),
 (4, 'Ahorcado', 'Ahorcado es un juego de palabras en el que el estudiante debe descubrir una palabra oculta letra por letra antes de completar la figura del ahorcado.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/ahorcado.webp', 4, 'ahorcado_intro', 0, ''),
 (5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0, '');
@@ -248,7 +245,7 @@ INSERT INTO `palabras_ahorcado` (`id_palabra`, `palabra`, `pista`, `materia_id`)
 
 -- --------------------------------------------------------
 
-
+--
 -- Estructura de tabla para la tabla `preguntas`
 --
 
@@ -257,6 +254,24 @@ CREATE TABLE `preguntas` (
   `juego_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ranking_ahorcado`
+--
+
+CREATE TABLE `ranking_ahorcado` (
+  `id_ranking` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `intentos_fallidos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `victoria` tinyint(1) NOT NULL DEFAULT 0,
+  `palabra_jugada` varchar(50) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -688,6 +703,14 @@ ALTER TABLE `preguntas`
   ADD KEY `juego_id` (`juego_id`);
 
 --
+-- Indices de la tabla `ranking_ahorcado`
+--
+ALTER TABLE `ranking_ahorcado`
+  ADD PRIMARY KEY (`id_ranking`),
+  ADD KEY `id_us` (`id_us`),
+  ADD KEY `id_area` (`id_area`);
+
+--
 -- Indices de la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
@@ -787,6 +810,12 @@ ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `ranking_ahorcado`
+--
+ALTER TABLE `ranking_ahorcado`
+  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
@@ -868,6 +897,13 @@ ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
 
 --
+-- Filtros para la tabla `ranking_ahorcado`
+--
+ALTER TABLE `ranking_ahorcado`
+  ADD CONSTRAINT `ranking_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
+  ADD CONSTRAINT `ranking_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
+
+--
 -- Filtros para la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
@@ -885,23 +921,3 @@ ALTER TABLE `resources_juego`
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`pregunta_id`);
 COMMIT;
-
-
-DROP TABLE IF EXISTS `ranking_ahorcado`;
-CREATE TABLE `ranking_ahorcado` (
-  `id_ranking` int(11) NOT NULL AUTO_INCREMENT,
-  `id_us` int(11) NOT NULL,
-  `id_area` int(11) NOT NULL,
-  `aciertos` int(11) NOT NULL,
-  `intentos_fallidos` int(11) NOT NULL,
-  `tiempo` int(11) NOT NULL,
-  `victoria` boolean NOT NULL DEFAULT false,
-  `palabra_jugada` varchar(50) NOT NULL,
-  `fecha` date NOT NULL,
-  PRIMARY KEY (`id_ranking`),
-  KEY `id_us` (`id_us`),
-  KEY `id_area` (`id_area`),
-  CONSTRAINT `ranking_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
-  CONSTRAINT `ranking_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
---

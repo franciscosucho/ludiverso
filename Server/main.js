@@ -840,4 +840,12 @@ app.get('/next-word', isLogged, (req, res) => {
     });
 });
 
+app.get('/rompecabezas', isLogged, (req, res) => {
+
+    res.render('rompecabezas', {
+        session: req.session
+    });
+
+});
+
 
