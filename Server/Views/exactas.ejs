@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include('head.ejs') %>
+    <title>Juego de matematicas</title>
+    <link rel="stylesheet" href="Estilo/exactas.css">
+</head>
+<body>
+     <%- include('header.ejs') %>
+    <div class="game-container">
+        <!-- Pantalla de Inicio -->
+        <div id="start-screen" class="screen active">
+            <div class="welcome-card">
+                <h1>🎓 Desafío Educativo</h1>
+                <p>Un juego de matemáticas y química con 3 niveles de dificultad</p>
+                <div class="level-preview">
+                    <div class="level-card">
+                        <h3>Nivel 1</h3>
+                        <p>Ecuaciones básicas</p>
+                        <span class="difficulty easy">Fácil</span>
+                    </div>
+                    <div class="level-card">
+                        <h3>Nivel 2</h3>
+                        <p>Tabla Periódica</p>
+                        <span class="difficulty medium">Medio</span>
+                    </div>
+                    <div class="level-card">
+                        <h3>Nivel 3</h3>
+                        <p>Ecuaciones avanzadas</p>
+                        <span class="difficulty hard">Difícil</span>
+                    </div>
+                </div>
+                <button id="start-btn" class="btn btn-primary">Comenzar Juego</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Juego -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="level-info">
+                    <span id="current-level">Nivel 1</span>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+                <div class="score-info">
+                    <span>Puntuación: <strong id="score">0</strong></span>
+                    <span>Vidas: <span id="lives">❤️❤️❤️</span></span>
+                </div>
+                <div class="navigation-buttons">
+                    <button id="back-btn" class="btn btn-secondary btn-sm">Volver Atrás</button>
+                </div>
+            </div>
+
+            <!-- Nivel 1: Ecuaciones Básicas -->
+            <div id="level-1" class="level-content">
+                <div class="question-card">
+                    <h2>Resuelve la ecuación</h2>
+                    <div id="equation-display" class="equation"></div>
+                    <div class="input-group">
+                        <input type="number" id="answer-input" placeholder="Tu respuesta">
+                        <button id="submit-answer" class="btn btn-secondary">Enviar</button>
+                    </div>
+                    <div id="feedback" class="feedback"></div>
+                    <div class="skip-container">
+                        <button id="skip-level1" class="btn btn-secondary btn-skip">Saltar Ejercicio</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 2: Tabla Periódica -->
+            <div id="level-2" class="level-content">
+                <div class="question-card">
+                    <h2>¿Qué elemento falta?</h2>
+                    <p class="instruction">Observa la tabla periódica y encuentra el elemento que falta</p>
+                    <div id="periodic-table" class="periodic-table"></div>
+                    <div class="input-group">
+                        <input type="text" id="element-input" placeholder="Símbolo del elemento">
+                        <button id="submit-element" class="btn btn-secondary">Enviar</button>
+                    </div>
+                    <div id="element-feedback" class="feedback"></div>
+                    <div class="skip-container">
+                        <button id="skip-level2" class="btn btn-secondary btn-skip">Saltar Ejercicio</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 3: Ecuaciones Avanzadas -->
+            <div id="level-3" class="level-content">
+                <div class="question-card">
+                    <h2>Ecuación Cuadrática</h2>
+                    <div id="quadratic-display" class="equation"></div>
+                    <p class="instruction">Encuentra el valor de x (redondea a 2 decimales)</p>
+                    <div class="input-group" id="quadratic-options-group"></div>
+                    <div id="quadratic-feedback" class="feedback"></div>
+                    <div class="skip-container">
+                        <button id="skip-level3" class="btn btn-secondary btn-skip">Saltar Ejercicio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pantalla de Resultados -->
+        <div id="results-screen" class="screen">
+            <div class="results-card">
+                <div id="final-message"></div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-label">Puntuación Final</span>
+                        <span id="final-score" class="stat-value">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Nivel Alcanzado</span>
+                        <span id="final-level" class="stat-value">1</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Precisión</span>
+                        <span id="accuracy" class="stat-value">0%</span>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="restart-btn" class="btn btn-primary">Jugar de Nuevo</button>
+                    <button id="share-btn" class="btn btn-secondary">Compartir Resultado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Scripts/exactas.js"></script>
+</body>
+</html>

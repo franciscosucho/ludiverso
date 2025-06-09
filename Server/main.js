@@ -848,4 +848,10 @@ app.get('/rompecabezas', isLogged, (req, res) => {
 
 });
 
+app.get('/exactas', isLogged, (req, res) => {
 
+    res.render('exactas', {
+        session: req.session
+    });
+
+});
