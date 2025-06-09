@@ -11,7 +11,7 @@
 <body>
     <%- include('../header.ejs') %>
         <main id="dashboard">
-            <h2>Bienvenido al panel de administracion del juego Memory card </h2>
+            <h2>Bienvenido al panel de administracion del juego Rompecabezas </h2>
 
             <section class="admin-juegos" id="cont_wordle">
                 <article class="cont_opc">
@@ -111,7 +111,7 @@
 
                 <section id="form_agregar_juego" class="desac cont_formularios">
                     <form action="/dash_agregar_juego" method="POST" enctype="multipart/form-data" id="">
-                        <h3> Agregar juego</h3>
+                        <h3> Agregar nivel de rompe cabezas</h3>
                         <div class="cont_input">
                             <label for="titulo_juego">Titulo juego </label>
                             <input type="text" name="titulo_juego" id="titulo_juego"
@@ -145,14 +145,14 @@
                                     <% }) %>
                             </select>
                         </div>
-                        <% for (let i=0; i < 8; i++) { %>
+                        <% for (let i=0; i < 2; i++) { %>
                             <div class="image-card">
                                 <h4>Imagen <%= i + 1 %>
                                 </h4>
                                 <div class="grid-img-inputs">
-                                    <input type="file" name="imagenes[]" required>
-                                    <input type="text" name="titulos_img[]" placeholder="Título de la imagen" required>
-                                    <input type="text" name="descripciones_img[]" placeholder="Descripción" required>
+                                    <input type="file" name="imagenes" required>
+                                    <input type="text" name="titulos_img" placeholder="Título de la imagen" required>
+                                    <input type="text" name="descripciones_img" placeholder="Descripción" required>
                                 </div>
                             </div>
                             <% } %>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2025 a las 13:26:22
+-- Tiempo de generación: 09-06-2025 a las 19:53:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -118,10 +118,10 @@ CREATE TABLE `juegos` (
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
 (1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/wordle.webp', 5, 'wordle_intro', 0, 'dash_wordle'),
-(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, 'rompecabezas', 0, ''),
+(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, 'rompecabezas', 0, 'dash_rompecabezas'),
 (3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/memory_card.webp', 4, 'juego_intro', 4, 'dash_memory'),
 (4, 'Ahorcado', 'Ahorcado es un juego de palabras en el que el estudiante debe descubrir una palabra oculta letra por letra antes de completar la figura del ahorcado.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/ahorcado.webp', 4, 'ahorcado_intro', 0, ''),
-(5, 'Carrera de Reto y Conocimiento', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, '0', 0, '');
+(5, 'Resolver ecuaciones', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, 'exactas', 0, '');
 
 -- --------------------------------------------------------
 
@@ -136,24 +136,26 @@ CREATE TABLE `niveles_memory` (
   `actividad_juego` varchar(1000) NOT NULL,
   `desc_actividad` varchar(1000) NOT NULL,
   `tiempo_para_resolver` time(4) NOT NULL,
-  `fecha_creacion` date NOT NULL
+  `fecha_creacion` date NOT NULL,
+  `id_juego` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `niveles_memory`
 --
 
-INSERT INTO `niveles_memory` (`id_nivel`, `id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`) VALUES
-(1, 7, 5, 'diferenciar los distintos símbolos esquemáticos', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar los distintos símbolos esquemáticos utilizados en los circuitos electrónicos. Se trabajará en la identificación precisa de cada símbolo y su función dentro del circuito.', '00:00:40.0000', '2025-05-13'),
-(2, 7, 5, 'diferenciar las distintas herramientas utilizadas para carpintería', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar las distintas herramientas utilizadas en carpintería. Se trabajará en la identificación precisa de cada herramienta, su forma y su función específica dentro del taller, comprendiendo su uso correcto y seguro en distintas etapas del trabajo con madera.', '00:00:55.0000', '2025-05-13'),
-(3, 2, 15, ' Identificar moléculas simples y sus elementos constitutivos', 'En la actividad de hoy, los estudiantes aprenderán a reconocer algunas de las moléculas más simples que encontramos en la vida cotidiana. El objetivo es que puedan identificar su composición química, sus elementos constituyentes y la función o presencia d', '00:00:50.0000', '2025-05-31'),
-(4, 2, 15, 'Figuras geométricas planas y sus propiedades', 'En esta actividad, los estudiantes repasarán y reforzarán sus conocimientos sobre figuras geométricas planas. A través del juego, deberán relacionar cada figura con sus propiedades fundamentales, como la cantidad de lados, vértices, simetría o clasificación según sus ángulos. Esta dinámica contribuye a desarrollar la visualización espacial y el vocabulario técnico relacionado con la geometría.', '00:00:50.0000', '2025-06-01'),
-(5, 5, 15, 'Capacidades físicas y sistemas del cuerpo en el ejercicio', 'Este nivel desafía a los estudiantes a identificar distintas capacidades físicas fundamentales para el rendimiento corporal, así como los principales sistemas del cuerpo que intervienen durante la actividad física. Se busca desarrollar una comprensión más técnica del cuerpo humano en movimiento, vinculando biología con práctica deportiva.', '00:00:50.0000', '2025-06-01'),
-(6, 5, 15, ' Técnicas de natación y fundamentos acuáticos', 'En esta actividad, los estudiantes deberán identificar los principales estilos de natación competitiva, así como habilidades y elementos esenciales asociados al rendimiento en el agua. Este nivel promueve el conocimiento técnico del deporte, estimula el reconocimiento visual de movimientos y refuerza la comprensión de la biomecánica básica aplicada a la natación.', '00:00:50.0000', '2025-06-01'),
-(7, 6, 15, ' Formas del relieve terrestre: Mesetas, llanuras y montañas', 'En este nivel, los estudiantes aprenderán a reconocer distintos tipos de relieve presentes en la superficie terrestre. A través del juego de memoria, identificarán visualmente cada formación geográfica, asociándola con sus características principales, su origen y su distribución en el planeta. Este conocimiento es clave para la comprensión de los paisajes naturales y su influencia en la vida humana y el clima.', '00:00:50.0000', '2025-06-02'),
-(8, 6, 15, 'Culturas y creencias: los pueblos originarios de Argentina', 'Este nivel introduce a los estudiantes en el mundo de la antropología a través del reconocimiento de culturas, rituales y sistemas de creencias de los pueblos originarios de Argentina. Se busca promover el respeto por la diversidad cultural y el conocimiento de las tradiciones ancestrales que forman parte de la identidad del país. Las cartas mostrarán elementos simbólicos, costumbres y prácticas religiosas que han sido parte de la vida de estas comunidades.', '00:00:50.0000', '2025-06-02'),
-(9, 1, 15, ' El circuito de la comunicación', 'En este nivel, los estudiantes descubrirán los componentes fundamentales del circuito de la comunicación. A través de la asociación de imágenes y conceptos clave, aprenderán a reconocer cada elemento del proceso comunicativo y su función. Se busca que los chicos puedan identificar en diversas situaciones quién es el emisor, receptor, cuál es el canal, el código, el mensaje y el referente.', '00:00:50.0000', '2025-06-02'),
-(10, 1, 15, 'Tipos de textos y recursos de cohesión', 'En este nivel, los chicos aprenderán a diferenciar los principales tipos de textos que usamos para comunicarnos: narrativos, descriptivos, instructivos y más. Además, conocerán algunos recursos de cohesión importantes como la sinonimia o la hiponimia, que ayudan a dar fluidez y coherencia a los mensajes escritos. Esta actividad refuerza habilidades de lectura y escritura desde un enfoque lúdico.', '00:00:50.0000', '2025-06-02');
+INSERT INTO `niveles_memory` (`id_nivel`, `id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`, `id_juego`) VALUES
+(1, 7, 5, 'diferenciar los distintos símbolos esquemáticos', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar los distintos símbolos esquemáticos utilizados en los circuitos electrónicos. Se trabajará en la identificación precisa de cada símbolo y su función dentro del circuito.', '00:00:40.0000', '2025-05-13', 3),
+(2, 7, 5, 'diferenciar las distintas herramientas utilizadas para carpintería', 'En la actividad de hoy, el objetivo será que los estudiantes aprendan a reconocer y diferenciar las distintas herramientas utilizadas en carpintería. Se trabajará en la identificación precisa de cada herramienta, su forma y su función específica dentro del taller, comprendiendo su uso correcto y seguro en distintas etapas del trabajo con madera.', '00:00:55.0000', '2025-05-13', 3),
+(3, 2, 15, ' Identificar moléculas simples y sus elementos constitutivos', 'En la actividad de hoy, los estudiantes aprenderán a reconocer algunas de las moléculas más simples que encontramos en la vida cotidiana. El objetivo es que puedan identificar su composición química, sus elementos constituyentes y la función o presencia d', '00:00:50.0000', '2025-05-31', 3),
+(4, 2, 15, 'Figuras geométricas planas y sus propiedades', 'En esta actividad, los estudiantes repasarán y reforzarán sus conocimientos sobre figuras geométricas planas. A través del juego, deberán relacionar cada figura con sus propiedades fundamentales, como la cantidad de lados, vértices, simetría o clasificación según sus ángulos. Esta dinámica contribuye a desarrollar la visualización espacial y el vocabulario técnico relacionado con la geometría.', '00:00:50.0000', '2025-06-01', 3),
+(5, 5, 15, 'Capacidades físicas y sistemas del cuerpo en el ejercicio', 'Este nivel desafía a los estudiantes a identificar distintas capacidades físicas fundamentales para el rendimiento corporal, así como los principales sistemas del cuerpo que intervienen durante la actividad física. Se busca desarrollar una comprensión más técnica del cuerpo humano en movimiento, vinculando biología con práctica deportiva.', '00:00:50.0000', '2025-06-01', 3),
+(6, 5, 15, ' Técnicas de natación y fundamentos acuáticos', 'En esta actividad, los estudiantes deberán identificar los principales estilos de natación competitiva, así como habilidades y elementos esenciales asociados al rendimiento en el agua. Este nivel promueve el conocimiento técnico del deporte, estimula el reconocimiento visual de movimientos y refuerza la comprensión de la biomecánica básica aplicada a la natación.', '00:00:50.0000', '2025-06-01', 3),
+(7, 6, 15, ' Formas del relieve terrestre: Mesetas, llanuras y montañas', 'En este nivel, los estudiantes aprenderán a reconocer distintos tipos de relieve presentes en la superficie terrestre. A través del juego de memoria, identificarán visualmente cada formación geográfica, asociándola con sus características principales, su origen y su distribución en el planeta. Este conocimiento es clave para la comprensión de los paisajes naturales y su influencia en la vida humana y el clima.', '00:00:50.0000', '2025-06-02', 3),
+(8, 6, 15, 'Culturas y creencias: los pueblos originarios de Argentina', 'Este nivel introduce a los estudiantes en el mundo de la antropología a través del reconocimiento de culturas, rituales y sistemas de creencias de los pueblos originarios de Argentina. Se busca promover el respeto por la diversidad cultural y el conocimiento de las tradiciones ancestrales que forman parte de la identidad del país. Las cartas mostrarán elementos simbólicos, costumbres y prácticas religiosas que han sido parte de la vida de estas comunidades.', '00:00:50.0000', '2025-06-02', 3),
+(9, 1, 15, ' El circuito de la comunicación', 'En este nivel, los estudiantes descubrirán los componentes fundamentales del circuito de la comunicación. A través de la asociación de imágenes y conceptos clave, aprenderán a reconocer cada elemento del proceso comunicativo y su función. Se busca que los chicos puedan identificar en diversas situaciones quién es el emisor, receptor, cuál es el canal, el código, el mensaje y el referente.', '00:00:50.0000', '2025-06-02', 3),
+(10, 1, 15, 'Tipos de textos y recursos de cohesión', 'En este nivel, los chicos aprenderán a diferenciar los principales tipos de textos que usamos para comunicarnos: narrativos, descriptivos, instructivos y más. Además, conocerán algunos recursos de cohesión importantes como la sinonimia o la hiponimia, que ayudan a dar fluidez y coherencia a los mensajes escritos. Esta actividad refuerza habilidades de lectura y escritura desde un enfoque lúdico.', '00:00:50.0000', '2025-06-02', 3),
+(12, 6, 15, 'Aprender sobre el país brasl', 'Aprender sobre el país brasl', '00:00:33.0000', '2025-06-09', 2);
 
 -- --------------------------------------------------------
 
@@ -393,7 +395,9 @@ INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`
 (93, 10, '1748877784760-378970160.webp', 'Sinonimia', 'Palabras diferentes con significados parecidos. Ejemplo: “feliz” y “contento”.'),
 (94, 10, '1748877784760-125614741.webp', 'Antonimia', 'Palabras con significados opuestos. Ejemplo: “grande” y “pequeño”.'),
 (95, 10, '1748877784761-839011025.webp', 'Hiperonimia', 'Palabra general que agrupa otras más específicas. Ejemplo: “fruta” es hiperónimo de “manzana”.'),
-(96, 10, '1748877784761-342142657.webp', 'Hiponimia', 'Palabra específica que pertenece a un grupo más general. Ejemplo: “perro” es hipónimo de “animal”.');
+(96, 10, '1748877784761-342142657.webp', 'Hiponimia', 'Palabra específica que pertenece a un grupo más general. Ejemplo: “perro” es hipónimo de “animal”.'),
+(99, 12, '090ef001fb59e1da.webp', 'ss', 'ss'),
+(100, 12, '5b1689261e639b40.webp', 'ww', 'ww');
 
 -- --------------------------------------------------------
 
@@ -669,7 +673,8 @@ ALTER TABLE `juegos`
 --
 ALTER TABLE `niveles_memory`
   ADD PRIMARY KEY (`id_nivel`),
-  ADD KEY `id_area` (`id_area`,`id_creador_us`),
+  ADD KEY `id_area` (`id_area`,`id_creador_us`,`id_juego`),
+  ADD KEY `id_juego` (`id_juego`),
   ADD KEY `id_creador_us` (`id_creador_us`);
 
 --
@@ -783,7 +788,7 @@ ALTER TABLE `juegos`
 -- AUTO_INCREMENT de la tabla `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `niveles_us`
@@ -825,7 +830,7 @@ ALTER TABLE `rankin_wordle`
 -- AUTO_INCREMENT de la tabla `resources_juego`
 --
 ALTER TABLE `resources_juego`
-  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT de la tabla `respuestas`
@@ -874,13 +879,13 @@ ALTER TABLE `juegos`
 --
 ALTER TABLE `niveles_memory`
   ADD CONSTRAINT `niveles_memory_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
-  ADD CONSTRAINT `niveles_memory_ibfk_2` FOREIGN KEY (`id_creador_us`) REFERENCES `usuarios` (`usuario_id`);
+  ADD CONSTRAINT `niveles_memory_ibfk_2` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`juego_id`),
+  ADD CONSTRAINT `niveles_memory_ibfk_3` FOREIGN KEY (`id_creador_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
 -- Filtros para la tabla `niveles_us`
 --
 ALTER TABLE `niveles_us`
-  ADD CONSTRAINT `niveles_us_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`),
   ADD CONSTRAINT `niveles_us_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
   ADD CONSTRAINT `niveles_us_ibfk_3` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
@@ -908,12 +913,6 @@ ALTER TABLE `ranking_ahorcado`
 --
 ALTER TABLE `rankin_wordle`
   ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `resources_juego`
---
-ALTER TABLE `resources_juego`
-  ADD CONSTRAINT `resources_juego_ibfk_1` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`);
 
 --
 -- Filtros para la tabla `respuestas`

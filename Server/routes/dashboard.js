@@ -378,14 +378,31 @@ router.post("/editar_palabra_wordle", async (req, res) => {
 });
 router.get("/dash_memory", isLogged, async (req, res) => {
     try {
-        let select_memory = "SELECT * FROM `niveles_memory` ORDER BY `id_nivel` DESC;";
+        let select_memory = "SELECT * FROM `niveles_memory` WHERE id_juego=3 ORDER BY `id_nivel` DESC;";
         connection.query(select_memory, (err, result_memory) => {
             if (err) {
                 console.error('Error al ejecutar la query en el servidor', err);
                 return res.status(500).send('Error al ejecutar la query en el servidor');
             } else {
-                select_memory = "SELECT * FROM `resources_juego` WHERE 1"
-                connection.query(select_memory, (err, result_resources) => {
+                let niveles_resources = []
+                for (let index = 0; index < result_memory.length; index++) {
+                    if (result_memory[index].id_juego == 3) {
+                        let nivel = result_memory[index].id_nivel
+                        niveles_resources.push(nivel);
+                        
+                    }
+
+                }
+                if (niveles_resources.length === 0) {
+                    return res.status(404).send("No se encontraron niveles");
+                }
+
+                // Convertir a cadena para la consulta SQL
+                let nivelesSQL = niveles_resources.join(',');
+
+                // Consulta solo con los niveles deseados
+                let select_resources = `SELECT * FROM resources_juego WHERE id_nivel IN (${nivelesSQL})`;
+                connection.query(select_resources, (err, result_resources) => {
                     if (err) {
                         console.error('Error al ejecutar la query en el servidor', err);
                         return res.status(500).send('Error al ejecutar la query en el servidor');
@@ -396,7 +413,7 @@ router.get("/dash_memory", isLogged, async (req, res) => {
                                 console.error('Error al ejecutar la segunda query', err);
                                 return res.status(500).send('Error en la segunda consulta');
                             }
-                            res.render('dashboard/dash_memory', { niveles: result_memory, resources: result_resources, session: req.session, areas: data_areas });
+                            res.render('dashboard/dash_memory', { niveles: result_memory, resources: result_resources, session: req.session, areas: data_areas, id_juego: 3 });
                         });
 
                     }
@@ -416,11 +433,12 @@ router.get("/dash_memory", isLogged, async (req, res) => {
 
 
 
-router.post("/dash_agregar_juego", uploadMultiple_sharp.array('imagen'), async (req, res) => {
+router.post("/dash_agregar_juego", uploadMultiple_sharp.array('imagenes'), async (req, res) => {
     try {
+        console.log(req.files);
         let fecha = Datatime();
         let id_us = req.session.usuario_id;
-        const { titulo_juego, subtitulo_juego, tiempo, titulos_img, area, descripciones_img } = req.body;
+        const { titulo_juego, subtitulo_juego, tiempo, titulos_img, area, descripciones_img, id_juego } = req.body;
 
         const archivos = req.files;
 
@@ -456,8 +474,8 @@ router.post("/dash_agregar_juego", uploadMultiple_sharp.array('imagen'), async (
         }));
 
         // Inserción en DB 
-        let insertJuego = "INSERT INTO `niveles_memory`(`id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`) VALUES (?, ?, ?, ?, ?, ?)";
-        connection.query(insertJuego, [area, id_us, titulo_juego, subtitulo_juego, tiempo, fecha], (err, result_juego) => {
+        let insertJuego = "INSERT INTO `niveles_memory`(`id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`,`id_juego`) VALUES (?, ?, ?, ?, ?, ?,?)";
+        connection.query(insertJuego, [area, id_us, titulo_juego, subtitulo_juego, tiempo, fecha, id_juego], (err, result_juego) => {
             if (err) {
                 console.error('Error al insertar el juego:', err);
                 return res.status(500).send('Error al insertar el juego');
@@ -482,6 +500,63 @@ router.post("/dash_agregar_juego", uploadMultiple_sharp.array('imagen'), async (
         console.error("Error al procesar el juego:", err);
     }
 });
+
+
+router.get("/dash_rompecabezas", isLogged, async (req, res) => {
+ try {
+        let select_memory = "SELECT * FROM `niveles_memory` WHERE id_juego=2 ORDER BY `id_nivel` DESC;";
+        connection.query(select_memory, (err, result_memory) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor', err);
+                return res.status(500).send('Error al ejecutar la query en el servidor');
+            } else {
+                let niveles_resources = []
+                for (let index = 0; index < result_memory.length; index++) {
+                    if (result_memory[index].id_juego == 3) {
+                        let nivel = result_memory[index].id_nivel
+                        niveles_resources.push(nivel);
+                         console.log(nivel)
+                    }
+                   
+                }
+                if (niveles_resources.length === 0) {
+                    return res.status(404).send("No se encontraron niveles");
+                }
+
+                // Convertir a cadena para la consulta SQL
+                let nivelesSQL = niveles_resources.join(',');
+
+                // Consulta solo con los niveles deseados
+                let select_resources = `SELECT * FROM resources_juego WHERE id_nivel IN (${nivelesSQL})`;
+                connection.query(select_resources, (err, result_resources) => {
+                    if (err) {
+                        console.error('Error al ejecutar la query en el servidor', err);
+                        return res.status(500).send('Error al ejecutar la query en el servidor');
+                    } else {
+                        const query_areas = "SELECT * FROM `areas` WHERE 1";
+                        connection.query(query_areas, (err, data_areas) => {
+                            if (err) {
+                                console.error('Error al ejecutar la segunda query', err);
+                                return res.status(500).send('Error en la segunda consulta');
+                            }
+                            res.render('dashboard/dash_rompecabezas', { niveles: result_memory, resources: result_resources, session: req.session, areas: data_areas, id_juego: 3 });
+                        });
+
+                    }
+
+                })
+            }
+
+        });
+    } catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('dashboard/dash_memory', { error: 'Ocurrió un error al momento de abrir la página principal' });
+    }
+});
+
+
+
+
 
 
 // Exporta todas las rutas definidas
