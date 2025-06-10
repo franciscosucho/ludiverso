@@ -7,6 +7,11 @@ let selectedPiece = null;
 let puzzleData = [];
 let solutionShowing = false;
 let currentDifficulty = 'easy';
+let Imagen_data = document.getElementById('Imagen');
+Imagen_data = JSON.parse(Imagen_data.textContent);
+let Imagen = `./../Resources/Imagenes/juego_memoria/${Imagen_data}`;
+
+console.log(Imagen)
 
 // Configuraciones de dificultad (removido nivel experto)
 const difficultySettings = {
@@ -332,7 +337,7 @@ function showSolution() {
     slots.forEach((slot, index) => {
         const piece = puzzleData.find(p => p.correctPosition === index);
         if (piece && piece.currentPosition !== index) {
-            slot.style.backgroundImage = 'url(https://s1.significados.com/foto/mapamundi-paises-colores.jpg)';
+            slot.style.backgroundImage = `url(${Imagen})`;
             slot.style.backgroundPosition = `${piece.position.x}px ${piece.position.y}px`;
             slot.style.backgroundSize = '720px 360px';
             slot.style.opacity = '0.6';
@@ -469,7 +474,7 @@ window.onload = function () {
         setTimeout(() => {
             const pieces = document.querySelectorAll('.puzzle-piece:not(.empty-slot)');
             pieces.forEach(piece => {
-                piece.style.backgroundImage = 'url(https://s1.significados.com/foto/mapamundi-paises-colores.jpg)';
+                piece.style.backgroundImage = `url(${Imagen})`;
             });
         }, 100);
     };
@@ -477,5 +482,5 @@ window.onload = function () {
         console.error('Error al cargar la imagen del mapa');
         alert('Error al cargar la imagen del mapa. Por favor, verifica la conexión a internet.');
     };
-    img.src = 'https://s1.significados.com/foto/mapamundi-paises-colores.jpg';
+    img.src = `${Imagen}`;
 };

@@ -35,9 +35,15 @@
                                 let mover_der=(j % 2===0) ? 'mover_der' : '' ; let
                                 desbloqueado=nivelesDesbloqueados.includes(nivel.id_nivel); %>
                                 <% if (desbloqueado) { %>
-
+                                    
+                                    <% if (id_juego==3) { %>
                                     <a href="juego_memoria?id_nivel=<%= nivel.id_nivel %>&id_juego=<%=id_juego%>"
                                         class="nivel actual <%= mover_der %>">
+                                    <% } if(id_juego==2) { %>
+                                         <a href="rompecabezas?id_nivel=<%= nivel.id_nivel %>&id_juego=<%=id_juego%>"
+                                        class="nivel actual <%= mover_der %>">
+                                    <% } %>
+                                    
                                         <li><i class="fa-solid fa-star"></i></li>
                                     </a>
                                     <% } else { %>

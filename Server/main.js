@@ -311,8 +311,8 @@ app.get('/juego_intro', (req, res) => {
 
     // Promesa para obtener los niveles superados por el usuario
     const getNivelesUsuario = new Promise((resolve, reject) => {
-        const select_nivel_us = 'SELECT * FROM `niveles_us` WHERE id_us=?';
-        connection.query(select_nivel_us, [id_us], (err, result_nl_us) => {
+        const select_nivel_us = 'SELECT * FROM `niveles_us` WHERE id_us=? AND id_juego = ?';
+        connection.query(select_nivel_us, [id_us,id_juego], (err, result_nl_us) => {
             if (err) reject(err);
             else resolve(result_nl_us);
         });
@@ -328,13 +328,14 @@ app.get('/juego_intro', (req, res) => {
                 niveles_memory.id_creador_us,
                 niveles_memory.actividad_juego,
                 niveles_memory.desc_actividad,
-                niveles_memory.fecha_creacion
+                niveles_memory.fecha_creacion,
+                niveles_memory.id_juego 
             FROM niveles_memory
             JOIN areas ON niveles_memory.id_area = areas.materia_id
-            WHERE areas.nombre = ?`;
+            WHERE areas.nombre = ? AND  niveles_memory.id_juego =?`;
 
         return new Promise((resolve, reject) => {
-            connection.query(select_niveles_areas, [area_nombre], (err, results) => {
+            connection.query(select_niveles_areas, [area_nombre, id_juego], (err, results) => {
                 if (err) reject(err);
                 else resolve(results);
             });
@@ -841,10 +842,29 @@ app.get('/next-word', isLogged, (req, res) => {
 });
 
 app.get('/rompecabezas', isLogged, (req, res) => {
+  let id_juego_main = req.query.id_juego;
+    let id_juego = req.query.id_nivel;
+    id_juego_main = parseInt(id_juego_main)
+    const select_areas = 'SELECT * FROM `niveles_memory` WHERE id_nivel=?'
+    connection.query(select_areas, [id_juego], (err, result_juego) => {
+        if (err) {
+            console.error('Error al registrarse ', err);
+            res.status(500).send('Error al registrarse ');
+        } else {
+            let id_nivel = result_juego[0].id_nivel;
+            let id_area = result_juego[0].id_area;
+            const select_juegos = 'SELECT * FROM `resources_juego` WHERE id_nivel=?'
+            connection.query(select_juegos, [id_nivel], (err, result_resources) => {
+                if (err) {
+                    console.error('Error al registrarse ', err);
+                    res.status(500).send('Error al registrarse ');
+                } else {
+                    res.render("rompecabezas", { data_juego: result_juego, data_resources: result_resources, id_area: id_area, id_nivel: id_nivel, id_juego: id_juego_main, session: req.session })
+                }
+            })
 
-    res.render('rompecabezas', {
-        session: req.session
-    });
+        }
+    })
 
 });
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2025 a las 19:53:06
+-- Tiempo de generación: 10-06-2025 a las 20:10:25
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -118,7 +118,7 @@ CREATE TABLE `juegos` (
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
 (1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/wordle.webp', 5, 'wordle_intro', 0, 'dash_wordle'),
-(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, 'rompecabezas', 0, 'dash_rompecabezas'),
+(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, 'juego_intro', 0, 'dash_rompecabezas'),
 (3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/memory_card.webp', 4, 'juego_intro', 4, 'dash_memory'),
 (4, 'Ahorcado', 'Ahorcado es un juego de palabras en el que el estudiante debe descubrir una palabra oculta letra por letra antes de completar la figura del ahorcado.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/ahorcado.webp', 4, 'ahorcado_intro', 0, ''),
 (5, 'Resolver ecuaciones', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, 'exactas', 0, '');
@@ -168,15 +168,9 @@ CREATE TABLE `niveles_us` (
   `id_nivel` int(11) NOT NULL,
   `id_area` int(11) NOT NULL,
   `id_us` int(11) NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date NOT NULL,
+  `id_juego` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `niveles_us`
---
-
-INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES
-(3, 2, 7, 5, '2025-05-31');
 
 -- --------------------------------------------------------
 
@@ -685,7 +679,8 @@ ALTER TABLE `niveles_us`
   ADD KEY `id_nivel` (`id_nivel`,`id_area`,`id_us`,`fecha`),
   ADD KEY `fecha` (`fecha`),
   ADD KEY `id_area` (`id_area`),
-  ADD KEY `id_us` (`id_us`);
+  ADD KEY `id_us` (`id_us`),
+  ADD KEY `id_juego` (`id_juego`);
 
 --
 -- Indices de la tabla `novedades`
@@ -887,7 +882,8 @@ ALTER TABLE `niveles_memory`
 --
 ALTER TABLE `niveles_us`
   ADD CONSTRAINT `niveles_us_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
-  ADD CONSTRAINT `niveles_us_ibfk_3` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
+  ADD CONSTRAINT `niveles_us_ibfk_3` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
+  ADD CONSTRAINT `niveles_us_ibfk_4` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`juego_id`);
 
 --
 -- Filtros para la tabla `palabras_ahorcado`

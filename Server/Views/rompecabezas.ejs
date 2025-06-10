@@ -195,7 +195,7 @@
         }
 
         .puzzle-piece {
-            background-image: url('https://s1.significados.com/foto/mapamundi-paises-colores.jpg');
+            background-image: url('./../Resources/Imagenes/juego_memoria/<%= data_resources[0].url_img %>');
             background-repeat: no-repeat;
             border: 3px solid #fff;
             cursor: pointer;
@@ -368,7 +368,7 @@
 
             <div class="reference-image">
                 <h3 style="color: #2c3e50; margin-bottom: 10px;">🖼️ Imagen de Referencia</h3>
-                <img src="https://s1.significados.com/foto/mapamundi-paises-colores.jpg"
+                <img src="./../Resources/Imagenes/juego_memoria/<%= data_resources[0].url_img %>"
                     alt="Mapa Mundial de Referencia">
             </div>
 
@@ -409,7 +409,9 @@
             <button onclick="startGame()">🔄 Jugar de Nuevo</button>
             <button onclick="increaseDifficulty()">⬆️ Siguiente Nivel</button>
         </div>
-
+        <script id="Imagen" type="application/json">
+  <%- JSON.stringify(data_resources[0].url_img) %>
+</script>
         <script src="Scripts/rompecabezas.js"></script>
     </body>
 
