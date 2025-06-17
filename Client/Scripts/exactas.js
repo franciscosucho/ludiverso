@@ -730,6 +730,7 @@ function startGame() {
     };
     
     showScreen('game');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     initCurrentStage();
 }
 

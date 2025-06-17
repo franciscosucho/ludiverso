@@ -74,6 +74,7 @@ body::before {
 
 .screen.active {
     display: block;
+    margin-top: 8%;
 }
 
 @keyframes fadeIn {
