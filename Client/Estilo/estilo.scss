@@ -30,6 +30,8 @@
     --Encabezados_botones_y_primarios: #3e86d3;
     --Botones_secundarios_o_hover_azul: #7ab8ff;
     --Botones_secundarios_o_hover_verde: #a8d08d;
+    --Botones_secundarios_o_hover_verde_oscuro: #85ad6e;
+    /* NUEVA VARIABLE para el hover */
     --fondo_azul_claro: rgba(165, 190, 245, 0.336);
     --fondo_azul_claro_hv: rgba(152, 176, 228, 0.336);
     --hover_card: #e0f0ff;
@@ -44,9 +46,11 @@
     --Fondo_principal: #1e1e1e;
     --Texto_principal: #dddddd;
     --Texto_secundario: #b6b6b6;
-    --Encabezados_botones_y_primarios: #3e86d3; // un azul más claro
+    --Encabezados_botones_y_primarios: #3e86d3;
     --Botones_secundarios_o_hover_azul: #7ab8ff;
     --Botones_secundarios_o_hover_verde: #c1e7aa;
+    --Botones_secundarios_o_hover_verde_oscuro: #9eba7f;
+    /* NUEVA VARIABLE para el hover en modo oscuro */
     --fondo_azul_claro: rgba(93, 113, 155, 0.336);
     --box_shadow: rgba(0, 0, 0, 0.7);
     --box_shadow_2: rgba(0, 0, 0, 0.7);
@@ -501,31 +505,55 @@ body {
                 /* Chrome */
 
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
                 align-items: center;
-                flex-direction: row;
+                flex-direction: column;
 
                 &.desac {
                     display: none;
+                }
+
+                .cont_tex {
+                    padding-left: 20px;
+                    padding-top: 5px;
+                    background-color: rgba(0, 0, 0, 0.507);
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    gap: 50px;
+                    color: white;
+
+                    h2,
+                    a {
+                        padding: 20px !important;
+                        text-decoration: none;
+                        color: white;
+                        font-size: 1.6em;
+                        font-weight: bold;
+                        padding: 5px;
+                        border-radius: 8px;
+
+                    }
+
+
                 }
 
                 .cont_main {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    flex-direction: column;
+                    flex-direction: row;
                     height: 100%;
-
+                    width: 100%;
                 }
 
                 .cont_arrow {
                     height: 100%;
                     width: 10%;
-
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
 
                     i {
                         font-size: 2.2em;
@@ -539,6 +567,7 @@ body {
                         justify-content: center;
                         align-items: center;
                         transition: all .2s ease-in-out;
+                        background-color: rgba(0, 0, 0, 0.507);
 
                         &:hover {
                             background-color: rgba(128, 128, 128, 0.349);
@@ -547,36 +576,11 @@ body {
                 }
 
 
-                .cont_tex {
-                    padding-left: 20px;
-                    padding-top: 5px;
-
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-around;
-                    align-items: flex-start;
-
-                    color: white;
-
-                    h2,
-                    a {
-                        padding: 20px !important;
-                        background-color: rgba(0, 0, 0, 0.788) !important;
-                        text-decoration: none;
-                        color: white;
-                        font-size: 1.6em;
-                        font-weight: bold;
-                        padding: 5px;
-                        border-radius: 8px;
-                        background-color: rgba(0, 0, 0, 0.507);
-                    }
-
-
-                }
 
                 .cont_info_juego {
                     background-color: rgba(51, 95, 153, 0.589);
                     margin-bottom: 8%;
+                    margin-top: 10%;
                     padding: 30px;
                     border-radius: 30px;
                     height: auto;
@@ -3760,6 +3764,523 @@ $right :#538d4e;
                     font-size: .9em;
                 }
             }
+        }
+    }
+}
+
+/* _ludiverso.scss */
+
+@mixin centrar-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin estilo-boton($color-fondo, $color-texto) {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    background-color: $color-fondo;
+    color: $color-texto;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+}
+
+#pagina-ludiverso {
+    * {
+        @extend %poetsen-font;
+    }
+
+    font-family: Arial,
+    sans-serif;
+    color: var(--Texto_principal);
+    background-color: var(--Fondo_principal);
+    line-height: 1.6;
+    transition: background-color 0.3s ease,
+    color 0.3s ease;
+
+    .contenedor {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1,
+    h2,
+    h3 {
+        color: var(--Encabezados_botones_y_primarios);
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    p {
+        margin-bottom: 15px;
+        color: var(--Texto_secundario);
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+        color: var(--Texto_secundario);
+
+        li {
+            margin-bottom: 8px;
+
+            &:before {
+                content: "✓ ";
+                color: var(--Encabezados_botones_y_primarios);
+                font-weight: bold;
+            }
+        }
+    }
+
+    .seccion-hero {
+        @include centrar-flex();
+        background-color: var(--fondo_azul_claro);
+        padding: 60px 0;
+        flex-wrap: wrap;
+        transition: background-color 0.3s ease;
+
+        .contenido-hero {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            text-align: center;
+
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+                color: var(--Encabezados_botones_y_primarios);
+            }
+
+            p {
+                font-size: 1.2em;
+                margin-bottom: 30px;
+                color: var(--Texto_principal);
+            }
+
+            .btn-primario {
+                @include estilo-boton(var(--Encabezados_botones_y_primarios), var(--Fondo_principal));
+
+                &:hover {
+                    background-color: var(--Botones_secundarios_o_hover_azul);
+                }
+            }
+        }
+
+        .imagen-hero {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            text-align: center;
+
+            img {
+                max-width: 100%;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px var(--box_shadow);
+            }
+        }
+    }
+
+    .seccion-problema-solucion {
+        background-color: var(--Fondo_principal);
+        padding: 50px 0;
+        text-align: center;
+        transition: background-color 0.3s ease;
+
+        .grilla-contenido {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+
+            div {
+                background-color: var(--back_card);
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px var(--box_shadow);
+                text-align: left;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+                h3 {
+                    color: var(--Encabezados_botones_y_primarios);
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+
+    .seccion-muestra-juegos {
+        padding: 50px 0;
+        background-color: var(--fondo_azul_claro);
+        transition: background-color 0.3s ease;
+
+        .contenedor-carrusel {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            height: 450px;
+            @include centrar-flex();
+        }
+
+        .tarjeta-juego {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 12px;
+            overflow: hidden;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            @include centrar-flex();
+
+            &.inactiva {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+
+            .superposicion-tarjeta {
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                padding: 30px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+
+                .contenedor-texto {
+                    margin-bottom: 20px;
+
+                    .nombre-materia {
+                        display: inline-block;
+                        background-color: var(--Encabezados_botones_y_primarios);
+                        color: white;
+                        padding: 5px 15px;
+                        border-radius: 20px;
+                        text-decoration: none;
+                        font-size: 0.9em;
+                        margin-bottom: 10px;
+                        transition: background-color 0.3s ease;
+
+                        &:hover {
+                            background-color: var(--Botones_secundarios_o_hover_azul);
+                        }
+                    }
+
+                    .nombre-juego {
+                        color: white;
+                        font-size: 2em;
+                        margin-bottom: 0;
+                    }
+                }
+
+                .contenedor-info-principal {
+                    .contenedor-info-juego {
+                        p.info {
+                            color: #eee;
+                            font-size: 1.1em;
+                            max-width: 600px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+
+                        .boton-jugar {
+                            @include estilo-boton(var(--Botones_secundarios_o_hover_verde), white);
+
+                            &:hover {
+                                background-color: var(--Botones_secundarios_o_hover_verde_oscuro); // USAMOS LA NUEVA VARIABLE
+                            }
+                        }
+                    }
+                }
+            }
+
+            .fa-solid {
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900;
+            }
+
+            // Lo mismo para otros tipos de iconos de Font Awesome si los usas
+            .fa-regular {
+                font-family: "Font Awesome 6 Free";
+                font-weight: 400; // O el font-weight específico para regular
+            }
+
+            .navegacion-carrusel {
+
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                transform: translateY(-50%);
+                padding: 0 20px;
+
+                .btn-flecha {
+                    font-size: 2.5em;
+                    color: white;
+                    cursor: pointer;
+                    background-color: rgba(0, 0, 0, 0.4);
+                    border-radius: 50%;
+                    padding: 10px 15px;
+                    transition: background-color 0.3s ease, transform 0.2s ease;
+                    z-index: 10;
+
+                    &:hover {
+                        background-color: rgba(0, 0, 0, 0.7);
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+
+        .puntos-carrusel {
+            @include centrar-flex();
+            margin-top: 30px;
+
+            .punto {
+                height: 12px;
+                width: 12px;
+                background-color: var(--Texto_secundario);
+                border-radius: 50%;
+                display: inline-block;
+                margin: 0 6px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+
+                &.activo {
+                    background-color: var(--Encabezados_botones_y_primarios);
+                    transform: scale(1.2);
+                }
+
+                &:hover {
+                    background-color: var(--Botones_secundarios_o_hover_azul);
+                }
+            }
+        }
+    }
+
+    .seccion-entrevistas {
+        background-color: var(--Fondo_principal);
+        padding: 50px 0;
+        text-align: center;
+        transition: background-color 0.3s ease;
+
+        .lista-areas {
+            margin-top: 30px;
+
+            h4 {
+                color: var(--Encabezados_botones_y_primarios);
+                margin-bottom: 15px;
+            }
+
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+
+                li {
+                    background-color: var(--fondo_azul_claro);
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    color: var(--Encabezados_botones_y_primarios);
+                    font-weight: bold;
+                    transition: background-color 0.3s ease, color 0.3s ease;
+
+                    &:before {
+                        content: none;
+                    }
+
+                    &:hover {
+                        background-color: var(--fondo_azul_claro_hv);
+                    }
+                }
+            }
+        }
+    }
+
+
+    .seccion-equipo {
+        padding: 50px 0;
+        background-color: var(--fondo_azul_claro);
+        text-align: center;
+        transition: background-color 0.3s ease;
+
+        .profesores,
+        .estudiantes {
+            background-color: var(--back_card);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--box_shadow);
+            margin-bottom: 30px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+            h3 {
+                color: var(--Encabezados_botones_y_primarios);
+                margin-bottom: 20px;
+            }
+
+            .lista-miembros {
+               
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 25px; 
+                margin-top: 20px;
+
+                .miembro-equipo {
+                
+                    position: relative; 
+                    padding: 15px 20px; 
+                    border-radius: 8px;
+                    background-color: var(--hover_card); 
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+                    min-width: 180px; 
+                    flex-basis: auto;
+                    overflow: hidden; 
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:before {
+                        
+                        content: none;
+                    }
+
+                    .nombre-miembro {
+                        color: var(--Texto_principal);
+                        font-weight: bold;
+                        margin-bottom: 5px; 
+                        transition: margin-bottom 0.3s ease; 
+                        font-size: 1.1em;
+                    }
+
+                    .rol {
+                        position: absolute; 
+                        bottom: 0; 
+                        left: 0;
+                        width: 100%;
+                        padding: 10px 15px;
+                        background-color: var(--Encabezados_botones_y_primarios);
+                        color: white;
+                        text-align: center;
+                        font-size: 0.9em;
+                        opacity: 0; 
+                        transform: translateY(100%);
+                        transition: opacity 0.3s ease, transform 0.3s ease;
+                        box-sizing: border-box; 
+                    }
+
+                    &:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 6px 12px var(--box_shadow);
+                        background-color: var(--hover_card);
+
+                        .rol {
+                            opacity: 1;
+                            transform: translateY(0); 
+                        }
+
+                        .nombre-miembro {
+                            margin-bottom: 25px; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+@media (max-width: 768px) {
+    #pagina-ludiverso {
+     
+        .seccion-equipo {
+
+            .profesores,
+            .estudiantes {
+                .lista-miembros {
+                    gap: 15px; 
+                }
+
+                .miembro-equipo {
+                    min-width: unset; 
+                    width: 100%; 
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #pagina-ludiverso {
+        .seccion-hero {
+            .contenido-hero h1 {
+                font-size: 2em;
+            }
+
+            .contenido-hero p {
+                font-size: 1em;
+            }
+        }
+
+        .seccion-problema-solucion .grilla-contenido {
+            grid-template-columns: 1fr;
+        }
+
+        .seccion-muestra-juegos {
+            .contenedor-carrusel {
+                height: 400px;
+            }
+
+            .tarjeta-juego .superposicion-tarjeta {
+                padding: 20px;
+
+                .contenedor-texto .nombre-juego {
+                    font-size: 1.5em;
+                }
+
+                .contenedor-info-principal p.info {
+                    font-size: 0.9em;
+                }
+            }
+
+            .tarjeta-juego .navegacion-carrusel {
+                .btn-flecha {
+                    font-size: 2em;
+                    padding: 8px 12px;
+                }
+            }
+        }
+
+        .seccion-entrevistas .lista-areas ul {
+            flex-direction: column;
+            align-items: center;
         }
     }
 }

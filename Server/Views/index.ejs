@@ -2,158 +2,156 @@
 <html lang="en">
 
 <head>
-    <%- include('head.ejs') %>
-    <title>Ludiverso</title>
+  <%- include('head.ejs') %>
+  <title>Ludiverso</title>
 </head>
 
 <body>
-        <%- include('header.ejs') %>
-    <main id="index_main">
-        <section id="sec_img" class="secciones">
- 
-            <% juegos.forEach((juego, index)=> { %>
-                <% if (index==0) { %>
-                    <article id="cont_main_juego_<%=index%>" class="cont_main_juego"
-                        style="background-image: url('<%= juego.url_img %>');">
-                        <% } else { %>
-                            <article id="cont_main_juego_<%=index%>" class="desac cont_main_juego"
-                                style="background-image: url('<%=juego.url_img %>');">
-                                <% } %>
-                                    <div class="cont_arrow">
-                                        <i class="fa-solid fa-arrow-left arrow_left" id="arrow_left_<%= index %>"></i>
-                                    </div>
+  <%- include('header.ejs') %>
+  <main id="index_main">
+    <section id="sec_img" class="secciones">
 
-                                    <div class="cont_main">
-                                        <div class="cont_tex">
-                                            <a  href="/areas?area= <%= juego.nombre_materia %>"  id="nombre_materia_<%= index %>" class="nombre_materia">
-                                                <%= juego.nombre_materia || 'Sin nombre' %>
-                                            </a>
-                                            <h2 id="nombre_juego_<%= index %>" class="nombre_juego">
-                                                <%= juego.titulo %>
-                                            </h2>
-                                        </div>
-                                        <div class="cont_info_juego">
-                                            <p class="info">
-                                                <%= juego.descripcion %>
-                                            </p>
-                                            <a href="/<%= juego.url_juego %>?id_juego=<%=juego.juego_id %>">Jugar</a>
-                                        </div>
-                                    </div>
+      <% juegos.forEach((juego, index)=> { %>
+      <% if (index==0) { %>
+      <article id="cont_main_juego_<%=index%>" class="cont_main_juego" style="background-image: url('<%= juego.url_img %>');">
+        <% } else { %>
+        <article id="cont_main_juego_<%=index%>" class="desac cont_main_juego" style="background-image: url('<%=juego.url_img %>');">
+          <% } %>
 
-                                    <div class="cont_arrow">
-                                        <i class="fa-solid fa-arrow-right arrow_right"
-                                            id="arrow_right_<%= index %>"></i>
-                                    </div>
-                            </article>
-                            <% }) %>
+          <div class="cont_tex">
+            <a href="/areas?area= <%= juego.nombre_materia %>" id="nombre_materia_<%= index %>" class="nombre_materia">
+              <%= juego.nombre_materia || 'Sin nombre' %>
+            </a>
+            <h2 id="nombre_juego_<%= index %>" class="nombre_juego">
+              <%= juego.titulo %>
+            </h2>
+          </div>
+          <div class="cont_main">
+
+            <div class="cont_arrow">
+              <i class="fa-solid fa-arrow-left arrow_left" id="arrow_left_<%= index %>"></i>
+            </div>
+            <div class="cont_info_juego">
+              <p class="info">
+                <%= juego.descripcion %>
+              </p>
+              <a href="/<%= juego.url_juego %>?id_juego=<%=juego.juego_id %>">Jugar</a>
+            </div>
+            <div class="cont_arrow">
+              <i class="fa-solid fa-arrow-right arrow_right" id="arrow_right_<%= index %>"></i>
+            </div>
+          </div>
 
 
-        </section>
+        </article>
+        <% }) %>
 
-        <section id="sec_areas" class="secciones">
-            <h2 class="sub_titulo">Áreas</h2>
-            <article id="cont_areas">
-                <div class="cont_dos">
-                    <a href="/areas?area=Sociales" class="cont_areas" id="cont_sociales">
-                        <img src="Resources/Imagenes/sociales.webp" alt="">
-                        <span>Sociales</span>
 
-                    </a>
-                    <a href="/areas?area=edu_fisica" class="cont_areas " id="cont_edu">
-                        <img src="Resources/Imagenes/educacion_fisica.webp" alt="">
-                        <span>Educacion fisica</span>
+    </section>
 
-                    </a>
-                </div>
+    <section id="sec_areas" class="secciones">
+      <h2 class="sub_titulo">Áreas</h2>
+      <article id="cont_areas">
+        <div class="cont_dos">
+          <a href="/areas?area=Sociales" class="cont_areas" id="cont_sociales">
+            <img src="Resources/Imagenes/sociales.webp" alt="">
+            <span>Sociales</span>
 
-                <a href="/areas?area=Comunicaciones" class="cont_areas" id="cont_central">
-                    <img src="Resources/Imagenes/comunicaciones.webp" alt="">
-                    <span>Comunicaciones</span>
+          </a>
+          <a href="/areas?area=edu_fisica" class="cont_areas " id="cont_edu">
+            <img src="Resources/Imagenes/educacion_fisica.webp" alt="">
+            <span>Educacion fisica</span>
 
-                </a>
-                <div class="cont_dos">
-                    <a href="/areas?area=Taller" class="cont_areas" id="cont_taller">
-                        <img src="Resources/Imagenes/taller.webp" alt="">
-                        <span>Taller</span>
+          </a>
+        </div>
 
-                    </a>
-                    <a href="/areas?area=exactas_naturales" class="cont_areas" id="cont_exactas">
-                        <img src="Resources/Imagenes/exactas_naturales.webp" alt="">
-                        <span>Exactas y naturales</span>
+        <a href="/areas?area=Comunicaciones" class="cont_areas" id="cont_central">
+          <img src="Resources/Imagenes/comunicaciones.webp" alt="">
+          <span>Comunicaciones</span>
 
-                    </a>
-                </div>
-            </article>
-        </section>
+        </a>
+        <div class="cont_dos">
+          <a href="/areas?area=Taller" class="cont_areas" id="cont_taller">
+            <img src="Resources/Imagenes/taller.webp" alt="">
+            <span>Taller</span>
 
-        <section id="sec_novedades" class="secciones">
-            <h2 class="sub_titulo">Novedades</h2>
-            <% novedades.forEach((novedad, index)=> { %>
-                <% if (index==0) { %>
-                    <article id="cont_novedades<%=index%>" class="cont_novedades">
-                        <% } else { %>
-                            <article id="cont_novedades<%=index%>" class="cont_novedades desac">
-                                <% } %>
-                                    <div class="cont_text_novedad">
-                                        <b class="fecha_novedad">
-                                            <%= new Date(novedad.fecha_novedad).toLocaleString('es-ES', {
+          </a>
+          <a href="/areas?area=exactas_naturales" class="cont_areas" id="cont_exactas">
+            <img src="Resources/Imagenes/exactas_naturales.webp" alt="">
+            <span>Exactas y naturales</span>
+
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section id="sec_novedades" class="secciones">
+      <h2 class="sub_titulo">Novedades</h2>
+      <% novedades.forEach((novedad, index)=> { %>
+      <% if (index==0) { %>
+      <article id="cont_novedades<%=index%>" class="cont_novedades">
+        <% } else { %>
+        <article id="cont_novedades<%=index%>" class="cont_novedades desac">
+          <% } %>
+          <div class="cont_text_novedad">
+            <b class="fecha_novedad">
+              <%= new Date(novedad.fecha_novedad).toLocaleString('es-ES', {
                                                 timeZone: 'UTC',
                                                 year: 'numeric',
                                                 month: 'long',
                                                 day: 'numeric',
                                             }) %>
-                                        </b>
-                                        <h3 class="titulo_novedad">
-                                            <%= novedad.titulo_novedad %>
-                                        </h3>
-                                        <h4 class="sub_titulo_novedades">
-                                            <%= novedad.subtitulo_novedad %>
-                                        </h4>
-                                        <p class="cuepo_novedad">
-                                            <%= novedad.cuerpo_novedad %>
-                                        </p>
+            </b>
+            <h3 class="titulo_novedad">
+              <%= novedad.titulo_novedad %>
+            </h3>
+            <h4 class="sub_titulo_novedades">
+              <%= novedad.subtitulo_novedad %>
+            </h4>
+            <p class="cuepo_novedad">
+              <%= novedad.cuerpo_novedad %>
+            </p>
 
 
-                                    </div>
-                                    <img src="<%= novedad.url_foto_novedad %>" alt="Imagen sobre novedades."
-                                        class="img_novedad">
-                            </article>
-                            <% }) %>
+          </div>
+          <img src="<%= novedad.url_foto_novedad %>" alt="Imagen sobre novedades." class="img_novedad">
+        </article>
+        <% }) %>
 
-                                <button id="ver_mas_nov">Ver mas novedades</button>
-                                <button id="ver_menos_nov" class="desac">Ver menos novedades</button>
-        </section>
-
+        <button id="ver_mas_nov">Ver mas novedades</button>
+        <button id="ver_menos_nov" class="desac">Ver menos novedades</button>
+    </section>
 
 
-        <section id="sec_sobre_nosotros" class="secciones">
-            <h2 class="sub_titulo">Sobre nosotros</h2>
 
-            <div class="cont_text_ludi">
-                <b>Que es Ludiverso?</b>
-                <p>Ludiverso es una plataforma educativa desarrollada por estudiantes de 7° año de la especialidad de
-                    programacion. Nuestra app tiene como objetivo principal fomentar la educacion, de una manera mas
-                    amigable para los nuevos alumnos. En esta plataforma encontraras juegos divertidos, en los cuales
-                    aprenderas cosas muy importante en las distintas areas educativas, como Educacion fisica,
-                    comunicaciones,ciencias exactas,sociales y taller.
-                </p>
-                <button id="btn_conocer_mas">Conocer mas sobre el proyecto</button>
-            </div>
-            <div class="cont_text_ludi desac">
-                <b>Objetivo es Ludiverso</b>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ex explicabo corrupti vel aperiam!
-                    Maiores provident labore sit officia in debitis quibusdam fuga possimus illo ut molestias fugit,
-                    recusandae est.
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti saepe dolorem culpa explicabo ut
-                    aperiam laborum eveniet totam temporibus veniam architecto, rem modi vel deleniti perspiciatis
-                    suscipit fugiat accusamus exercitationem?
-                </p>
-            </div>
+    <section id="sec_sobre_nosotros" class="secciones">
+      <h2 class="sub_titulo">Sobre nosotros</h2>
 
-        </section>
-    </main>
-    <%- include('footer.ejs') %>
-    <script src="Scripts/app.js"></script>
+      <div class="cont_text_ludi">
+        <b>Que es Ludiverso?</b>
+        <p>Ludiverso es una plataforma educativa desarrollada por estudiantes de 7° año de la especialidad de
+          programacion. Nuestra app tiene como objetivo principal fomentar la educacion, de una manera mas
+          amigable para los nuevos alumnos. En esta plataforma encontraras juegos divertidos, en los cuales
+          aprenderas cosas muy importante en las distintas areas educativas, como Educacion fisica,
+          comunicaciones,ciencias exactas,sociales y taller.
+        </p>
+        <button id="btn_conocer_mas">Conocer mas sobre el proyecto</button>
+      </div>
+      <div class="cont_text_ludi desac">
+        <b>Objetivo es Ludiverso</b>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ex explicabo corrupti vel aperiam!
+          Maiores provident labore sit officia in debitis quibusdam fuga possimus illo ut molestias fugit,
+          recusandae est.
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti saepe dolorem culpa explicabo ut
+          aperiam laborum eveniet totam temporibus veniam architecto, rem modi vel deleniti perspiciatis
+          suscipit fugiat accusamus exercitationem?
+        </p>
+      </div>
+
+    </section>
+  </main>
+  <%- include('footer.ejs') %>
+  <script src="Scripts/app.js"></script>
 </body>
 
 </html>

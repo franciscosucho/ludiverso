@@ -312,7 +312,7 @@ app.get('/juego_intro', (req, res) => {
     // Promesa para obtener los niveles superados por el usuario
     const getNivelesUsuario = new Promise((resolve, reject) => {
         const select_nivel_us = 'SELECT * FROM `niveles_us` WHERE id_us=? AND id_juego = ?';
-        connection.query(select_nivel_us, [id_us,id_juego], (err, result_nl_us) => {
+        connection.query(select_nivel_us, [id_us, id_juego], (err, result_nl_us) => {
             if (err) reject(err);
             else resolve(result_nl_us);
         });
@@ -842,7 +842,7 @@ app.get('/next-word', isLogged, (req, res) => {
 });
 
 app.get('/rompecabezas', isLogged, (req, res) => {
-  let id_juego_main = req.query.id_juego;
+    let id_juego_main = req.query.id_juego;
     let id_juego = req.query.id_nivel;
     id_juego_main = parseInt(id_juego_main)
     const select_areas = 'SELECT * FROM `niveles_memory` WHERE id_nivel=?'
@@ -873,5 +873,24 @@ app.get('/exactas', isLogged, (req, res) => {
     res.render('exactas', {
         session: req.session
     });
+
+});
+app.get('/sobre_nosotros', isLogged, (req, res) => {
+    try {
+        const select_juegos = 'SELECT j.*, m.nombre AS nombre_materia FROM juegos j JOIN areas m ON j.materia_id = m.materia_id';
+        connection.query(select_juegos, [], (err, result_juegos) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor ', err);
+                res.status(500).send('Error al ejecutar la query en el servidor');
+            } else {
+                res.render('sobre_nosotros', { juegos: result_juegos, sessionUserId: req.session.usuario_id, session: req.session });
+            }
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('sobre_nosotros', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
 
 });

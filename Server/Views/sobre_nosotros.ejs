@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <%- include('head.ejs') %>
+  <title>Ludiverso - Transformando el Aprendizaje</title>
+  <link rel="stylesheet" href="/css/ludiverso.css">
+</head>
+
+<body>
+  <%- include('header.ejs') %>
+
+  <main id="pagina-ludiverso">
+    <section class="seccion-hero">
+      <div class="contenido-hero">
+        <h1>LUDIVERSO: Una Plataforma que Transforma la Distracción en Aprendizaje</h1>
+        <p>Descubre cómo convertimos el tiempo de pantalla en una experiencia educativa dinámica y divertida.</p>
+        <a href="#acerca-de-ludiverso" class="btn-primario">Conoce más</a>
+      </div>
+      <div class="imagen-hero">
+        <img src="/Resources/Imagenes/comunicaciones.webp" alt="Personas jugando y aprendiendo con Ludiverso">
+      </div>
+    </section>
+
+    <section id="acerca-de-ludiverso" class="seccion-problema-solucion">
+      <div class="contenedor">
+        <h2>¿Por qué Ludiverso?</h2>
+        <div class="grilla-contenido">
+          <div class="declaracion-problema">
+            <h3>Problemática Actual</h3>
+            <p>Muchos estudiantes utilizan sus celulares para redes sociales o juegos sin valor educativo, afectando su rendimiento académico y desaprovechando el tiempo escolar.</p>
+            <p><strong>Faltan herramientas atractivas que combinen aprendizaje con entretenimiento.</strong></p>
+          </div>
+          <div class="declaracion-solucion">
+            <h3>Nuestra Propuesta</h3>
+            <p>Ludiverso ofrece una plataforma de juegos educativos que transforma la distracción en aprendizaje de forma dinámica y divertida.</p>
+            <ul>
+              <li>💡 Propuesta Innovadora</li>
+              <li>🎮 Impacto Positivo</li>
+              <li>🧠 Desarrollo de Habilidades</li>
+              <li>🏫 Valor Institucional</li>
+              <li>🌐 Proyección</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seccion-carrusel-juegos" class="seccion-muestra-juegos">
+      <div class="contenedor">
+        <h2>Nuestros Juegos Educativos</h2>
+        <% if (juegos && juegos.length > 0) { %>
+        <div class="contenedor-carrusel">
+          <% juegos.forEach((juego, index)=> { %>
+          <article id="tarjeta-juego-<%=index%>" class="tarjeta-juego <%= index === 0 ? '' : 'inactiva' %>" style="background-image: url('<%= juego.url_img || '/images/default_game_bg.jpg' %>');">
+            <div class="superposicion-tarjeta">
+              <div class="contenedor-texto">
+                <a href="/areas?area=<%= encodeURIComponent(juego.nombre_materia || 'General') %>" id="nombre-materia-<%= index %>" class="nombre-materia">
+                  <%= juego.nombre_materia || 'Materia' %>
+                </a>
+                <h3 id="nombre-juego-<%= index %>" class="nombre-juego">
+                  <%= juego.titulo %>
+                </h3>
+              </div>
+              <div class="contenedor-info-principal">
+                <div class="contenedor-info-juego">
+                  <p class="info">
+                    <%= juego.descripcion %>
+                  </p>
+                  <a href="/<%= juego.url_juego || 'jugar' %>?id_juego=<%= juego.juego_id || '0' %>" class="boton-jugar">Jugar</a>
+                </div>
+              </div>
+            </div>
+            <div class="navegacion-carrusel">
+              <i class="fa-solid fa-arrow-left btn-flecha juego-anterior" data-index="<%= index %>"></i>
+              <i class="fa-solid fa-arrow-right btn-flecha juego-siguiente" data-index="<%= index %>"></i>
+            </div>
+          </article>
+          <% }) %>
+        </div>
+        <div class="puntos-carrusel">
+          <% juegos.forEach((juego, index)=> { %>
+          <span class="punto <%= index === 0 ? 'activo' : '' %>" data-index="<%= index %>"></span>
+          <% }) %>
+        </div>
+        <% } else { %>
+        <p class="mensaje-sin-juegos">No hay juegos disponibles en este momento.</p>
+        <% } %>
+      </div>
+    </section>
+
+    <section class="seccion-entrevistas">
+      <div class="contenedor">
+        <h2>Proceso de Desarrollo: Entrevistas Clave</h2>
+        <p>Antes de desarrollar, realizamos entrevistas con los jefes de área para:</p>
+        <ul>
+          <li>Conocer su opinión sobre el uso de juegos educativos.</li>
+          <li>Detectar necesidades específicas de cada materia.</li>
+          <li>Recibir sugerencias sobre los tipos de juegos más útiles para cada área.</li>
+        </ul>
+        <div class="lista-areas">
+          <h4>Áreas Entrevistadas:</h4>
+          <ul>
+            <li>Sociales</li>
+            <li>Exactas y Naturales</li>
+            <li>Comunicaciones</li>
+            <li>Taller</li>
+            <li>Educación Física</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <%
+ 
+    const equipoProfesores = [
+        { nombre: 'PAULA BALDA', rol: 'D.I.S.C' },
+        { nombre: 'YORK MANSILLA', rol: 'D.I.S.C' }
+    ];
+
+    const equipoEstudiantes = [
+        { nombre: 'DERFLER, AXEL', rol: 'Líder de Proyecto' },
+        { nombre: 'SUCHOMELA FRANCISCO', rol: 'Desarrollador FullStack' },
+        { nombre: 'FERNANDEZ, FRANCO', rol: 'Diseñador UI/UX' },
+        { nombre: 'GESUALDO, LAUTARO', rol: 'Documentacion' },
+        { nombre: 'BENEITEZ, GABRIEL', rol: 'Documentacion' },
+        { nombre: 'GONZÁLEZ, LUCIANO', rol: '..' }
+    ];
+%>
+
+<section class="seccion-equipo">
+    <div class="contenedor">
+        <h2>Nuestro Equipo</h2>
+        <div class="profesores">
+            <h3>Profesores Guía:</h3>
+            <ul class="lista-miembros">
+                <% equipoProfesores.forEach(profesor => { %>
+                    <li class="miembro-equipo">
+                        <p class="nombre-miembro"><strong><%= profesor.nombre %></strong></p>
+                        <span class="rol"><%= profesor.rol %></span>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="estudiantes">
+            <h3>Alumnos Desarrolladores:</h3>
+            <ul class="lista-miembros">
+                <% equipoEstudiantes.forEach(estudiante => { %>
+                    <li class="miembro-equipo">
+                        <p class="nombre-miembro"><%= estudiante.nombre %></p>
+                        <span class="rol"><%= estudiante.rol %></span>
+                    </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+</section>
+
+  </main>
+
+  <%- include('footer.ejs') %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tarjetasJuego = document.querySelectorAll('.tarjeta-juego');
+      const puntos = document.querySelectorAll('.punto');
+      const btnsAnterior = document.querySelectorAll('.juego-anterior');
+      const btnsSiguiente = document.querySelectorAll('.juego-siguiente');
+      let indiceActual = 0;
+
+      function mostrarJuego(indice) {
+        tarjetasJuego.forEach((tarjeta, i) => {
+          tarjeta.classList.toggle('inactiva', i !== indice);
+        });
+        puntos.forEach((punto, i) => {
+          punto.classList.toggle('activo', i === indice);
+        });
+      }
+
+      btnsAnterior.forEach(btn => {
+        btn.addEventListener('click', () => {
+          indiceActual = (indiceActual - 1 + tarjetasJuego.length) % tarjetasJuego.length;
+          mostrarJuego(indiceActual);
+        });
+      });
+
+      btnsSiguiente.forEach(btn => {
+        btn.addEventListener('click', () => {
+          indiceActual = (indiceActual + 1) % tarjetasJuego.length;
+          mostrarJuego(indiceActual);
+        });
+      });
+
+      puntos.forEach(punto => {
+        punto.addEventListener('click', (e) => {
+          indiceActual = parseInt(e.target.dataset.index);
+          mostrarJuego(indiceActual);
+        });
+      });
+
+      mostrarJuego(indiceActual);
+    });
+  </script>
+</body>
+
+</html>
