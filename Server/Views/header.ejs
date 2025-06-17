@@ -33,6 +33,13 @@
                 <span class="text_links">Sobre nosotros</span>
                 <i class="fa-solid fa-people-group desac icons_links"></i>
             </a>
+            
+            <% if (session.user_sesion) { %>
+                <a href="/profile" class="links">
+                    <span class="text_links">Mi Perfil</span>
+                    <i class="fa-solid fa-user desac icons_links"></i>
+                </a>
+            <% } %>
         </div>
     </nav>
 

@@ -32,14 +32,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     links.forEach(link => {
         link.addEventListener('click', function (e) {
-            e.preventDefault();
+            const href = this.getAttribute('href');
+            
+            // Solo interceptar enlaces que comienzan con #
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const target = document.getElementById(targetId);
 
-            const targetId = this.getAttribute('href').substring(1); // saca el #
-            const target = document.getElementById(targetId);       // busca el ID
-
-            if (target) {
-                scrollToElement(target, 200);
+                if (target) {
+                    scrollToElement(target, 200);
+                }
             }
+            // Los enlaces sin # (como /profile) se comportarán normalmente
         });
     });
 

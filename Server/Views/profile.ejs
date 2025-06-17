@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head.ejs') %>
+    <title>Perfil de Usuario</title>
+    <link rel="stylesheet" href="/Estilo/profile.css">
+</head>
+<body>
+    <%- include('header.ejs') %>
+    <main id="profile">
+        <h2>Mi Perfil</h2>
+        <section class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-user-circle"></i>
+                </div>
+                <h3><%= user.nombre %> <%= user.apellido %></h3>
+                <p class="user-role"><%= user.rol %></p>
+            </div>
+            
+            <div class="profile-info">
+                <form action="/actualizar_perfil" method="POST" class="profile-form">
+                    <input type="hidden" name="usuario_id" value="<%= user.usuario_id %>">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" value="<%= user.nombre %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" value="<%= user.apellido %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nombre_usuario">Nombre de Usuario</label>
+                        <input type="text" id="nombre_usuario" name="nombre_usuario" value="<%= user.nombre_usuario %>" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="<%= user.email %>" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Nueva Contraseña</label>
+                        <input type="password" id="password" name="password" placeholder="Dejar en blanco para mantener la actual">
+                    </div>
+                    
+                    <button type="submit" class="btn-save">Guardar Cambios</button>
+                </form>
+            </div>
+            
+            <div class="profile-stats">
+                <h4>Estadísticas</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value"><%= stats.juegosJugados || 0 %></span>
+                        <span class="stat-label">Juegos Jugados</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value"><%= stats.puntosTotales || 0 %></span>
+                        <span class="stat-label">Puntos Totales</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value"><%= stats.ranking || 'N/A' %></span>
+                        <span class="stat-label">Ranking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <%- include('footer.ejs') %>
+</body>
+</html> 

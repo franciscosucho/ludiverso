@@ -15,12 +15,13 @@ function saveImage(file) {
     return url_nov;
 }
 const isLogged = (req, res, next) => {
-    if (req.session.user_sesion == '' || typeof req.session.user_sesion == 'undefined') {
-        res.redirect('/')
-    } else {
-        next()
+    if (!req.session.usuario_id) {
+        console.log('Usuario no autenticado - No hay ID de usuario en la sesión');
+        return res.redirect('/login');
     }
-}
+    console.log('Usuario autenticado - ID:', req.session.usuario_id);
+    next();
+};
 
 // Middleware
 const root_verificar = (req, res, next) => {
@@ -554,10 +555,97 @@ router.get("/dash_rompecabezas", isLogged, async (req, res) => {
     }
 });
 
+// Ruta para ver el perfil de usuario
+router.get('/profile', isLogged, async (req, res) => {
+    try {
+        const userId = req.session.usuario_id;
+        console.log('ID de usuario de la sesión:', userId);
+        
+        // Obtener datos del usuario
+        const userQuery = "SELECT * FROM usuarios WHERE usuario_id = ?";
+        connection.query(userQuery, [userId], (err, userResult) => {
+            if (err) {
+                console.error('Error al obtener datos del usuario:', err);
+                return res.status(500).send('Error al obtener datos del usuario');
+            }
 
+            if (!userResult || userResult.length === 0) {
+                console.error('Usuario no encontrado');
+                return res.status(404).send('Usuario no encontrado');
+            }
 
+            // Obtener estadísticas del usuario
+            const statsQuery = `
+                SELECT 
+                    SUM(juego_jugado) as juegosJugados,
+                    SUM(puntaje_total) as puntosTotales,
+                    (SELECT COUNT(*) + 1 FROM (
+                        SELECT SUM(puntaje_total) as total_puntos 
+                        FROM estadisticas 
+                        GROUP BY usuario_id 
+                        HAVING SUM(puntaje_total) > (
+                            SELECT COALESCE(SUM(puntaje_total), 0)
+                            FROM estadisticas 
+                            WHERE usuario_id = ?
+                        )
+                    ) as ranking) as ranking
+                FROM estadisticas 
+                WHERE usuario_id = ?
+            `;
+            
+            connection.query(statsQuery, [userId, userId], (err, statsResult) => {
+                if (err) {
+                    console.error('Error al obtener estadísticas:', err);
+                    return res.status(500).send('Error al obtener estadísticas');
+                }
 
+                res.render('profile', {
+                    user: userResult[0],
+                    stats: statsResult[0] || { juegosJugados: 0, puntosTotales: 0, ranking: 'N/A' },
+                    session: req.session
+                });
+            });
+        });
+    } catch (err) {
+        console.error('Error al cargar el perfil:', err);
+        res.status(500).send('Error al cargar el perfil');
+    }
+});
 
+// Ruta para actualizar el perfil
+router.post('/actualizar_perfil', isLogged, async (req, res) => {
+    try {
+        const { usuario_id, nombre, apellido, email, password } = req.body;
+        
+        let query = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?";
+        const params = [nombre, apellido, email];
+        
+        // Solo actualizar contraseña si se proporciona una nueva
+        if (password && password.trim() !== '') {
+            query += ", contraseña = ?";
+            params.push(password);
+        }
+        
+        query += " WHERE usuario_id = ?";
+        params.push(usuario_id);
+        
+        connection.query(query, params, (err, result) => {
+            if (err) {
+                console.error('Error al actualizar el perfil:', err);
+                return res.status(500).send('Error al actualizar el perfil');
+            }
+            
+            // Actualizar datos de sesión
+            req.session.nombre_us = nombre;
+            req.session.apellido_us = apellido;
+            
+            res.redirect('/profile');
+        });
+    } catch (err) {
+        console.error('Error al actualizar el perfil:', err);
+        res.status(500).send('Error al actualizar el perfil');
+    }
+});
 
 // Exporta todas las rutas definidas
 module.exports = router;
