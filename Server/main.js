@@ -620,11 +620,8 @@ async function hashPassword(plainPassword) {
 // Funcion para solicitar la fecha actual.
 function Datatime() {
     const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
+    const pad = n => n.toString().padStart(2, '0');
+    return `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 }
 
 
@@ -894,3 +891,12 @@ app.get('/sobre_nosotros', isLogged, (req, res) => {
     }
 
 });
+
+module.exports = {
+    hashPassword,
+    verifyPassword,
+    Datatime
+};
+
+
+
