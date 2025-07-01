@@ -181,14 +181,22 @@ app.post('/registrar', async (req, res) => {
 
 
 })
+
 /* Toda la logica que tenga el dashboard del admin. 
 <--------------------------------------------------------------------------------------------->*/
 const dashboardRoutes = require('./routes/dashboard');
 app.use('', dashboardRoutes);
 
+/* <---------------------------------------------------------------->*/
 
+/* Toda la logica que tenga el apartado de enviar emails. 
+<--------------------------------------------------------------------------------------------->*/
+const emailRoutes = require('./routes/email');
+app.use('', emailRoutes);
 
 /* <---------------------------------------------------------------->*/
+
+
 app.post('/iniciar_sesion', async (req, res) => {
     try {
         const { user_name, password } = req.body;
