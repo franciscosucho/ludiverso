@@ -1,15 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2025 a las 21:01:20
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 02-07-2025 a las 01:14:59
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `ludiverso`
@@ -26,7 +32,7 @@ CREATE TABLE `areas` (
   `nombre` varchar(100) NOT NULL,
   `descripcion` text DEFAULT NULL,
   `jefe_de_area` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `areas`
@@ -51,7 +57,7 @@ CREATE TABLE `calificaciones` (
   `juego_id` int(11) DEFAULT NULL,
   `estrellas` int(11) DEFAULT NULL CHECK (`estrellas` between 0 and 5),
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -66,7 +72,7 @@ CREATE TABLE `estadisticas` (
   `puntaje_total` int(11) DEFAULT 0,
   `fecha_actividad` datetime DEFAULT NULL,
   `id_nivel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `estadisticas`
@@ -87,7 +93,7 @@ CREATE TABLE `intentos` (
   `juego_id` int(11) DEFAULT NULL,
   `puntaje` int(11) DEFAULT NULL,
   `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -106,7 +112,7 @@ CREATE TABLE `juegos` (
   `url_juego` varchar(255) NOT NULL,
   `niveles` int(10) NOT NULL,
   `url_dash` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `juegos`
@@ -134,7 +140,7 @@ CREATE TABLE `niveles_memory` (
   `tiempo_para_resolver` time(4) NOT NULL,
   `fecha_creacion` date NOT NULL,
   `id_juego` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `niveles_memory`
@@ -166,7 +172,7 @@ CREATE TABLE `niveles_us` (
   `id_us` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `id_juego` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `niveles_us`
@@ -188,7 +194,7 @@ CREATE TABLE `novedades` (
   `cuerpo_novedad` varchar(3000) DEFAULT NULL,
   `url_foto_novedad` varchar(255) DEFAULT NULL,
   `fecha_novedad` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `novedades`
@@ -209,7 +215,7 @@ CREATE TABLE `palabras_ahorcado` (
   `palabra` varchar(100) NOT NULL,
   `pista` varchar(255) NOT NULL,
   `materia_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `palabras_ahorcado`
@@ -253,7 +259,7 @@ CREATE TABLE `preguntas` (
   `juego_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -271,7 +277,25 @@ CREATE TABLE `ranking_ahorcado` (
   `victoria` tinyint(1) NOT NULL DEFAULT 0,
   `palabra_jugada` varchar(50) NOT NULL,
   `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ranking_exactas`
+--
+
+CREATE TABLE `ranking_exactas` (
+  `id_ranking` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `intentos_fallidos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `victoria` tinyint(1) NOT NULL DEFAULT 0,
+  `ecuacion_jugada` varchar(100) NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -285,7 +309,7 @@ CREATE TABLE `rankin_wordle` (
   `aciertos` int(11) NOT NULL,
   `tiempo` int(11) NOT NULL,
   `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `rankin_wordle`
@@ -306,7 +330,7 @@ CREATE TABLE `resources_juego` (
   `url_img` text NOT NULL,
   `titulo_img` text NOT NULL,
   `descripcion_img` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `resources_juego`
@@ -407,7 +431,7 @@ CREATE TABLE `respuestas` (
   `pregunta_id` int(11) DEFAULT NULL,
   `texto` text NOT NULL,
   `es_correcta` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -423,7 +447,7 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `rol` enum('alumno','root','profesor','directivo') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -447,7 +471,7 @@ CREATE TABLE `wordle` (
   `id_area` int(11) NOT NULL,
   `palabra` varchar(255) NOT NULL,
   `descrip` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `wordle`
@@ -715,6 +739,14 @@ ALTER TABLE `ranking_ahorcado`
   ADD KEY `id_area` (`id_area`);
 
 --
+-- Indices de la tabla `ranking_exactas`
+--
+ALTER TABLE `ranking_exactas`
+  ADD PRIMARY KEY (`id_ranking`),
+  ADD KEY `id_us` (`id_us`),
+  ADD KEY `id_area` (`id_area`);
+
+--
 -- Indices de la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
@@ -820,6 +852,12 @@ ALTER TABLE `ranking_ahorcado`
   MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `ranking_exactas`
+--
+ALTER TABLE `ranking_exactas`
+  MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
@@ -921,3 +959,7 @@ ALTER TABLE `rankin_wordle`
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`pregunta_id`);
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
