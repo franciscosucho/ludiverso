@@ -404,10 +404,11 @@ app.get('/juego_intro', (req, res) => {
 
 
 
-app.get('/puntaje_us', (req, res) => {
+app.get('/puntaje_us', isLogged, (req, res) => {
 
     let { id_juego, id_nivel, id_area, intentos_res, aciertos_res, tiempo_res, intentos_intro, tiempo_intro } = req.query;
-    let puntaje = Math.max(0, (aciertos_res * 100) - (intentos_res * 5) - (tiempo_res * 2));
+    // let puntaje = Math.max(0, (aciertos_res * 100) - (intentos_res * 5) - (tiempo_res * 2));
+    let puntaje = 100
     let id_us = req.session.usuario_id;
     let fecha_act = new Date();
 
@@ -430,29 +431,36 @@ app.get('/puntaje_us', (req, res) => {
     }
 
     // Consulta y actualización/creación de estadisticas
-    connection.query('SELECT * FROM `estadisticas` WHERE usuario_id=? AND juego_jugado=?', [id_us, id_juego], (err, result_est) => {
+    connection.query('SELECT * FROM `estadisticas` WHERE usuario_id=? AND juego_jugado=? AND `id_nivel`=?', [id_us, id_juego, id_nivel], (err, result_est) => {
+
+
+
         if (err) return res.status(500).send('Error en estadísticas');
 
         if (result_est.length > 0) {
             // Si ya existe, actualizar solo si el puntaje nuevo es mayor
             if (result_est[0].puntaje_total <= puntaje) {
+
                 connection.query(
-                    'UPDATE `estadisticas` SET `puntaje_total`=?, `fecha_actividad`=? WHERE usuario_id=? AND juego_jugado=?',
-                    [puntaje, fecha_act, id_us, id_juego],
+                    'UPDATE `estadisticas` SET `puntaje_total`=?, `fecha_actividad`=? WHERE usuario_id=? AND juego_jugado=? AND id_nivel=?',
+                    [puntaje, fecha_act, id_us, id_juego, id_nivel],
                     () => {
                         estadisticasReady = true;
                         tryRender();
                     }
                 );
             } else {
+
                 estadisticasReady = true;
                 tryRender();
             }
         } else {
             // Si no existe, insertar nuevo
+
             connection.query(
-                'INSERT INTO `estadisticas`(`usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`) VALUES (?, ?, ?, ?)',
-                [id_us, id_juego, puntaje, fecha_act],
+
+                'INSERT INTO `estadisticas`(`usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`, `id_nivel`) VALUES (?,?,?,?,?)',
+                [id_us, id_juego, puntaje, fecha_act, id_nivel],
                 () => {
                     estadisticasReady = true;
                     tryRender();
@@ -468,8 +476,8 @@ app.get('/puntaje_us', (req, res) => {
 
         if (result_niv.length === 0) {
             connection.query(
-                'INSERT INTO `niveles_us`( `id_nivel`, `id_area`, `id_us`, `fecha`) VALUES (?, ?, ?, ?)',
-                [nivel_us, id_area, id_us, fecha_act],
+                'INSERT INTO `niveles_us`(`id_nivel`, `id_area`, `id_us`, `fecha`, `id_juego`) VALUES (?, ?, ?, ?, ?)',
+                [nivel_us, id_area, id_us, fecha_act, id_juego],
                 () => {
                     nivelesReady = true;
                     tryRender();
@@ -477,8 +485,8 @@ app.get('/puntaje_us', (req, res) => {
             );
         } else {
             connection.query(
-                'UPDATE `niveles_us` SET `id_nivel`= ? ,`fecha`= ? WHERE id_us= ? AND id_area= ?',
-                [nivel_us, fecha_act, id_us, id_area],
+                'UPDATE `niveles_us` SET `id_nivel`= ? ,`fecha`= ? WHERE id_us= ? AND id_area= ? AND id_juego=?',
+                [nivel_us, fecha_act, id_us, id_area, id_juego],
                 () => {
                     nivelesReady = true;
                     tryRender();
@@ -621,7 +629,7 @@ async function hashPassword(plainPassword) {
 function Datatime() {
     const now = new Date();
     const pad = n => n.toString().padStart(2, '0');
-    return `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 }
 
 

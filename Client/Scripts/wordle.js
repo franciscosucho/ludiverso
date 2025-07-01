@@ -9,7 +9,7 @@ const text_est = document.querySelectorAll(".text_est")
 const text_pistas = document.querySelectorAll(".text_pistas")
 estadisticas.addEventListener("click",()=>{
     text_est.forEach(text => {
-        text.classList.toggle("desac")
+        text.classList.toggle("desac") 
     });
 })
 pistas_adic.addEventListener("click",()=>{
@@ -278,8 +278,15 @@ function startup() {
 startup();
 
 document.getElementById("primer_l").addEventListener("click", () => {
+   
+    text_pistas.forEach(text => {
+        text.classList.toggle("desac")
+    });
     document.getElementById("primer_l").textContent = `Primer letra: ${state.primer_letra}`
 })
 document.getElementById("ultima_l").addEventListener("click", () => {
+    text_pistas.forEach(text => {
+        text.classList.toggle("desac")
+    });
     document.getElementById("ultima_l").textContent = `Ultima letra: ${state.ultima_letra}`
 })

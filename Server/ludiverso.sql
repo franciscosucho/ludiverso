@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2025 a las 20:10:25
+-- Tiempo de generación: 01-07-2025 a las 21:01:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -64,20 +64,16 @@ CREATE TABLE `estadisticas` (
   `usuario_id` int(11) DEFAULT NULL,
   `juego_jugado` int(11) DEFAULT 0,
   `puntaje_total` int(11) DEFAULT 0,
-  `fecha_actividad` datetime DEFAULT NULL
+  `fecha_actividad` datetime DEFAULT NULL,
+  `id_nivel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `estadisticas`
 --
 
-INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`) VALUES
-(3, 5, 3, 666, '2025-05-20 14:37:26'),
-(4, NULL, 3, 651, '2025-05-14 14:57:25'),
-(5, NULL, 3, 651, '2025-05-14 15:01:51'),
-(6, NULL, 3, 651, '2025-05-14 15:02:39'),
-(7, NULL, 3, 651, '2025-05-14 15:03:11'),
-(8, NULL, 3, 651, '2025-05-14 15:03:11');
+INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`, `id_nivel`) VALUES
+(149, 5, 3, 200, '2025-06-27 10:21:40', 1);
 
 -- --------------------------------------------------------
 
@@ -118,10 +114,10 @@ CREATE TABLE `juegos` (
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
 (1, 'wordle', 'Wordle es un juego de palabras en el que el estudiante tiene que adivinar una palabra secreta en un número limitado de intentos', 6, '2025-05-15 00:00:00', 'Resources/Imagenes/wordle.webp', 5, 'wordle_intro', 0, 'dash_wordle'),
-(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/trivia_ciencia.png', 4, 'juego_intro', 0, 'dash_rompecabezas'),
+(2, 'rompecabezas', 'Rompecabezas es un juego de lógica visual en el que el estudiante debe reconstruir una imagen dividiéndola en piezas desordenadas. El objetivo es colocar cada parte en su lugar correcto, prestando atención a formas, colores y detalles. Es ideal para ejercitar la observación, la concentración y el reconocimiento espacial mientras se resuelve un desafío concreto.', 2, '2025-04-12 00:00:00', 'Resources/Imagenes/rompecabezas.webp', 4, 'juego_intro', 0, 'dash_rompecabezas'),
 (3, 'Memory card', 'El estudiante debera encontrar todos los pares de las cartas antes de que se termine el tiempo', 7, '2025-04-12 00:00:00', 'Resources/Imagenes/memory_card.webp', 4, 'juego_intro', 4, 'dash_memory'),
 (4, 'Ahorcado', 'Ahorcado es un juego de palabras en el que el estudiante debe descubrir una palabra oculta letra por letra antes de completar la figura del ahorcado.', 1, '2025-04-12 00:00:00', 'Resources/Imagenes/ahorcado.webp', 4, 'ahorcado_intro', 0, ''),
-(5, 'Resolver ecuaciones', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/carrera_reto_conocimiento.png', 4, 'exactas', 0, '');
+(5, 'Resolver ecuaciones', 'Una competencia con estaciones que combinan desafíos físicos y preguntas sobre hábitos saludables o deporte. Gana el equipo con mejor combinación de velocidad y conocimientos.', 5, '2025-04-12 00:00:00', 'Resources/Imagenes/ecuaciones.webp', 4, 'exactas', 0, '');
 
 -- --------------------------------------------------------
 
@@ -171,6 +167,13 @@ CREATE TABLE `niveles_us` (
   `fecha` date NOT NULL,
   `id_juego` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `niveles_us`
+--
+
+INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`, `id_juego`) VALUES
+(6, 2, 7, 5, '2025-06-27', 3);
 
 -- --------------------------------------------------------
 
@@ -645,7 +648,8 @@ ALTER TABLE `calificaciones`
 ALTER TABLE `estadisticas`
   ADD PRIMARY KEY (`estadistica_id`),
   ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `juego_jugado` (`juego_jugado`);
+  ADD KEY `juego_jugado` (`juego_jugado`),
+  ADD KEY `id_nivel` (`id_nivel`);
 
 --
 -- Indices de la tabla `intentos`
@@ -765,7 +769,7 @@ ALTER TABLE `calificaciones`
 -- AUTO_INCREMENT de la tabla `estadisticas`
 --
 ALTER TABLE `estadisticas`
-  MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT de la tabla `intentos`
@@ -789,7 +793,7 @@ ALTER TABLE `niveles_memory`
 -- AUTO_INCREMENT de la tabla `niveles_us`
 --
 ALTER TABLE `niveles_us`
-  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `novedades`
@@ -861,7 +865,8 @@ ALTER TABLE `calificaciones`
 --
 ALTER TABLE `estadisticas`
   ADD CONSTRAINT `estadisticas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
-  ADD CONSTRAINT `estadisticas_ibfk_2` FOREIGN KEY (`juego_jugado`) REFERENCES `juegos` (`juego_id`);
+  ADD CONSTRAINT `estadisticas_ibfk_2` FOREIGN KEY (`juego_jugado`) REFERENCES `juegos` (`juego_id`),
+  ADD CONSTRAINT `estadisticas_ibfk_3` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`);
 
 --
 -- Filtros para la tabla `juegos`
