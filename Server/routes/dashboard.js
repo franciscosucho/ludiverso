@@ -139,15 +139,46 @@ router.get('/dash_users', root_verificar, async (req, res) => {
 router.post('/borrar_user', async (req, res) => {
     let id_user = req.body.id_user;
 
-    let delete_query = "DELETE FROM `usuarios` WHERE usuario_id = ?";
-    connection.query(delete_query, [id_user], (err, result_users) => {
-        if (err) {
-            console.error('Error al ejecutar la query en el servidor', err);
-            return res.status(500).send('Error al ejecutar la query en el servidor');
+    // Primero eliminar registros relacionados en otras tablas
+    const deleteQueries = [
+        "DELETE FROM `estadisticas` WHERE usuario_id = ?",
+        "DELETE FROM `historial_ahorcado` WHERE id_us = ?",
+        "DELETE FROM `historial_wordle` WHERE id_us = ?",
+        "DELETE FROM `ranking_ahorcado` WHERE id_us = ?",
+        "DELETE FROM `rankin_wordle` WHERE id_us = ?",
+        "DELETE FROM `niveles_us` WHERE id_us = ?",
+        "DELETE FROM `calificaciones` WHERE usuario_id = ?",
+        "DELETE FROM `niveles_memory` WHERE id_creador_us = ?"
+    ];
+
+    // Ejecutar eliminaciones en secuencia
+    let currentQuery = 0;
+    
+    function executeNextQuery() {
+        if (currentQuery >= deleteQueries.length) {
+            // Todas las eliminaciones relacionadas completadas, ahora eliminar el usuario
+            let delete_user_query = "DELETE FROM `usuarios` WHERE usuario_id = ?";
+            connection.query(delete_user_query, [id_user], (err, result_users) => {
+                if (err) {
+                    console.error('Error al eliminar usuario:', err);
+                    return res.status(500).send('Error al eliminar usuario');
+                }
+                res.redirect('/dash_users');
+            });
+            return;
         }
 
-        res.redirect('/dash_users');
-    });
+        connection.query(deleteQueries[currentQuery], [id_user], (err, result) => {
+            if (err) {
+                console.error(`Error al eliminar registros relacionados (query ${currentQuery + 1}):`, err);
+                // Continuar con la siguiente query aunque falle
+            }
+            currentQuery++;
+            executeNextQuery();
+        });
+    }
+
+    executeNextQuery();
 });
 
 
@@ -574,34 +605,43 @@ router.get('/profile', isLogged, async (req, res) => {
                 return res.status(404).send('Usuario no encontrado');
             }
 
-            // Obtener estadísticas del usuario
+            // Obtener estadísticas básicas del usuario (todas las partidas)
             const statsQuery = `
                 SELECT 
-                    SUM(juego_jugado) as juegosJugados,
-                    SUM(puntaje_total) as puntosTotales,
-                    (SELECT COUNT(*) + 1 FROM (
-                        SELECT SUM(puntaje_total) as total_puntos 
-                        FROM estadisticas 
-                        GROUP BY usuario_id 
-                        HAVING SUM(puntaje_total) > (
-                            SELECT COALESCE(SUM(puntaje_total), 0)
-                            FROM estadisticas 
-                            WHERE usuario_id = ?
-                        )
-                    ) as ranking) as ranking
-                FROM estadisticas 
-                WHERE usuario_id = ?
+                    -- Total de juegos jugados (todas las partidas, ganadas y perdidas)
+                    (
+                        COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
+                        COALESCE((SELECT COUNT(*) FROM historial_ahorcado WHERE id_us = ?), 0) +
+                        COALESCE((SELECT COUNT(*) FROM historial_wordle WHERE id_us = ?), 0) +
+                        COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
+                    ) as juegosJugados,
+                    
+                    -- Total de puntos (solo de partidas ganadas)
+                    (
+                        COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0) +
+                        COALESCE((SELECT SUM(aciertos) FROM historial_ahorcado WHERE id_us = ? AND victoria = 1), 0) +
+                        COALESCE((SELECT SUM(aciertos) FROM historial_wordle WHERE id_us = ?), 0)
+                    ) as puntosTotales
             `;
             
-            connection.query(statsQuery, [userId, userId], (err, statsResult) => {
+            console.log('Ejecutando consulta de estadísticas generales para usuario:', userId);
+            connection.query(statsQuery, [userId, userId, userId, userId, userId, userId, userId], (err, statsResult) => {
                 if (err) {
                     console.error('Error al obtener estadísticas:', err);
                     return res.status(500).send('Error al obtener estadísticas');
                 }
 
+                console.log('Resultado de estadísticas generales:', statsResult);
+                
+                // Agregar ranking simple
+                const stats = statsResult[0] || { juegosJugados: 0, puntosTotales: 0 };
+                stats.ranking = stats.puntosTotales > 0 ? 'Activo' : 'Nuevo';
+                
+                console.log('Estadísticas finales para renderizar:', stats);
+                
                 res.render('profile', {
                     user: userResult[0],
-                    stats: statsResult[0] || { juegosJugados: 0, puntosTotales: 0, ranking: 'N/A' },
+                    stats: stats,
                     session: req.session
                 });
             });
@@ -610,6 +650,107 @@ router.get('/profile', isLogged, async (req, res) => {
         console.error('Error al cargar el perfil:', err);
         res.status(500).send('Error al cargar el perfil');
     }
+});
+
+// Ruta de prueba para verificar conexión
+router.get('/test-stats', isLogged, (req, res) => {
+    const userId = req.session.usuario_id;
+    
+    // Probar consulta de estadísticas generales
+    const statsQuery = `
+        SELECT 
+            (
+                COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
+                COALESCE((SELECT COUNT(*) FROM historial_ahorcado WHERE id_us = ?), 0) +
+                COALESCE((SELECT COUNT(*) FROM historial_wordle WHERE id_us = ?), 0) +
+                COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
+            ) as juegosJugados,
+            (
+                COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0) +
+                COALESCE((SELECT SUM(aciertos) FROM historial_ahorcado WHERE id_us = ? AND victoria = 1), 0) +
+                COALESCE((SELECT SUM(aciertos) FROM historial_wordle WHERE id_us = ?), 0)
+            ) as puntosTotales
+    `;
+    
+    connection.query(statsQuery, [userId, userId, userId, userId, userId, userId, userId], (err, result) => {
+        if (err) {
+            console.error('Error en consulta de prueba:', err);
+            return res.status(500).json({ error: 'Error en consulta' });
+        }
+        
+        res.json({ 
+            message: 'Ruta funcionando', 
+            userId: userId,
+            stats: result[0] || { juegosJugados: 0, puntosTotales: 0 }
+        });
+    });
+});
+
+// Ruta para obtener estadísticas detalladas por juego
+router.get('/profile-stats', isLogged, (req, res) => {
+    const userId = req.session.usuario_id;
+    console.log('Obteniendo estadísticas para usuario:', userId);
+    
+    // Consultas para cada juego
+    const memoryQuery = "SELECT COUNT(*) as niveles_completados, COALESCE(SUM(puntaje_total), 0) as puntaje_total FROM estadisticas WHERE usuario_id = ?";
+    const wordleQuery = "SELECT COALESCE(MAX(aciertos), 0) as mejor_aciertos, COALESCE(MIN(tiempo), 0) as mejor_tiempo FROM historial_wordle WHERE id_us = ?";
+    const ahorcadoQuery = "SELECT COUNT(*) as victorias, COALESCE(MIN(tiempo), 0) as mejor_tiempo FROM historial_ahorcado WHERE id_us = ? AND victoria = 1";
+    const puzzleQuery = "SELECT COUNT(*) as niveles_completados FROM niveles_us WHERE id_us = ? AND id_juego = 2";
+    
+    // Ejecutar todas las consultas en paralelo
+    Promise.all([
+        new Promise((resolve, reject) => {
+            connection.query(memoryQuery, [userId], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { niveles_completados: 0, puntaje_total: 0 });
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(wordleQuery, [userId], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { mejor_aciertos: 0, mejor_tiempo: 0 });
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(ahorcadoQuery, [userId], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { victorias: 0, mejor_tiempo: 0 });
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(puzzleQuery, [userId], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { niveles_completados: 0 });
+            });
+        })
+    ])
+    .then(([memory, wordle, ahorcado, puzzle]) => {
+        const response = {
+            memory: { 
+                niveles_completados: memory.niveles_completados,
+                puntaje_total: memory.puntaje_total
+            },
+            wordle: { 
+                mejor_aciertos: wordle.mejor_aciertos,
+                mejor_tiempo: wordle.mejor_tiempo
+            },
+            ahorcado: { 
+                victorias: ahorcado.victorias,
+                mejor_tiempo: ahorcado.mejor_tiempo
+            },
+            puzzle: { 
+                niveles_completados: puzzle.niveles_completados,
+                mejor_tiempo: 0
+            }
+        };
+        
+        console.log('Estadísticas completas obtenidas:', response);
+        res.json(response);
+    })
+    .catch(err => {
+        console.error('Error al obtener estadísticas:', err);
+        res.status(500).json({ error: 'Error al obtener estadísticas' });
+    });
 });
 
 // Ruta para actualizar el perfil

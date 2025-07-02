@@ -151,26 +151,16 @@ app.post('/registrar', async (req, res) => {
                 console.error('Error al registrarse ', err);
                 res.status(500).send('Error al registrarse ');
             } else {
-                const info_us = "SELECT `usuario_id` FROM `usuarios` WHERE 1 ORDER BY `usuario_id` DESC";
-                connection.query(info_us, [], (err, result_id) => {
-                    if (err) {
-                        console.error('Error al registrarse ', err);
-                        res.status(500).send('Error al registrarse ');
-                    } else {
-
-
-                        req.session.usuario_id = result_id[0].usuario_id + 1;
-                        req.session.nombre_us = nombre_us
-                        req.session.apellido_us = apellido_us
-                        req.session.nombre_usuario_us = nombre_usuario_us
-                        req.session.email_us = email_us
-                        req.session.password_us = password_us
-                        req.session.rol_us = "alumno"
-                        req.session.user_sesion = true;
-                        res.redirect('/index');
-                    }
-                })
-
+                // Usar directamente el ID del usuario recién insertado
+                req.session.usuario_id = result.insertId;
+                req.session.nombre_us = nombre_us
+                req.session.apellido_us = apellido_us
+                req.session.nombre_usuario_us = nombre_usuario_us
+                req.session.email_us = email_us
+                req.session.password_us = password_us
+                req.session.rol_us = "alumno"
+                req.session.user_sesion = true;
+                res.redirect('/index');
             }
         })
 
@@ -537,41 +527,52 @@ app.post('/game-over-wordle', (req, res) => {
     const { tiempo, aciertos } = req.body;
     let id_us = req.session.usuario_id;
     var date = Datatime()
-    const insert_nl_wd = "INSERT INTO `rankin_wordle`( `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?,?,?,?)"
-    const update_nl_wd = "UPDATE `rankin_wordle` SET `aciertos`=?,`tiempo`=?,`fecha`=? WHERE id_us=?"
-    //
-    const select_nl_wordle = 'SELECT * FROM `rankin_wordle` WHERE id_us=?'
-    connection.query(select_nl_wordle, [id_us], (err, result_nl_wordle) => {
+    
+    // Primero guardar TODA partida en el historial
+    const insertHistorialQuery = "INSERT INTO `historial_wordle` (`id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?, ?, ?, ?)";
+    
+    connection.query(insertHistorialQuery, [id_us, aciertos, tiempo, date], (err, historialResult) => {
         if (err) {
-            console.error('Error al registrarse ', err);
-            res.status(500).send('Error al registrarse ');
-        } else {
-            if (result_nl_wordle.length === 0) {
-                console.log("no hay datos anteriores datos")
-                connection.query(insert_nl_wd, [id_us, aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
-                    if (err) {
-                        console.error('Error al registrarse ', err);
-                        res.status(500).send('Error al registrarse ');
-                    }
-                })
+            console.error('Error al guardar en historial:', err);
+            return res.status(500).send('Error al registrar partida');
+        }
+
+        // Luego actualizar ranking solo si es mejor que el anterior
+        const select_nl_wordle = 'SELECT * FROM `rankin_wordle` WHERE id_us=?'
+        connection.query(select_nl_wordle, [id_us], (err, result_nl_wordle) => {
+            if (err) {
+                console.error('Error al consultar ranking:', err);
+                return res.status(500).send('Error al consultar ranking');
             } else {
-                if (aciertos >= select_nl_wordle[0].aciertos) {
-                    console.log("actulizando los datos")
-                    connection.query(update_nl_wd, [aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
+                if (result_nl_wordle.length === 0) {
+                    console.log("Primera partida del usuario")
+                    const insert_nl_wd = "INSERT INTO `rankin_wordle`( `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?,?,?,?)"
+                    connection.query(insert_nl_wd, [id_us, aciertos, tiempo, date], (err, result_nl_wordle) => {
                         if (err) {
-                            console.error('Error al registrarse ', err);
-                            res.status(500).send('Error al registrarse ');
+                            console.error('Error al insertar en ranking:', err);
+                            return res.status(500).send('Error al insertar en ranking');
                         }
                     })
+                } else {
+                    if (aciertos >= result_nl_wordle[0].aciertos) {
+                        console.log("Actualizando ranking con mejor puntuación")
+                        const update_nl_wd = "UPDATE `rankin_wordle` SET `aciertos`=?,`tiempo`=?,`fecha`=? WHERE id_us=?"
+                        connection.query(update_nl_wd, [aciertos, tiempo, date, id_us], (err, result_nl_wordle) => {
+                            if (err) {
+                                console.error('Error al actualizar ranking:', err);
+                                return res.status(500).send('Error al actualizar ranking');
+                            }
+                        })
+                    } else {
+                        console.log("Manteniendo mejor puntuación anterior")
+                    }
                 }
             }
-            console.log("No se actulizaron  los datos")
-        }
-    })
+        });
 
-
-    console.log(`Juego terminado. Palabra:  Tiempo: ${tiempo}, Aciertos: ${aciertos}`);
-    res.status(200).send({ success: true });
+        console.log(`Juego terminado. Tiempo: ${tiempo}, Aciertos: ${aciertos}`);
+        res.status(200).send({ success: true });
+    });
 });
 
 
@@ -680,72 +681,88 @@ app.post('/game-over-ahorcado', isLogged, (req, res) => {
     const id_us = req.session.usuario_id;
     const date = Datatime();
 
-    // Primero verificamos si el usuario ya tiene una puntuación para esta área
-    const checkQuery = "SELECT * FROM `ranking_ahorcado` WHERE id_us = ? AND id_area = ? AND victoria = 1";
-    connection.query(checkQuery, [id_us, id_area], (err, existingRecords) => {
+    // Primero guardar TODA partida en el historial
+    const insertHistorialQuery = "INSERT INTO `historial_ahorcado` (`id_us`, `id_area`, `aciertos`, `intentos_fallidos`, `tiempo`, `victoria`, `palabra_jugada`, `fecha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    connection.query(insertHistorialQuery, [id_us, id_area, aciertos, intentos_fallidos, tiempo, victoria, palabra_jugada, date], (err, historialResult) => {
         if (err) {
-            console.error('Error al consultar ranking:', err);
-            return res.status(500).json({ success: false, message: 'Error al registrar puntuación' });
+            console.error('Error al guardar en historial:', err);
+            return res.status(500).json({ success: false, message: 'Error al registrar partida' });
         }
 
-        // Si el usuario ya tiene registros, verificamos si el nuevo es mejor
-        if (existingRecords.length > 0) {
-            const bestRecord = existingRecords.reduce((best, current) => {
-                // Primero comparamos por aciertos (más es mejor)
-                if (current.aciertos > best.aciertos) return current;
-                if (current.aciertos < best.aciertos) return best;
-
-                // Si los aciertos son iguales, comparamos por tiempo (menos es mejor)
-                if (current.tiempo < best.tiempo) return current;
-                if (current.tiempo > best.tiempo) return best;
-
-                // Si el tiempo es igual, comparamos por intentos fallidos (menos es mejor)
-                return current.intentos_fallidos < best.intentos_fallidos ? current : best;
-            });
-
-            // Si la nueva puntuación es mejor, actualizamos el registro
-            if (aciertos > bestRecord.aciertos ||
-                (aciertos === bestRecord.aciertos && tiempo < bestRecord.tiempo) ||
-                (aciertos === bestRecord.aciertos && tiempo === bestRecord.tiempo && intentos_fallidos < bestRecord.intentos_fallidos)) {
-
-                const updateQuery = `
-                    UPDATE ranking_ahorcado 
-                    SET aciertos = ?, 
-                        intentos_fallidos = ?, 
-                        tiempo = ?, 
-                        victoria = ?, 
-                        palabra_jugada = ?, 
-                        fecha = ?
-                    WHERE id_us = ? AND id_area = ? AND victoria = 1
-                `;
-
-                connection.query(updateQuery,
-                    [aciertos, intentos_fallidos, tiempo, victoria, palabra_jugada, date, id_us, id_area],
-                    (err, result) => {
-                        if (err) {
-                            console.error('Error al actualizar ranking:', err);
-                            return res.status(500).json({ success: false, message: 'Error al actualizar puntuación' });
-                        }
-                        res.json({ success: true, message: 'Puntuación actualizada correctamente' });
-                    }
-                );
-            } else {
-                // Si la nueva puntuación no es mejor, mantenemos la existente
-                res.json({ success: true, message: 'Se mantiene la mejor puntuación anterior' });
-            }
-        } else {
-            // Si no existe registro previo, insertamos uno nuevo
-            const insertQuery = "INSERT INTO `ranking_ahorcado` (`id_us`, `id_area`, `aciertos`, `intentos_fallidos`, `tiempo`, `victoria`, `palabra_jugada`, `fecha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            connection.query(insertQuery,
-                [id_us, id_area, aciertos, intentos_fallidos, tiempo, victoria, palabra_jugada, date],
-                (err, result) => {
-                    if (err) {
-                        console.error('Error al insertar en ranking:', err);
-                        return res.status(500).json({ success: false, message: 'Error al registrar puntuación' });
-                    }
-                    res.json({ success: true, message: 'Puntuación registrada correctamente' });
+        // Solo actualizar ranking si es victoria
+        if (victoria) {
+            // Verificar si el usuario ya tiene una puntuación para esta área
+            const checkQuery = "SELECT * FROM `ranking_ahorcado` WHERE id_us = ? AND id_area = ? AND victoria = 1";
+            connection.query(checkQuery, [id_us, id_area], (err, existingRecords) => {
+                if (err) {
+                    console.error('Error al consultar ranking:', err);
+                    return res.status(500).json({ success: false, message: 'Error al registrar puntuación' });
                 }
-            );
+
+                // Si el usuario ya tiene registros, verificamos si el nuevo es mejor
+                if (existingRecords.length > 0) {
+                    const bestRecord = existingRecords.reduce((best, current) => {
+                        // Primero comparamos por aciertos (más es mejor)
+                        if (current.aciertos > best.aciertos) return current;
+                        if (current.aciertos < best.aciertos) return best;
+
+                        // Si los aciertos son iguales, comparamos por tiempo (menos es mejor)
+                        if (current.tiempo < best.tiempo) return current;
+                        if (current.tiempo > best.tiempo) return best;
+
+                        // Si el tiempo es igual, comparamos por intentos fallidos (menos es mejor)
+                        return current.intentos_fallidos < best.intentos_fallidos ? current : best;
+                    });
+
+                    // Si la nueva puntuación es mejor, actualizamos el registro
+                    if (aciertos > bestRecord.aciertos ||
+                        (aciertos === bestRecord.aciertos && tiempo < bestRecord.tiempo) ||
+                        (aciertos === bestRecord.aciertos && tiempo === bestRecord.tiempo && intentos_fallidos < bestRecord.intentos_fallidos)) {
+
+                        const updateQuery = `
+                            UPDATE ranking_ahorcado 
+                            SET aciertos = ?, 
+                                intentos_fallidos = ?, 
+                                tiempo = ?, 
+                                victoria = ?, 
+                                palabra_jugada = ?, 
+                                fecha = ?
+                            WHERE id_us = ? AND id_area = ? AND victoria = 1
+                        `;
+
+                        connection.query(updateQuery,
+                            [aciertos, intentos_fallidos, tiempo, victoria, palabra_jugada, date, id_us, id_area],
+                            (err, result) => {
+                                if (err) {
+                                    console.error('Error al actualizar ranking:', err);
+                                    return res.status(500).json({ success: false, message: 'Error al actualizar puntuación' });
+                                }
+                                res.json({ success: true, message: 'Puntuación actualizada correctamente' });
+                            }
+                        );
+                    } else {
+                        // Si la nueva puntuación no es mejor, mantenemos la existente
+                        res.json({ success: true, message: 'Se mantiene la mejor puntuación anterior' });
+                    }
+                } else {
+                    // Si no existe registro previo, insertamos uno nuevo
+                    const insertQuery = "INSERT INTO `ranking_ahorcado` (`id_us`, `id_area`, `aciertos`, `intentos_fallidos`, `tiempo`, `victoria`, `palabra_jugada`, `fecha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    connection.query(insertQuery,
+                        [id_us, id_area, aciertos, intentos_fallidos, tiempo, victoria, palabra_jugada, date],
+                        (err, result) => {
+                            if (err) {
+                                console.error('Error al insertar en ranking:', err);
+                                return res.status(500).json({ success: false, message: 'Error al registrar puntuación' });
+                            }
+                            res.json({ success: true, message: 'Puntuación registrada correctamente' });
+                        }
+                    );
+                }
+            });
+        } else {
+            // Si no es victoria, solo responder que se guardó en el historial
+            res.json({ success: true, message: 'Partida registrada en el historial' });
         }
     });
 });
@@ -797,7 +814,8 @@ app.get('/ahorcado_ranking', isLogged, (req, res) => {
                     data_ahorcado: result,
                     areas: areas,
                     selectedArea: area,
-                    area: area
+                    area: area,
+                    session: req.session
                 });
             }
         });

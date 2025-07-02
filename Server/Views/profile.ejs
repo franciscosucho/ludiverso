@@ -52,11 +52,11 @@
             </div>
             
             <div class="profile-stats">
-                <h4>Estadísticas</h4>
+                <h4>Estadísticas Generales</h4>
                 <div class="stats-grid">
                     <div class="stat-item">
                         <span class="stat-value"><%= stats.juegosJugados || 0 %></span>
-                        <span class="stat-label">Juegos Jugados</span>
+                        <span class="stat-label">Total de Partidas</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-value"><%= stats.puntosTotales || 0 %></span>
@@ -64,12 +64,116 @@
                     </div>
                     <div class="stat-item">
                         <span class="stat-value"><%= stats.ranking || 'N/A' %></span>
-                        <span class="stat-label">Ranking</span>
+                        <span class="stat-label">Posición Global</span>
+                    </div>
+                </div>
+                
+                <h4 style="margin-top: 2rem;">Estadísticas por Juego</h4>
+                <div class="game-stats-grid">
+                    <div class="game-stat-card">
+                        <h5>🎮 Memory Card</h5>
+                        <div class="game-stat-details">
+                            <p><strong>Niveles Completados:</strong> <span id="memory-levels">Cargando...</span></p>
+                            <p><strong>Puntaje Total:</strong> <span id="memory-score">Cargando...</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="game-stat-card">
+                        <h5>🔤 Wordle</h5>
+                        <div class="game-stat-details">
+                            <p><strong>Mejor Aciertos:</strong> <span id="wordle-best">Cargando...</span></p>
+                            <p><strong>Mejor Tiempo:</strong> <span id="wordle-time">Cargando...</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="game-stat-card">
+                        <h5>🎯 Ahorcado</h5>
+                        <div class="game-stat-details">
+                            <p><strong>Victorias:</strong> <span id="ahorcado-wins">Cargando...</span></p>
+                            <p><strong>Mejor Tiempo:</strong> <span id="ahorcado-time">Cargando...</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="game-stat-card">
+                        <h5>🧩 Rompecabezas</h5>
+                        <div class="game-stat-details">
+                            <p><strong>Niveles Completados:</strong> <span id="puzzle-levels">Cargando...</span></p>
+                            <p><strong>Mejor Tiempo:</strong> <span id="puzzle-time">Cargando...</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
     <%- include('footer.ejs') %>
+    
+    <script>
+        // Cargar estadísticas detalladas por juego
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Cargando estadísticas...');
+            
+            // Primero probar las estadísticas generales
+            fetch('/test-stats')
+                .then(response => response.json())
+                .then(testData => {
+                    console.log('Datos de prueba de estadísticas generales:', testData);
+                    
+                    // Actualizar estadísticas generales si es necesario
+                    if (testData.stats) {
+                        const statValues = document.querySelectorAll('.stat-value');
+                        console.log('Elementos de estadísticas encontrados:', statValues.length);
+                        console.log('Elementos:', statValues);
+                        
+                        if (statValues.length >= 2) {
+                            statValues[0].textContent = testData.stats.juegosJugados || 0;
+                            statValues[1].textContent = testData.stats.puntosTotales || 0;
+                            console.log('Estadísticas generales actualizadas:', testData.stats);
+                        } else {
+                            console.log('No se encontraron suficientes elementos de estadísticas');
+                        }
+                    }
+                    
+                    // Luego cargar estadísticas por juego
+                    return fetch('/profile-stats');
+                })
+                .then(response => {
+                    console.log('Respuesta del servidor:', response);
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta del servidor: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Datos recibidos:', data);
+                    
+                    // Actualizar estadísticas de Memory Card
+                    document.getElementById('memory-levels').textContent = data.memory.niveles_completados || 0;
+                    document.getElementById('memory-score').textContent = data.memory.puntaje_total || 0;
+                    
+                    // Actualizar estadísticas de Wordle
+                    document.getElementById('wordle-best').textContent = data.wordle.mejor_aciertos || 0;
+                    document.getElementById('wordle-time').textContent = data.wordle.mejor_tiempo > 0 ? data.wordle.mejor_tiempo + ' seg' : 'N/A';
+                    
+                    // Actualizar estadísticas de Ahorcado
+                    document.getElementById('ahorcado-wins').textContent = data.ahorcado.victorias || 0;
+                    document.getElementById('ahorcado-time').textContent = data.ahorcado.mejor_tiempo > 0 ? data.ahorcado.mejor_tiempo + ' seg' : 'N/A';
+                    
+                    // Actualizar estadísticas de Rompecabezas
+                    document.getElementById('puzzle-levels').textContent = data.puzzle.niveles_completados || 0;
+                    document.getElementById('puzzle-time').textContent = data.puzzle.mejor_tiempo > 0 ? data.puzzle.mejor_tiempo + ' seg' : 'N/A';
+                })
+                .catch(error => {
+                    console.error('Error al cargar estadísticas:', error);
+                    // Mostrar valores por defecto en lugar de error
+                    const elements = ['memory-levels', 'memory-score', 'wordle-best', 'wordle-time', 'ahorcado-wins', 'ahorcado-time', 'puzzle-levels', 'puzzle-time'];
+                    elements.forEach(id => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.textContent = '0';
+                        }
+                    });
+                });
+        });
+    </script>
 </body>
 </html> 

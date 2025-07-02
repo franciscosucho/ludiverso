@@ -258,6 +258,24 @@ CREATE TABLE `preguntas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `historial_ahorcado`
+--
+
+CREATE TABLE `historial_ahorcado` (
+  `id_historial` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `intentos_fallidos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `victoria` tinyint(1) NOT NULL DEFAULT 0,
+  `palabra_jugada` varchar(50) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `ranking_ahorcado`
 --
 
@@ -271,6 +289,20 @@ CREATE TABLE `ranking_ahorcado` (
   `victoria` tinyint(1) NOT NULL DEFAULT 0,
   `palabra_jugada` varchar(50) NOT NULL,
   `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_wordle`
+--
+
+CREATE TABLE `historial_wordle` (
+  `id_historial` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -707,12 +739,27 @@ ALTER TABLE `preguntas`
   ADD KEY `juego_id` (`juego_id`);
 
 --
+-- Indices de la tabla `historial_ahorcado`
+--
+ALTER TABLE `historial_ahorcado`
+  ADD PRIMARY KEY (`id_historial`),
+  ADD KEY `id_us` (`id_us`),
+  ADD KEY `id_area` (`id_area`);
+
+--
 -- Indices de la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   ADD PRIMARY KEY (`id_ranking`),
   ADD KEY `id_us` (`id_us`),
   ADD KEY `id_area` (`id_area`);
+
+--
+-- Indices de la tabla `historial_wordle`
+--
+ALTER TABLE `historial_wordle`
+  ADD PRIMARY KEY (`id_historial`),
+  ADD KEY `id_us` (`id_us`);
 
 --
 -- Indices de la tabla `rankin_wordle`
@@ -814,10 +861,22 @@ ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `historial_ahorcado`
+--
+ALTER TABLE `historial_ahorcado`
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_wordle`
+--
+ALTER TABLE `historial_wordle`
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rankin_wordle`
@@ -903,11 +962,24 @@ ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
 
 --
+-- Filtros para la tabla `historial_ahorcado`
+--
+ALTER TABLE `historial_ahorcado`
+  ADD CONSTRAINT `historial_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
+  ADD CONSTRAINT `historial_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
+
+--
 -- Filtros para la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   ADD CONSTRAINT `ranking_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
   ADD CONSTRAINT `ranking_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
+
+--
+-- Filtros para la tabla `historial_wordle`
+--
+ALTER TABLE `historial_wordle`
+  ADD CONSTRAINT `historial_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `rankin_wordle`
