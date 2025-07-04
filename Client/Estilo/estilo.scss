@@ -57,7 +57,116 @@
     --hover_card: rgb(26, 26, 26);
     --back_card: #2e2e2e32;
 }
+/* Protanopia (ceguera al rojo) */
+:root[data-daltonismo="protanopia"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
 
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
+    --Botones_secundarios_o_hover_verde: #80c060; /* Verde ajustado a un tono más azulado */
+    --Botones_secundarios_o_hover_verde_oscuro: #5a9040; /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(120, 150, 200, 0.336);
+    --fondo_azul_claro_hv: rgba(110, 140, 190, 0.336);
+    --hover_card: #e0f0ff;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #e0f0ff17;
+}
+
+:root[data-daltonismo="protanopia"][data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
+    --Botones_secundarios_o_hover_verde: #90d070; /* Verde ajustado */
+    --Botones_secundarios_o_hover_verde_oscuro: #70a050; /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(70, 90, 130, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
+    --back_card: #2e2e2e32;
+}
+
+/* Deuteranopia (ceguera al verde) */
+:root[data-daltonismo="deuteranopia"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
+    --Botones_secundarios_o_hover_verde: #b0b060; /* Verde ajustado a un tono más amarillento */
+    --Botones_secundarios_o_hover_verde_oscuro: #808040; /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(120, 150, 200, 0.336);
+    --fondo_azul_claro_hv: rgba(110, 140, 190, 0.336);
+    --hover_card: #e0f0ff;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #e0f0ff17;
+}
+
+:root[data-daltonismo="deuteranopia"][data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
+    --Botones_secundarios_o_hover_verde: #d0d080; /* Verde ajustado */
+    --Botones_secundarios_o_hover_verde_oscuro: #a0a060; /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(70, 90, 130, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
+    --back_card: #2e2e2e32;
+}
+
+/* Tritanopia (ceguera al azul) */
+:root[data-daltonismo="tritanopia"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #ff8000; /* Naranja ajustado */
+    --Botones_secundarios_o_hover_azul: #ffa040; /* Naranja más claro */
+    --Botones_secundarios_o_hover_verde: #a8d08d;
+    --Botones_secundarios_o_hover_verde_oscuro: #85ad6e;
+    --fondo_azul_claro: rgba(200, 150, 120, 0.336); /* Ajustado a tonos cálidos */
+    --fondo_azul_claro_hv: rgba(190, 140, 110, 0.336);
+    --hover_card: #fff0e0;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #fff0e017;
+}
+
+:root[data-daltonismo="tritanopia"][data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #ff8000; /* Naranja ajustado */
+    --Botones_secundarios_o_hover_azul: #ffa040; /* Naranja más claro */
+    --Botones_secundarios_o_hover_verde: #c1e7aa;
+    --Botones_secundarios_o_hover_verde_oscuro: #9eba7f;
+    --fondo_azul_claro: rgba(150, 110, 70, 0.336); /* Ajustado a tonos cálidos */
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
+    --back_card: #2e2e2e32;
+}
 
 
 

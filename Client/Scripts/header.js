@@ -8,7 +8,7 @@ function handleScroll() {
         scrolledPast = true;
         icons_links.forEach(icon => {
             icon.classList.toggle("desac")
-        }); 
+        });
         text_links.forEach(text => {
             text.classList.toggle("desac")
         });
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     links.forEach(link => {
         link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            
+
             // Solo interceptar enlaces que comienzan con #
             if (href.startsWith('#')) {
                 e.preventDefault();
@@ -74,19 +74,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
+// Funciones para el modo claro/oscuro
 function setModo(modo) {
     document.documentElement.setAttribute("data-tema", modo);
     document.cookie = "modo=" + modo + "; path=/; max-age=31536000";
 
     const icono = document.getElementById("icon_tema_tema");
-    if (modo === "oscuro") {
-        icono.classList.remove("fa-sun");
-        icono.classList.add("fa-moon");
-    } else {
-        icono.classList.remove("fa-moon");
-        icono.classList.add("fa-sun");
+    if (icono) {
+        if (modo === "oscuro") {
+            icono.classList.remove("fa-sun");
+            icono.classList.add("fa-moon");
+        } else {
+            icono.classList.remove("fa-moon");
+            icono.classList.add("fa-sun");
+        }
     }
 }
 
@@ -96,16 +97,33 @@ function leerModoDeCookie() {
     return modo ? modo.split("=")[1] : null;
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-    const modo = leerModoDeCookie() || "claro";
-  
-    setModo(modo);
-});
-
 document.getElementById("icon_tema").addEventListener("click", () => {
     const actual = document.documentElement.getAttribute("data-tema") || "claro";
     const nuevo = actual === "oscuro" ? "claro" : "oscuro";
     console.log(actual)
     console.log(nuevo)
     setModo(nuevo);
+});
+
+
+// --- Nuevas funciones para el daltonismo ---
+function setDaltonismo(tipo) {
+    document.documentElement.setAttribute("data-daltonismo", tipo);
+    document.cookie = "daltonismo=" + tipo + "; path=/; max-age=31536000";
+}
+
+function leerDaltonismoDeCookie() {
+    const cookies = document.cookie.split("; ");
+    const daltonismo = cookies.find(row => row.startsWith("daltonismo="));
+    return daltonismo ? daltonismo.split("=")[1] : null;
+}
+
+// --- Aplicación del estilo de daltonismo por defecto al cargar la página ---
+window.addEventListener("DOMContentLoaded", () => {
+    const modo = leerModoDeCookie() || "claro";
+    setModo(modo);
+
+    // Define el tipo de daltonismo que quieres ver. Puedes cambiarlo aquí.
+    const daltonismoPorDefecto = "tritanopia"; // Cambia esto a 'deuteranopia', 'tritanopia', o 'normal'
+    setDaltonismo(daltonismoPorDefecto);
 });
