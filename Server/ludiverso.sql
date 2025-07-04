@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2025 a las 21:01:20
+-- Tiempo de generación: 04-07-2025 a las 20:02:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -74,6 +74,38 @@ CREATE TABLE `estadisticas` (
 
 INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`, `id_nivel`) VALUES
 (149, 5, 3, 200, '2025-06-27 10:21:40', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_ahorcado`
+--
+
+CREATE TABLE `historial_ahorcado` (
+  `id_historial` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `id_area` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `intentos_fallidos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `victoria` tinyint(1) NOT NULL DEFAULT 0,
+  `palabra_jugada` varchar(50) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_wordle`
+--
+
+CREATE TABLE `historial_wordle` (
+  `id_historial` int(11) NOT NULL,
+  `id_us` int(11) NOT NULL,
+  `aciertos` int(11) NOT NULL,
+  `tiempo` int(11) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -258,24 +290,6 @@ CREATE TABLE `preguntas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial_ahorcado`
---
-
-CREATE TABLE `historial_ahorcado` (
-  `id_historial` int(11) NOT NULL,
-  `id_us` int(11) NOT NULL,
-  `id_area` int(11) NOT NULL,
-  `aciertos` int(11) NOT NULL,
-  `intentos_fallidos` int(11) NOT NULL,
-  `tiempo` int(11) NOT NULL,
-  `victoria` tinyint(1) NOT NULL DEFAULT 0,
-  `palabra_jugada` varchar(50) NOT NULL,
-  `fecha` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `ranking_ahorcado`
 --
 
@@ -289,20 +303,6 @@ CREATE TABLE `ranking_ahorcado` (
   `victoria` tinyint(1) NOT NULL DEFAULT 0,
   `palabra_jugada` varchar(50) NOT NULL,
   `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `historial_wordle`
---
-
-CREATE TABLE `historial_wordle` (
-  `id_historial` int(11) NOT NULL,
-  `id_us` int(11) NOT NULL,
-  `aciertos` int(11) NOT NULL,
-  `tiempo` int(11) NOT NULL,
-  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -454,19 +454,21 @@ CREATE TABLE `usuarios` (
   `nombre_usuario` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
-  `rol` enum('alumno','root','profesor','directivo') NOT NULL
+  `rol` enum('alumno','root','profesor','directivo') NOT NULL,
+  `daltonismo` enum('no_daltonico','protanopia','deuteranopia','tritanopia','protanomaly','deuteranomaly','tritanomaly','acromatopsia','acromatomaly','otro') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno'),
-(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo'),
-(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
-(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
-(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root');
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`, `daltonismo`) VALUES
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno', 'deuteranomaly'),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo', NULL),
+(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno', NULL),
+(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno', NULL),
+(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root', NULL),
+(18, 'Francisco', 'Suchomela', 'davidmingueza12', 'franciscosuchomela1@gmail.com', '$2b$10$labEk2dYhDWQWAW/x4AvMOCX9ViChzwR9TTqV4yiBqGuXX07GcvJ2', 'alumno', 'deuteranopia');
 
 -- --------------------------------------------------------
 
@@ -684,6 +686,21 @@ ALTER TABLE `estadisticas`
   ADD KEY `id_nivel` (`id_nivel`);
 
 --
+-- Indices de la tabla `historial_ahorcado`
+--
+ALTER TABLE `historial_ahorcado`
+  ADD PRIMARY KEY (`id_historial`),
+  ADD KEY `id_us` (`id_us`),
+  ADD KEY `id_area` (`id_area`);
+
+--
+-- Indices de la tabla `historial_wordle`
+--
+ALTER TABLE `historial_wordle`
+  ADD PRIMARY KEY (`id_historial`),
+  ADD KEY `id_us` (`id_us`);
+
+--
 -- Indices de la tabla `intentos`
 --
 ALTER TABLE `intentos`
@@ -739,27 +756,12 @@ ALTER TABLE `preguntas`
   ADD KEY `juego_id` (`juego_id`);
 
 --
--- Indices de la tabla `historial_ahorcado`
---
-ALTER TABLE `historial_ahorcado`
-  ADD PRIMARY KEY (`id_historial`),
-  ADD KEY `id_us` (`id_us`),
-  ADD KEY `id_area` (`id_area`);
-
---
 -- Indices de la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   ADD PRIMARY KEY (`id_ranking`),
   ADD KEY `id_us` (`id_us`),
   ADD KEY `id_area` (`id_area`);
-
---
--- Indices de la tabla `historial_wordle`
---
-ALTER TABLE `historial_wordle`
-  ADD PRIMARY KEY (`id_historial`),
-  ADD KEY `id_us` (`id_us`);
 
 --
 -- Indices de la tabla `rankin_wordle`
@@ -819,6 +821,18 @@ ALTER TABLE `estadisticas`
   MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
+-- AUTO_INCREMENT de la tabla `historial_ahorcado`
+--
+ALTER TABLE `historial_ahorcado`
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_wordle`
+--
+ALTER TABLE `historial_wordle`
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `intentos`
 --
 ALTER TABLE `intentos`
@@ -861,22 +875,10 @@ ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `historial_ahorcado`
---
-ALTER TABLE `historial_ahorcado`
-  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `historial_wordle`
---
-ALTER TABLE `historial_wordle`
-  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `rankin_wordle`
@@ -900,7 +902,7 @@ ALTER TABLE `respuestas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `wordle`
@@ -926,6 +928,19 @@ ALTER TABLE `estadisticas`
   ADD CONSTRAINT `estadisticas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
   ADD CONSTRAINT `estadisticas_ibfk_2` FOREIGN KEY (`juego_jugado`) REFERENCES `juegos` (`juego_id`),
   ADD CONSTRAINT `estadisticas_ibfk_3` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`);
+
+--
+-- Filtros para la tabla `historial_ahorcado`
+--
+ALTER TABLE `historial_ahorcado`
+  ADD CONSTRAINT `historial_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
+  ADD CONSTRAINT `historial_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
+
+--
+-- Filtros para la tabla `historial_wordle`
+--
+ALTER TABLE `historial_wordle`
+  ADD CONSTRAINT `historial_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `juegos`
@@ -962,24 +977,11 @@ ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
 
 --
--- Filtros para la tabla `historial_ahorcado`
---
-ALTER TABLE `historial_ahorcado`
-  ADD CONSTRAINT `historial_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
-  ADD CONSTRAINT `historial_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
-
---
 -- Filtros para la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   ADD CONSTRAINT `ranking_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
   ADD CONSTRAINT `ranking_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
-
---
--- Filtros para la tabla `historial_wordle`
---
-ALTER TABLE `historial_wordle`
-  ADD CONSTRAINT `historial_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `rankin_wordle`
