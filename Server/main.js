@@ -140,13 +140,13 @@ app.get('/register', (req, res) => {
 
 app.post('/registrar', async (req, res) => {
     try {
-        const { nombre_us, apellido_us, nombre_usuario_us, email_us, password_us } = req.body;
+        const { nombre_us, apellido_us, nombre_usuario_us, email_us, password_us, tipo_daltonismo } = req.body;
 
 
         const hash = await hashPassword(password_us);
-        const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email , contraseña, rol) VALUES (?,?,?,?,?,?)";
+        const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email , contraseña, rol, daltonismo) VALUES (?,?,?,?,?,?,?)";
 
-        connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, hash, "alumno"], (err, result) => {
+        connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, hash, "alumno", tipo_daltonismo], (err, result) => {
             if (err) {
                 console.error('Error al registrarse ', err);
                 res.status(500).send('Error al registrarse ');
@@ -159,6 +159,7 @@ app.post('/registrar', async (req, res) => {
                 req.session.email_us = email_us
                 req.session.password_us = password_us
                 req.session.rol_us = "alumno"
+                req.session.daltonismo = result.tipo_daltonismo;
                 req.session.user_sesion = true;
                 res.redirect('/index');
             }
@@ -214,6 +215,15 @@ app.post('/iniciar_sesion', async (req, res) => {
             req.session.email_us = userResults[0].email;
             req.session.password_us = userResults[0].contraseña;
             req.session.rol_us = userResults[0].rol;
+
+
+            req.session.daltonismo = userResults[0].daltonismo; // Este es el valor que obtuviste de la DB
+
+            // AQUI: Establece la cookie 'daltonismo' para el cliente
+            res.cookie('daltonismo', userResults[0].daltonismo, { maxAge: 31536000000, httpOnly: false, path: '/' });
+            // maxAge: 31536000000 (1 año en ms), httpOnly: false (necesario para que JS pueda leerla), path: '/'
+
+
             req.session.user_sesion = true;
             if (req.session.rol_us == "root") {
                 req.session.root = true;
@@ -527,10 +537,10 @@ app.post('/game-over-wordle', (req, res) => {
     const { tiempo, aciertos } = req.body;
     let id_us = req.session.usuario_id;
     var date = Datatime()
-    
+
     // Primero guardar TODA partida en el historial
     const insertHistorialQuery = "INSERT INTO `historial_wordle` (`id_us`, `aciertos`, `tiempo`, `fecha`) VALUES (?, ?, ?, ?)";
-    
+
     connection.query(insertHistorialQuery, [id_us, aciertos, tiempo, date], (err, historialResult) => {
         if (err) {
             console.error('Error al guardar en historial:', err);
@@ -683,7 +693,7 @@ app.post('/game-over-ahorcado', isLogged, (req, res) => {
 
     // Primero guardar TODA partida en el historial
     const insertHistorialQuery = "INSERT INTO `historial_ahorcado` (`id_us`, `id_area`, `aciertos`, `intentos_fallidos`, `tiempo`, `victoria`, `palabra_jugada`, `fecha`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    
+
     connection.query(insertHistorialQuery, [id_us, id_area, aciertos, intentos_fallidos, tiempo, victoria, palabra_jugada, date], (err, historialResult) => {
         if (err) {
             console.error('Error al guardar en historial:', err);

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <%- include('head.ejs') %>
-            <title>
-              Registrarse
-            </title>
-    </head>
-<body id="login"> 
-    <main class="background" >
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Registrarse
+        </title>
+</head>
+
+<body id="login">
+    <main class="background">
         <div class="overlay">
 
             <form method="post" action="/registrar">
@@ -23,29 +25,44 @@
                     </div>
                     <div class="cont_input">
                         <input name="nombre_usuario_us" type="text" placeholder="Escriba su nombre de usuario">
-                        
+
                     </div>
                     <div class="cont_input">
                         <input name="email_us" type="email" placeholder="Escriba su email">
                     </div>
-                    
+
                     <div class="cont_input">
-                        <input id="input" name="password_us" type="password" placeholder="Escriba su contraseña"> 
+                        <input id="input" name="password_us" type="password" placeholder="Escriba su contraseña">
                         <i class="fa-solid fa-lock" id="contra"></i>
+                    </div>
+                    <div class="form-group">
+                        <select name="tipo_daltonismo" id="tipo_daltonismo" class="custom-select">
+                            <option value="no_daltonico">Sin Daltonismo</option>
+                            <option value="protanopia">Protanopia (Ceguera al Rojo)</option>
+                            <option value="deuteranopia">Deuteranopia (Ceguera al Verde)</option>
+                            <option value="tritanopia">Tritanopia (Ceguera al Azul)</option>
+                            <option value="protanomaly">Protanomalía (Debilidad al Rojo)</option>
+                            <option value="deuteranomaly">Deuteranomalía (Debilidad al Verde)</option>
+                            <option value="tritanomaly">Tritanomalía (Debilidad al Azul)</option>
+                            <option value="acromatopsia">Acromatopsia (Ceguera Total al Color)</option>
+                            <option value="acromatomaly">Acromatomalía (Visión parcial al color)</option>
+                            <option value="otro">Otro / Prefiero no especificar</option>
+                        </select>
                     </div>
                     <button>Ingresar</button>
                     <a href="/login">¿Ya tienes una cuenta? ¡Ingresa!</a>
-                    <% if (typeof error !== 'undefined' && error) { %>
+                    <% if (typeof error !=='undefined' && error) { %>
                         <div class="error-message">
-                          <%= error %>
+                            <%= error %>
                         </div>
-                      <% } %>
+                        <% } %>
                 </div>
             </form>
 
         </div>
     </main>
 </body>
+
 </html>
 <script>
     const contra = document.getElementById("contra")
@@ -53,11 +70,11 @@
     contra.addEventListener("click", () => {
         contra.classList.toggle("fa-lock")
         contra.classList.toggle("fa-eye")
-       
+
         if (contra.classList.contains("fa-eye")) {
-            input.type = "text"; 
+            input.type = "text";
         } else if (contra.classList.contains("fa-lock")) {
-            input.type = "password"; 
+            input.type = "password";
         }
     })
 </script>

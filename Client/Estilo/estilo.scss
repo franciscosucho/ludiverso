@@ -17,29 +17,43 @@
 }
 
 
-/* variables para el DOM en general.<-----------------------------------------------------------> */
+/* variables para el DOM en general. */
 
+/* 1. Modo claro (por defecto) - Sin daltonismo */
 :root {
-    // Modo claro (por defecto)
     --color-fondo: #ffffff;
     --color-texto: #000000;
-
     --Fondo_principal: #ffffff;
     --Texto_principal: #333333;
     --Texto_secundario: #616161;
     --Encabezados_botones_y_primarios: #3e86d3;
+    /* Azul estándar */
     --Botones_secundarios_o_hover_azul: #7ab8ff;
+    /* Azul claro estándar */
     --Botones_secundarios_o_hover_verde: #a8d08d;
+    /* Verde estándar */
     --Botones_secundarios_o_hover_verde_oscuro: #85ad6e;
-    /* NUEVA VARIABLE para el hover */
+    /* Verde oscuro estándar */
     --fondo_azul_claro: rgba(165, 190, 245, 0.336);
     --fondo_azul_claro_hv: rgba(152, 176, 228, 0.336);
     --hover_card: #e0f0ff;
     --box_shadow: #c5c5c5;
     --box_shadow_2: #ffffff;
     --back_card: #e0f0ff17;
+    /* var areas */
+    --color_sociales: #90caf9;
+    /* Azul claro */
+    --color_exactas: #4db6ac;
+    /* Turquesa */
+    --color_edu: #ffd54f;
+    /* Amarillo */
+    --color_taller: #f48fb1;
+    /* Rosa */
+    --color_comu: #81c784;
+    /* Verde claro */
 }
 
+/* 2. Modo oscuro general - Sin daltonismo */
 :root[data-tema="oscuro"] {
     --color-fondo: #121212;
     --color-texto: #f0f0f0;
@@ -47,128 +61,552 @@
     --Texto_principal: #dddddd;
     --Texto_secundario: #b6b6b6;
     --Encabezados_botones_y_primarios: #3e86d3;
+    /* Azul estándar */
     --Botones_secundarios_o_hover_azul: #7ab8ff;
+    /* Azul claro estándar */
     --Botones_secundarios_o_hover_verde: #c1e7aa;
+    /* Verde más claro para oscuro */
     --Botones_secundarios_o_hover_verde_oscuro: #9eba7f;
-    /* NUEVA VARIABLE para el hover en modo oscuro */
+    /* Verde oscuro para oscuro */
     --fondo_azul_claro: rgba(93, 113, 155, 0.336);
     --box_shadow: rgba(0, 0, 0, 0.7);
     --box_shadow_2: rgba(0, 0, 0, 0.7);
     --hover_card: rgb(26, 26, 26);
     --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #90caf9;
+    /* Azul claro */
+    --color_exactas: #4db6ac;
+    /* Turquesa */
+    --color_edu: #ffd54f;
+    /* Amarillo */
+    --color_taller: #f48fb1;
+    /* Rosa */
+    --color_comu: #81c784;
+    /* Verde claro */
 }
-/* Protanopia (ceguera al rojo) */
+
+/* 3. Daltonismos en modo claro */
+
+/* Protanopia (ceguera al rojo) - Modo Claro */
 :root[data-daltonismo="protanopia"] {
     --color-fondo: #ffffff;
     --color-texto: #000000;
-
     --Fondo_principal: #ffffff;
     --Texto_principal: #333333;
     --Texto_secundario: #616161;
-    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
-    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
-    --Botones_secundarios_o_hover_verde: #80c060; /* Verde ajustado a un tono más azulado */
-    --Botones_secundarios_o_hover_verde_oscuro: #5a9040; /* Verde oscuro ajustado */
+    --Encabezados_botones_y_primarios: #007bff;
+    /* Azul ajustado para protanopia */
+    --Botones_secundarios_o_hover_azul: #66b3ff;
+    /* Azul más claro ajustado */
+    --Botones_secundarios_o_hover_verde: #80c060;
+    /* Verde ajustado a un tono más azulado */
+    --Botones_secundarios_o_hover_verde_oscuro: #5a9040;
+    /* Verde oscuro ajustado */
     --fondo_azul_claro: rgba(120, 150, 200, 0.336);
     --fondo_azul_claro_hv: rgba(110, 140, 190, 0.336);
     --hover_card: #e0f0ff;
     --box_shadow: #c5c5c5;
     --box_shadow_2: #ffffff;
     --back_card: #e0f0ff17;
+    /* var areas */
+    --color_sociales: #79a1f0;
+    /* Azul claro para protanopia */
+    --color_exactas: #70c4b2;
+    /* Turquesa para protanopia */
+    --color_edu: #ffe082;
+    /* Amarillo para protanopia */
+    --color_taller: #f8b0d4;
+    /* Rosa para protanopia */
+    --color_comu: #91d293;
+    /* Verde claro para protanopia */
 }
 
+/* Deuteranopia (ceguera al verde) - Modo Claro */
+:root[data-daltonismo="deuteranopia"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #007bff;
+    /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff;
+    /* Azul más claro ajustado */
+    --Botones_secundarios_o_hover_verde: #b0b060;
+    /* Verde ajustado a un tono más amarillento */
+    --Botones_secundarios_o_hover_verde_oscuro: #808040;
+    /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(120, 150, 200, 0.336);
+    --fondo_azul_claro_hv: rgba(110, 140, 190, 0.336);
+    --hover_card: #e0f0ff;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #e0f0ff17;
+    /* var areas */
+    --color_sociales: #79a1f0;
+    /* Azul claro para deuteranopia */
+    --color_exactas: #60c5b3;
+    /* Turquesa para deuteranopia */
+    --color_edu: #ffdc70;
+    /* Amarillo para deuteranopia */
+    --color_taller: #f8b0d4;
+    /* Rosa para deuteranopia */
+    --color_comu: #b2d5a3;
+    /* Verde claro para deuteranopia */
+}
+
+/* Tritanopia (ceguera al azul) - Modo Claro */
+:root[data-daltonismo="tritanopia"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #ff8000;
+    /* Naranja ajustado */
+    --Botones_secundarios_o_hover_azul: #ffa040;
+    /* Naranja más claro ajustado */
+    --Botones_secundarios_o_hover_verde: #a8d08d;
+    /* Verde estándar para tritanopia (no afectado) */
+    --Botones_secundarios_o_hover_verde_oscuro: #85ad6e;
+    /* Verde oscuro estándar para tritanopia */
+    --fondo_azul_claro: rgba(200, 150, 120, 0.336);
+    /* Ajustado a tonos cálidos */
+    --fondo_azul_claro_hv: rgba(190, 140, 110, 0.336);
+    --hover_card: #fff0e0;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #fff0e017;
+    /* var areas */
+    --color_sociales: #b39ddb;
+    /* Morado claro para tritanopia */
+    --color_exactas: #4db6ac;
+    /* Turquesa estándar para tritanopia (no afectado) */
+    --color_edu: #fff176;
+    /* Amarillo más claro para tritanopia */
+    --color_taller: #f48fb1;
+    /* Rosa estándar para tritanopia (no afectado) */
+    --color_comu: #aed581;
+    /* Verde más claro para tritanopia */
+}
+
+/* NUEVAS VARIABLES PARA DALTONISMO EN MODO CLARO */
+
+/* Protanomalía (debilidad al rojo) - Modo Claro */
+:root[data-daltonismo="protanomaly"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #1a70c0;
+    /* Azul ligeramente ajustado */
+    --Botones_secundarios_o_hover_azul: #80c0ff;
+    /* Azul claro ligeramente ajustado */
+    --Botones_secundarios_o_hover_verde: #98c870;
+    /* Verde ajustado, menos severo que protanopia */
+    --Botones_secundarios_o_hover_verde_oscuro: #75a05e;
+    /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(140, 170, 220, 0.336);
+    --fondo_azul_claro_hv: rgba(130, 160, 210, 0.336);
+    --hover_card: #e0f0ff;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #e0f0ff17;
+    /* var areas */
+    --color_sociales: #80a0f0;
+    --color_exactas: #60b0a0;
+    --color_edu: #ffe070;
+    --color_taller: #f8a0c0;
+    --color_comu: #80c080;
+}
+
+/* Deuteranomalía (debilidad al verde) - Modo Claro */
+:root[data-daltonismo="deuteranomaly"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #1a70c0;
+    /* Azul ligeramente ajustado */
+    --Botones_secundarios_o_hover_azul: #80c0ff;
+    /* Azul claro ligeramente ajustado */
+    --Botones_secundarios_o_hover_verde: #a0c080;
+    /* Verde ajustado, menos severo que deuteranopia */
+    --Botones_secundarios_o_hover_verde_oscuro: #709050;
+    /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(140, 170, 220, 0.336);
+    --fondo_azul_claro_hv: rgba(130, 160, 210, 0.336);
+    --hover_card: #e0f0ff;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #e0f0ff17;
+    /* var areas */
+    --color_sociales: #80a0f0;
+    --color_exactas: #60b0a0;
+    --color_edu: #ffe070;
+    --color_taller: #f8a0c0;
+    --color_comu: #90c080;
+}
+
+/* Tritanomalía (debilidad al azul) - Modo Claro */
+:root[data-daltonismo="tritanomaly"] {
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #ffffff;
+    --Texto_principal: #333333;
+    --Texto_secundario: #616161;
+    --Encabezados_botones_y_primarios: #ff9030;
+    /* Naranja ligeramente ajustado */
+    --Botones_secundarios_o_hover_azul: #ffa050;
+    /* Naranja más claro ligeramente ajustado */
+    --Botones_secundarios_o_hover_verde: #a8d08d;
+    /* Verde estándar para tritanopia (no afectado) */
+    --Botones_secundarios_o_hover_verde_oscuro: #85ad6e;
+    /* Verde oscuro estándar para tritanopia */
+    --fondo_azul_claro: rgba(200, 150, 120, 0.336);
+    --fondo_azul_claro_hv: rgba(190, 140, 110, 0.336);
+    --hover_card: #fff0e0;
+    --box_shadow: #c5c5c5;
+    --box_shadow_2: #ffffff;
+    --back_card: #fff0e017;
+    /* var areas */
+    --color_sociales: #b3a0d0;
+    --color_exactas: #4db6ac;
+    --color_edu: #fff176;
+    --color_taller: #f48fb1;
+    --color_comu: #aed581;
+}
+
+/* Acromatopsia (ceguera total al color) - Modo Claro */
+:root[data-daltonismo="acromatopsia"] {
+    /* Todo a escala de grises para simular la falta total de conos */
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #f0f0f0;
+    --Texto_principal: #303030;
+    --Texto_secundario: #606060;
+    --Encabezados_botones_y_primarios: #707070;
+    /* Gris medio */
+    --Botones_secundarios_o_hover_azul: #a0a0a0;
+    /* Gris claro */
+    --Botones_secundarios_o_hover_verde: #c0c0c0;
+    /* Gris muy claro */
+    --Botones_secundarios_o_hover_verde_oscuro: #909090;
+    /* Gris oscuro */
+    --fondo_azul_claro: rgba(200, 200, 200, 0.336);
+    /* Gris semi-transparente */
+    --fondo_azul_claro_hv: rgba(180, 180, 180, 0.336);
+    --hover_card: #e8e8e8;
+    --box_shadow: #b0b0b0;
+    --box_shadow_2: #ffffff;
+    --back_card: #e0e0e017;
+    /* var areas */
+    --color_sociales: #b0b0b0;
+    /* Gris claro */
+    --color_exactas: #909090;
+    /* Gris medio */
+    --color_edu: #707070;
+    /* Gris oscuro */
+    --color_taller: #c0c0c0;
+    /* Gris muy claro */
+    --color_comu: #a0a0a0;
+    /* Gris claro */
+}
+
+/* Acromatomalía (visión parcial al color, muy reducida) - Modo Claro */
+:root[data-daltonismo="acromatomaly"] {
+    /* Tonos muy desaturados, casi grises pero con un mínimo matiz de color */
+    --color-fondo: #ffffff;
+    --color-texto: #000000;
+    --Fondo_principal: #f5f5f5;
+    --Texto_principal: #353535;
+    --Texto_secundario: #656565;
+    --Encabezados_botones_y_primarios: #606060;
+    /* Casi gris */
+    --Botones_secundarios_o_hover_azul: #909090;
+    /* Casi gris claro */
+    --Botones_secundarios_o_hover_verde: #b0b0b0;
+    /* Casi gris muy claro */
+    --Botones_secundarios_o_hover_verde_oscuro: #808080;
+    /* Casi gris oscuro */
+    --fondo_azul_claro: rgba(210, 210, 210, 0.336);
+    --fondo_azul_claro_hv: rgba(190, 190, 190, 0.336);
+    --hover_card: #f0f0f0;
+    --box_shadow: #c0c0c0;
+    --box_shadow_2: #ffffff;
+    --back_card: #f0f0f017;
+    /* var areas (ejemplos con muy baja saturación) */
+    --color_sociales: #a0a0b0;
+    /* Gris azulado */
+    --color_exactas: #90a090;
+    /* Gris verdoso */
+    --color_edu: #b0b0a0;
+    /* Gris amarillento */
+    --color_taller: #b0a0a0;
+    /* Gris rojizo */
+    --color_comu: #a0b0a0;
+    /* Gris verdoso claro */
+}
+
+
+/* 4. Daltonismos combinados con modo oscuro */
+
+/* Protanopia (ceguera al rojo) - Modo Oscuro */
 :root[data-daltonismo="protanopia"][data-tema="oscuro"] {
     --color-fondo: #121212;
     --color-texto: #f0f0f0;
     --Fondo_principal: #1e1e1e;
     --Texto_principal: #dddddd;
     --Texto_secundario: #b6b6b6;
-    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
-    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
-    --Botones_secundarios_o_hover_verde: #90d070; /* Verde ajustado */
-    --Botones_secundarios_o_hover_verde_oscuro: #70a050; /* Verde oscuro ajustado */
+    --Encabezados_botones_y_primarios: #007bff;
+    /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff;
+    /* Azul más claro ajustado */
+    --Botones_secundarios_o_hover_verde: #90d070;
+    /* Verde ajustado */
+    --Botones_secundarios_o_hover_verde_oscuro: #70a050;
+    /* Verde oscuro ajustado */
     --fondo_azul_claro: rgba(70, 90, 130, 0.336);
     --box_shadow: rgba(0, 0, 0, 0.7);
     --box_shadow_2: rgba(0, 0, 0, 0.7);
     --hover_card: rgb(26, 26, 26);
     --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #6c9af5;
+    /* Azul claro para protanopia modo oscuro */
+    --color_exactas: #60a59a;
+    /* Turquesa para protanopia modo oscuro */
+    --color_edu: #e0d060;
+    /* Amarillo para protanopia modo oscuro */
+    --color_taller: #d090b0;
+    /* Rosa para protanopia modo oscuro */
+    --color_comu: #7bb57d;
+    /* Verde claro para protanopia modo oscuro */
 }
 
-/* Deuteranopia (ceguera al verde) */
-:root[data-daltonismo="deuteranopia"] {
-    --color-fondo: #ffffff;
-    --color-texto: #000000;
-
-    --Fondo_principal: #ffffff;
-    --Texto_principal: #333333;
-    --Texto_secundario: #616161;
-    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
-    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
-    --Botones_secundarios_o_hover_verde: #b0b060; /* Verde ajustado a un tono más amarillento */
-    --Botones_secundarios_o_hover_verde_oscuro: #808040; /* Verde oscuro ajustado */
-    --fondo_azul_claro: rgba(120, 150, 200, 0.336);
-    --fondo_azul_claro_hv: rgba(110, 140, 190, 0.336);
-    --hover_card: #e0f0ff;
-    --box_shadow: #c5c5c5;
-    --box_shadow_2: #ffffff;
-    --back_card: #e0f0ff17;
-}
-
+/* Deuteranopia (ceguera al verde) - Modo Oscuro */
 :root[data-daltonismo="deuteranopia"][data-tema="oscuro"] {
     --color-fondo: #121212;
     --color-texto: #f0f0f0;
     --Fondo_principal: #1e1e1e;
     --Texto_principal: #dddddd;
     --Texto_secundario: #b6b6b6;
-    --Encabezados_botones_y_primarios: #007bff; /* Azul ajustado */
-    --Botones_secundarios_o_hover_azul: #66b3ff; /* Azul más claro */
-    --Botones_secundarios_o_hover_verde: #d0d080; /* Verde ajustado */
-    --Botones_secundarios_o_hover_verde_oscuro: #a0a060; /* Verde oscuro ajustado */
+    --Encabezados_botones_y_primarios: #007bff;
+    /* Azul ajustado */
+    --Botones_secundarios_o_hover_azul: #66b3ff;
+    /* Azul más claro ajustado */
+    --Botones_secundarios_o_hover_verde: #d0d080;
+    /* Verde ajustado */
+    --Botones_secundarios_o_hover_verde_oscuro: #a0a060;
+    /* Verde oscuro ajustado */
     --fondo_azul_claro: rgba(70, 90, 130, 0.336);
     --box_shadow: rgba(0, 0, 0, 0.7);
     --box_shadow_2: rgba(0, 0, 0, 0.7);
     --hover_card: rgb(26, 26, 26);
     --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #6c9af5;
+    /* Azul claro para deuteranopia modo oscuro */
+    --color_exactas: #50a090;
+    /* Turquesa para deuteranopia modo oscuro */
+    --color_edu: #d0c050;
+    /* Amarillo para deuteranopia modo oscuro */
+    --color_taller: #d090b0;
+    /* Rosa para deuteranopia modo oscuro */
+    --color_comu: #a0b5a0;
+    /* Verde claro para deuteranopia modo oscuro */
 }
 
-/* Tritanopia (ceguera al azul) */
-:root[data-daltonismo="tritanopia"] {
-    --color-fondo: #ffffff;
-    --color-texto: #000000;
-
-    --Fondo_principal: #ffffff;
-    --Texto_principal: #333333;
-    --Texto_secundario: #616161;
-    --Encabezados_botones_y_primarios: #ff8000; /* Naranja ajustado */
-    --Botones_secundarios_o_hover_azul: #ffa040; /* Naranja más claro */
-    --Botones_secundarios_o_hover_verde: #a8d08d;
-    --Botones_secundarios_o_hover_verde_oscuro: #85ad6e;
-    --fondo_azul_claro: rgba(200, 150, 120, 0.336); /* Ajustado a tonos cálidos */
-    --fondo_azul_claro_hv: rgba(190, 140, 110, 0.336);
-    --hover_card: #fff0e0;
-    --box_shadow: #c5c5c5;
-    --box_shadow_2: #ffffff;
-    --back_card: #fff0e017;
-}
-
+/* Tritanopia (ceguera al azul) - Modo Oscuro */
 :root[data-daltonismo="tritanopia"][data-tema="oscuro"] {
     --color-fondo: #121212;
     --color-texto: #f0f0f0;
     --Fondo_principal: #1e1e1e;
     --Texto_principal: #dddddd;
     --Texto_secundario: #b6b6b6;
-    --Encabezados_botones_y_primarios: #ff8000; /* Naranja ajustado */
-    --Botones_secundarios_o_hover_azul: #ffa040; /* Naranja más claro */
+    --Encabezados_botones_y_primarios: #ff8000;
+    /* Naranja ajustado */
+    --Botones_secundarios_o_hover_azul: #ffa040;
+    /* Naranja más claro ajustado */
     --Botones_secundarios_o_hover_verde: #c1e7aa;
+    /* Verde más claro (no afectado por tritanopia) */
     --Botones_secundarios_o_hover_verde_oscuro: #9eba7f;
-    --fondo_azul_claro: rgba(150, 110, 70, 0.336); /* Ajustado a tonos cálidos */
+    /* Verde oscuro (no afectado por tritanopia) */
+    --fondo_azul_claro: rgba(150, 110, 70, 0.336);
     --box_shadow: rgba(0, 0, 0, 0.7);
     --box_shadow_2: rgba(0, 0, 0, 0.7);
     --hover_card: rgb(26, 26, 26);
     --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #9980d0;
+    /* Morado para tritanopia modo oscuro */
+    --color_exactas: #4db6ac;
+    /* Turquesa estándar para tritanopia (no afectado) */
+    --color_edu: #f0e060;
+    /* Amarillo para tritanopia modo oscuro */
+    --color_taller: #f48fb1;
+    /* Rosa estándar para tritanopia (no afectado) */
+    --color_comu: #a0b5a0;
+    /* Verde claro para tritanopia modo oscuro */
 }
 
+/* NUEVAS VARIABLES PARA DALTONISMO EN MODO OSCURO */
 
+/* Protanomalía (debilidad al rojo) - Modo Oscuro */
+:root[data-daltonismo="protanomaly"][data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #1a70c0;
+    /* Azul ligeramente ajustado */
+    --Botones_secundarios_o_hover_azul: #80c0ff;
+    /* Azul claro ligeramente ajustado */
+    --Botones_secundarios_o_hover_verde: #a0d070;
+    /* Verde ajustado, menos severo que protanopia */
+    --Botones_secundarios_o_hover_verde_oscuro: #75a05e;
+    /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(70, 90, 130, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
+    --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #70a0f0;
+    --color_exactas: #60b0a0;
+    --color_edu: #e0d070;
+    --color_taller: #d090c0;
+    --color_comu: #80c080;
+}
+
+/* Deuteranomalía (debilidad al verde) - Modo Oscuro */
+:root[data-daltonismo="deuteranomaly"][data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #1a70c0;
+    /* Azul ligeramente ajustado */
+    --Botones_secundarios_o_hover_azul: #80c0ff;
+    /* Azul claro ligeramente ajustado */
+    --Botones_secundarios_o_hover_verde: #c0c080;
+    /* Verde ajustado, menos severo que deuteranopia */
+    --Botones_secundarios_o_hover_verde_oscuro: #909060;
+    /* Verde oscuro ajustado */
+    --fondo_azul_claro: rgba(70, 90, 130, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
+    --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #70a0f0;
+    --color_exactas: #50b0a0;
+    --color_edu: #d0c070;
+    --color_taller: #d090c0;
+    --color_comu: #a0c080;
+}
+
+/* Tritanomalía (debilidad al azul) - Modo Oscuro */
+:root[data-daltonismo="tritanomaly"][data-tema="oscuro"] {
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #1e1e1e;
+    --Texto_principal: #dddddd;
+    --Texto_secundario: #b6b6b6;
+    --Encabezados_botones_y_primarios: #ff9030;
+    /* Naranja ligeramente ajustado */
+    --Botones_secundarios_o_hover_azul: #ffa050;
+    /* Naranja más claro ligeramente ajustado */
+    --Botones_secundarios_o_hover_verde: #c1e7aa;
+    /* Verde más claro (no afectado por tritanopia) */
+    --Botones_secundarios_o_hover_verde_oscuro: #9eba7f;
+    /* Verde oscuro (no afectado por tritanopia) */
+    --fondo_azul_claro: rgba(150, 110, 70, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.7);
+    --box_shadow_2: rgba(0, 0, 0, 0.7);
+    --hover_card: rgb(26, 26, 26);
+    --back_card: #2e2e2e32;
+    /* var areas */
+    --color_sociales: #9980d0;
+    --color_exactas: #4db6ac;
+    --color_edu: #e0d060;
+    --color_taller: #f48fb1;
+    --color_comu: #a0b5a0;
+}
+
+/* Acromatopsia (ceguera total al color) - Modo Oscuro */
+:root[data-daltonismo="acromatopsia"][data-tema="oscuro"] {
+    /* Todo a escala de grises para simular la falta total de conos */
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #282828;
+    --Texto_principal: #d0d0d0;
+    --Texto_secundario: #a0a0a0;
+    --Encabezados_botones_y_primarios: #707070;
+    /* Gris medio */
+    --Botones_secundarios_o_hover_azul: #a0a0a0;
+    /* Gris claro */
+    --Botones_secundarios_o_hover_verde: #c0c0c0;
+    /* Gris muy claro */
+    --Botones_secundarios_o_hover_verde_oscuro: #909090;
+    /* Gris oscuro */
+    --fondo_azul_claro: rgba(80, 80, 80, 0.336);
+    /* Gris semi-transparente */
+    --box_shadow: rgba(0, 0, 0, 0.8);
+    --box_shadow_2: rgba(0, 0, 0, 0.8);
+    --hover_card: #303030;
+    --back_card: #38383817;
+    /* var areas */
+    --color_sociales: #a0a0a0;
+    /* Gris claro */
+    --color_exactas: #808080;
+    /* Gris medio */
+    --color_edu: #606060;
+    /* Gris oscuro */
+    --color_taller: #b0b0b0;
+    /* Gris muy claro */
+    --color_comu: #909090;
+    /* Gris claro */
+}
+
+/* Acromatomalía (visión parcial al color, muy reducida) - Modo Oscuro */
+:root[data-daltonismo="acromatomaly"][data-tema="oscuro"] {
+    /* Tonos muy desaturados, casi grises pero con un mínimo matiz de color */
+    --color-fondo: #121212;
+    --color-texto: #f0f0f0;
+    --Fondo_principal: #252525;
+    --Texto_principal: #d5d5d5;
+    --Texto_secundario: #a5a5a5;
+    --Encabezados_botones_y_primarios: #656565;
+    /* Casi gris */
+    --Botones_secundarios_o_hover_azul: #959595;
+    /* Casi gris claro */
+    --Botones_secundarios_o_hover_verde: #b5b5b5;
+    /* Casi gris muy claro */
+    --Botones_secundarios_o_hover_verde_oscuro: #858585;
+    /* Casi gris oscuro */
+    --fondo_azul_claro: rgba(90, 90, 90, 0.336);
+    --box_shadow: rgba(0, 0, 0, 0.8);
+    --box_shadow_2: rgba(0, 0, 0, 0.8);
+    --hover_card: #333333;
+    --back_card: #3a3a3a17;
+    /* var areas (ejemplos con muy baja saturación) */
+    --color_sociales: #a0a0b5;
+    /* Gris azulado */
+    --color_exactas: #90a590;
+    /* Gris verdoso */
+    --color_edu: #b5b5a0;
+    /* Gris amarillento */
+    --color_taller: #b5a0a0;
+    /* Gris rojizo */
+    --color_comu: #a5b5a0;
+    /* Gris verdoso claro */
+}
 
 //-----------------------------------------
 // Colores para los cuadros de las materias.
@@ -299,7 +737,7 @@ body {
 
                     &:hover {
                         animation: shake 0.5s ease;
-                        background-color: #5a98db;
+                        background-color: var(--Botones_secundarios_o_hover_azul);
                     }
                 }
 
@@ -562,24 +1000,24 @@ body {
                     }
 
                     &#cont_sociales {
-                        background-color: $color_sociales;
+                        background-color: var(--color_sociales);
 
                     }
 
                     &#cont_exactas {
-                        background-color: $color_exactas;
+                        background-color: var(--color_exactas);
                     }
 
                     &#cont_taller {
-                        background-color: $color_taller;
+                        background-color: var(--color_taller);
                     }
 
                     &#cont_central {
-                        background-color: $color_comu;
+                        background-color: var(--color_comu);
                     }
 
                     &#cont_edu {
-                        background-color: $color_edu;
+                        background-color: var(--color_edu);
                     }
                 }
 
@@ -2139,8 +2577,8 @@ body {
 
             .nivel {
                 position: relative;
-                background: linear-gradient(to bottom, #3e86d3, #3572b3);
-                border: 4px solid #3268a1;
+                background: linear-gradient(to bottom, var(--Encabezados_botones_y_primarios), var(--Botones_secundarios_o_hover_azul));
+                border: 4px solid var(--Botones_secundarios_o_hover_azul);
                 height: 80px;
                 width: 80px;
                 color: #43c443;
@@ -2152,7 +2590,7 @@ body {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                box-shadow: 0 4px 0 #3268a1, 0 4px 8px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 4px 0 var(--Encabezados_botones_y_primarios), 0 4px 8px rgba(0, 0, 0, 0.15);
                 cursor: pointer;
                 transition: all 0.2s ease-in-out;
 
@@ -2167,12 +2605,12 @@ body {
 
                 &:hover {
                     transform: translateY(-2px);
-                    box-shadow: 0 6px 0 #3268a1, 0 6px 12px rgba(0, 0, 0, 0.2);
+                    box-shadow: 0 6px 0 var(--Encabezados_botones_y_primarios), 0 6px 12px rgba(0, 0, 0, 0.2);
                 }
 
                 &:active {
                     transform: translateY(2px);
-                    box-shadow: 0 2px 0 #3268a1, 0 2px 4px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 2px 0 var(--Encabezados_botones_y_primarios), 0 2px 4px rgba(0, 0, 0, 0.1);
                 }
 
                 // Línea que conecta hacia el siguiente botón
@@ -2182,8 +2620,9 @@ body {
                     top: 100%; // desde el centro inferior del botón
                     left: 50%;
                     width: 2px;
+                    margin-top: 10px;
                     height: 80px; // misma distancia que el gap
-                    border-left: 2px dashed #3572b3;
+                    border-left: 2px dashed var(--Texto_principal);
                     transform: translateX(-50%);
                     z-index: 0;
                 }
@@ -2329,7 +2768,7 @@ body {
             &:hover {
 
                 animation: shake 0.5s ease;
-                background-color: #3979be;
+
 
             }
         }
@@ -2397,7 +2836,7 @@ body {
 
             img {
                 border-radius: 8px;
-                background-color: #7ab8ff5d;
+                background-color: var(--fondo_azul_claro);
                 width: 400px;
                 height: 400px;
                 box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
@@ -2409,6 +2848,7 @@ body {
                 gap: 20px;
 
                 span {
+                    opacity: .7;
                     cursor: pointer;
                     border-radius: 8px;
                     font-size: 1.3em;
@@ -2421,7 +2861,7 @@ body {
                     color: var(--Texto_principal);
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
                     transition: box-shadow 0.3s ease;
-                    background-color: #7ab8ff5d;
+                    background-color: var(--fondo_azul_claro);
 
                     &:hover {
                         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
@@ -2572,7 +3012,7 @@ body {
     }
 
     #cont_ganar {
-        background-color: #f0f8ff;
+        background-color: var(--back_card);
         padding: 3rem 1rem;
         border-radius: 16px;
         max-width: 800px;
@@ -2587,7 +3027,7 @@ body {
 
         h2 {
             font-size: 2rem;
-            color: #1e88e5;
+            color: var(--Encabezados_botones_y_primarios);
             margin-bottom: 1rem;
         }
 
@@ -2601,17 +3041,17 @@ body {
 
             .subtitulo {
                 font-size: 1.2rem;
-                color: #333;
+                color: var(--Botones_secundarios_o_hover_azul);
                 margin-bottom: 1.5rem;
             }
 
             .cont_results {
-                background-color: #bbdefb;
+                background-color: var(--hover_card);
                 padding: 1.5rem;
                 border-radius: 12px;
                 margin: 1rem auto;
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                color: #0d47a1;
+                color: var(--Botones_secundarios_o_hover_azul);
                 max-width: 600px;
                 width: 100%;
 
@@ -2778,7 +3218,6 @@ body {
 
             &:hover {
                 animation: shake 0.5s ease;
-                background-color: #5a98db;
             }
         }
 
@@ -3179,7 +3618,10 @@ $right :#538d4e;
         flex-direction: column;
 
         .cont_logo {
-            padding: 10px;
+            background-color: rgb(55, 55, 243);
+            border-top-left-radius: 20px;
+            /* Esquina superior izquierda */
+            border-top-right-radius: 20px;
             width: 100%;
             height: auto;
             display: flex;
@@ -3205,11 +3647,10 @@ $right :#538d4e;
             width: 100%;
             height: 100%;
 
-
-
             .cont_input {
                 width: 70%;
                 height: 60px;
+                /* Mantén esto si quieres que los inputs de texto sigan siendo de esta altura */
                 gap: 5px;
                 display: flex;
                 justify-content: flex-start;
@@ -3217,27 +3658,89 @@ $right :#538d4e;
                 align-items: center;
                 border: 1px solid rgba(128, 128, 128, 0.253);
                 border-radius: 30px;
-                padding: 20px;
+                padding: 0 20px;
                 transition: all .1s ease-in-out;
+                background-color: #ffffff;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+                &:focus-within {
+                    border-color: #3e86d3;
+                    box-shadow: 0 2px 8px rgba(62, 134, 211, 0.2);
+                }
 
                 #contra {
                     cursor: pointer;
+                    color: #616161;
+                    font-size: 1.2em;
                 }
 
                 input {
-                    color: rgba(128, 128, 128, 0.253);
+                    color: #333333;
                     border: none;
                     background-color: transparent;
-
                     outline: none;
                     width: 100%;
-                    height: 20px;
+                    height: 100%;
+                    font-size: 1em;
+                    padding: 0;
 
-                    font-size: 1em !important;
-                    color: black;
+                    &::placeholder {
+                        color: #999999;
+                    }
                 }
             }
 
+            .form-group {
+                width: 70%;
+                margin-bottom: 20px;
+
+                .form-label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-size: 0.9em;
+                    /* Etiqueta ligeramente más pequeña */
+                    color: #333333;
+                    font-weight: 500;
+                }
+
+                .custom-select {
+                    width: 100%;
+                    padding: 8px 15px;
+                    /* Reducido el padding vertical para hacerlo más chico */
+                    min-height: 40px;
+                    /* Establece una altura mínima si el padding no es suficiente */
+                    border: 1px solid rgba(128, 128, 128, 0.253);
+                    border-radius: 30px;
+                    background-color: #ffffff;
+                    color: #333333;
+                    font-size: 0.9em;
+                    /* Fuente ligeramente más pequeña */
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#333333" d="M7 10l5 5 5-5z"/></svg>');
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-size: 18px;
+                    /* Tamaño de la flecha ligeramente más pequeño */
+                    cursor: pointer;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                    transition: all .1s ease-in-out;
+
+                    &:focus {
+                        border-color: #3e86d3;
+                        box-shadow: 0 0 0 3px rgba(62, 134, 211, 0.3);
+                        outline: none;
+                    }
+
+                    option {
+                        background-color: #ffffff;
+                        color: #333333;
+                        font-size: 0.9em;
+                        /* También las opciones */
+                    }
+                }
+            }
 
 
             button {
@@ -3389,7 +3892,7 @@ $right :#538d4e;
                     align-items: center;
                     gap: 40px;
 
-                    background-color: rgba(255, 255, 255, 0.685);
+                    background-color: var(--fondo_azul_claro);
 
                     img {
                         border-radius: 20px;
@@ -3410,6 +3913,10 @@ $right :#538d4e;
                         gap: 30px;
                         justify-content: flex-start;
 
+                        p {
+                            color: var(--Texto_secundario);
+                        }
+
                         .cont_tit {
                             padding: 0px 4px;
                             width: 100%;
@@ -3421,7 +3928,7 @@ $right :#538d4e;
                             h3 {
                                 font-size: 1.8em;
                                 font-weight: bolder;
-                                color: #333333;
+                                color: var(--Texto_principal);
                             }
 
                             .cont_estrellas {
@@ -3437,7 +3944,7 @@ $right :#538d4e;
                                 span {
                                     font-weight: bold;
                                     font-size: 1em;
-                                    color: #333333;
+                                    color: var(--Texto_secundario);
                                 }
                             }
 
@@ -3459,14 +3966,15 @@ $right :#538d4e;
                                 border-radius: 20px;
                                 text-decoration: none;
 
-                                background-color: var(--Botones_secundarios_o_hover_azul);
+
+                                background-color: var(--Encabezados_botones_y_primarios);
                                 color: #ffff;
                                 font-size: 1.2em;
                                 font-weight: 800;
                                 transition: all .2s ease-in-out;
 
                                 &:hover {
-                                    background-color: #6ca3e2;
+                                    background-color: var(--Botones_secundarios_o_hover_azul);
                                 }
                             }
                         }
@@ -4252,24 +4760,24 @@ $right :#538d4e;
             }
 
             .lista-miembros {
-               
+
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 25px; 
+                gap: 25px;
                 margin-top: 20px;
 
                 .miembro-equipo {
-                
-                    position: relative; 
-                    padding: 15px 20px; 
+
+                    position: relative;
+                    padding: 15px 20px;
                     border-radius: 8px;
-                    background-color: var(--hover_card); 
+                    background-color: var(--hover_card);
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-                    min-width: 180px; 
+                    min-width: 180px;
                     flex-basis: auto;
-                    overflow: hidden; 
+                    overflow: hidden;
                     cursor: pointer;
                     display: flex;
                     flex-direction: column;
@@ -4277,21 +4785,21 @@ $right :#538d4e;
                     align-items: center;
 
                     &:before {
-                        
+
                         content: none;
                     }
 
                     .nombre-miembro {
                         color: var(--Texto_principal);
                         font-weight: bold;
-                        margin-bottom: 5px; 
-                        transition: margin-bottom 0.3s ease; 
+                        margin-bottom: 5px;
+                        transition: margin-bottom 0.3s ease;
                         font-size: 1.1em;
                     }
 
                     .rol {
-                        position: absolute; 
-                        bottom: 0; 
+                        position: absolute;
+                        bottom: 0;
                         left: 0;
                         width: 100%;
                         padding: 10px 15px;
@@ -4299,10 +4807,10 @@ $right :#538d4e;
                         color: white;
                         text-align: center;
                         font-size: 0.9em;
-                        opacity: 0; 
+                        opacity: 0;
                         transform: translateY(100%);
                         transition: opacity 0.3s ease, transform 0.3s ease;
-                        box-sizing: border-box; 
+                        box-sizing: border-box;
                     }
 
                     &:hover {
@@ -4312,11 +4820,11 @@ $right :#538d4e;
 
                         .rol {
                             opacity: 1;
-                            transform: translateY(0); 
+                            transform: translateY(0);
                         }
 
                         .nombre-miembro {
-                            margin-bottom: 25px; 
+                            margin-bottom: 25px;
                         }
                     }
                 }
@@ -4328,18 +4836,18 @@ $right :#538d4e;
 
 @media (max-width: 768px) {
     #pagina-ludiverso {
-     
+
         .seccion-equipo {
 
             .profesores,
             .estudiantes {
                 .lista-miembros {
-                    gap: 15px; 
+                    gap: 15px;
                 }
 
                 .miembro-equipo {
-                    min-width: unset; 
-                    width: 100%; 
+                    min-width: unset;
+                    width: 100%;
                 }
             }
         }

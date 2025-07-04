@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// Funciones para el modo claro/oscuro
+
 function setModo(modo) {
     document.documentElement.setAttribute("data-tema", modo);
     document.cookie = "modo=" + modo + "; path=/; max-age=31536000";
@@ -100,15 +100,17 @@ function leerModoDeCookie() {
 document.getElementById("icon_tema").addEventListener("click", () => {
     const actual = document.documentElement.getAttribute("data-tema") || "claro";
     const nuevo = actual === "oscuro" ? "claro" : "oscuro";
-    console.log(actual)
-    console.log(nuevo)
+    console.log(actual);
+    console.log(nuevo);
     setModo(nuevo);
 });
 
-
-// --- Nuevas funciones para el daltonismo ---
 function setDaltonismo(tipo) {
-    document.documentElement.setAttribute("data-daltonismo", tipo);
+    if (tipo === 'no_daltonico' || tipo === '') {
+        document.documentElement.removeAttribute("data-daltonismo");
+    } else {
+        document.documentElement.setAttribute("data-daltonismo", tipo);
+    }
     document.cookie = "daltonismo=" + tipo + "; path=/; max-age=31536000";
 }
 
@@ -118,12 +120,28 @@ function leerDaltonismoDeCookie() {
     return daltonismo ? daltonismo.split("=")[1] : null;
 }
 
-// --- Aplicación del estilo de daltonismo por defecto al cargar la página ---
 window.addEventListener("DOMContentLoaded", () => {
-    const modo = leerModoDeCookie() || "claro";
-    setModo(modo);
+    const modoGuardado = leerModoDeCookie() || "claro";
+    setModo(modoGuardado);
 
-    // Define el tipo de daltonismo que quieres ver. Puedes cambiarlo aquí.
-    const daltonismoPorDefecto = "tritanopia"; // Cambia esto a 'deuteranopia', 'tritanopia', o 'normal'
-    setDaltonismo(daltonismoPorDefecto);
+    const daltonismoSelect = document.getElementById('tipo_daltonismo');
+    const daltonismoGuardado = leerDaltonismoDeCookie();
+
+    if (daltonismoGuardado) {
+        setDaltonismo(daltonismoGuardado);
+        if (daltonismoSelect) {
+            daltonismoSelect.value = daltonismoGuardado;
+        }
+    } else {
+        if (daltonismoSelect) {
+            daltonismoSelect.value = "no_daltonico";
+        }
+        setDaltonismo("no_daltonico");
+    }
+
+    if (daltonismoSelect) {
+        daltonismoSelect.addEventListener('change', () => {
+            setDaltonismo(daltonismoSelect.value);
+        });
+    }
 });
