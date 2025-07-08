@@ -1,5 +1,6 @@
 // server/routes/dashboard.js
 const express = require('express');
+const session = require('express-session');
 const router = express.Router();
 const connection = require('./../config/db.js');
 const multer = require('multer');
@@ -8,12 +9,33 @@ const path = require("path");
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 const sharp = require("sharp")
 const crypto = require('crypto');
+
+
+
+
+// // Configuración de express-session
+router.use(
+    session({
+        secret: "Pzdb3Jc%V8pB},p8|$>4r%t'|cs;kzaq8=X",
+        resave: false,
+        saveUninitialized: true,
+        cookie: {
+            secure: false,
+            maxAge: 30 * 60 * 1000, // 30 minutos en milisegundos 
+        },
+    })
+);
+
+
 function saveImage(file) {
     const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
     const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
     fs.renameSync(file.path, newPath);
     return url_nov;
 }
+
+
+
 const isLogged = (req, res, next) => {
     if (!req.session.usuario_id) {
         console.log('Usuario no autenticado - No hay ID de usuario en la sesión');
@@ -153,7 +175,7 @@ router.post('/borrar_user', async (req, res) => {
 
     // Ejecutar eliminaciones en secuencia
     let currentQuery = 0;
-    
+
     function executeNextQuery() {
         if (currentQuery >= deleteQueries.length) {
             // Todas las eliminaciones relacionadas completadas, ahora eliminar el usuario
@@ -421,7 +443,7 @@ router.get("/dash_memory", isLogged, async (req, res) => {
                     if (result_memory[index].id_juego == 3) {
                         let nivel = result_memory[index].id_nivel
                         niveles_resources.push(nivel);
-                        
+
                     }
 
                 }
@@ -535,7 +557,7 @@ router.post("/dash_agregar_juego", uploadMultiple_sharp.array('imagenes'), async
 
 
 router.get("/dash_rompecabezas", isLogged, async (req, res) => {
- try {
+    try {
         let select_memory = "SELECT * FROM `niveles_memory` WHERE id_juego=2 ORDER BY `id_nivel` DESC;";
         connection.query(select_memory, (err, result_memory) => {
             if (err) {
@@ -547,9 +569,9 @@ router.get("/dash_rompecabezas", isLogged, async (req, res) => {
                     if (result_memory[index].id_juego == 3) {
                         let nivel = result_memory[index].id_nivel
                         niveles_resources.push(nivel);
-                         console.log(nivel)
+                        console.log(nivel)
                     }
-                   
+
                 }
                 if (niveles_resources.length === 0) {
                     return res.status(404).send("No se encontraron niveles");
@@ -591,7 +613,7 @@ router.get('/profile', isLogged, async (req, res) => {
     try {
         const userId = req.session.usuario_id;
         console.log('ID de usuario de la sesión:', userId);
-        
+
         // Obtener datos del usuario
         const userQuery = "SELECT * FROM usuarios WHERE usuario_id = ?";
         connection.query(userQuery, [userId], (err, userResult) => {
@@ -623,7 +645,7 @@ router.get('/profile', isLogged, async (req, res) => {
                         COALESCE((SELECT SUM(aciertos) FROM historial_wordle WHERE id_us = ?), 0)
                     ) as puntosTotales
             `;
-            
+
             console.log('Ejecutando consulta de estadísticas generales para usuario:', userId);
             connection.query(statsQuery, [userId, userId, userId, userId, userId, userId, userId], (err, statsResult) => {
                 if (err) {
@@ -632,13 +654,13 @@ router.get('/profile', isLogged, async (req, res) => {
                 }
 
                 console.log('Resultado de estadísticas generales:', statsResult);
-                
+
                 // Agregar ranking simple
                 const stats = statsResult[0] || { juegosJugados: 0, puntosTotales: 0 };
                 stats.ranking = stats.puntosTotales > 0 ? 'Activo' : 'Nuevo';
-                
+
                 console.log('Estadísticas finales para renderizar:', stats);
-                
+
                 res.render('profile', {
                     user: userResult[0],
                     stats: stats,
@@ -655,7 +677,7 @@ router.get('/profile', isLogged, async (req, res) => {
 // Ruta de prueba para verificar conexión
 router.get('/test-stats', isLogged, (req, res) => {
     const userId = req.session.usuario_id;
-    
+
     // Probar consulta de estadísticas generales
     const statsQuery = `
         SELECT 
@@ -671,15 +693,15 @@ router.get('/test-stats', isLogged, (req, res) => {
                 COALESCE((SELECT SUM(aciertos) FROM historial_wordle WHERE id_us = ?), 0)
             ) as puntosTotales
     `;
-    
+
     connection.query(statsQuery, [userId, userId, userId, userId, userId, userId, userId], (err, result) => {
         if (err) {
             console.error('Error en consulta de prueba:', err);
             return res.status(500).json({ error: 'Error en consulta' });
         }
-        
-        res.json({ 
-            message: 'Ruta funcionando', 
+
+        res.json({
+            message: 'Ruta funcionando',
             userId: userId,
             stats: result[0] || { juegosJugados: 0, puntosTotales: 0 }
         });
@@ -690,13 +712,13 @@ router.get('/test-stats', isLogged, (req, res) => {
 router.get('/profile-stats', isLogged, (req, res) => {
     const userId = req.session.usuario_id;
     console.log('Obteniendo estadísticas para usuario:', userId);
-    
+
     // Consultas para cada juego
     const memoryQuery = "SELECT COUNT(*) as niveles_completados, COALESCE(SUM(puntaje_total), 0) as puntaje_total FROM estadisticas WHERE usuario_id = ?";
     const wordleQuery = "SELECT COALESCE(MAX(aciertos), 0) as mejor_aciertos, COALESCE(MIN(tiempo), 0) as mejor_tiempo FROM historial_wordle WHERE id_us = ?";
     const ahorcadoQuery = "SELECT COUNT(*) as victorias, COALESCE(MIN(tiempo), 0) as mejor_tiempo FROM historial_ahorcado WHERE id_us = ? AND victoria = 1";
     const puzzleQuery = "SELECT COUNT(*) as niveles_completados FROM niveles_us WHERE id_us = ? AND id_juego = 2";
-    
+
     // Ejecutar todas las consultas en paralelo
     Promise.all([
         new Promise((resolve, reject) => {
@@ -724,62 +746,64 @@ router.get('/profile-stats', isLogged, (req, res) => {
             });
         })
     ])
-    .then(([memory, wordle, ahorcado, puzzle]) => {
-        const response = {
-            memory: { 
-                niveles_completados: memory.niveles_completados,
-                puntaje_total: memory.puntaje_total
-            },
-            wordle: { 
-                mejor_aciertos: wordle.mejor_aciertos,
-                mejor_tiempo: wordle.mejor_tiempo
-            },
-            ahorcado: { 
-                victorias: ahorcado.victorias,
-                mejor_tiempo: ahorcado.mejor_tiempo
-            },
-            puzzle: { 
-                niveles_completados: puzzle.niveles_completados,
-                mejor_tiempo: 0
-            }
-        };
-        
-        console.log('Estadísticas completas obtenidas:', response);
-        res.json(response);
-    })
-    .catch(err => {
-        console.error('Error al obtener estadísticas:', err);
-        res.status(500).json({ error: 'Error al obtener estadísticas' });
-    });
+        .then(([memory, wordle, ahorcado, puzzle]) => {
+            const response = {
+                memory: {
+                    niveles_completados: memory.niveles_completados,
+                    puntaje_total: memory.puntaje_total
+                },
+                wordle: {
+                    mejor_aciertos: wordle.mejor_aciertos,
+                    mejor_tiempo: wordle.mejor_tiempo
+                },
+                ahorcado: {
+                    victorias: ahorcado.victorias,
+                    mejor_tiempo: ahorcado.mejor_tiempo
+                },
+                puzzle: {
+                    niveles_completados: puzzle.niveles_completados,
+                    mejor_tiempo: 0
+                }
+            };
+
+            console.log('Estadísticas completas obtenidas:', response);
+            res.json(response);
+        })
+        .catch(err => {
+            console.error('Error al obtener estadísticas:', err);
+            res.status(500).json({ error: 'Error al obtener estadísticas' });
+        });
 });
 
 // Ruta para actualizar el perfil
 router.post('/actualizar_perfil', isLogged, async (req, res) => {
+
     try {
-        const { usuario_id, nombre, apellido, email, password } = req.body;
-        
-        let query = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?";
-        const params = [nombre, apellido, email];
-        
+        const { usuario_id, nombre, apellido, email, password, daltonismo } = req.body;
+
+        let query = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, daltonismo=?";
+        const params = [nombre, apellido, email, daltonismo];
+
         // Solo actualizar contraseña si se proporciona una nueva
         if (password && password.trim() !== '') {
             query += ", contraseña = ?";
             params.push(password);
         }
-        
+
         query += " WHERE usuario_id = ?";
         params.push(usuario_id);
-        
+
         connection.query(query, params, (err, result) => {
             if (err) {
                 console.error('Error al actualizar el perfil:', err);
                 return res.status(500).send('Error al actualizar el perfil');
             }
-            
+
             // Actualizar datos de sesión
             req.session.nombre_us = nombre;
             req.session.apellido_us = apellido;
-            
+            req.session.daltonismo = daltonismo
+            res.cookie('daltonismo', daltonismo, { maxAge: 31536000000, httpOnly: false, path: '/' });
             res.redirect('/profile');
         });
     } catch (err) {

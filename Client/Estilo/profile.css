@@ -93,7 +93,7 @@
     margin-left: 0.5rem;
 }
 
-.form-group input {
+.form-group input,select {
     padding: 1rem 1.2rem;
     border: 2px solid var(--back_card);
     border-radius: 12px;

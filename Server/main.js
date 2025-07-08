@@ -217,11 +217,11 @@ app.post('/iniciar_sesion', async (req, res) => {
             req.session.rol_us = userResults[0].rol;
 
 
-            req.session.daltonismo = userResults[0].daltonismo; // Este es el valor que obtuviste de la DB
+            req.session.daltonismo = userResults[0].daltonismo; 
 
-            // AQUI: Establece la cookie 'daltonismo' para el cliente
+          
             res.cookie('daltonismo', userResults[0].daltonismo, { maxAge: 31536000000, httpOnly: false, path: '/' });
-            // maxAge: 31536000000 (1 año en ms), httpOnly: false (necesario para que JS pueda leerla), path: '/'
+           
 
 
             req.session.user_sesion = true;

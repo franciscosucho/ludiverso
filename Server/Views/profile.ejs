@@ -46,7 +46,19 @@
                         <label for="password">Nueva Contraseña</label>
                         <input type="password" id="password" name="password" placeholder="Dejar en blanco para mantener la actual">
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="daltonismo">Daltonismo</label>
+                        <%
+                        var modo_daltonismo= ['no_daltonico','protanopia','deuteranopia','tritanopia','protanomaly','deuteranomaly','tritanomaly','acromatopsia','acromatomaly','otro']
+                        %>
+                        <select name="daltonismo" id="daltonismo"> 
+                            <% modo_daltonismo.forEach((dalto) => { %> 
+                                <option value="<%= dalto %>" <%= user.daltonismo === dalto ? 'selected' : '' %>>
+                                    <%= dalto %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
                     <button type="submit" class="btn-save">Guardar Cambios</button>
                 </form>
             </div>
