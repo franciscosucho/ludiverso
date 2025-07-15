@@ -10,7 +10,7 @@
 
 <body>
     <%- include('header.ejs') %>
-        <main id="dashboard">
+        <main id="main-content" class="dashboard">
             <h2>Editar usuario: "<%= data_user[0].nombre_usuario %>" </h2>
             <section class="admin-users">
                 <form id="form_editar_user" action="/editar_us_post" method="POST">
