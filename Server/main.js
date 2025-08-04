@@ -140,16 +140,29 @@ app.get('/register', (req, res) => {
 
 app.post('/registrar', async (req, res) => {
     try {
-        const { nombre_us, apellido_us, nombre_usuario_us, email_us, password_us, tipo_daltonismo } = req.body;
+        const { nombre_us, apellido_us, nombre_usuario_us, email_us, recibir_nov, password_us, tipo_daltonismo } = req.body;
+        console.log("asda", recibir_nov)
+        let bol_recibir = 0;
+        if (recibir_nov === 'on') {
+            bol_recibir = 1;
+        }
 
 
         const hash = await hashPassword(password_us);
-        const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email , contraseña, rol, daltonismo) VALUES (?,?,?,?,?,?,?)";
+        const insert_usuario = "INSERT INTO usuarios ( nombre , apellido , nombre_usuario , email ,recibir_nov, contraseña, rol, daltonismo) VALUES (?,?,?,?,?,?,?,?)";
 
-        connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, hash, "alumno", tipo_daltonismo], (err, result) => {
+        connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, bol_recibir, hash, "alumno", tipo_daltonismo], (err, result) => {
             if (err) {
-                console.error('Error al registrarse ', err);
-                res.status(500).send('Error al registrarse ');
+              
+                if (err.code === 'ER_DUP_ENTRY') {
+                   
+                    console.error('Error al registrarse: El email ya está registrado.', err);
+                    res.render('register', { error: 'El email ingresado ya se encuentra registrado. Por favor, utilice otro.' });
+                } else {
+                    // Otros errores de base de datos
+                    console.error('Error al registrarse en la base de datos:', err);
+                    res.render('register', { error: 'Ocurrió un error al intentar registrar el usuario. Inténtelo de nuevo.' });
+                }
             } else {
                 // Usar directamente el ID del usuario recién insertado
                 req.session.usuario_id = result.insertId;
@@ -217,11 +230,11 @@ app.post('/iniciar_sesion', async (req, res) => {
             req.session.rol_us = userResults[0].rol;
 
 
-            req.session.daltonismo = userResults[0].daltonismo; 
+            req.session.daltonismo = userResults[0].daltonismo;
 
-          
+
             res.cookie('daltonismo', userResults[0].daltonismo, { maxAge: 31536000000, httpOnly: false, path: '/' });
-           
+
 
 
             req.session.user_sesion = true;
@@ -415,8 +428,8 @@ app.get('/juego_intro', (req, res) => {
 app.get('/puntaje_us', isLogged, (req, res) => {
 
     let { id_juego, id_nivel, id_area, intentos_res, aciertos_res, tiempo_res, intentos_intro, tiempo_intro } = req.query;
-    // let puntaje = Math.max(0, (aciertos_res * 100) - (intentos_res * 5) - (tiempo_res * 2));
-    let puntaje = 100
+    let puntaje = Math.max(0, (aciertos_res * 100) - (intentos_res * 5) - (tiempo_res * 2));
+
     let id_us = req.session.usuario_id;
     let fecha_act = new Date();
 
@@ -534,6 +547,7 @@ app.get('/wordle', isLogged, (req, res) => {
 })
 
 app.post('/game-over-wordle', (req, res) => {
+
     const { tiempo, aciertos } = req.body;
     let id_us = req.session.usuario_id;
     var date = Datatime()

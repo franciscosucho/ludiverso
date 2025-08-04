@@ -15,16 +15,17 @@
                     <img src="resources/imagenes/logo_ludi.png" alt="">
                 </div>
                 <div id="cont_main_inputs">
+                    <h2>Iniciar sesion</h2>
                     <div class="cont_input">
-                        <input name="user_name" type="text" placeholder="Nombre de usuario">
+                        <input name="user_name" type="text" placeholder="Nombre de usuario" required>
                     </div>
                     <div class="cont_input">
-                        <input id="input" name="password" type="password" placeholder="Contraseña"> 
+                        <input id="input" name="password" type="password" placeholder="Contraseña" required> 
                         <i class="fa-solid fa-lock" id="contra"></i>
                     </div>
                     <button>Ingresar</button>
                     <a href="/register">No tienes cuenta todavia?</a>
-                    <a href="/recuperarContra">Olvidaste tu contraseña?</a>
+                    <a href="/recuperar_contra_view">Olvidaste tu contraseña?</a>
                     <% if (typeof error !== 'undefined' && error) { %>
                         <div class="error-message">
                           <%= error %>

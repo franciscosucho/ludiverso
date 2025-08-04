@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-07-2025 a las 20:02:20
+-- Tiempo de generación: 04-08-2025 a las 19:56:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -73,7 +73,8 @@ CREATE TABLE `estadisticas` (
 --
 
 INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`, `id_nivel`) VALUES
-(149, 5, 3, 200, '2025-06-27 10:21:40', 1);
+(149, 5, 3, 200, '2025-06-27 10:21:40', 1),
+(150, 5, 3, 100, '2025-07-30 18:42:58', 2);
 
 -- --------------------------------------------------------
 
@@ -106,6 +107,13 @@ CREATE TABLE `historial_wordle` (
   `tiempo` int(11) NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historial_wordle`
+--
+
+INSERT INTO `historial_wordle` (`id_historial`, `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES
+(1, 5, 6, 95, '2025-07-30 20:16:05');
 
 -- --------------------------------------------------------
 
@@ -205,7 +213,7 @@ CREATE TABLE `niveles_us` (
 --
 
 INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`, `id_juego`) VALUES
-(6, 2, 7, 5, '2025-06-27', 3);
+(6, 3, 7, 5, '2025-07-30', 3);
 
 -- --------------------------------------------------------
 
@@ -324,7 +332,7 @@ CREATE TABLE `rankin_wordle` (
 --
 
 INSERT INTO `rankin_wordle` (`id_ranking`, `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES
-(1, 5, 2, 35, '2025-05-15');
+(1, 5, 6, 95, '2025-07-30');
 
 -- --------------------------------------------------------
 
@@ -453,22 +461,25 @@ CREATE TABLE `usuarios` (
   `apellido` varchar(255) NOT NULL,
   `nombre_usuario` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `recibir_nov` tinyint(1) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `rol` enum('alumno','root','profesor','directivo') NOT NULL,
-  `daltonismo` enum('no_daltonico','protanopia','deuteranopia','tritanopia','protanomaly','deuteranomaly','tritanomaly','acromatopsia','acromatomaly','otro') DEFAULT NULL
+  `daltonismo` enum('no_daltonico','protanopia','deuteranopia','tritanopia','protanomaly','deuteranomaly','tritanomaly','acromatopsia','acromatomaly','otro') DEFAULT NULL,
+  `reset_password_token` varchar(255) DEFAULT NULL,
+  `reset_password_expires` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`, `daltonismo`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno', 'deuteranomaly'),
-(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo', NULL),
-(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno', NULL),
-(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno', NULL),
-(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root', NULL),
-(18, 'Francisco', 'Suchomela', 'davidmingueza12', 'franciscosuchomela1@gmail.com', '$2b$10$labEk2dYhDWQWAW/x4AvMOCX9ViChzwR9TTqV4yiBqGuXX07GcvJ2', 'alumno', 'deuteranopia');
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `recibir_nov`, `contraseña`, `rol`, `daltonismo`, `reset_password_token`, `reset_password_expires`) VALUES
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', 1, '$2b$10$xtobt7uMfLAKDmTaR62SJuwXzJ5E09iyL1YlBb2nSK0IMdKlQmLpm', 'alumno', 'tritanopia', NULL, NULL),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', 0, '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo', NULL, NULL, NULL),
+(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', 0, '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno', NULL, NULL, NULL),
+(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', 0, '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno', NULL, NULL, NULL),
+(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', 0, '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root', NULL, NULL, NULL),
+(18, 'Francisco', 'Suchomela', 'davidmingueza12', 'franciscosuchomela1@gmail.com', 0, '$2b$10$labEk2dYhDWQWAW/x4AvMOCX9ViChzwR9TTqV4yiBqGuXX07GcvJ2', 'alumno', 'deuteranopia', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -577,7 +588,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (207, 5, 'nutrición', 'Proceso de obtención de nutrientes.'),
 (208, 5, 'carrera', 'Desplazamiento rápido a pie.'),
 (209, 5, 'salto', 'Despegue del cuerpo desde el suelo.'),
-(210, 5, 'resistencia aeróbica', 'Capacidad para mantener esfuerzo con oxígeno.'),
 (211, 6, 'sociedad', 'Conjunto de personas que conviven.'),
 (212, 6, 'cultura', 'Costumbres y conocimientos de un pueblo.'),
 (213, 6, 'historia', 'Estudio de los hechos pasados.'),
@@ -602,7 +612,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (232, 7, 'sierra', 'Herramienta para cortar materiales.'),
 (233, 7, 'tornillo', 'Elemento metálico de fijación.'),
 (234, 7, 'tuerca', 'Pieza que enrosca al tornillo.'),
-(235, 7, 'llave inglesa', 'Herramienta ajustable para sujetar tuercas.'),
 (236, 7, 'destornillador', 'Herramienta para atornillar o desatornillar.'),
 (237, 7, 'alicate', 'Herramienta para sujetar o cortar.'),
 (238, 7, 'soldadura', 'Unión de materiales por fusión.'),
@@ -610,7 +619,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (240, 7, 'esmeril', 'Herramienta para afilar o desbastar.'),
 (241, 7, 'limadora', 'Máquina para dar forma con precisión.'),
 (242, 7, 'torno', 'Máquina para mecanizar piezas cilíndricas.'),
-(243, 7, 'cinta métrica', 'Instrumento para medir longitudes.'),
 (244, 7, 'escuadra', 'Herramienta para trazos rectos o perpendiculares.'),
 (245, 7, 'nivel', 'Instrumento para verificar horizontalidad.'),
 (246, 7, 'remache', 'Elemento de unión permanente.'),
@@ -625,7 +633,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (255, 7, 'remache', 'Elemento de unión permanente.'),
 (256, 7, 'nivel', 'Herramienta para verificar horizontalidad.'),
 (257, 7, 'escuadra', 'Herramienta para trazos rectos o perpendiculares.'),
-(258, 7, 'cinta métrica', 'Instrumento para medir longitudes.'),
 (259, 7, 'torno', 'Máquina para mecanizar piezas cilíndricas.'),
 (260, 7, 'limadora', 'Máquina para dar forma con precisión.'),
 (261, 7, 'esmeril', 'Herramienta para afilar o desbastar.'),
@@ -633,7 +640,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (263, 7, 'soldadura', 'Unión de materiales por fusión.'),
 (264, 7, 'alicate', 'Herramienta para sujetar o cortar.'),
 (265, 7, 'destornillador', 'Herramienta para atornillar o desatornillar.'),
-(266, 7, 'llave inglesa', 'Herramienta ajustable para sujetar tuercas.'),
 (267, 7, 'tuerca', 'Pieza que enrosca el tornillo.'),
 (268, 7, 'tornillo', 'Elemento metálico de fijación.'),
 (269, 7, 'sierra', 'Herramienta para cortar materiales.'),
@@ -645,7 +651,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (275, 7, 'remache', 'Elemento de unión permanente.'),
 (276, 7, 'nivel', 'Herramienta para verificar horizontalidad.'),
 (277, 7, 'escuadra', 'Herramienta para trazos rectos o perpendiculares.'),
-(278, 7, 'cinta métrica', 'Instrumento para medir longitudes.'),
 (279, 7, 'torno', 'Máquina para mecanizar piezas cilíndricas.'),
 (280, 7, 'limadora', 'Máquina para dar forma con precisión.'),
 (281, 7, 'esmeril', 'Herramienta para afilar o desbastar.'),
@@ -653,7 +658,6 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (283, 7, 'soldadura', 'Unión de materiales por fusión.'),
 (284, 7, 'alicate', 'Herramienta para sujetar o cortar.'),
 (285, 7, 'destornillador', 'Herramienta para atornillar o desatornillar.'),
-(286, 7, 'llave inglesa', 'Herramienta ajustable para sujetar tuercas.'),
 (287, 7, 'tuerca', 'Pieza que enrosca el tornillo.'),
 (288, 7, 'tornillo', 'Elemento metálico de fijación.'),
 (289, 7, 'sierra', 'Herramienta para cortar materiales.');
@@ -818,7 +822,7 @@ ALTER TABLE `calificaciones`
 -- AUTO_INCREMENT de la tabla `estadisticas`
 --
 ALTER TABLE `estadisticas`
-  MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
+  MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_ahorcado`
@@ -830,7 +834,7 @@ ALTER TABLE `historial_ahorcado`
 -- AUTO_INCREMENT de la tabla `historial_wordle`
 --
 ALTER TABLE `historial_wordle`
-  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `intentos`
@@ -860,7 +864,7 @@ ALTER TABLE `niveles_us`
 -- AUTO_INCREMENT de la tabla `novedades`
 --
 ALTER TABLE `novedades`
-  MODIFY `id_novedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_novedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `palabras_ahorcado`
@@ -902,7 +906,7 @@ ALTER TABLE `respuestas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `wordle`

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Recuperar contraseña
+        </title>
+</head>
+
+<body id="login">
+    <main class="background">
+        <div class="overlay">
+
+            <form method="post" action="/recuperar-contra-post">
+                <div class="cont_logo">
+                    <img src="resources/imagenes/logo_ludi.png" alt="Logo Ludiverso">
+                </div>
+                <div id="cont_main_inputs">
+                    <h2>Recuperar Contraseña</h2>
+
+                    <% if (typeof message !=='undefined' && message) { %>
+                        <div class="success-message">
+                            <%= message %>
+                        </div>
+                        <% } %>
+                            <% if (typeof error !=='undefined' && error) { %>
+                                <div class="error-message">
+                                    <%= error %>
+                                </div>
+                                <% } %>
+
+                                    <div class="cont_input">
+                                        <input type="email" id="recup_email" name="recup_email"
+                                            placeholder="Ingrese su correo electrónico" required>
+                                    </div>
+
+                                    <button type="submit">Enviar Enlace de Recuperación</button>
+
+                                    <a href="/login">Volver al inicio de sesión</a>
+                </div>
+            </form>
+
+        </div>
+    </main>
+</body>
+
+</html>

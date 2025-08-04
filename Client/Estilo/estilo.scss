@@ -849,14 +849,14 @@ body {
                     height: 60px;
                     font-size: 1.2em;
                     font-weight: 600;
-                    background-color: var(--Botones_secundarios_o_hover_azul);
+                    background-color: var(--Encabezados_botones_y_primarios);
                     color: white;
                     border: none;
                     cursor: pointer;
                     transition: all .2s ease-in-out;
 
                     &:hover {
-                        background-color: #6da3e0;
+                        background-color:var(--Botones_secundarios_o_hover_azul)
                     }
 
                     &.desac {
@@ -900,7 +900,7 @@ body {
                         height: 60px;
                         font-size: 1em;
                         font-weight: 800;
-
+                        text-decoration: none;
                         color: white;
                         border: none;
                         display: flex;
@@ -1141,12 +1141,15 @@ body {
                     p {
                         width: 80%;
                         text-align: center;
+                        font-size: 1.4em;
+                        font-weight: bold;
                         color: #dddddd;
                     }
 
                     a {
                         border-radius: 10px;
                         padding: 20px;
+                        font-size: 1.4em;
                         font-weight: bold;
                         background-color: var(--Encabezados_botones_y_primarios);
                         color: white;
@@ -3637,7 +3640,7 @@ $right :#538d4e;
         }
 
         #cont_main_inputs {
-
+            
             padding: 50px 20px;
             display: flex;
             align-items: center;
@@ -3689,7 +3692,18 @@ $right :#538d4e;
                     }
                 }
             }
-
+            .cont_input_check{
+               
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                
+                input{
+                    height: 20px;
+                    width: 20px;
+                }
+            }
             .form-group {
                 width: 70%;
                 margin-bottom: 20px;
@@ -4026,11 +4040,12 @@ $right :#538d4e;
         main {
             #sec_img {
                 .cont_main_juego {
+                    
                     .cont_main {
-
+                       
                         justify-content: space-around;
-                        gap: 40px;
-
+                        gap: 10px;
+                        overflow: hidden;
                         .cont_tex {
                             display: flex;
                             flex-direction: column !important;
@@ -4047,7 +4062,20 @@ $right :#538d4e;
                         }
 
                         .cont_info_juego {
-                            width: 90%;
+                            width: 70%;
+                        }
+                        .cont_arrow{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 15%;
+                            padding: 0px !important;
+                            i{
+                                height: 20px;
+                                width: 20px;
+                                font-size: 1.3em;
+                                padding: 20px !important;
+                            }
                         }
                     }
                 }

@@ -791,7 +791,7 @@ body main .secciones#sec_novedades #ver_menos_nov {
   height: 60px;
   font-size: 1.2em;
   font-weight: 600;
-  background-color: var(--Botones_secundarios_o_hover_azul);
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
   border: none;
   cursor: pointer;
@@ -799,7 +799,7 @@ body main .secciones#sec_novedades #ver_menos_nov {
 }
 body main .secciones#sec_novedades #ver_mas_nov:hover,
 body main .secciones#sec_novedades #ver_menos_nov:hover {
-  background-color: #6da3e0;
+  background-color: var(--Botones_secundarios_o_hover_azul);
 }
 body main .secciones#sec_novedades #ver_mas_nov.desac,
 body main .secciones#sec_novedades #ver_menos_nov.desac {
@@ -835,6 +835,7 @@ body main .secciones#sec_sobre_nosotros .cont_text_ludi #btn_conocer_mas {
   height: 60px;
   font-size: 1em;
   font-weight: 800;
+  text-decoration: none;
   color: white;
   border: none;
   display: flex;
@@ -1027,11 +1028,14 @@ body main #sec_img .cont_main_juego .cont_info_juego {
 body main #sec_img .cont_main_juego .cont_info_juego p {
   width: 80%;
   text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
   color: #dddddd;
 }
 body main #sec_img .cont_main_juego .cont_info_juego a {
   border-radius: 10px;
   padding: 20px;
+  font-size: 1.4em;
   font-weight: bold;
   background-color: var(--Encabezados_botones_y_primarios);
   color: white;
@@ -3065,6 +3069,16 @@ body footer .cont_des a {
 #login form #cont_main_inputs .cont_input input::placeholder {
   color: #999999;
 }
+#login form #cont_main_inputs .cont_input_check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+#login form #cont_main_inputs .cont_input_check input {
+  height: 20px;
+  width: 20px;
+}
 #login form #cont_main_inputs .form-group {
   width: 70%;
   margin-bottom: 20px;
@@ -3318,7 +3332,8 @@ body footer .cont_des a {
 @media (max-width: 600px) {
   body main #sec_img .cont_main_juego .cont_main {
     justify-content: space-around;
-    gap: 40px;
+    gap: 10px;
+    overflow: hidden;
   }
   body main #sec_img .cont_main_juego .cont_main .cont_tex {
     display: flex;
@@ -3333,7 +3348,20 @@ body footer .cont_des a {
     background-color: rgba(0, 0, 0, 0.788) !important;
   }
   body main #sec_img .cont_main_juego .cont_main .cont_info_juego {
-    width: 90%;
+    width: 70%;
+  }
+  body main #sec_img .cont_main_juego .cont_main .cont_arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding: 0px !important;
+  }
+  body main #sec_img .cont_main_juego .cont_main .cont_arrow i {
+    height: 20px;
+    width: 20px;
+    font-size: 1.3em;
+    padding: 20px !important;
   }
 }
 @media (max-width: 600px) {

@@ -17,22 +17,23 @@
                     <img src="resources/imagenes/logo_ludi.png" alt="">
                 </div>
                 <div id="cont_main_inputs">
+                    <h2>Registrarse</h2>
                     <div class="cont_input">
-                        <input name="nombre_us" type="text" placeholder="Escriba su nombre ">
+                        <input name="nombre_us" type="text" placeholder="Escriba su nombre " required>
                     </div>
                     <div class="cont_input">
-                        <input name="apellido_us" type="text" placeholder="Escriba su apellido ">
+                        <input name="apellido_us" type="text" placeholder="Escriba su apellido " required>
                     </div>
                     <div class="cont_input">
-                        <input name="nombre_usuario_us" type="text" placeholder="Escriba su nombre de usuario">
+                        <input name="nombre_usuario_us" type="text" placeholder="Escriba su nombre de usuario" required>
 
                     </div>
                     <div class="cont_input">
-                        <input name="email_us" type="email" placeholder="Escriba su email">
+                        <input name="email_us" type="email" placeholder="Escriba su email" required>
                     </div>
 
                     <div class="cont_input">
-                        <input id="input" name="password_us" type="password" placeholder="Escriba su contraseña">
+                        <input id="input" name="password_us" type="password" placeholder="Escriba su contraseña" required>
                         <i class="fa-solid fa-lock" id="contra"></i>
                     </div>
                     <div class="form-group">
@@ -49,7 +50,13 @@
                             <option value="otro">Otro / Prefiero no especificar</option>
                         </select>
                     </div>
-                    <button>Ingresar</button>
+                    <div class="cont_input_check">
+                        <input id="recibir_nov" name="recibir_nov" type="checkbox" checked>
+                        <p>Recibir las novedades de ludiverso por email.</p>
+                    </div>
+
+
+                    <button>Registrarme</button>
                     <a href="/login">¿Ya tienes una cuenta? ¡Ingresa!</a>
                     <% if (typeof error !=='undefined' && error) { %>
                         <div class="error-message">

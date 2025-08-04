@@ -10,6 +10,8 @@ const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 const sharp = require("sharp")
 const crypto = require('crypto');
 
+const transporter = require('../config/nodemailer.js');
+require('dotenv').config();
 
 
 
@@ -26,14 +28,33 @@ router.use(
     })
 );
 
-
 function saveImage(file) {
-    const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
-    const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
-    fs.renameSync(file.path, newPath);
-    return url_nov;
-}
 
+    const uploadDir = path.join(__dirname, '../../Client/Resources/Imagenes/Novedades');
+
+
+    const fileName = file.originalname;
+    const newPath = path.join(uploadDir, fileName);
+
+
+    if (!fs.existsSync(uploadDir)) {
+        console.log(`Creando directorio: ${uploadDir}`);
+        fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    try {
+
+        fs.renameSync(file.path, newPath);
+        console.log(`Archivo movido de ${file.path} a ${newPath}`);
+        const url_nov = `/Resources/Imagenes/Novedades/${fileName}`;
+        return url_nov;
+
+    } catch (renameErr) {
+        console.error('Error al mover el archivo:', renameErr);
+
+        throw renameErr;
+    }
+}
 
 
 const isLogged = (req, res, next) => {
@@ -319,26 +340,69 @@ router.post('/editar_novedad', upload_nov.single('url_nov'), (req, res) => {
 
 // Ruta para recibir el archivo
 router.post('/dash_agregar_nov', upload_nov.single('url_nov'), (req, res) => {
-    let { titulo_nov, subtitulo_nov, cuerpo_nov } = req.body;
-    let fecha = Datatime()
-
+    const { titulo_nov, subtitulo_nov, cuerpo_nov } = req.body;
+    let fecha = Datatime();
+    const url_web = `${process.env.BASE_URL}`;
     console.log(req.file);
-    let url_img = saveImage(req.file);
     if (!req.file) {
         return res.status(400).send('No se subió ninguna imagen');
     }
-    else {
-        let query_select = "INSERT INTO `novedades`( `titulo_novedad`, `subtitulo_novedad`, `cuerpo_novedad`, `url_foto_novedad`, `fecha_novedad`) VALUES (?, ?, ? , ?, ?) ";
-        connection.query(query_select, [titulo_nov, subtitulo_nov, cuerpo_nov, url_img, fecha], (err, result_users) => {
+
+    let url_img = saveImage(req.file);
+
+
+    let insert_novedad_query = "INSERT INTO `novedades`( `titulo_novedad`, `subtitulo_novedad`, `cuerpo_novedad`, `url_foto_novedad`, `fecha_novedad`) VALUES (?, ?, ? , ?, ?) ";
+    connection.query(insert_novedad_query, [titulo_nov, subtitulo_nov, cuerpo_nov, url_img, fecha], (err, result_insert_nov) => {
+        if (err) {
+            console.error('Error al insertar la novedad en la base de datos:', err);
+            return res.status(500).send('Error al guardar la novedad.');
+        }
+
+
+        let select_users_query = "SELECT email FROM `usuarios` WHERE recibir_nov = 1";
+        connection.query(select_users_query, [], (err, result_users) => {
             if (err) {
-                console.error('Error al ejecutar la query en el servidor', err);
-                return res.status(500).send('Error al ejecutar la query en el servidor');
+                console.error('Error al obtener usuarios para notificar:', err);
+                return res.status(500).send('Novedad guardada, pero hubo un error al obtener los usuarios para notificar.');
+            }
+
+
+            if (result_users.length > 0) {
+
+                const emailSubject = `¡Nueva Noticia en Ludiverso: ${titulo_nov}!`;
+                const emailHtmlContent = `
+                    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                        <h2 style="color: #0056b3;">¡Hola! Tenemos una nueva noticia para ti en Ludiverso.</h2>
+                        <h3 style="color: #0056b3;">${titulo_nov}</h3>
+                        <p style="font-size: 1.1em; font-weight: bold;">${subtitulo_nov}</p>
+                        <p>${cuerpo_nov}</p>
+                        <p>Visita <a href="${url_web}" style="color: #0056b3; text-decoration: none;">Ludiverso</a> para leer la noticia completa y más.</p>
+                        <p>Saludos,<br>El equipo de Ludiverso</p>
+                    </div>
+                `;
+
+
+                result_users.forEach(usuario => {
+                    transporter.sendMail({
+                        from: '"Ludiverso" <no-reply@ludiverso.com>',
+                        to: usuario.email,
+                        subject: emailSubject,
+                        html: emailHtmlContent,
+                    })
+                        .then(info => {
+                            console.log(`Correo de noticia enviado a ${usuario.email}:`, info.messageId);
+                        })
+                        .catch(email_err => {
+                            console.error(`Error al enviar correo de noticia a ${usuario.email}:`, email_err);
+                        });
+                });
+            } else {
+                console.log('No hay usuarios suscritos para recibir novedades.');
             }
 
             res.redirect('/dash_novedades');
         });
-    }
-
+    });
 });
 
 
