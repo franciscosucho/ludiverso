@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tutorial Perfil</title>
+    <link rel="stylesheet" href="../Client/Estilo/profile.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-info">
+            <h2>🧪 Test del Tutorial de Perfil</h2>
+            <p>Esta página simula la estructura de la página de perfil para probar el tutorial.</p>
+            <p><strong>Instrucciones:</strong> Recarga la página para ver el tutorial automáticamente, o haz clic en el botón de ayuda (?) que aparecerá en la esquina inferior derecha.</p>
+            <p><strong>Nota:</strong> Este tutorial ahora tiene el mismo diseño y movilidad que el tutorial del inicio.</p>
+        </div>
+
+        <!-- Simulación de la estructura del perfil -->
+        <div id="main-header" style="background: #333; color: white; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+            Header Principal - Navegación
+        </div>
+
+        <main id="profile">
+            <h2>Mi Perfil</h2>
+            <section class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user-circle"></i>
+                    </div>
+                    <h3>Usuario de Prueba</h3>
+                    <p class="user-role">Estudiante</p>
+                </div>
+                
+                <div class="profile-info">
+                    <form class="profile-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" value="Usuario" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" name="apellido" value="Prueba" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nombre_usuario">Nombre de Usuario</label>
+                            <input type="text" id="nombre_usuario" name="nombre_usuario" value="usuario_prueba" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="usuario@prueba.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Nueva Contraseña</label>
+                            <input type="password" id="password" name="password" placeholder="Dejar en blanco para mantener la actual">
+                        </div>
+                        
+                        <button type="submit" class="btn-save">Guardar Cambios</button>
+                    </form>
+                </div>
+                
+                <div class="profile-stats">
+                    <h4>Estadísticas Generales</h4>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">25</span>
+                            <span class="stat-label">Total de Partidas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">1250</span>
+                            <span class="stat-label">Puntos Totales</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">15</span>
+                            <span class="stat-label">Posición Global</span>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: 2rem;">Estadísticas por Juego</h4>
+                    <div class="game-stats-grid">
+                        <div class="game-stat-card">
+                            <h5>🎮 Memory Card</h5>
+                            <div class="game-stat-details">
+                                <p><strong>Niveles Completados:</strong> <span>8</span></p>
+                                <p><strong>Puntaje Total:</strong> <span>450</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="game-stat-card">
+                            <h5>🔤 Wordle</h5>
+                            <div class="game-stat-details">
+                                <p><strong>Mejor Aciertos:</strong> <span>5</span></p>
+                                <p><strong>Mejor Tiempo:</strong> <span>45 seg</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="game-stat-card">
+                            <h5>🎯 Ahorcado</h5>
+                            <div class="game-stat-details">
+                                <p><strong>Victorias:</strong> <span>12</span></p>
+                                <p><strong>Mejor Tiempo:</strong> <span>30 seg</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="game-stat-card">
+                            <h5>🧩 Rompecabezas</h5>
+                            <div class="game-stat-details">
+                                <p><strong>Niveles Completados:</strong> <span>5</span></p>
+                                <p><strong>Mejor Tiempo:</strong> <span>120 seg</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../Client/Scripts/profile.js"></script>
+</body>
+</html> 

@@ -381,3 +381,55 @@
         padding: 1.5rem 1rem;
     }
 } 
+
+/* Estilos para el tutorial del perfil - Compatible con el diseño del inicio */
+#tutorial-overlay-profile {
+    backdrop-filter: blur(2px);
+}
+
+#tutorial-highlight-profile {
+    animation: tutorialPulse 2s infinite;
+}
+
+@keyframes tutorialPulse {
+    0% {
+        box-shadow: 0 0 25px 8px rgba(62, 134, 211, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 35px 12px rgba(62, 134, 211, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 25px 8px rgba(62, 134, 211, 0.6);
+    }
+}
+
+#tutorial-tooltip-profile {
+    animation: tooltipFadeIn 0.3s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para elementos resaltados durante el tutorial */
+.tutorial-highlighted-profile {
+    position: relative !important;
+    z-index: 10000 !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: scale(1.02) !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 0 30px rgba(62, 134, 211, 0.3) !important;
+}
+
+.tutorial-highlighted-profile * {
+    opacity: 1 !important;
+    filter: none !important;
+} 
