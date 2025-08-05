@@ -110,28 +110,33 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         let highlight = document.createElement('div');
         highlight.id = 'tutorial-highlight';
         highlight.style.position = 'absolute';
-        highlight.style.border = '3px solid #00bfff';
-        highlight.style.borderRadius = '10px';
-        highlight.style.boxShadow = '0 0 20px 5px #00bfff99';
+        highlight.style.border = '3px solid var(--Encabezados_botones_y_primarios)';
+        highlight.style.borderRadius = '12px';
+        highlight.style.boxShadow = '0 0 25px 8px rgba(62, 134, 211, 0.6)';
         highlight.style.zIndex = '9999';
         highlight.style.pointerEvents = 'none';
-        highlight.style.transition = 'all 0.3s';
+        highlight.style.transition = 'all 0.3s ease';
+        highlight.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        highlight.style.backdropFilter = 'blur(5px)';
         document.body.appendChild(highlight);
 
         // Caja de texto
         let tooltip = document.createElement('div');
         tooltip.id = 'tutorial-tooltip';
         tooltip.style.position = 'absolute';
-        tooltip.style.background = '#fff';
-        tooltip.style.color = '#222';
-        tooltip.style.padding = '18px 22px 48px 22px'; // espacio extra abajo para el botón
-        tooltip.style.borderRadius = '8px';
-        tooltip.style.boxShadow = '0 2px 16px #0003';
+        tooltip.style.background = 'rgba(255, 255, 255, 0.95)';
+        tooltip.style.color = 'var(--Texto_principal)';
+        tooltip.style.padding = '20px 24px 52px 24px'; // espacio extra abajo para el botón
+        tooltip.style.borderRadius = '12px';
+        tooltip.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.15)';
         tooltip.style.zIndex = '10000';
         tooltip.style.maxWidth = '350px';
         tooltip.style.fontSize = '1.1em';
         tooltip.style.display = 'none';
         tooltip.style.boxSizing = 'border-box';
+        tooltip.style.backdropFilter = 'blur(15px)';
+        tooltip.style.border = '2px solid var(--Encabezados_botones_y_primarios)';
+        tooltip.style.transition = 'all 0.3s ease';
         document.body.appendChild(tooltip);
 
         // Botón siguiente
@@ -142,15 +147,18 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         nextBtn.style.left = '50%';
         nextBtn.style.transform = 'translateX(-50%)';
         nextBtn.style.bottom = '12px';
-        nextBtn.style.padding = '8px 18px';
-        nextBtn.style.background = '#00bfff';
+        nextBtn.style.padding = '10px 20px';
+        nextBtn.style.background = 'var(--Encabezados_botones_y_primarios)';
         nextBtn.style.color = '#fff';
         nextBtn.style.border = 'none';
-        nextBtn.style.borderRadius = '5px';
+        nextBtn.style.borderRadius = '8px';
         nextBtn.style.cursor = 'pointer';
         nextBtn.style.fontWeight = 'bold';
         nextBtn.style.zIndex = '10001';
         nextBtn.style.display = 'none';
+        nextBtn.style.transition = 'all 0.3s ease';
+        nextBtn.style.boxShadow = '0 4px 15px rgba(62, 134, 211, 0.3)';
+        nextBtn.style.fontSize = '1em';
         document.body.appendChild(nextBtn);
 
         // Botón flotante para reiniciar (círculo con ?)
@@ -160,18 +168,18 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         restartBtn.style.position = 'fixed';
         restartBtn.style.bottom = '24px';
         restartBtn.style.right = '24px';
-        restartBtn.style.background = '#00bfff';
+        restartBtn.style.background = 'var(--Encabezados_botones_y_primarios)';
         restartBtn.style.color = '#fff';
         restartBtn.style.border = 'none';
         restartBtn.style.borderRadius = '50%';
         restartBtn.style.width = '56px';
         restartBtn.style.height = '56px';
-        restartBtn.style.boxShadow = '0 2px 8px #0002';
+        restartBtn.style.boxShadow = '0 6px 20px rgba(62, 134, 211, 0.4)';
         restartBtn.style.cursor = 'pointer';
         restartBtn.style.zIndex = '10002';
         restartBtn.style.fontWeight = 'bold';
         restartBtn.style.display = 'none';
-        restartBtn.style.transition = 'width 0.2s, background 0.2s';
+        restartBtn.style.transition = 'all 0.3s ease';
         restartBtn.style.overflow = 'hidden';
         restartBtn.style.padding = '0';
         restartBtn.querySelector('.texto-ayuda').style.display = 'none';
@@ -184,23 +192,53 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
             font-size: 2em;
             display: inline-block;
             vertical-align: middle;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
         }
         #tutorial-restart .texto-ayuda {
             display: inline-block;
             margin-left: 10px;
             font-size: 1em;
             opacity: 0;
-            transition: opacity 0.2s;
+            transition: all 0.3s ease;
             white-space: nowrap;
+            font-weight: 500;
         }
         #tutorial-restart.expandido {
             width: 200px !important;
             border-radius: 28px !important;
-            background: #00bfff;
+            background: var(--Encabezados_botones_y_primarios) !important;
+            box-shadow: 0 8px 25px rgba(62, 134, 211, 0.5) !important;
+            transform: scale(1.05);
         }
         #tutorial-restart.expandido .texto-ayuda {
             opacity: 1;
+        }
+        #tutorial-next:hover {
+            background: var(--Botones_secundarios_o_hover_azul) !important;
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(62, 134, 211, 0.4) !important;
+        }
+        #tutorial-restart:hover {
+            background: var(--Botones_secundarios_o_hover_azul) !important;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(62, 134, 211, 0.5) !important;
+        }
+        
+        /* Estilos para el elemento resaltado durante el tutorial */
+        .tutorial-highlighted {
+            position: relative !important;
+            z-index: 10000 !important;
+            opacity: 1 !important;
+            filter: none !important;
+            transform: scale(1.02) !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 0 30px rgba(62, 134, 211, 0.3) !important;
+        }
+        
+        /* Asegurar que el elemento resaltado mantenga su apariencia original */
+        .tutorial-highlighted * {
+            opacity: 1 !important;
+            filter: none !important;
         }
         `;
         document.head.appendChild(style);
@@ -236,11 +274,20 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         const tooltip = document.getElementById('tutorial-tooltip');
         const nextBtn = document.getElementById('tutorial-next');
 
+        // Remover la clase de highlight del paso anterior
+        const previousHighlighted = document.querySelector('.tutorial-highlighted');
+        if (previousHighlighted) {
+            previousHighlighted.classList.remove('tutorial-highlighted');
+        }
+
         if (!target) {
             // Si el elemento no existe, pasa al siguiente
             nextStep();
             return;
         }
+
+        // Aplicar la clase de highlight al elemento actual
+        target.classList.add('tutorial-highlighted');
 
         // Scroll solo si el elemento está completamente fuera de la vista
         const rect = target.getBoundingClientRect();
@@ -305,6 +352,12 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         document.getElementById('tutorial-highlight').style.display = 'none';
         document.getElementById('tutorial-tooltip').style.display = 'none';
         document.getElementById('tutorial-next').style.display = 'none';
+        
+        // Remover la clase de highlight del elemento actual
+        const highlightedElement = document.querySelector('.tutorial-highlighted');
+        if (highlightedElement) {
+            highlightedElement.classList.remove('tutorial-highlighted');
+        }
     }
 
     // Muestra el botón flotante para reiniciar
