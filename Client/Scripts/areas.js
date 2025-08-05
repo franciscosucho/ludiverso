@@ -1,93 +1,43 @@
-const arrow_left = document.querySelectorAll(".arrow_left")
-const arrow_right = document.querySelectorAll(".arrow_right")
-var index_juego = 0
-const ver_mas_nov = document.getElementById("ver_mas_nov")
-const cont_novedades = document.querySelectorAll(".cont_novedades")
-const ver_menos_nov = document.getElementById("ver_menos_nov")
-
-arrow_left.forEach(arrow => {
-    arrow.addEventListener("click", () => {
-        if (index_juego == 0) {
-
-        }
-        else {
-            let cont_desac_juego = document.getElementById(`cont_main_juego_${index_juego}`)
-            if (cont_desac_juego) cont_desac_juego.classList.add("desac")
-
-            index_juego = index_juego - 1;
-            let cont_active_juego = document.getElementById(`cont_main_juego_${index_juego}`)
-            if (cont_active_juego) cont_active_juego.classList.remove("desac")
-        }
-    })
-});
-
-arrow_right.forEach(arrow => {
-    arrow.addEventListener("click", () => {
-        if (index_juego == 4) {
-
-        }
-        else {
-            let cont_desac_juego = document.getElementById(`cont_main_juego_${index_juego}`)
-            if (cont_desac_juego) cont_desac_juego.classList.add("desac")
-
-            index_juego = index_juego + 1;
-            let cont_active_juego = document.getElementById(`cont_main_juego_${index_juego}`)
-            if (cont_active_juego) cont_active_juego.classList.remove("desac")
-        }
-    })
-});
-
-if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
-    ver_mas_nov.addEventListener("click", () => {
-        cont_novedades.forEach(cont => {
-            cont.classList.remove("desac")
-        });
-        ver_mas_nov.classList.add("desac")
-        ver_menos_nov.classList.remove("desac")
-    })
-
-    ver_menos_nov.addEventListener("click", () => {
-        cont_novedades.forEach(cont => {
-            if (cont.id != "cont_novedades0") {
-                cont.classList.add("desac")
-            }
-            ver_menos_nov.classList.add("desac")
-            ver_mas_nov.classList.remove("desac")
-        });
-    })
-}
-
-// === Tutorial Interactivo Global ===
+// === Tutorial Interactivo para Áreas ===
+console.log('Tutorial de áreas: Script cargado');
 (function() {
-    // Pasos del tutorial: ahora incluye pasos específicos para el index
+    // Pasos del tutorial específicos para la página de áreas
     const tutorialSteps = [
         {
             selector: '#main-header',
-            text: 'Este es el encabezado principal de la página. Aquí puedes navegar entre las diferentes secciones y acceder a tu perfil.'
+            text: 'Este es el encabezado principal. Aquí puedes navegar entre las diferentes secciones y acceder a tu perfil.'
         },
         {
-            selector: '#main-content .secciones#sec_img',
-            text: 'Aquí puedes ver el carrusel de juegos principales. Usa las flechas para explorar los juegos disponibles.'
+            selector: '#cont_main_areas h2',
+            text: 'Aquí puedes ver el título de la área que estás visitando. Cada área tiene su propio contenido y juegos específicos.'
         },
         {
-            selector: '#main-content #sec_areas',
-            text: 'Esta sección muestra las diferentes áreas educativas. Haz clic en cada área para ver los juegos relacionados.'
+            selector: '.cont_text img',
+            text: 'Esta imagen representa visualmente el área que estás explorando. Cada área tiene su propia imagen distintiva.'
         },
         {
-            selector: '#main-content #sec_novedades',
-            text: 'En la sección de novedades encontrarás las últimas noticias, actualizaciones y eventos importantes de la plataforma.'
+            selector: '.cont_text_sub:first-child',
+            text: 'Aquí se muestra información sobre el jefe del área, quien es responsable de coordinar las actividades educativas.'
         },
         {
-            selector: '#main-content .cont_text_ludi',
-            text: 'En este bloque te explicamos qué es Ludiverso y cuál es su objetivo.'
+            selector: '.cont_text_sub:last-child',
+            text: 'En esta sección encontrarás la descripción detallada del área, explicando qué aprenderás y qué objetivos tiene.'
         },
         {
-            selector: '#main-content #btn_conocer_mas',
-            text: 'Haz clic aquí para conocer más detalles sobre el proyecto Ludiverso.'
+            selector: '#tit_juegos',
+            text: 'Esta sección muestra todos los juegos disponibles específicamente para esta área educativa.'
         },
         {
-            selector: '#main-footer',
-            text: 'Este es el pie de página, donde encontrarás información adicional y enlaces útiles.'
+            selector: '.cont_juego_desc:first-child',
+            text: 'Cada juego se presenta con su imagen, título, valoración y descripción. Haz clic en "Jugar" para comenzar.'
+        },
+        {
+            selector: '.cont_estrellas',
+            text: 'La valoración con estrellas te indica qué tan bien calificado está el juego por otros usuarios.'
+        },
+        {
+            selector: '.btn_jugar',
+            text: 'Haz clic en este botón para comenzar a jugar. Cada juego te llevará a una experiencia educativa diferente.'
         }
     ];
 
@@ -95,7 +45,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
     function createTutorialElements() {
         // Overlay oscuro
         let overlay = document.createElement('div');
-        overlay.id = 'tutorial-overlay';
+        overlay.id = 'tutorial-overlay-areas';
         overlay.style.position = 'fixed';
         overlay.style.top = '0';
         overlay.style.left = '0';
@@ -108,7 +58,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
 
         // Cuadro de resaltado
         let highlight = document.createElement('div');
-        highlight.id = 'tutorial-highlight';
+        highlight.id = 'tutorial-highlight-areas';
         highlight.style.position = 'absolute';
         highlight.style.border = '3px solid var(--Encabezados_botones_y_primarios)';
         highlight.style.borderRadius = '12px';
@@ -122,7 +72,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
 
         // Caja de texto
         let tooltip = document.createElement('div');
-        tooltip.id = 'tutorial-tooltip';
+        tooltip.id = 'tutorial-tooltip-areas';
         tooltip.style.position = 'absolute';
         tooltip.style.background = 'rgba(255, 255, 255, 0.95)';
         tooltip.style.color = 'var(--Texto_principal)';
@@ -141,7 +91,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
 
         // Botón siguiente
         let nextBtn = document.createElement('button');
-        nextBtn.id = 'tutorial-next';
+        nextBtn.id = 'tutorial-next-areas';
         nextBtn.textContent = 'Siguiente';
         nextBtn.style.position = 'absolute';
         nextBtn.style.left = '50%';
@@ -163,7 +113,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
 
         // Botón flotante para reiniciar (círculo con ?)
         let restartBtn = document.createElement('button');
-        restartBtn.id = 'tutorial-restart';
+        restartBtn.id = 'tutorial-restart-areas';
         restartBtn.innerHTML = '<span class="icono-ayuda">?</span><span class="texto-ayuda">¿Necesitas ayuda?</span>';
         restartBtn.style.position = 'fixed';
         restartBtn.style.bottom = '24px';
@@ -188,13 +138,13 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         // Estilos para el icono y texto del botón flotante
         const style = document.createElement('style');
         style.innerHTML = `
-        #tutorial-restart .icono-ayuda {
+        #tutorial-restart-areas .icono-ayuda {
             font-size: 2em;
             display: inline-block;
             vertical-align: middle;
             transition: all 0.3s ease;
         }
-        #tutorial-restart .texto-ayuda {
+        #tutorial-restart-areas .texto-ayuda {
             display: inline-block;
             margin-left: 10px;
             font-size: 1em;
@@ -203,29 +153,29 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
             white-space: nowrap;
             font-weight: 500;
         }
-        #tutorial-restart.expandido {
+        #tutorial-restart-areas.expandido {
             width: 200px !important;
             border-radius: 28px !important;
             background: var(--Encabezados_botones_y_primarios) !important;
             box-shadow: 0 8px 25px rgba(62, 134, 211, 0.5) !important;
             transform: scale(1.05);
         }
-        #tutorial-restart.expandido .texto-ayuda {
+        #tutorial-restart-areas.expandido .texto-ayuda {
             opacity: 1;
         }
-        #tutorial-next:hover {
+        #tutorial-next-areas:hover {
             background: var(--Botones_secundarios_o_hover_azul) !important;
             transform: translateX(-50%) translateY(-2px);
             box-shadow: 0 6px 20px rgba(62, 134, 211, 0.4) !important;
         }
-        #tutorial-restart:hover {
+        #tutorial-restart-areas:hover {
             background: var(--Botones_secundarios_o_hover_azul) !important;
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(62, 134, 211, 0.5) !important;
         }
         
         /* Estilos para el elemento resaltado durante el tutorial */
-        .tutorial-highlighted {
+        .tutorial-highlighted-areas {
             position: relative !important;
             z-index: 10000 !important;
             opacity: 1 !important;
@@ -236,7 +186,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         }
         
         /* Asegurar que el elemento resaltado mantenga su apariencia original */
-        .tutorial-highlighted * {
+        .tutorial-highlighted-areas * {
             opacity: 1 !important;
             filter: none !important;
         }
@@ -269,15 +219,15 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
     function showStep(stepIndex) {
         const step = tutorialSteps[stepIndex];
         const target = document.querySelector(step.selector);
-        const overlay = document.getElementById('tutorial-overlay');
-        const highlight = document.getElementById('tutorial-highlight');
-        const tooltip = document.getElementById('tutorial-tooltip');
-        const nextBtn = document.getElementById('tutorial-next');
+        const overlay = document.getElementById('tutorial-overlay-areas');
+        const highlight = document.getElementById('tutorial-highlight-areas');
+        const tooltip = document.getElementById('tutorial-tooltip-areas');
+        const nextBtn = document.getElementById('tutorial-next-areas');
 
         // Remover la clase de highlight del paso anterior
-        const previousHighlighted = document.querySelector('.tutorial-highlighted');
+        const previousHighlighted = document.querySelector('.tutorial-highlighted-areas');
         if (previousHighlighted) {
-            previousHighlighted.classList.remove('tutorial-highlighted');
+            previousHighlighted.classList.remove('tutorial-highlighted-areas');
         }
 
         if (!target) {
@@ -287,7 +237,7 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
         }
 
         // Aplicar la clase de highlight al elemento actual
-        target.classList.add('tutorial-highlighted');
+        target.classList.add('tutorial-highlighted-areas');
 
         // Scroll solo si el elemento está completamente fuera de la vista
         const rect = target.getBoundingClientRect();
@@ -348,26 +298,26 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
 
     // Oculta todos los elementos del tutorial
     function hideTutorial() {
-        document.getElementById('tutorial-overlay').style.display = 'none';
-        document.getElementById('tutorial-highlight').style.display = 'none';
-        document.getElementById('tutorial-tooltip').style.display = 'none';
-        document.getElementById('tutorial-next').style.display = 'none';
+        document.getElementById('tutorial-overlay-areas').style.display = 'none';
+        document.getElementById('tutorial-highlight-areas').style.display = 'none';
+        document.getElementById('tutorial-tooltip-areas').style.display = 'none';
+        document.getElementById('tutorial-next-areas').style.display = 'none';
         
         // Remover la clase de highlight del elemento actual
-        const highlightedElement = document.querySelector('.tutorial-highlighted');
+        const highlightedElement = document.querySelector('.tutorial-highlighted-areas');
         if (highlightedElement) {
-            highlightedElement.classList.remove('tutorial-highlighted');
+            highlightedElement.classList.remove('tutorial-highlighted-areas');
         }
     }
 
     // Muestra el botón flotante para reiniciar
     function showRestartBtn() {
-        document.getElementById('tutorial-restart').style.display = 'block';
+        document.getElementById('tutorial-restart-areas').style.display = 'block';
     }
 
     // Oculta el botón flotante
     function hideRestartBtn() {
-        document.getElementById('tutorial-restart').style.display = 'none';
+        document.getElementById('tutorial-restart-areas').style.display = 'none';
     }
 
     // Lógica de pasos
@@ -388,34 +338,37 @@ if (ver_mas_nov && ver_menos_nov && cont_novedades.length > 0) {
     function endTutorial() {
         hideTutorial();
         showRestartBtn();
-        localStorage.setItem('tutorialIndexSeen', 'true');
+        localStorage.setItem('tutorialAreasSeen', 'true');
     }
 
     // Inicializa el tutorial al cargar la página
     window.addEventListener('DOMContentLoaded', function() {
+        console.log('Tutorial de áreas: DOM cargado');
         createTutorialElements();
+        console.log('Tutorial de áreas: Elementos creados');
         // Listeners
-        document.getElementById('tutorial-next').onclick = nextStep;
-        document.getElementById('tutorial-restart').onclick = startTutorial;
+        document.getElementById('tutorial-next-areas').onclick = nextStep;
+        document.getElementById('tutorial-restart-areas').onclick = startTutorial;
+        console.log('Tutorial de áreas: Listeners configurados');
         // Si es la primera vez, inicia el tutorial
-        if (!localStorage.getItem('tutorialIndexSeen')) {
+        if (!localStorage.getItem('tutorialAreasSeen')) {
+            console.log('Tutorial de áreas: Primera visita, iniciando tutorial');
             setTimeout(startTutorial, 600); // Pequeño delay para que cargue la página
         } else {
+            console.log('Tutorial de áreas: Visita posterior, mostrando botón de ayuda');
             showRestartBtn();
         }
     });
 
     // Opcional: Recalcula la posición del highlight al redimensionar o hacer scroll
     window.addEventListener('resize', function() {
-        if (document.getElementById('tutorial-highlight').style.display === 'block') {
+        if (document.getElementById('tutorial-highlight-areas').style.display === 'block') {
             showStep(currentStep);
         }
     });
     window.addEventListener('scroll', function() {
-        if (document.getElementById('tutorial-highlight').style.display === 'block') {
+        if (document.getElementById('tutorial-highlight-areas').style.display === 'block') {
             showStep(currentStep);
         }
     });
-})();
-
-
+})(); 
