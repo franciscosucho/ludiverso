@@ -94,9 +94,8 @@ console.log('Tutorial de áreas: Script cargado');
         nextBtn.id = 'tutorial-next-areas';
         nextBtn.textContent = 'Siguiente';
         nextBtn.style.position = 'absolute';
-        nextBtn.style.left = '50%';
-        nextBtn.style.transform = 'translateX(-50%)';
-        nextBtn.style.bottom = '12px';
+        nextBtn.style.left = '24px';
+        nextBtn.style.bottom = '18px';
         nextBtn.style.padding = '10px 20px';
         nextBtn.style.background = 'var(--Encabezados_botones_y_primarios)';
         nextBtn.style.color = '#fff';
@@ -110,6 +109,26 @@ console.log('Tutorial de áreas: Script cargado');
         nextBtn.style.boxShadow = '0 4px 15px rgba(62, 134, 211, 0.3)';
         nextBtn.style.fontSize = '1em';
         document.body.appendChild(nextBtn);
+
+        // Botón omitir
+        let skipBtn = document.createElement('button');
+        skipBtn.id = 'tutorial-skip-areas';
+        skipBtn.textContent = 'Omitir';
+        skipBtn.style.position = 'absolute';
+        skipBtn.style.right = '24px';
+        skipBtn.style.bottom = '18px';
+        skipBtn.style.padding = '10px 16px';
+        skipBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+        skipBtn.style.color = 'var(--Texto_secundario)';
+        skipBtn.style.border = '1px solid var(--box_shadow)';
+        skipBtn.style.borderRadius = '8px';
+        skipBtn.style.cursor = 'pointer';
+        skipBtn.style.fontWeight = 'bold';
+        skipBtn.style.zIndex = '10001';
+        skipBtn.style.display = 'none';
+        skipBtn.style.transition = 'all 0.3s ease';
+        skipBtn.style.fontSize = '1em';
+        document.body.appendChild(skipBtn);
 
         // Botón flotante para reiniciar (círculo con ?)
         let restartBtn = document.createElement('button');
@@ -165,7 +184,7 @@ console.log('Tutorial de áreas: Script cargado');
         }
         #tutorial-next-areas:hover {
             background: var(--Botones_secundarios_o_hover_azul) !important;
-            transform: translateX(-50%) translateY(-2px);
+            
             box-shadow: 0 6px 20px rgba(62, 134, 211, 0.4) !important;
         }
         #tutorial-restart-areas:hover {
@@ -223,6 +242,7 @@ console.log('Tutorial de áreas: Script cargado');
         const highlight = document.getElementById('tutorial-highlight-areas');
         const tooltip = document.getElementById('tutorial-tooltip-areas');
         const nextBtn = document.getElementById('tutorial-next-areas');
+        const skipBtn = document.getElementById('tutorial-skip-areas');
 
         // Remover la clase de highlight del paso anterior
         const previousHighlighted = document.querySelector('.tutorial-highlighted-areas');
@@ -281,16 +301,25 @@ console.log('Tutorial de áreas: Script cargado');
             tooltip.innerHTML = `<div style='margin-bottom:18px;'>${step.text}</div>`;
             tooltip.style.paddingBottom = '64px'; // espacio para el botón
 
-            // Botón siguiente: SIEMPRE dentro del tooltip, abajo, ancho completo
+            // Botón siguiente: dentro del tooltip, abajo a la izquierda
             nextBtn.style.position = 'absolute';
-            nextBtn.style.left = '50%';
-            nextBtn.style.transform = 'translateX(-50%)';
+            nextBtn.style.left = '24px';
             nextBtn.style.bottom = '18px';
-            nextBtn.style.width = 'calc(100% - 40px)';
+            nextBtn.style.width = 'calc(50% - 32px)';
             nextBtn.style.margin = '0';
             nextBtn.style.display = 'block';
             nextBtn.style.zIndex = '10001';
             tooltip.appendChild(nextBtn);
+
+            // Botón omitir: dentro del tooltip, abajo a la derecha
+            skipBtn.style.position = 'absolute';
+            skipBtn.style.right = '24px';
+            skipBtn.style.bottom = '18px';
+            skipBtn.style.width = 'calc(50% - 32px)';
+            skipBtn.style.margin = '0';
+            skipBtn.style.display = 'block';
+            skipBtn.style.zIndex = '10001';
+            tooltip.appendChild(skipBtn);
 
             overlay.style.display = 'block';
         }, didScroll ? 250 : 0); // Espera 250ms si hubo scroll, 0 si no
@@ -302,6 +331,7 @@ console.log('Tutorial de áreas: Script cargado');
         document.getElementById('tutorial-highlight-areas').style.display = 'none';
         document.getElementById('tutorial-tooltip-areas').style.display = 'none';
         document.getElementById('tutorial-next-areas').style.display = 'none';
+        document.getElementById('tutorial-skip-areas').style.display = 'none';
         
         // Remover la clase de highlight del elemento actual
         const highlightedElement = document.querySelector('.tutorial-highlighted-areas');
@@ -349,6 +379,7 @@ console.log('Tutorial de áreas: Script cargado');
         // Listeners
         document.getElementById('tutorial-next-areas').onclick = nextStep;
         document.getElementById('tutorial-restart-areas').onclick = startTutorial;
+        document.getElementById('tutorial-skip-areas').onclick = endTutorial;
         console.log('Tutorial de áreas: Listeners configurados');
         // Si es la primera vez, inicia el tutorial
         if (!localStorage.getItem('tutorialAreasSeen')) {
