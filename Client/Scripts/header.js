@@ -29,6 +29,9 @@ window.addEventListener('scroll', handleScroll);
 
 document.addEventListener('DOMContentLoaded', function () {
     const links = document.querySelectorAll('.links');
+    
+    // Detectar si estamos en el index o en otra página
+    const isIndexPage = window.location.pathname === '/index' || window.location.pathname === '/';
 
     links.forEach(link => {
         link.addEventListener('click', function (e) {
@@ -38,10 +41,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (href.startsWith('#')) {
                 e.preventDefault();
                 const targetId = href.substring(1);
-                const target = document.getElementById(targetId);
-
-                if (target) {
-                    scrollToElement(target, 200);
+                
+                if (isIndexPage) {
+                    // Si estamos en el index, hacer scroll a la sección
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        scrollToElement(target, 200);
+                    }
+                } else {
+                    // Si estamos en otra página, redirigir al index con el anchor
+                    window.location.href = '/index' + href;
                 }
             }
             // Los enlaces sin # (como /profile) se comportarán normalmente
