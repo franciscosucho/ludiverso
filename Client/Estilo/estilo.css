@@ -413,21 +413,19 @@ body main #sec_img .cont_main_juego.desac {
 body main #sec_img .cont_main_juego .cont_tex {
   padding-left: 20px;
   padding-top: 5px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0,0,0,0.507);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 50px;
-  color: var(--Texto_principal);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--Encabezados_botones_y_primarios);
+  color: white;
 }
 body main #sec_img .cont_main_juego .cont_tex h2,
 body main #sec_img .cont_main_juego .cont_tex a {
   padding: 20px !important;
   text-decoration: none;
-  color: var(--Texto_principal);
+  color: white;
   font-size: 1.6em;
   font-weight: bold;
   padding: 5px;
@@ -457,7 +455,7 @@ body main #sec_img .cont_main_juego .cont_arrow {
 body main #sec_img .cont_main_juego .cont_arrow i {
   font-size: 2.2em;
   cursor: pointer;
-  color: var(--Texto_principal);
+  color: white;
   padding: 30px;
   border-radius: 50%;
   height: 40px;
@@ -466,17 +464,16 @@ body main #sec_img .cont_main_juego .cont_arrow i {
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  background-color: rgba(0,0,0,0.507);
   border: 2px solid var(--Encabezados_botones_y_primarios);
 }
 body main #sec_img .cont_main_juego .cont_arrow i:hover {
-  background-color: var(--fondo_azul_claro);
+  background-color: rgba(128, 128, 128, 0.349);
   transform: scale(1.1);
   box-shadow: 0 4px 15px rgba(62, 134, 211, 0.3);
 }
 body main #sec_img .cont_main_juego .cont_info_juego {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(51, 95, 153, 0.589);
   margin-bottom: 8%;
   margin-top: 10%;
   padding: 30px;
@@ -488,14 +485,14 @@ body main #sec_img .cont_main_juego .cont_info_juego {
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(7px);
   border: 2px solid var(--Encabezados_botones_y_primarios);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 body main #sec_img .cont_main_juego .cont_info_juego p {
   width: 80%;
   text-align: center;
-  color: var(--Texto_principal);
+  color: white;
   font-size: 1.1em;
   line-height: 1.6;
 }
