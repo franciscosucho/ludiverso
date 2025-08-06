@@ -66,7 +66,7 @@ console.log('Tutorial de áreas: Script cargado');
         highlight.style.zIndex = '9999';
         highlight.style.pointerEvents = 'none';
         highlight.style.transition = 'all 0.3s ease';
-        highlight.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+        highlight.style.backgroundColor = 'var(--back_card)';
         highlight.style.backdropFilter = 'blur(5px)';
         document.body.appendChild(highlight);
 
@@ -74,11 +74,11 @@ console.log('Tutorial de áreas: Script cargado');
         let tooltip = document.createElement('div');
         tooltip.id = 'tutorial-tooltip-areas';
         tooltip.style.position = 'absolute';
-        tooltip.style.background = 'rgba(255, 255, 255, 0.95)';
+        tooltip.style.background = 'var(--Fondo_principal)';
         tooltip.style.color = 'var(--Texto_principal)';
         tooltip.style.padding = '20px 24px 52px 24px'; // espacio extra abajo para el botón
         tooltip.style.borderRadius = '12px';
-        tooltip.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.15)';
+        tooltip.style.boxShadow = '0 8px 32px var(--box_shadow)';
         tooltip.style.zIndex = '10000';
         tooltip.style.maxWidth = '350px';
         tooltip.style.fontSize = '1.1em';
@@ -87,6 +87,7 @@ console.log('Tutorial de áreas: Script cargado');
         tooltip.style.backdropFilter = 'blur(15px)';
         tooltip.style.border = '2px solid var(--Encabezados_botones_y_primarios)';
         tooltip.style.transition = 'all 0.3s ease';
+        tooltip.style.opacity = '0.95';
         document.body.appendChild(tooltip);
 
         // Botón siguiente
@@ -118,7 +119,7 @@ console.log('Tutorial de áreas: Script cargado');
         skipBtn.style.right = '24px';
         skipBtn.style.bottom = '18px';
         skipBtn.style.padding = '10px 16px';
-        skipBtn.style.background = 'rgba(255, 255, 255, 0.9)';
+        skipBtn.style.background = 'var(--Fondo_principal)';
         skipBtn.style.color = 'var(--Texto_secundario)';
         skipBtn.style.border = '1px solid var(--box_shadow)';
         skipBtn.style.borderRadius = '8px';
@@ -128,6 +129,7 @@ console.log('Tutorial de áreas: Script cargado');
         skipBtn.style.display = 'none';
         skipBtn.style.transition = 'all 0.3s ease';
         skipBtn.style.fontSize = '1em';
+        skipBtn.style.opacity = '0.9';
         document.body.appendChild(skipBtn);
 
         // Botón flotante para reiniciar (círculo con ?)
@@ -191,6 +193,14 @@ console.log('Tutorial de áreas: Script cargado');
             background: var(--Botones_secundarios_o_hover_azul) !important;
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(62, 134, 211, 0.5) !important;
+        }
+        #tutorial-skip-areas:hover {
+            background: var(--Fondo_principal) !important;
+            color: var(--Texto_principal) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--box_shadow) !important;
+            border-color: var(--Encabezados_botones_y_primarios) !important;
+            opacity: 1 !important;
         }
         
         /* Estilos para el elemento resaltado durante el tutorial */
