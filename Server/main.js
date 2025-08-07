@@ -153,9 +153,9 @@ app.post('/registrar', async (req, res) => {
 
         connection.query(insert_usuario, [nombre_us, apellido_us, nombre_usuario_us, email_us, bol_recibir, hash, "alumno", tipo_daltonismo], (err, result) => {
             if (err) {
-              
+
                 if (err.code === 'ER_DUP_ENTRY') {
-                   
+
                     console.error('Error al registrarse: El email ya está registrado.', err);
                     res.render('register', { error: 'El email ingresado ya se encuentra registrado. Por favor, utilice otro.' });
                 } else {
@@ -953,6 +953,52 @@ app.get('/sobre_nosotros', isLogged, (req, res) => {
 
 
 
+
+app.get('/puntuarJuego', isLogged, (req, res) => {
+    try {
+        const id_juego = req.query.id_juego
+        const select_juegos = 'SELECT * FROM `juegos` WHERE juego_id=?';
+        connection.query(select_juegos, [id_juego], (err, result_juegos) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor ', err);
+                res.status(500).send('Error al ejecutar la query en el servidor');
+            } else {
+                res.render('puntuarJuego', { id_juego, juego: result_juegos[0], sessionUserId: req.session.usuario_id, session: req.session });
+            }
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        res.render('sobre_nosotros', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
+
+});
+
+
+
+app.post('/postPuntuarJuego', isLogged, (req, res) => {
+    try {
+        const id_us = req.session.usuario_id;
+        const { id_juego, input_diver, input_dificultad, input_diseno, input_punto_fuerte, input_futuro } = req.body;
+        const select_juegos = 'INSERT INTO `puntaje_juegos`(`id_juego`, `id_us`, `input_diver`, `input_dificultad`, `input_diseno`, `input_punto_fuerte`, `input_futuro`) VALUES (?,?,?,?,?,?,?)';
+        connection.query(select_juegos, [id_juego, id_us, input_diver, input_dificultad, input_diseno, input_punto_fuerte, input_futuro], (err, result_juegos) => {
+            if (err) {
+                console.error('Error al ejecutar la query en el servidor ', err);
+                res.status(500).send('Error al ejecutar la query en el servidor');
+            } else {
+                return res.redirect('/puntuarJuego');
+            }
+        })
+    }
+
+    catch (err) {
+        console.error('Error al abrir la pagina principal:', err);
+        return res.redirect('/puntuarJuego', { error: 'Ocurrio un error al monento de abrir la pagina principal' });
+    }
+
+});
+    
 module.exports = {
     hashPassword,
     verifyPassword,

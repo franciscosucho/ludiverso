@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('head.ejs') %>
+        <title>
+            Memory card
+        </title>
+</head>
+
+<body>
+    <%- include('header.ejs') %>
+        <main id="juego_memoria">
+
+            <form id="puntuarJuego" method="post" action="/postPuntuarJuego">
+                <h2>Puntuar <%= juego.titulo %></h2>
+                <input type="text" class="desac" value="<%= id_juego %>">                
+                <div class="form-group">
+                    <label for="input_diver">
+                        En una escala del 1 al 5, ¿qué tan divertido te parece el juego "<%= juego.titulo %>"?
+                    </label>
+                    <select name="input_diver" id="input_diver" class="custom-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="1">1 (Nada divertido)</option>
+                        <option value="2">2</option>
+                        <option value="3">3 (Normal)</option>
+                        <option value="4">4</option>
+                        <option value="5">5 (Extremadamente divertido)</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="input_dificultad">
+                        ¿Cómo calificarías la dificultad del juego?
+                    </label>
+                    <select name="input_diver" id="input_dificultad" class="custom-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="1">Demasiado fácil</option>
+                        <option value="2">Fácil</option>
+                        <option value="3">Justa y equilibrada</option>
+                        <option value="4">Difícil</option>
+                        <option value="5">Demasiado difícil</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="input_diseno">
+                        ¿Qué opinas sobre el diseño visual y la interfaz de usuario del juego?
+                    </label>
+                    <select name="input_diseno" id="input_diseno" class="custom-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="1">Muy malo</option>
+                        <option value="2">Malo</option>
+                        <option value="3">Aceptable</option>
+                        <option value="4">Bueno</option>
+                        <option value="5">Excelente</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="input_punto_fuerte">
+                        En tu opinión, ¿cuál es el mayor punto fuerte del juego "<%= juego.titulo %>"?
+                    </label>
+                    <select name="input_punto_fuerte" id="input_punto_fuerte" class="custom-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        
+                        <option value="jugabilidad">La jugabilidad/mecánicas</option>
+                        <option value="graficos">Los gráficos/diseño visual</option>
+                        <option value="sonido">El sonido/música</option>
+                    </select>
+                </div>
+            
+                <div class="form-group">
+                    <label for="input_futuro">
+                        ¿Qué te gustaría ver en una futura actualización o secuela de este juego?
+                    </label>
+                    <select name="input_futuro" id="input_futuro" class="custom-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="nuevos_niveles">Nuevos niveles/contenido</option>
+                        <option value="mejoras_graficas">Mejoras gráficas</option>
+                        <option value="historia_adicional">Historia adicional</option>
+                        <option value="personajes_nuevos">Nuevos personajes/habilidades</option>
+                        <option value="correccion_errores">Corrección de errores</option>
+                    </select>
+                </div>
+                <button>Enviar</button>
+                
+            </form>
+
+
+        </main>
+
+</body>
+
+</html>
