@@ -950,6 +950,9 @@ app.get('/sobre_nosotros', isLogged, (req, res) => {
 
 });
 
+
+
+
 module.exports = {
     hashPassword,
     verifyPassword,
