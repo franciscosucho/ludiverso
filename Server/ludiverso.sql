@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-08-2025 a las 19:56:17
+-- Tiempo de generación: 07-08-2025 a las 19:49:43
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,20 +38,6 @@ INSERT INTO `areas` (`materia_id`, `nombre`, `descripcion`, `jefe_de_area`) VALU
 (5, 'Educación Física', 'Promueve el desarrollo del cuerpo y la salud a través del movimiento, el juego y el deporte. Fomenta hábitos saludables, el trabajo en equipo y el respeto por uno mismo y los demás.', 'Prof. Nora Cavia'),
 (6, 'Ciencias Sociales', 'Esta área estudia cómo viven las personas en sociedad, su historia, costumbres, formas de gobierno, y el entorno geográfico. Ayuda a comprender el pasado, el presente y a reflexionar sobre el mundo que nos rodea.', 'Prof. Diana Cozzani'),
 (7, 'Taller', 'Es un espacio práctico donde se aprenden habilidades manuales, técnicas y creativas. Se trabaja en proyectos que integran conocimientos de distintas áreas y fomentan la autonomía y el trabajo colaborativo.', 'Prof. Alejandro Hsia');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `calificaciones`
---
-
-CREATE TABLE `calificaciones` (
-  `calificacion_id` int(11) NOT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  `juego_id` int(11) DEFAULT NULL,
-  `estrellas` int(11) DEFAULT NULL CHECK (`estrellas` between 0 and 5),
-  `fecha` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -294,6 +280,32 @@ CREATE TABLE `preguntas` (
   `texto` text NOT NULL,
   `tipo` enum('multiple_choice','verdadero_falso','completar') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `puntaje_juego`
+--
+
+CREATE TABLE `puntaje_juego` (
+  `id_puntaje` int(10) NOT NULL,
+  `id_juego` int(10) NOT NULL,
+  `id_us` int(10) NOT NULL,
+  `input_diver` varchar(255) NOT NULL,
+  `input_dificultad` varchar(255) NOT NULL,
+  `input_diseno` varchar(255) NOT NULL,
+  `input_punto_fuerte` varchar(255) NOT NULL,
+  `input_futuro` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `puntaje_juego`
+--
+
+INSERT INTO `puntaje_juego` (`id_puntaje`, `id_juego`, `id_us`, `input_diver`, `input_dificultad`, `input_diseno`, `input_punto_fuerte`, `input_futuro`) VALUES
+(1, 2, 5, '3', '2', '2', 'jugabilidad', 'nuevos_niveles'),
+(2, 2, 5, '2', '2', '1', 'jugabilidad', 'nuevos_niveles'),
+(3, 3, 5, '2', '2', '1', 'jugabilidad', 'nuevos_niveles');
 
 -- --------------------------------------------------------
 
@@ -673,14 +685,6 @@ ALTER TABLE `areas`
   ADD PRIMARY KEY (`materia_id`);
 
 --
--- Indices de la tabla `calificaciones`
---
-ALTER TABLE `calificaciones`
-  ADD PRIMARY KEY (`calificacion_id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `juego_id` (`juego_id`);
-
---
 -- Indices de la tabla `estadisticas`
 --
 ALTER TABLE `estadisticas`
@@ -760,6 +764,14 @@ ALTER TABLE `preguntas`
   ADD KEY `juego_id` (`juego_id`);
 
 --
+-- Indices de la tabla `puntaje_juego`
+--
+ALTER TABLE `puntaje_juego`
+  ADD PRIMARY KEY (`id_puntaje`),
+  ADD KEY `id_juego` (`id_juego`,`id_us`),
+  ADD KEY `id_us` (`id_us`);
+
+--
 -- Indices de la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
@@ -811,12 +823,6 @@ ALTER TABLE `wordle`
 --
 ALTER TABLE `areas`
   MODIFY `materia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `calificaciones`
---
-ALTER TABLE `calificaciones`
-  MODIFY `calificacion_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `estadisticas`
@@ -879,6 +885,12 @@ ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `puntaje_juego`
+--
+ALTER TABLE `puntaje_juego`
+  MODIFY `id_puntaje` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
@@ -917,13 +929,6 @@ ALTER TABLE `wordle`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `calificaciones`
---
-ALTER TABLE `calificaciones`
-  ADD CONSTRAINT `calificaciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
-  ADD CONSTRAINT `calificaciones_ibfk_2` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
 
 --
 -- Filtros para la tabla `estadisticas`
@@ -979,6 +984,13 @@ ALTER TABLE `palabras_ahorcado`
 --
 ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
+
+--
+-- Filtros para la tabla `puntaje_juego`
+--
+ALTER TABLE `puntaje_juego`
+  ADD CONSTRAINT `puntaje_juego_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`juego_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `puntaje_juego_ibfk_2` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
 -- Filtros para la tabla `ranking_ahorcado`

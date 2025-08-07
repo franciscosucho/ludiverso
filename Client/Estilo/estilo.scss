@@ -856,7 +856,7 @@ body {
                     transition: all .2s ease-in-out;
 
                     &:hover {
-                        background-color:var(--Botones_secundarios_o_hover_azul)
+                        background-color: var(--Botones_secundarios_o_hover_azul)
                     }
 
                     &.desac {
@@ -3578,56 +3578,56 @@ $right :#538d4e;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
-  
+
     h2 {
-      color: #202124;
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 24px;
+        color: #202124;
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 24px;
     }
-  
+
     .cont_input,
     .form-group {
-      margin-bottom: 24px;
-  
-      label {
-        display: block;
-        margin-bottom: 8px;
-        color: #202124;
-        font-size: 16px;
-        font-weight: 400;
-      }
-  
-      input[type="number"],
-      input[type="text"],
-      select {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #dadce0;
-        border-radius: 4px;
-        font-size: 16px;
-        color: #202124;
-        background-color: #f8f9fa;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  
-        &:focus {
-          outline: none;
-          border-color: #1a73e8;
-          box-shadow: 0 1px 1px 0 rgba(66, 133, 244, 0.3);
+        margin-bottom: 24px;
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #202124;
+            font-size: 16px;
+            font-weight: 400;
         }
-      }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #202124;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-color: #1a73e8;
+                box-shadow: 0 1px 1px 0 rgba(66, 133, 244, 0.3);
+            }
+        }
     }
-  
+
     .form-group {
-      select.custom-select {
-        appearance: none;
-        background-image: url('data:image/svg+xml;utf8,<svg fill="#5f6368" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        cursor: pointer;
-      }
+        select.custom-select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="#5f6368" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            cursor: pointer;
+        }
     }
-  }
+}
 
 
 
@@ -3704,7 +3704,7 @@ $right :#538d4e;
         }
 
         #cont_main_inputs {
-            
+
             padding: 50px 20px;
             display: flex;
             align-items: center;
@@ -3756,18 +3756,20 @@ $right :#538d4e;
                     }
                 }
             }
-            .cont_input_check{
-               
+
+            .cont_input_check {
+
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 gap: 8px;
-                
-                input{
+
+                input {
                     height: 20px;
                     width: 20px;
                 }
             }
+
             .form-group {
                 width: 70%;
                 margin-bottom: 20px;
@@ -4104,12 +4106,13 @@ $right :#538d4e;
         main {
             #sec_img {
                 .cont_main_juego {
-                    
+
                     .cont_main {
-                       
+
                         justify-content: space-around;
                         gap: 10px;
                         overflow: hidden;
+
                         .cont_tex {
                             display: flex;
                             flex-direction: column !important;
@@ -4128,13 +4131,15 @@ $right :#538d4e;
                         .cont_info_juego {
                             width: 70%;
                         }
-                        .cont_arrow{
+
+                        .cont_arrow {
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             width: 15%;
                             padding: 0px !important;
-                            i{
+
+                            i {
                                 height: 20px;
                                 width: 20px;
                                 font-size: 1.3em;

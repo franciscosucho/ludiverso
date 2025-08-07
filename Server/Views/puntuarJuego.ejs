@@ -11,83 +11,181 @@
 <body>
     <%- include('header.ejs') %>
         <main id="juego_memoria">
+            <section id="cont_puntuar">
 
-            <form id="puntuarJuego" method="post" action="/postPuntuarJuego">
-                <h2>Puntuar <%= juego.titulo %></h2>
-                <input type="text" class="desac" value="<%= id_juego %>">                
-                <div class="form-group">
-                    <label for="input_diver">
-                        En una escala del 1 al 5, ¿qué tan divertido te parece el juego "<%= juego.titulo %>"?
-                    </label>
-                    <select name="input_diver" id="input_diver" class="custom-select" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="1">1 (Nada divertido)</option>
-                        <option value="2">2</option>
-                        <option value="3">3 (Normal)</option>
-                        <option value="4">4</option>
-                        <option value="5">5 (Extremadamente divertido)</option>
-                    </select>
-                </div>
-            
-                <div class="form-group">
-                    <label for="input_dificultad">
-                        ¿Cómo calificarías la dificultad del juego?
-                    </label>
-                    <select name="input_diver" id="input_dificultad" class="custom-select" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="1">Demasiado fácil</option>
-                        <option value="2">Fácil</option>
-                        <option value="3">Justa y equilibrada</option>
-                        <option value="4">Difícil</option>
-                        <option value="5">Demasiado difícil</option>
-                    </select>
-                </div>
-            
-                <div class="form-group">
-                    <label for="input_diseno">
-                        ¿Qué opinas sobre el diseño visual y la interfaz de usuario del juego?
-                    </label>
-                    <select name="input_diseno" id="input_diseno" class="custom-select" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="1">Muy malo</option>
-                        <option value="2">Malo</option>
-                        <option value="3">Aceptable</option>
-                        <option value="4">Bueno</option>
-                        <option value="5">Excelente</option>
-                    </select>
-                </div>
-            
-                <div class="form-group">
-                    <label for="input_punto_fuerte">
-                        En tu opinión, ¿cuál es el mayor punto fuerte del juego "<%= juego.titulo %>"?
-                    </label>
-                    <select name="input_punto_fuerte" id="input_punto_fuerte" class="custom-select" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
+                <% if (typeof mensaje !=='undefined' && mensaje) { %>
+                    <div class="error-message">
+                        <%= mensaje %>
+                        <%
+                        const array_opt_diver = ["1 (Nada divertido)", "2", "3 (Normal)", "4", "5 (Extremadamente divertido)"];
+                        const array_opt_dificultad = ["Demasiado fácil", "Fácil", "Justa y equilibrada", "Difícil", "Demasiado difícil"];
+                        const array_opt_diseno = ["Muy malo", "Malo", "Aceptable", "Bueno", "Excelente"];
+                        const array_opt_fuerte = [
+                            { value: "jugabilidad", text: "La jugabilidad/mecánicas" },
+                            { value: "graficos", text: "Los gráficos/diseño visual" },
+                            { value: "sonido", text: "El sonido/música" }
+                        ];
+                        const array_opt_futuro = [
+                            { value: "nuevos_niveles", text: "Nuevos niveles/contenido" },
+                            { value: "mejoras_graficas", text: "Mejoras gráficas" },
+                            { value: "historia_adicional", text: "Historia adicional" },
+                            { value: "personajes_nuevos", text: "Nuevos personajes/habilidades" },
+                            { value: "correccion_errores", text: "Corrección de errores" }
+                        ];
+                    %>
+
+                    <form id="puntuarJuego" method="post" action="/postActuaizarPuntuarJuego">
+                        <h2>Actualizar el Puntaje de "<%= juego.titulo %>"</h2>
+                        <input type="hidden" value="<%= id_juego %>" name="id_juego">
                         
-                        <option value="jugabilidad">La jugabilidad/mecánicas</option>
-                        <option value="graficos">Los gráficos/diseño visual</option>
-                        <option value="sonido">El sonido/música</option>
-                    </select>
-                </div>
-            
-                <div class="form-group">
-                    <label for="input_futuro">
-                        ¿Qué te gustaría ver en una futura actualización o secuela de este juego?
-                    </label>
-                    <select name="input_futuro" id="input_futuro" class="custom-select" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="nuevos_niveles">Nuevos niveles/contenido</option>
-                        <option value="mejoras_graficas">Mejoras gráficas</option>
-                        <option value="historia_adicional">Historia adicional</option>
-                        <option value="personajes_nuevos">Nuevos personajes/habilidades</option>
-                        <option value="correccion_errores">Corrección de errores</option>
-                    </select>
-                </div>
-                <button>Enviar</button>
-                
-            </form>
+                        <div class="form-group">
+                            <label for="input_diver">
+                                En una escala del 1 al 5, ¿qué tan divertido te parece el juego "<%= juego.titulo %>"?
+                            </label>
+                            <select name="input_diver" id="input_diver" class="custom-select" required>
+                                <% for (let i = 0; i < array_opt_diver.length; i++) { %>
+                                    <option value="<%= i + 1 %>" <%= (i + 1) == puntaje.input_diver ? 'selected' : '' %>>
+                                        <%= array_opt_diver[i] %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input_dificultad">
+                                ¿Cómo calificarías la dificultad del juego?
+                            </label>
+                            <select name="input_dificultad" id="input_dificultad" class="custom-select" required>
+                                <% for (let i = 0; i < array_opt_dificultad.length; i++) { %>
+                                    <option value="<%= i + 1 %>" <%= (i + 1) == puntaje.input_dificultad ? 'selected' : '' %>>
+                                        <%= array_opt_dificultad[i] %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input_diseno">
+                                ¿Qué opinas sobre el diseño visual y la interfaz de usuario del juego?
+                            </label>
+                            <select name="input_diseno" id="input_diseno" class="custom-select" required>
+                                <% for (let i = 0; i < array_opt_diseno.length; i++) { %>
+                                    <option value="<%= i + 1 %>" <%= (i + 1) == puntaje.input_diseno ? 'selected' : '' %>>
+                                        <%= array_opt_diseno[i] %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input_punto_fuerte">
+                                En tu opinión, ¿cuál es el mayor punto fuerte del juego "<%= juego.titulo %>"?
+                            </label>
+                            <select name="input_punto_fuerte" id="input_punto_fuerte" class="custom-select" required>
+                                <% for (let i = 0; i < array_opt_fuerte.length; i++) { %>
+                                    <option value="<%= array_opt_fuerte[i].value %>" <%= array_opt_fuerte[i].value == puntaje.input_punto_fuerte ? 'selected' : '' %>>
+                                        <%= array_opt_fuerte[i].text %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="input_futuro">
+                                ¿Qué te gustaría ver en una futura actualización o secuela de este juego?
+                            </label>
+                            <select name="input_futuro" id="input_futuro" class="custom-select" required>
+                                <% for (let i = 0; i < array_opt_futuro.length; i++) { %>
+                                    <option value="<%= array_opt_futuro[i].value %>" <%= array_opt_futuro[i].value == puntaje.input_futuro ? 'selected' : '' %>>
+                                        <%= array_opt_futuro[i].text %>
+                                    </option>
+                                <% } %>
+                            </select>
+                        </div>
+                        
+                        <button>Enviar</button>
+                    </form>
+                    </div>
+                    <% } else{ %>
+                        <form id="puntuarJuego" method="post" action="/postPuntuarJuego">
+                            <h2>Puntuar "<%= juego.titulo %> "
+                            </h2>
+                            <input type="text" class="desac" value="<%= id_juego %>" name="id_juego">
+                            <div class="form-group">
+                                <label for="input_diver">
+                                    En una escala del 1 al 5, ¿qué tan divertido te parece el juego "<%= juego.titulo %>
+                                        "?
+                                </label>
+                                <select name="input_diver" id="input_diver" class="custom-select" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="1">1 (Nada divertido)</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3 (Normal)</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5 (Extremadamente divertido)</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="input_dificultad">
+                                    ¿Cómo calificarías la dificultad del juego?
+                                </label>
+                                <select name="input_dificultad" id="input_dificultad" class="custom-select" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="1">Demasiado fácil</option>
+                                    <option value="2">Fácil</option>
+                                    <option value="3">Justa y equilibrada</option>
+                                    <option value="4">Difícil</option>
+                                    <option value="5">Demasiado difícil</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="input_diseno">
+                                    ¿Qué opinas sobre el diseño visual y la interfaz de usuario del juego?
+                                </label>
+                                <select name="input_diseno" id="input_diseno" class="custom-select" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="1">Muy malo</option>
+                                    <option value="2">Malo</option>
+                                    <option value="3">Aceptable</option>
+                                    <option value="4">Bueno</option>
+                                    <option value="5">Excelente</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input_punto_fuerte">
+                                    En tu opinión, ¿cuál es el mayor punto fuerte del juego "<%= juego.titulo %>"?
+                                </label>
+                                <select name="input_punto_fuerte" id="input_punto_fuerte" class="custom-select"
+                                    required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+
+                                    <option value="jugabilidad">La jugabilidad/mecánicas</option>
+                                    <option value="graficos">Los gráficos/diseño visual</option>
+                                    <option value="sonido">El sonido/música</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="input_futuro">
+                                    ¿Qué te gustaría ver en una futura actualización o secuela de este juego?
+                                </label>
+                                <select name="input_futuro" id="input_futuro" class="custom-select" required>
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="nuevos_niveles">Nuevos niveles/contenido</option>
+                                    <option value="mejoras_graficas">Mejoras gráficas</option>
+                                    <option value="historia_adicional">Historia adicional</option>
+                                    <option value="personajes_nuevos">Nuevos personajes/habilidades</option>
+                                    <option value="correccion_errores">Corrección de errores</option>
+                                </select>
+                            </div>
+                            <button>Enviar</button>
+
+                        </form>
+                        <% }%>
+            </section>
         </main>
 
 </body>
