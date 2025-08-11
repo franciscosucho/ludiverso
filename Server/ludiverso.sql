@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-08-2025 a las 19:49:43
+-- Tiempo de generación: 11-08-2025 a las 20:07:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -99,7 +99,19 @@ CREATE TABLE `historial_wordle` (
 --
 
 INSERT INTO `historial_wordle` (`id_historial`, `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES
-(1, 5, 6, 95, '2025-07-30 20:16:05');
+(1, 5, 6, 95, '2025-07-30 20:16:05'),
+(2, 5, 0, 30, '2025-08-11 13:53:41'),
+(3, 5, 0, 10, '2025-08-11 14:04:07'),
+(4, 5, 0, 10, '2025-08-11 14:11:50'),
+(5, 5, 0, 10, '2025-08-11 14:17:56'),
+(6, 5, 0, 10, '2025-08-11 14:18:31'),
+(7, 5, 0, 20, '2025-08-11 14:19:28'),
+(8, 5, 0, 13, '2025-08-11 14:20:06'),
+(9, 5, 0, 38, '2025-08-11 14:22:36'),
+(10, 5, 0, 40, '2025-08-11 14:24:08'),
+(11, 5, 0, 40, '2025-08-11 14:26:17'),
+(12, 5, 0, 40, '2025-08-11 14:37:22'),
+(13, 5, 0, 40, '2025-08-11 14:40:03');
 
 -- --------------------------------------------------------
 
@@ -486,7 +498,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `recibir_nov`, `contraseña`, `rol`, `daltonismo`, `reset_password_token`, `reset_password_expires`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', 1, '$2b$10$xtobt7uMfLAKDmTaR62SJuwXzJ5E09iyL1YlBb2nSK0IMdKlQmLpm', 'alumno', 'tritanopia', NULL, NULL),
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', 1, '$2b$10$xtobt7uMfLAKDmTaR62SJuwXzJ5E09iyL1YlBb2nSK0IMdKlQmLpm', 'alumno', 'acromatopsia', NULL, NULL),
 (9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', 0, '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo', NULL, NULL, NULL),
 (12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', 0, '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno', NULL, NULL, NULL),
 (13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', 0, '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno', NULL, NULL, NULL),
@@ -840,7 +852,7 @@ ALTER TABLE `historial_ahorcado`
 -- AUTO_INCREMENT de la tabla `historial_wordle`
 --
 ALTER TABLE `historial_wordle`
-  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `intentos`
