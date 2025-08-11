@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap");
 * {
   box-sizing: border-box;
   padding: 0px;
@@ -6,7 +7,8 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#pagina-ludiverso *, #main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, .cont_wordle .cont_main #cont_est div *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .admin-juegos#cont_wordle .cont_novedades_main .cont_novedades .cont_rosources .resource .cont_text_img span, body main#dashboard .admin-juegos#cont_wordle .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard .admin-users .btn-reset, body main#dashboard form h3, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
+#pagina-ludiverso *, #main_areas #cont_main_areas .cont_juegos_areas #tit_juegos, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h4, #main_areas #cont_main_areas .cont_text .sub_cont_text .cont_text_sub h3, #main_areas #cont_main_areas h2, #cont_puntuar *, .cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas *,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic *, .cont_wordle #cont_pista p, .cont_wordle #cont_pista h3, #wordle #ranking *, #wordle .cont_btns .select_dinamica a, #wordle .cont_btns .select_dinamica h4, #wordle .cont_btns .btn_wd, #wordle .cont_colores .cont_sig_color p, #wordle .cont_text p, #wordle h1, #juego_memoria #cont_ganar *, #juego_memoria .section2 .estadisticas, #juego_memoria #cont_primer_des .div_main_ask .div_nombres span, #juego_memoria #cont_primer_des h2, #juego_memoria #cont_primer_des #sub_cont_main .cont_estadisticas .estadisticas, #juego_memoria #cont_imagenes #btn_iniciar_juego, #juego_memoria #cont_text_main *, #juego_intro .cont_niveles .cont_areas_niveles .titulo_area, #juego_intro .cont_text .desc_juego, #juego_intro .cont_text .titulo_juego, body main#dashboard .admin-juegos .cont_juego span, body main#dashboard .admin-juegos#cont_wordle .cont_opc div span, body main#dashboard .admin-juegos#cont_wordle .cont_novedades_main .cont_novedades .cont_rosources .resource .cont_text_img span, body main#dashboard .admin-juegos#cont_wordle .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard .admin-novedades .cont_novedades_main .cont_novedades .cont_text_novedad *, body main#dashboard .admin-users .btn-reset, body main#dashboard form h3, body main#dashboard h2, body main#dashboard .cont_novedades .cont_text_novedad *, body main .secciones .sub_titulo, body main .secciones#sec_sobre_nosotros .cont_text_ludi p, body main .secciones#sec_sobre_nosotros .cont_text_ludi b, body main .secciones#sec_novedades .cont_novedades .cont_text_novedad * {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -19,6 +21,7 @@
 /* variables para el DOM en general. */
 /* 1. Modo claro (por defecto) - Sin daltonismo */
 :root {
+  --filtro_imagenes: contrast(1.12) saturate(1.15) brightness(0.98);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -49,10 +52,17 @@
   /* Rosa */
   --color_comu: #81c784;
   /* Verde claro */
+  /*--------------------------------------------------------------------------------------
+      Colores Wordle
+  */
+  --verde_word: #449f47;
+  --amarillo_word: #e5a81d;
+  --gris_word: #757475;
 }
 
 /* 2. Modo oscuro general - Sin daltonismo */
 :root[data-tema=oscuro] {
+  --filtro_imagenes: contrast(1.12) saturate(1.15) brightness(0.98);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -82,11 +92,20 @@
   /* Rosa */
   --color_comu: #81c784;
   /* Verde claro */
+  /*--------------------------------------------------------------------------------------
+      Colores Wordle
+  */
+  --verde_word: #449f47;
+  --amarillo_word: #e5a81d;
+  --gris_word: #3a3a3c;
+  /* Gris oscuro para mejor contraste */
 }
 
 /* 3. Daltonismos en modo claro */
 /* Protanopia (ceguera al rojo) - Modo Claro */
 :root[data-daltonismo=protanopia] {
+  /* Protanopia: rojo ausente → subir calidez y contraste */
+  --filtro_imagenes: contrast(1.15) saturate(1.2) brightness(0.98) hue-rotate(10deg);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -117,10 +136,18 @@
   /* Rosa para protanopia */
   --color_comu: #91d293;
   /* Verde claro para protanopia */
+  /* Colores Wordle - Protanopia */
+  --verde_word: #007bff;
+  /* Azul */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #757475;
 }
 
 /* Deuteranopia (ceguera al verde) - Modo Claro */
 :root[data-daltonismo=deuteranopia] {
+  /* Deuteranopia: verde ausente → subir saturación general y contraste */
+  --filtro_imagenes: contrast(1.15) saturate(1.25) brightness(0.98) hue-rotate(-7deg);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -151,10 +178,18 @@
   /* Rosa para deuteranopia */
   --color_comu: #b2d5a3;
   /* Verde claro para deuteranopia */
+  /* Colores Wordle - Deuteranopia */
+  --verde_word: #007bff;
+  /* Azul */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #757475;
 }
 
 /* Tritanopia (ceguera al azul) - Modo Claro */
 :root[data-daltonismo=tritanopia] {
+  /* Tritanopia: azul/amarillo ausente → reforzar tonos cálidos */
+  --filtro_imagenes: contrast(1.15) saturate(1.25) brightness(0.97) hue-rotate(-15deg);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -186,11 +221,19 @@
   /* Rosa estándar para tritanopia (no afectado) */
   --color_comu: #aed581;
   /* Verde más claro para tritanopia */
+  /* Colores Wordle - Tritanopia */
+  --verde_word: #449f47;
+  /* Verde original es visible */
+  --amarillo_word: #f48fb1;
+  /* Rosa */
+  --gris_word: #757475;
 }
 
 /* NUEVAS VARIABLES PARA DALTONISMO EN MODO CLARO */
 /* Protanomalía (debilidad al rojo) - Modo Claro */
 :root[data-daltonismo=protanomaly] {
+  /* Protanomaly: rojo reducido → ajuste más leve */
+  --filtro_imagenes: contrast(1.12) saturate(1.18) brightness(0.98) hue-rotate(5deg);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -216,10 +259,18 @@
   --color_edu: #ffe070;
   --color_taller: #f8a0c0;
   --color_comu: #80c080;
+  /* Colores Wordle - Protanomaly */
+  --verde_word: #1a70c0;
+  /* Azul */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #757475;
 }
 
 /* Deuteranomalía (debilidad al verde) - Modo Claro */
 :root[data-daltonismo=deuteranomaly] {
+  /* Deuteranomaly: verde reducido → ajuste más leve */
+  --filtro_imagenes: contrast(1.12) saturate(1.18) brightness(0.98) hue-rotate(-5deg);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -245,10 +296,18 @@
   --color_edu: #ffe070;
   --color_taller: #f8a0c0;
   --color_comu: #90c080;
+  /* Colores Wordle - Deuteranomaly */
+  --verde_word: #1a70c0;
+  /* Azul */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #757475;
 }
 
 /* Tritanomalía (debilidad al azul) - Modo Claro */
 :root[data-daltonismo=tritanomaly] {
+  /* Tritanomaly: azul reducido → leve desplazamiento cálido */
+  --filtro_imagenes: contrast(1.12) saturate(1.18) brightness(0.98) hue-rotate(-10deg);
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #ffffff;
@@ -274,16 +333,24 @@
   --color_edu: #fff176;
   --color_taller: #f48fb1;
   --color_comu: #aed581;
+  /* Colores Wordle - Tritanomaly */
+  --verde_word: #449f47;
+  /* Verde */
+  --amarillo_word: #f48fb1;
+  /* Rosa */
+  --gris_word: #757475;
 }
 
 /* Acromatopsia (ceguera total al color) - Modo Claro */
 :root[data-daltonismo=acromatopsia] {
+  /* Acromatopsia: visión en escala de grises → maximizar contraste */
+  --filtro_imagenes: grayscale(1) contrast(1.3) brightness(1.0);
   /* Todo a escala de grises para simular la falta total de conos */
   --color-fondo: #ffffff;
   --color-texto: #000000;
   --Fondo_principal: #f0f0f0;
   --Texto_principal: #303030;
-  --Texto_secundario: #606060;
+  --Texto_secundario: #3f3f3f;
   --Encabezados_botones_y_primarios: #707070;
   /* Gris medio */
   --Botones_secundarios_o_hover_azul: #a0a0a0;
@@ -292,7 +359,7 @@
   /* Gris muy claro */
   --Botones_secundarios_o_hover_verde_oscuro: #909090;
   /* Gris oscuro */
-  --fondo_azul_claro: rgba(200, 200, 200, 0.336);
+  --fondo_azul_claro: rgba(61, 61, 61, 0.712);
   /* Gris semi-transparente */
   --fondo_azul_claro_hv: rgba(180, 180, 180, 0.336);
   --hover_card: #e8e8e8;
@@ -310,10 +377,19 @@
   /* Gris muy claro */
   --color_comu: #a0a0a0;
   /* Gris claro */
+  /* Colores Wordle - Acromatopsia */
+  --verde_word: #f0f0f0;
+  /* Gris muy claro */
+  --amarillo_word: #b0b0b0;
+  /* Gris claro */
+  --gris_word: #757475;
+  /* Gris oscuro */
 }
 
 /* Acromatomalía (visión parcial al color, muy reducida) - Modo Claro */
 :root[data-daltonismo=acromatomaly] {
+  /* Acromatomaly: saturación reducida → compensar un poco */
+  --filtro_imagenes: saturate(1.5) contrast(1.15) brightness(0.98);
   /* Tonos muy desaturados, casi grises pero con un mínimo matiz de color */
   --color-fondo: #ffffff;
   --color-texto: #000000;
@@ -328,7 +404,7 @@
   /* Casi gris muy claro */
   --Botones_secundarios_o_hover_verde_oscuro: #808080;
   /* Casi gris oscuro */
-  --fondo_azul_claro: rgba(210, 210, 210, 0.336);
+  --fondo_azul_claro: rgba(61, 61, 61, 0.712);
   --fondo_azul_claro_hv: rgba(190, 190, 190, 0.336);
   --hover_card: #f0f0f0;
   --box_shadow: #c0c0c0;
@@ -345,11 +421,20 @@
   /* Gris rojizo */
   --color_comu: #a0b0a0;
   /* Gris verdoso claro */
+  /* Colores Wordle - Acromatomaly */
+  --verde_word: #f0f0f0;
+  /* Gris muy claro */
+  --amarillo_word: #b0b0b0;
+  /* Gris claro */
+  --gris_word: #757475;
+  /* Gris oscuro */
 }
 
 /* 4. Daltonismos combinados con modo oscuro */
 /* Protanopia (ceguera al rojo) - Modo Oscuro */
 :root[data-daltonismo=protanopia][data-tema=oscuro] {
+  /* Protanopia: rojo ausente → subir calidez y contraste */
+  --filtro_imagenes: contrast(1.15) saturate(1.2) brightness(0.98) hue-rotate(10deg);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -379,10 +464,18 @@
   /* Rosa para protanopia modo oscuro */
   --color_comu: #7bb57d;
   /* Verde claro para protanopia modo oscuro */
+  /* Colores Wordle - Protanopia Oscuro */
+  --verde_word: #66b3ff;
+  /* Azul claro */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #3a3a3c;
 }
 
 /* Deuteranopia (ceguera al verde) - Modo Oscuro */
 :root[data-daltonismo=deuteranopia][data-tema=oscuro] {
+  /* Deuteranopia: verde ausente → subir saturación general y contraste */
+  --filtro_imagenes: contrast(1.15) saturate(1.25) brightness(0.98) hue-rotate(-7deg);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -412,10 +505,18 @@
   /* Rosa para deuteranopia modo oscuro */
   --color_comu: #a0b5a0;
   /* Verde claro para deuteranopia modo oscuro */
+  /* Colores Wordle - Deuteranopia Oscuro */
+  --verde_word: #66b3ff;
+  /* Azul claro */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #3a3a3c;
 }
 
 /* Tritanopia (ceguera al azul) - Modo Oscuro */
 :root[data-daltonismo=tritanopia][data-tema=oscuro] {
+  /* Tritanopia: azul/amarillo ausente → reforzar tonos cálidos */
+  --filtro_imagenes: contrast(1.15) saturate(1.25) brightness(0.97) hue-rotate(-15deg);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -445,11 +546,19 @@
   /* Rosa estándar para tritanopia (no afectado) */
   --color_comu: #a0b5a0;
   /* Verde claro para tritanopia modo oscuro */
+  /* Colores Wordle - Tritanopia Oscuro */
+  --verde_word: #449f47;
+  /* Verde original */
+  --amarillo_word: #f48fb1;
+  /* Rosa */
+  --gris_word: #3a3a3c;
 }
 
 /* NUEVAS VARIABLES PARA DALTONISMO EN MODO OSCURO */
 /* Protanomalía (debilidad al rojo) - Modo Oscuro */
 :root[data-daltonismo=protanomaly][data-tema=oscuro] {
+  /* Protanomaly: rojo reducido → ajuste más leve */
+  --filtro_imagenes: contrast(1.12) saturate(1.18) brightness(0.98) hue-rotate(5deg);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -474,10 +583,18 @@
   --color_edu: #e0d070;
   --color_taller: #d090c0;
   --color_comu: #80c080;
+  /* Colores Wordle - Protanomaly Oscuro */
+  --verde_word: #80c0ff;
+  /* Azul claro */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #3a3a3c;
 }
 
 /* Deuteranomalía (debilidad al verde) - Modo Oscuro */
 :root[data-daltonismo=deuteranomaly][data-tema=oscuro] {
+  /* Deuteranomaly: verde reducido → ajuste más leve */
+  --filtro_imagenes: contrast(1.12) saturate(1.18) brightness(0.98) hue-rotate(-5deg);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -502,10 +619,18 @@
   --color_edu: #d0c070;
   --color_taller: #d090c0;
   --color_comu: #a0c080;
+  /* Colores Wordle - Deuteranomaly Oscuro */
+  --verde_word: #80c0ff;
+  /* Azul claro */
+  --amarillo_word: #ff8c00;
+  /* Naranja oscuro */
+  --gris_word: #3a3a3c;
 }
 
 /* Tritanomalía (debilidad al azul) - Modo Oscuro */
 :root[data-daltonismo=tritanomaly][data-tema=oscuro] {
+  /* Tritanomaly: azul reducido → leve desplazamiento cálido */
+  --filtro_imagenes: contrast(1.12) saturate(1.18) brightness(0.98) hue-rotate(-10deg);
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
   --Fondo_principal: #1e1e1e;
@@ -530,10 +655,18 @@
   --color_edu: #e0d060;
   --color_taller: #f48fb1;
   --color_comu: #a0b5a0;
+  /* Colores Wordle - Tritanomaly Oscuro */
+  --verde_word: #449f47;
+  /* Verde original */
+  --amarillo_word: #f48fb1;
+  /* Rosa */
+  --gris_word: #3a3a3c;
 }
 
 /* Acromatopsia (ceguera total al color) - Modo Oscuro */
 :root[data-daltonismo=acromatopsia][data-tema=oscuro] {
+  /* Acromatopsia: visión en escala de grises → maximizar contraste */
+  --filtro_imagenes: grayscale(1) contrast(1.3) brightness(1.0);
   /* Todo a escala de grises para simular la falta total de conos */
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
@@ -548,7 +681,7 @@
   /* Gris muy claro */
   --Botones_secundarios_o_hover_verde_oscuro: #909090;
   /* Gris oscuro */
-  --fondo_azul_claro: rgba(80, 80, 80, 0.336);
+  --fondo_azul_claro: rgba(61, 61, 61, 0.712);
   /* Gris semi-transparente */
   --box_shadow: rgba(0, 0, 0, 0.8);
   --box_shadow_2: rgba(0, 0, 0, 0.8);
@@ -565,10 +698,19 @@
   /* Gris muy claro */
   --color_comu: #909090;
   /* Gris claro */
+  /* Colores Wordle - Acromatopsia Oscuro */
+  --verde_word: #f0f0f0;
+  /* Blanco/Gris muy claro */
+  --amarillo_word: #a0a0a0;
+  /* Gris claro */
+  --gris_word: #3a3a3c;
+  /* Gris oscuro */
 }
 
 /* Acromatomalía (visión parcial al color, muy reducida) - Modo Oscuro */
 :root[data-daltonismo=acromatomaly][data-tema=oscuro] {
+  /* Acromatomaly: saturación reducida → compensar un poco */
+  --filtro_imagenes: saturate(1.5) contrast(1.15) brightness(0.98);
   /* Tonos muy desaturados, casi grises pero con un mínimo matiz de color */
   --color-fondo: #121212;
   --color-texto: #f0f0f0;
@@ -583,7 +725,7 @@
   /* Casi gris muy claro */
   --Botones_secundarios_o_hover_verde_oscuro: #858585;
   /* Casi gris oscuro */
-  --fondo_azul_claro: rgba(90, 90, 90, 0.336);
+  --fondo_azul_claro: rgba(61, 61, 61, 0.712);
   --box_shadow: rgba(0, 0, 0, 0.8);
   --box_shadow_2: rgba(0, 0, 0, 0.8);
   --hover_card: #333333;
@@ -599,6 +741,13 @@
   /* Gris rojizo */
   --color_comu: #a5b5a0;
   /* Gris verdoso claro */
+  /* Colores Wordle - Acromatomaly Oscuro */
+  --verde_word: #f0f0f0;
+  /* Blanco/Gris muy claro */
+  --amarillo_word: #a0a0a0;
+  /* Gris claro */
+  --gris_word: #3a3a3c;
+  /* Gris oscuro */
 }
 
 @keyframes shake {
@@ -626,6 +775,10 @@ html {
   overflow-x: hidden;
   height: auto;
   scroll-behavior: smooth;
+}
+
+img {
+  filter: var(--filtro_imagenes);
 }
 
 body {
@@ -941,6 +1094,7 @@ body main #sec_img .cont_main_juego {
   width: 90%;
   border-radius: 10px;
   max-width: 100%;
+  filter: var(--filtro_imagenes);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -1012,7 +1166,7 @@ body main #sec_img .cont_main_juego .cont_arrow i:hover {
   background-color: rgba(128, 128, 128, 0.349);
 }
 body main #sec_img .cont_main_juego .cont_info_juego {
-  background-color: rgba(51, 95, 153, 0.589);
+  background-color: var(--fondo_azul_claro);
   margin-bottom: 8%;
   margin-top: 10%;
   padding: 30px;
@@ -2200,6 +2354,80 @@ body footer .cont_des a {
   content: none;
 }
 
+#fondo_oscuro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 900;
+}
+
+/* Importamos una fuente tipo "digital" para el reloj. Puedes añadir esto al inicio de tu CSS. */
+.perder-section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+}
+.perder-section .perder-card {
+  background: #fff0f0;
+  border: 2px solid #ff4d4d;
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+  max-width: 500px;
+  animation: fadeIn 0.8s ease-in;
+}
+.perder-section .perder-card .resultados {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  height: auto;
+  width: auto;
+  padding-bottom: 5px;
+}
+.perder-section .perder-card .resultados p {
+  margin-bottom: 0;
+}
+.perder-section .perder-card h2 {
+  font-size: 2rem;
+  color: #d00000;
+  margin-bottom: 0.625rem;
+}
+.perder-section .perder-card p {
+  margin-bottom: 1.875rem;
+  font-size: 1.2rem;
+  color: #444;
+}
+.perder-section .perder-card .acciones-perder {
+  display: flex;
+  justify-content: space-around;
+}
+.perder-section .perder-card .acciones-perder .btn {
+  text-decoration: none;
+  background-color: #ff4d4d;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.perder-section .perder-card .acciones-perder .btn:hover {
+  background-color: #cc0000;
+}
+
 /*Juego memoria <------------------------------------------------------------------------------------->*/
 #juego_memoria {
   width: 100vw;
@@ -2440,64 +2668,6 @@ body footer .cont_des a {
   border: 1px solid var(--Botones_secundarios_o_hover_azul);
   color: var(--Botones_secundarios_o_hover_azul);
 }
-#juego_memoria #fondo_oscuro {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 900;
-}
-#juego_memoria .perder-section {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: transparent;
-  width: 100%;
-  height: 100%;
-}
-#juego_memoria .perder-section .perder-card {
-  background: #fff0f0;
-  border: 2px solid #ff4d4d;
-  border-radius: 20px;
-  padding: 2.5rem;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
-  max-width: 500px;
-  animation: fadeIn 0.8s ease-in;
-}
-#juego_memoria .perder-section .perder-card h2 {
-  font-size: 2rem;
-  color: #d00000;
-  margin-bottom: 0.625rem;
-}
-#juego_memoria .perder-section .perder-card p {
-  margin-bottom: 1.875rem;
-  font-size: 1.2rem;
-  color: #444;
-}
-#juego_memoria .perder-section .perder-card .acciones-perder {
-  display: flex;
-  justify-content: space-around;
-}
-#juego_memoria .perder-section .perder-card .acciones-perder .btn {
-  text-decoration: none;
-  background-color: #ff4d4d;
-  color: white;
-  padding: 0.75rem 1.25rem;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-#juego_memoria .perder-section .perder-card .acciones-perder .btn:hover {
-  background-color: #cc0000;
-}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -2651,13 +2821,13 @@ body footer .cont_des a {
   color: white;
 }
 #wordle .cont_colores .cont_sig_color h3#sig_verde {
-  background-color: #449f47;
+  background-color: var(--verde_word);
 }
 #wordle .cont_colores .cont_sig_color h3#sig_amarillo {
-  background-color: #e5a81d;
+  background-color: var(--amarillo_word);
 }
 #wordle .cont_colores .cont_sig_color h3#sig_gris {
-  background-color: #757475;
+  background-color: var(--gris_word);
 }
 #wordle .cont_btns {
   display: flex;
@@ -2815,24 +2985,33 @@ body footer .cont_des a {
   align-items: center;
   flex-direction: column;
 }
-.cont_wordle .cont_main #cont_est div {
+.cont_wordle .cont_main #cont_est .sub_cont_est {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic {
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 20px;
-  width: 40%;
+  width: 100%;
   height: 50%;
   border: 1px solid var(--Botones_secundarios_o_hover_azul);
   padding: 20px;
   border-radius: 8px;
 }
-.cont_wordle .cont_main #cont_est div h4 {
+.cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas h4,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic h4 {
   color: var(--Botones_secundarios_o_hover_azul);
   font-size: 1.4em;
 }
-.cont_wordle .cont_main #cont_est div span {
+.cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas span,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic span {
   display: block;
   width: 80%;
   transition: all 0.2s ease-in-out;
@@ -2841,15 +3020,50 @@ body footer .cont_des a {
   font-size: 1.1em;
   color: var(--Texto_secundario);
 }
-.cont_wordle .cont_main #cont_est div span.desac {
+.cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas span.desac,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic span.desac {
   display: none;
 }
-.cont_wordle .cont_main #cont_est div.pistas_adic span {
+.cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas.pistas_adic span,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic.pistas_adic span {
   width: auto;
   cursor: pointer;
 }
-.cont_wordle .cont_main #cont_est div.pistas_adic span:hover {
+.cont_wordle .cont_main #cont_est .sub_cont_est .estadisticas.pistas_adic span:hover,
+.cont_wordle .cont_main #cont_est .sub_cont_est .pistas_adic.pistas_adic span:hover {
   background-color: rgba(122, 184, 255, 0.3098039216);
+}
+.cont_wordle .cont_main #cont_est .temporizador-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 10px 30px;
+  background-color: #1c1c1f;
+  border-radius: 8px;
+  border: 1px solid #333;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.cont_wordle .cont_main #cont_est .temporizador-container .temporizador-titulo {
+  color: #b0b0b0;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+.cont_wordle .cont_main #cont_est .temporizador-container .reloj {
+  font-family: "Roboto Mono", monospace;
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #ff4747;
+  text-shadow: 0 0 5px rgba(255, 71, 71, 0.7), 0 0 10px rgba(255, 71, 71, 0.6), 0 0 20px rgba(255, 17, 17, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+.cont_wordle .cont_main #cont_est .temporizador-container .reloj.peligro {
+  color: #ff1111;
+  animation: pulso-peligro 1.2s infinite ease-in-out;
 }
 .cont_wordle #game {
   width: 100%;
@@ -2954,59 +3168,92 @@ body footer .cont_des a {
   margin-right: 0.75rem;
 }
 
-#puntuarJuego {
+#cont_puntuar {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+#cont_puntuar .sub_cont {
+  padding: 30px;
+}
+#cont_puntuar .sub_cont .mensaje_back {
+  color: var(--Encabezados_botones_y_primarios);
+}
+#cont_puntuar #puntuarJuego {
+  padding-top: 100px;
   font-family: "Roboto", sans-serif;
   max-width: 700px;
   margin: 40px auto;
   padding: 24px;
-  background-color: #fff;
+  background-color: var(--back_card);
   border-radius: 8px;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }
-#puntuarJuego h2 {
+#cont_puntuar #puntuarJuego h2 {
   color: #202124;
   font-size: 24px;
   font-weight: 500;
   margin-bottom: 24px;
+  color: var(--Texto_principal);
 }
-#puntuarJuego .cont_input,
-#puntuarJuego .form-group {
+#cont_puntuar #puntuarJuego button {
+  padding: 0.7rem 1.2rem;
+  background-color: var(--Encabezados_botones_y_primarios);
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 1.2em;
+  color: #000;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease-in-out;
+}
+#cont_puntuar #puntuarJuego button:hover {
+  transform: scale(1.1);
+  background-color: var(--Encabezados_botones_y_primarios);
+}
+#cont_puntuar #puntuarJuego .cont_input,
+#cont_puntuar #puntuarJuego .form-group {
   margin-bottom: 24px;
 }
-#puntuarJuego .cont_input label,
-#puntuarJuego .form-group label {
+#cont_puntuar #puntuarJuego .cont_input label,
+#cont_puntuar #puntuarJuego .form-group label {
   display: block;
   margin-bottom: 8px;
   color: #202124;
   font-size: 16px;
   font-weight: 400;
+  color: var(--Texto_secundario);
 }
-#puntuarJuego .cont_input input[type=number],
-#puntuarJuego .cont_input input[type=text],
-#puntuarJuego .cont_input select,
-#puntuarJuego .form-group input[type=number],
-#puntuarJuego .form-group input[type=text],
-#puntuarJuego .form-group select {
+#cont_puntuar #puntuarJuego .cont_input input[type=number],
+#cont_puntuar #puntuarJuego .cont_input input[type=text],
+#cont_puntuar #puntuarJuego .cont_input select,
+#cont_puntuar #puntuarJuego .form-group input[type=number],
+#cont_puntuar #puntuarJuego .form-group input[type=text],
+#cont_puntuar #puntuarJuego .form-group select {
   width: 100%;
   padding: 12px 15px;
   border: 1px solid #dadce0;
   border-radius: 4px;
   font-size: 16px;
-  color: #202124;
-  background-color: #f8f9fa;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--back_card);
+  color: var(--Texto_secundario);
 }
-#puntuarJuego .cont_input input[type=number]:focus,
-#puntuarJuego .cont_input input[type=text]:focus,
-#puntuarJuego .cont_input select:focus,
-#puntuarJuego .form-group input[type=number]:focus,
-#puntuarJuego .form-group input[type=text]:focus,
-#puntuarJuego .form-group select:focus {
+#cont_puntuar #puntuarJuego .cont_input input[type=number]:focus,
+#cont_puntuar #puntuarJuego .cont_input input[type=text]:focus,
+#cont_puntuar #puntuarJuego .cont_input select:focus,
+#cont_puntuar #puntuarJuego .form-group input[type=number]:focus,
+#cont_puntuar #puntuarJuego .form-group input[type=text]:focus,
+#cont_puntuar #puntuarJuego .form-group select:focus {
   outline: none;
   border-color: #1a73e8;
   box-shadow: 0 1px 1px 0 rgba(66, 133, 244, 0.3);
 }
-#puntuarJuego .form-group select.custom-select {
+#cont_puntuar #puntuarJuego .form-group select.custom-select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -3016,6 +3263,20 @@ body footer .cont_des a {
   cursor: pointer;
 }
 
+@keyframes pulso-peligro {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 5px rgba(255, 17, 17, 0.7), 0 0 10px rgba(255, 17, 17, 0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 10px rgba(255, 17, 17, 0.8), 0 0 25px rgba(255, 17, 17, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px rgba(255, 17, 17, 0.7), 0 0 10px rgba(255, 17, 17, 0.6);
+  }
+}
 /* <------------------------------------------------------------------------------------->*/
 #login {
   /* Fondo de la página */
@@ -3355,6 +3616,7 @@ body footer .cont_des a {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: 10px;
 }
 #main_areas #cont_main_areas .cont_juegos_areas .sub_cont_juegos .cont_juego_desc .cont_text_juego .cont_btn .btn_jugar {
   display: flex;
@@ -3500,37 +3762,41 @@ body footer .cont_des a {
     font-size: 1.6em !important;
   }
   #wordle .cont_main {
-    flex-direction: column !important;
+    flex-direction: column-reverse !important;
   }
   #wordle .cont_main #cont_est {
-    padding: 0px !important;
+    padding: 20px !important;
     width: 100% !important;
     display: flex;
-    flex-direction: row !important;
+    flex-direction: column-reverse !important;
     justify-content: center;
     height: auto !important;
     min-height: 100px;
     align-items: flex-start !important;
   }
-  #wordle .cont_main #cont_est .estadisticas {
+  #wordle .cont_main #cont_est .sub_cont_est {
+    flex-direction: row;
+  }
+  #wordle .cont_main #cont_est .sub_cont_est .estadisticas {
     height: auto !important;
     overflow-y: hidden;
     justify-content: center !important;
     align-items: center !important;
+    flex-wrap: wrap;
   }
-  #wordle .cont_main #cont_est .estadisticas h4 {
+  #wordle .cont_main #cont_est .sub_cont_est .estadisticas h4 {
     width: 80%;
     height: 50px;
     font-size: 1.1em;
   }
-  #wordle .cont_main #cont_est .pistas_adic {
+  #wordle .cont_main #cont_est .sub_cont_est .pistas_adic {
     display: flex;
     justify-content: center !important;
     align-items: center !important;
     height: auto !important;
     overflow-y: hidden;
   }
-  #wordle .cont_main #cont_est .pistas_adic h4 {
+  #wordle .cont_main #cont_est .sub_cont_est .pistas_adic h4 {
     width: 80%;
     height: 50px;
     font-size: 1.1em;

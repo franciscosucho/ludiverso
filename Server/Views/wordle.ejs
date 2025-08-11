@@ -16,24 +16,35 @@
                 <h3>¡Adivina la palabra!</h3>
                 <p id="pista"></p>
             </section>
-            
+
             <section class="cont_main">
                 <article id="cont_est">
-                    <div class="estadisticas">
-                        <h4>Estadisticas</h4>
-                        <span id="tiempo" class="text_est desac">Tiempo:</span>
-                        <span id="palabras_acer" class="text_est desac">Palabras acertadas: </span>
+                    <div class="sub_cont_est">
+                        <div class="estadisticas">
+                            <h4>Estadisticas</h4>
+                            <span id="tiempo" class="text_est desac">Tiempo:</span>
+                            <span id="palabras_acer" class="text_est desac">Palabras acertadas: </span>
+                        </div>
+                        <div class="pistas_adic">
+                            <h4>Pistas adicionales</h4>
+                            <span id="primer_l" class="text_pistas desac">Primer letra</span>
+                            <span id="ultima_l" class="text_pistas desac">Ultima letra</span>
+                        </div>
                     </div>
-                    <div class="pistas_adic">
-                        <h4>Pistas adicionales</h4>
-                        <span id="primer_l" class="text_pistas desac">Primer letra</span>
-                        <span id="ultima_l" class="text_pistas desac">Ultima letra</span>
-                    </div>
+                    
+
+                    <div class="temporizador-container">
+                        <p class="temporizador-titulo">TIEMPO RESTANTE</p>
+                        <div id="reloj-wordle" class="reloj"></div>
+                      </div>
                 </article>
                 <article id="game">
 
                 </article>
             </section>
+
+
+
 
         </main>
 
@@ -42,6 +53,25 @@
         <%- JSON.stringify(data_wordle) %>
       </script>
         <script src="/Scripts/wordle.js"></script>
+
+        <div id="fondo_oscuro" class="desac"></div>
+        <section id="cont_perder" class="perder-section desac">
+            <div class="perder-card">
+                <h2>⏰ ¡Se acabó el tiempo!</h2>
+                <p>No lograste completar la palabra a tiempo. ¡Pero no te desanimes!</p>
+                <div class="resultados">
+                    <h4>Tus resultados fueron:</h4>
+                    <p id="resut_tiempo"></p>
+                    <p id="result_aciertos"></p>
+                </div>
+                <div class="acciones-perder">
+                    <a href="/wordle_intro" class="btn reintentar">🔄 Reintentar</a>
+                    <a href="/index" class="btn inicio">🏠 Volver al inicio</a>
+                </div>
+            </div>
+        </section>
+
+
 </body>
 
 </html>

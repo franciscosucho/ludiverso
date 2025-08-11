@@ -1,18 +1,44 @@
 const data_wordle = document.getElementById('data-wordle');
-var tiempo_intro = 0
-var aciertos = 0
+var tiempo_intro = 0;
+var tiempo_adivinar = 40
+var aciertos = 0;
 let intervalo;
-
+let intervalo_adivinar;
 const estadisticas = document.querySelector(".estadisticas")
 const pistas_adic = document.querySelector(".pistas_adic")
 const text_est = document.querySelectorAll(".text_est")
 const text_pistas = document.querySelectorAll(".text_pistas")
-estadisticas.addEventListener("click",()=>{
+
+
+
+/**\
+ * @param {KeyboardEvent} 
+ */
+
+
+
+function manejadorDeBloqueo(event) {
+  
+    event.preventDefault();
+    event.stopPropagation();
+}
+
+function bloquearTeclado() {
+    window.addEventListener('keydown', manejadorDeBloqueo, true);
+}
+
+
+
+
+
+
+
+estadisticas.addEventListener("click", () => {
     text_est.forEach(text => {
-        text.classList.toggle("desac") 
+        text.classList.toggle("desac")
     });
 })
-pistas_adic.addEventListener("click",()=>{
+pistas_adic.addEventListener("click", () => {
     text_pistas.forEach(text => {
         text.classList.toggle("desac")
     });
@@ -104,9 +130,9 @@ function registerKeyboardEvents() {
         if (key === 'Enter') {
             if (state.currentCol === cols) {
                 const word = getCurrentWord();
-             
+
                 revealWord(word);
-                
+
             }
         }
         if (key === 'Backspace') {
@@ -177,23 +203,7 @@ function revealWord(guess) {
                 clearGrid();
             }, 300); // pequeño delay para que se vea la última animación
         } else if (isGameOver) {
-            alert(`¡Fin del juego! La palabra era: ${secret}`);
-            clearInterval(intervalo);
-            fetch('/game-over-wordle', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    tiempo: tiempo_intro,
-                    aciertos: aciertos
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Respuesta del servidor:', data);
-                })
-                .catch(error => {
-                    console.error('Error al enviar los datos:', error);
-                });
+            gameOver()
         } else {
             state.currentRow++;
             state.currentCol = 0;
@@ -256,15 +266,65 @@ function clearGrid() {
     document.getElementById("palabras_acer").textContent = `Palabras acertadas: ${aciertos}`;
 }
 
+function gameOver() {
+    const secret = state.secret;
+
+    alert(`¡Fin del juego! La palabra era: ${secret}`);
+    clearInterval(intervalo);
+    clearInterval(intervalo_adivinar);
+    bloquearTeclado();
+    setTimeout(() => {
+        let resut_tiempo = document.getElementById("resut_tiempo");
+        let result_aciertos = document.getElementById("result_aciertos")
+        result_aciertos.textContent = `Aciertos: ${aciertos}`
+        resut_tiempo.textContent = `Tiempo: ${tiempo_intro} Segundos`
+
+        let fondo_oscuro = document.getElementById("fondo_oscuro");
+        let cont_perder = document.getElementById("cont_perder")
+        fondo_oscuro.classList.remove("desac")
+        cont_perder.classList.remove("desac")
+    }, 2000);
+
+
+
+
+    fetch('/game-over-wordle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            tiempo: tiempo_intro,
+            aciertos: aciertos
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Respuesta del servidor:', data);
+        })
+        .catch(error => {
+            console.error('Error al enviar los datos:', error);
+        });
+}
+
 function startup() {
     console.log(state.secret)
     clearInterval(intervalo);
+    clearInterval(intervalo_adivinar);
     tiempo_intro = 0;
-
+    tiempo_adivinar = 40;
     intervalo = setInterval(() => {
         tiempo_intro++;
         document.getElementById("tiempo").textContent = `Tiempo: ${tiempo_intro} Segundos`;
     }, 1000);
+
+    intervalo_adivinar = setInterval(() => {
+        tiempo_adivinar--;
+       const reloj_wordle = document.getElementById("reloj-wordle")
+       reloj_wordle.textContent=`${tiempo_adivinar}S`
+        if (tiempo_adivinar == 0) {
+            gameOver()
+        }
+    }, 1000);
+
 
     document.getElementById("palabras_acer").textContent = `Palabras acertadas: ${aciertos}`
 
@@ -275,10 +335,15 @@ function startup() {
     registerKeyboardEvents();
 }
 
+
+
+
+
+
 startup();
 
 document.getElementById("primer_l").addEventListener("click", () => {
-   
+
     text_pistas.forEach(text => {
         text.classList.toggle("desac")
     });
