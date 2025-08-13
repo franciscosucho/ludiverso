@@ -8,6 +8,20 @@ const {
 } = require('./../config/dependencies.js');
 
 
+
+router.get('/', (req, res) => {
+    // Mientras este en produccion para ahorrar tiempo
+    // res.redirect('/index');
+
+    res.redirect('/login')
+
+})
+
+router.get('/login', (req, res) => {
+    res.render('login', { session: req.session });
+})
+
+
 router.post('/iniciar_sesion', async (req, res) => {
     try {
         const { user_name, password } = req.body;
