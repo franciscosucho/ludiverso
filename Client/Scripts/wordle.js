@@ -18,7 +18,7 @@ const text_pistas = document.querySelectorAll(".text_pistas")
 
 
 function manejadorDeBloqueo(event) {
-  
+
     event.preventDefault();
     event.stopPropagation();
 }
@@ -123,7 +123,12 @@ function updateGrid() {
 }
 
 function registerKeyboardEvents() {
+
     document.body.onkeydown = (e) => {
+
+
+
+
         const key = e.key;
         const cols = state.grid[0].length;
 
@@ -197,7 +202,9 @@ function revealWord(guess) {
     const totalAnimTime = ((cols - 1) * duration) / 2 + duration;
 
     setTimeout(() => {
+        //Si acierta la palabra acciona lo que esta en este bloque.
         if (isWinner) {
+            tiempo_adivinar = 40;
             aciertos++;
             setTimeout(() => {
                 clearGrid();
@@ -318,8 +325,8 @@ function startup() {
 
     intervalo_adivinar = setInterval(() => {
         tiempo_adivinar--;
-       const reloj_wordle = document.getElementById("reloj-wordle")
-       reloj_wordle.textContent=`${tiempo_adivinar}S`
+        const reloj_wordle = document.getElementById("reloj-wordle")
+        reloj_wordle.textContent = `${tiempo_adivinar}S`
         if (tiempo_adivinar == 0) {
             gameOver()
         }
