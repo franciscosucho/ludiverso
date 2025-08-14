@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Ishihara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 2px solid #333;
+            background-color: #fff;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test de Daltonismo (Ishihara)</h1>
+        <p>¿Qué número ves en la imagen?</p>
+        <canvas id="ishiharaCanvas" width="300" height="300"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('ishiharaCanvas');
+            const ctx = canvas.getContext('2d');
+    
+            // Función para generar un número aleatorio dentro de un rango
+            function getRandomNumber(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+    
+            // Colores para el fondo (visibles para daltónicos)
+            const backgroundColors = [
+                '#68a04b', '#7fa45e', '#5a8244', '#84b260' // Tonos de verde
+            ];
+    
+            // Colores para el número (invisibles para daltónicos rojo-verde)
+            const numberColors = [
+                '#d84a38', '#e35a4b', '#cc392e', '#f06d60' // Tonos de rojo
+            ];
+    
+            // El número que se va a dibujar
+            // Se puede cambiar este valor para probar otros números
+            const numberToDraw = 74;
+    
+            // Tamaño de cada "punto"
+            const dotSize = 8;
+    
+            // Función para dibujar un único punto
+            function drawDot(x, y, color) {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, dotSize / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+    
+            // Patrones de píxeles para los números del 0 al 9
+            const numberPatterns = {
+                '0': [
+                    '11111',
+                    '10001',
+                    '10001',
+                    '10001',
+                    '11111'
+                ],
+                '1': [
+                    '00100',
+                    '01100',
+                    '00100',
+                    '00100',
+                    '00100'
+                ],
+                '2': [
+                    '11111',
+                    '00001',
+                    '11111',
+                    '10000',
+                    '11111'
+                ],
+                '3': [
+                    '11111',
+                    '00001',
+                    '11111',
+                    '00001',
+                    '11111'
+                ],
+                '4': [
+                    '10001',
+                    '10001',
+                    '11111',
+                    '00001',
+                    '00001'
+                ],
+                '5': [
+                    '11111',
+                    '10000',
+                    '11111',
+                    '00001',
+                    '11111'
+                ],
+                '6': [
+                    '11111',
+                    '10000',
+                    '11111',
+                    '10001',
+                    '11111'
+                ],
+                '7': [
+                    '11111',
+                    '00001',
+                    '00001',
+                    '00001',
+                    '00001'
+                ],
+                '8': [
+                    '11111',
+                    '10001',
+                    '11111',
+                    '10001',
+                    '11111'
+                ],
+                '9': [
+                    '11111',
+                    '10001',
+                    '11111',
+                    '00001',
+                    '11111'
+                ]
+            };
+    
+            // Tamaño de la rejilla
+            const gridSize = 5;
+            const padding = 10;
+            const cellSize = (canvas.width - padding * 2) / (gridSize * 2 + 1);
+    
+            // Dibuja un dígito
+            function drawDigit(digit, startX) {
+                const pattern = numberPatterns[digit];
+                if (!pattern) return;
+    
+                for (let row = 0; row < gridSize; row++) {
+                    for (let col = 0; col < gridSize; col++) {
+                        const isNumberPart = pattern[row][col] === '1';
+                        const x = startX + col * cellSize + cellSize / 2;
+                        const y = padding + row * cellSize + cellSize / 2;
+                        
+                        const colors = isNumberPart ? numberColors : backgroundColors;
+                        const color = colors[getRandomNumber(0, colors.length - 1)];
+    
+                        drawDot(x, y, color);
+                    }
+                }
+            }
+    
+            // Función principal para dibujar el test
+            function drawTest() {
+                // Limpia el canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+                // Dibuja el fondo antes de los números para superponer
+                for (let i = 0; i < canvas.width; i += 10) {
+                    for (let j = 0; j < canvas.height; j += 10) {
+                        const color = backgroundColors[getRandomNumber(0, backgroundColors.length - 1)];
+                        drawDot(i + getRandomNumber(-5, 5), j + getRandomNumber(-5, 5), color);
+                    }
+                }
+    
+                // Dibuja los números
+                const numberString = numberToDraw.toString();
+                const startX1 = (canvas.width / 2) - (cellSize * gridSize) - (padding / 2);
+                const startX2 = (canvas.width / 2) + (padding / 2);
+    
+                drawDigit(numberString[0], startX1);
+                drawDigit(numberString[1], startX2);
+            }
+    
+            drawTest();
+        });
+    </script>
+</body>
+</html>
