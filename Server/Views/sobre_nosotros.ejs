@@ -52,7 +52,7 @@
         <% if (juegos && juegos.length > 0) { %>
         <div class="contenedor-carrusel">
           <% juegos.forEach((juego, index)=> { %>
-          <article id="tarjeta-juego-<%=index%>" class="tarjeta-juego <%= index === 0 ? '' : 'inactiva' %>" style="background-image: url('<%= juego.url_img || '/images/default_game_bg.jpg' %>');">
+            <article id="tarjeta-juego-<%=index%>" class="tarjeta-juego <%= index === 0 ? '' : 'inactiva' %>" style="background-image: url('<%= juego.url_img || '/images/default_game_bg.jpg' %>');">
             <div class="superposicion-tarjeta">
               <div class="contenedor-texto">
                 <a href="/areas?area=<%= encodeURIComponent(juego.nombre_materia || 'General') %>" id="nombre-materia-<%= index %>" class="nombre-materia">

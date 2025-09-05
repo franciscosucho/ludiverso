@@ -497,13 +497,12 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `recibir_nov`, `contraseña`, `rol`, `daltonismo`, `reset_password_token`, `reset_password_expires`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', 1, '$2b$10$xtobt7uMfLAKDmTaR62SJuwXzJ5E09iyL1YlBb2nSK0IMdKlQmLpm', 'alumno', 'acromatopsia', NULL, NULL),
-(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', 0, '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo', NULL, NULL, NULL),
-(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', 0, '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno', NULL, NULL, NULL),
-(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', 0, '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno', NULL, NULL, NULL),
-(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', 0, '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root', NULL, NULL, NULL),
-(18, 'Francisco', 'Suchomela', 'davidmingueza12', 'franciscosuchomela1@gmail.com', 0, '$2b$10$labEk2dYhDWQWAW/x4AvMOCX9ViChzwR9TTqV4yiBqGuXX07GcvJ2', 'alumno', 'deuteranopia', NULL, NULL);
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno'),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo'),
+(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
+(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
+(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root');
 
 -- --------------------------------------------------------
 

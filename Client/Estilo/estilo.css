@@ -1115,7 +1115,7 @@ body main #sec_img .cont_main_juego.desac {
 body main #sec_img .cont_main_juego .cont_tex {
   padding-left: 20px;
   padding-top: 5px;
-  background-color: rgba(0, 0, 0, 0.507);
+  background-color: rgba(0,0,0,0.507);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -1132,6 +1132,12 @@ body main #sec_img .cont_main_juego .cont_tex a {
   font-weight: bold;
   padding: 5px;
   border-radius: 8px;
+  transition: color 0.3s ease;
+}
+
+body main #sec_img .cont_main_juego .cont_tex a:hover {
+  color: var(--Encabezados_botones_y_primarios);
+  text-shadow: 0 0 10px rgba(62, 134, 211, 0.3);
 }
 body main #sec_img .cont_main_juego .cont_main {
   display: flex;
@@ -1160,10 +1166,13 @@ body main #sec_img .cont_main_juego .cont_arrow i {
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.507);
+  background-color: rgba(0,0,0,0.507);
+  border: 2px solid var(--Encabezados_botones_y_primarios);
 }
 body main #sec_img .cont_main_juego .cont_arrow i:hover {
   background-color: rgba(128, 128, 128, 0.349);
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(62, 134, 211, 0.3);
 }
 body main #sec_img .cont_main_juego .cont_info_juego {
   background-color: var(--fondo_azul_claro);
@@ -1178,12 +1187,13 @@ body main #sec_img .cont_main_juego .cont_info_juego {
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  backdrop-filter: blur(7px);
+  border: 2px solid var(--Encabezados_botones_y_primarios);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 body main #sec_img .cont_main_juego .cont_info_juego p {
   width: 80%;
   text-align: center;
-  font-size: 1.4em;
-  font-weight: bold;
   color: #dddddd;
 }
 body main #sec_img .cont_main_juego .cont_info_juego a {
@@ -1196,6 +1206,14 @@ body main #sec_img .cont_main_juego .cont_info_juego a {
   width: 200px;
   text-align: center;
   text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(62, 134, 211, 0.3);
+}
+
+body main #sec_img .cont_main_juego .cont_info_juego a:hover {
+  background-color: var(--Botones_secundarios_o_hover_azul);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(62, 134, 211, 0.4);
 }
 body main#dashboard {
   min-height: 60vw !important;
