@@ -1526,7 +1526,7 @@ body {
 
                     button {
                         padding: 0.9rem 1.5rem;
-                        background-color: #007BFF;
+                        background-color: var(--Encabezados_botones_y_primarios);
                         color: white;
                         border: none;
                         border-radius: 0.6rem;
@@ -1591,9 +1591,9 @@ body {
                 }
 
                 &.active {
-                    background: #3b82f6;
+                    background: var(--Encabezados_botones_y_primarios);
                     color: white;
-                    box-shadow: 0 12px 20px rgba(59, 130, 246, 0.4);
+                    box-shadow:var(--box_shadow)
                 }
             }
 
@@ -1649,7 +1649,7 @@ body {
                             transition: border-color 0.3s ease;
 
                             &:focus {
-                                border-color: #007bff;
+                                border-color: var(--Botones_secundarios_o_hover_azul);
                                 outline: none;
                             }
                         }
@@ -1658,7 +1658,8 @@ body {
                     button[type="submit"] {
                         grid-column: 1 / -1;
                         padding: 0.8rem;
-                        background-color: #007bff;
+                        font-weight: 600;
+                        background-color:var(--Encabezados_botones_y_primarios);
                         color: white;
                         border: none;
                         border-radius: 0.5rem;
@@ -1667,7 +1668,7 @@ body {
                         transition: background-color 0.3s ease;
 
                         &:hover {
-                            background-color: #0056b3;
+                            background-color: var(--Botones_secundarios_o_hover_azul);
                         }
                     }
                 }
@@ -1685,7 +1686,7 @@ body {
 
                         thead {
                             width: 100%;
-                            background-color: #007bff;
+                            background-color: var(--Encabezados_botones_y_primarios);;
                             color: white;
 
                             th {
@@ -1701,7 +1702,7 @@ body {
                                     background-color: #f2f2f2;
                                 }
 
-                                td {
+                                td,a {
                                     padding: 0.75rem 1rem;
                                     border-bottom: 1px solid #e0e0e0;
                                     color: #333;
@@ -1733,7 +1734,7 @@ body {
                     transition: background-color 0.3s ease;
 
                     &:hover {
-                        background-color: #5a6268;
+                        background-color: var(--Botones_secundarios_o_hover_azul);
                     }
                 }
             }
@@ -2283,7 +2284,7 @@ body {
 
                             thead {
                                 width: 100%;
-                                background-color: #007bff;
+                                background-color: var(--Encabezados_botones_y_primarios);
                                 color: white;
 
                                 th {
@@ -2436,7 +2437,7 @@ body {
                         h3 {
                             font-size: 1.8rem;
                             margin-bottom: 1rem;
-                            color: #6cf;
+                            color: var(--Encabezados_botones_y_primarios);
                         }
 
                         .cont_input {
@@ -2500,11 +2501,11 @@ body {
 
                             button {
                                 padding: 0.7rem 1.2rem;
-                                background-color: #6cf;
+                                background-color: var(--Encabezados_botones_y_primarios);
                                 border: none;
                                 border-radius: 5px;
                                 font-weight: bold;
-                                color: #000;
+                                color: var(--Texto_principal);
                                 cursor: pointer;
 
                                 &:hover {

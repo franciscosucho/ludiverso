@@ -1115,7 +1115,7 @@ body main #sec_img .cont_main_juego.desac {
 body main #sec_img .cont_main_juego .cont_tex {
   padding-left: 20px;
   padding-top: 5px;
-  background-color: rgba(0,0,0,0.507);
+  background-color: rgba(0, 0, 0, 0.507);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -1132,12 +1132,6 @@ body main #sec_img .cont_main_juego .cont_tex a {
   font-weight: bold;
   padding: 5px;
   border-radius: 8px;
-  transition: color 0.3s ease;
-}
-
-body main #sec_img .cont_main_juego .cont_tex a:hover {
-  color: var(--Encabezados_botones_y_primarios);
-  text-shadow: 0 0 10px rgba(62, 134, 211, 0.3);
 }
 body main #sec_img .cont_main_juego .cont_main {
   display: flex;
@@ -1166,13 +1160,10 @@ body main #sec_img .cont_main_juego .cont_arrow i {
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease-in-out;
-  background-color: rgba(0,0,0,0.507);
-  border: 2px solid var(--Encabezados_botones_y_primarios);
+  background-color: rgba(0, 0, 0, 0.507);
 }
 body main #sec_img .cont_main_juego .cont_arrow i:hover {
   background-color: rgba(128, 128, 128, 0.349);
-  transform: scale(1.1);
-  box-shadow: 0 4px 15px rgba(62, 134, 211, 0.3);
 }
 body main #sec_img .cont_main_juego .cont_info_juego {
   background-color: var(--fondo_azul_claro);
@@ -1187,13 +1178,12 @@ body main #sec_img .cont_main_juego .cont_info_juego {
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  backdrop-filter: blur(7px);
-  border: 2px solid var(--Encabezados_botones_y_primarios);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 body main #sec_img .cont_main_juego .cont_info_juego p {
   width: 80%;
   text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
   color: #dddddd;
 }
 body main #sec_img .cont_main_juego .cont_info_juego a {
@@ -1206,14 +1196,6 @@ body main #sec_img .cont_main_juego .cont_info_juego a {
   width: 200px;
   text-align: center;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(62, 134, 211, 0.3);
-}
-
-body main #sec_img .cont_main_juego .cont_info_juego a:hover {
-  background-color: var(--Botones_secundarios_o_hover_azul);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(62, 134, 211, 0.4);
 }
 body main#dashboard {
   min-height: 60vw !important;
@@ -1372,7 +1354,7 @@ body main#dashboard form .cont_btns {
 }
 body main#dashboard form .cont_btns button {
   padding: 0.9rem 1.5rem;
-  background-color: #007BFF;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
   border: none;
   border-radius: 0.6rem;
@@ -1425,9 +1407,9 @@ body main#dashboard .admin-card:hover {
   box-shadow: 0 12px 24px var(--box_shadow);
 }
 body main#dashboard .admin-card.active {
-  background: #3b82f6;
+  background: var(--Encabezados_botones_y_primarios);
   color: white;
-  box-shadow: 0 12px 20px rgba(59, 130, 246, 0.4);
+  box-shadow: var(--box_shadow);
 }
 body main#dashboard .admin-users {
   width: auto;
@@ -1474,13 +1456,14 @@ body main#dashboard .admin-users form div select {
 }
 body main#dashboard .admin-users form div input:focus,
 body main#dashboard .admin-users form div select:focus {
-  border-color: #007bff;
+  border-color: var(--Botones_secundarios_o_hover_azul);
   outline: none;
 }
 body main#dashboard .admin-users form button[type=submit] {
   grid-column: 1/-1;
   padding: 0.8rem;
-  background-color: #007bff;
+  font-weight: 600;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
   border: none;
   border-radius: 0.5rem;
@@ -1489,7 +1472,7 @@ body main#dashboard .admin-users form button[type=submit] {
   transition: background-color 0.3s ease;
 }
 body main#dashboard .admin-users form button[type=submit]:hover {
-  background-color: #0056b3;
+  background-color: var(--Botones_secundarios_o_hover_azul);
 }
 body main#dashboard .admin-users .user-list {
   overflow-x: auto;
@@ -1504,7 +1487,7 @@ body main#dashboard .admin-users .user-list table {
 }
 body main#dashboard .admin-users .user-list table thead {
   width: 100%;
-  background-color: #007bff;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
 }
 body main#dashboard .admin-users .user-list table thead th {
@@ -1515,12 +1498,12 @@ body main#dashboard .admin-users .user-list table thead th {
 body main#dashboard .admin-users .user-list table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-body main#dashboard .admin-users .user-list table tbody tr td {
+body main#dashboard .admin-users .user-list table tbody tr td, body main#dashboard .admin-users .user-list table tbody tr a {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #e0e0e0;
   color: #333;
 }
-body main#dashboard .admin-users .user-list table tbody tr td button {
+body main#dashboard .admin-users .user-list table tbody tr td button, body main#dashboard .admin-users .user-list table tbody tr a button {
   cursor: pointer;
   border: none;
   background-color: transparent;
@@ -1539,7 +1522,7 @@ body main#dashboard .admin-users .btn-reset {
   transition: background-color 0.3s ease;
 }
 body main#dashboard .admin-users .btn-reset:hover {
-  background-color: #5a6268;
+  background-color: var(--Botones_secundarios_o_hover_azul);
 }
 body main#dashboard .editar_novedades {
   width: 80%;
@@ -1973,7 +1956,7 @@ body main#dashboard .admin-juegos#cont_wordle #cont_lista table {
 }
 body main#dashboard .admin-juegos#cont_wordle #cont_lista table thead {
   width: 100%;
-  background-color: #007bff;
+  background-color: var(--Encabezados_botones_y_primarios);
   color: white;
 }
 body main#dashboard .admin-juegos#cont_wordle #cont_lista table thead th {
@@ -2087,7 +2070,7 @@ body main#dashboard .admin-juegos #form_agregar_juego form {
 body main#dashboard .admin-juegos #form_agregar_juego form h3 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
-  color: #6cf;
+  color: var(--Encabezados_botones_y_primarios);
 }
 body main#dashboard .admin-juegos #form_agregar_juego form .cont_input {
   margin-bottom: 1.5rem;
@@ -2142,11 +2125,11 @@ body main#dashboard .admin-juegos #form_agregar_juego form .cont_btns {
 }
 body main#dashboard .admin-juegos #form_agregar_juego form .cont_btns button {
   padding: 0.7rem 1.2rem;
-  background-color: #6cf;
+  background-color: var(--Encabezados_botones_y_primarios);
   border: none;
   border-radius: 5px;
   font-weight: bold;
-  color: #000;
+  color: var(--Texto_principal);
   cursor: pointer;
 }
 body main#dashboard .admin-juegos #form_agregar_juego form .cont_btns button:hover {

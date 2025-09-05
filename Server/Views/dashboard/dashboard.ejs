@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <%- include('../header.ejs', { session}) %>
+    
+    <%-include('../headers/header_root.ejs', { session}) %>
         <main id="dashboard">
             <h2>Bienvenido al panel del administrador <%= user_session_nombre %> </h2>
             <section class="admin-grid">
@@ -25,5 +26,5 @@
         </main>
         
 </body>
-
+ 
 </html>

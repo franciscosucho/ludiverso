@@ -2,23 +2,23 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-08-2025 a las 20:07:30
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Host: 127.0.0.1
+-- Generation Time: Sep 05, 2025 at 04:42 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 --
--- Base de datos: `ludiverso`
+-- Database: `ludiverso`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `areas`
+-- Table structure for table `areas`
 --
 
 CREATE TABLE `areas` (
@@ -29,7 +29,7 @@ CREATE TABLE `areas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `areas`
+-- Dumping data for table `areas`
 --
 
 INSERT INTO `areas` (`materia_id`, `nombre`, `descripcion`, `jefe_de_area`) VALUES
@@ -42,7 +42,7 @@ INSERT INTO `areas` (`materia_id`, `nombre`, `descripcion`, `jefe_de_area`) VALU
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estadisticas`
+-- Table structure for table `estadisticas`
 --
 
 CREATE TABLE `estadisticas` (
@@ -55,7 +55,7 @@ CREATE TABLE `estadisticas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `estadisticas`
+-- Dumping data for table `estadisticas`
 --
 
 INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `puntaje_total`, `fecha_actividad`, `id_nivel`) VALUES
@@ -65,7 +65,7 @@ INSERT INTO `estadisticas` (`estadistica_id`, `usuario_id`, `juego_jugado`, `pun
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial_ahorcado`
+-- Table structure for table `historial_ahorcado`
 --
 
 CREATE TABLE `historial_ahorcado` (
@@ -83,7 +83,7 @@ CREATE TABLE `historial_ahorcado` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `historial_wordle`
+-- Table structure for table `historial_wordle`
 --
 
 CREATE TABLE `historial_wordle` (
@@ -95,7 +95,7 @@ CREATE TABLE `historial_wordle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `historial_wordle`
+-- Dumping data for table `historial_wordle`
 --
 
 INSERT INTO `historial_wordle` (`id_historial`, `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES
@@ -116,7 +116,7 @@ INSERT INTO `historial_wordle` (`id_historial`, `id_us`, `aciertos`, `tiempo`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `intentos`
+-- Table structure for table `intentos`
 --
 
 CREATE TABLE `intentos` (
@@ -130,7 +130,7 @@ CREATE TABLE `intentos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `juegos`
+-- Table structure for table `juegos`
 --
 
 CREATE TABLE `juegos` (
@@ -147,7 +147,7 @@ CREATE TABLE `juegos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `juegos`
+-- Dumping data for table `juegos`
 --
 
 INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_creacion`, `url_img`, `valoracion`, `url_juego`, `niveles`, `url_dash`) VALUES
@@ -160,7 +160,7 @@ INSERT INTO `juegos` (`juego_id`, `titulo`, `descripcion`, `materia_id`, `fecha_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `niveles_memory`
+-- Table structure for table `niveles_memory`
 --
 
 CREATE TABLE `niveles_memory` (
@@ -175,7 +175,7 @@ CREATE TABLE `niveles_memory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `niveles_memory`
+-- Dumping data for table `niveles_memory`
 --
 
 INSERT INTO `niveles_memory` (`id_nivel`, `id_area`, `id_creador_us`, `actividad_juego`, `desc_actividad`, `tiempo_para_resolver`, `fecha_creacion`, `id_juego`) VALUES
@@ -194,7 +194,7 @@ INSERT INTO `niveles_memory` (`id_nivel`, `id_area`, `id_creador_us`, `actividad
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `niveles_us`
+-- Table structure for table `niveles_us`
 --
 
 CREATE TABLE `niveles_us` (
@@ -207,7 +207,7 @@ CREATE TABLE `niveles_us` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `niveles_us`
+-- Dumping data for table `niveles_us`
 --
 
 INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`, `id_juego`) VALUES
@@ -216,7 +216,7 @@ INSERT INTO `niveles_us` (`id_nivel_us`, `id_nivel`, `id_area`, `id_us`, `fecha`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `novedades`
+-- Table structure for table `novedades`
 --
 
 CREATE TABLE `novedades` (
@@ -229,7 +229,7 @@ CREATE TABLE `novedades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `novedades`
+-- Dumping data for table `novedades`
 --
 
 INSERT INTO `novedades` (`id_novedad`, `titulo_novedad`, `subtitulo_novedad`, `cuerpo_novedad`, `url_foto_novedad`, `fecha_novedad`) VALUES
@@ -239,7 +239,7 @@ INSERT INTO `novedades` (`id_novedad`, `titulo_novedad`, `subtitulo_novedad`, `c
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `palabras_ahorcado`
+-- Table structure for table `palabras_ahorcado`
 --
 
 CREATE TABLE `palabras_ahorcado` (
@@ -250,7 +250,7 @@ CREATE TABLE `palabras_ahorcado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `palabras_ahorcado`
+-- Dumping data for table `palabras_ahorcado`
 --
 
 INSERT INTO `palabras_ahorcado` (`id_palabra`, `palabra`, `pista`, `materia_id`) VALUES
@@ -283,7 +283,7 @@ INSERT INTO `palabras_ahorcado` (`id_palabra`, `palabra`, `pista`, `materia_id`)
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `preguntas`
+-- Table structure for table `preguntas`
 --
 
 CREATE TABLE `preguntas` (
@@ -296,7 +296,7 @@ CREATE TABLE `preguntas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `puntaje_juego`
+-- Table structure for table `puntaje_juego`
 --
 
 CREATE TABLE `puntaje_juego` (
@@ -311,7 +311,7 @@ CREATE TABLE `puntaje_juego` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `puntaje_juego`
+-- Dumping data for table `puntaje_juego`
 --
 
 INSERT INTO `puntaje_juego` (`id_puntaje`, `id_juego`, `id_us`, `input_diver`, `input_dificultad`, `input_diseno`, `input_punto_fuerte`, `input_futuro`) VALUES
@@ -322,7 +322,7 @@ INSERT INTO `puntaje_juego` (`id_puntaje`, `id_juego`, `id_us`, `input_diver`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ranking_ahorcado`
+-- Table structure for table `ranking_ahorcado`
 --
 
 CREATE TABLE `ranking_ahorcado` (
@@ -340,7 +340,7 @@ CREATE TABLE `ranking_ahorcado` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rankin_wordle`
+-- Table structure for table `rankin_wordle`
 --
 
 CREATE TABLE `rankin_wordle` (
@@ -352,7 +352,7 @@ CREATE TABLE `rankin_wordle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `rankin_wordle`
+-- Dumping data for table `rankin_wordle`
 --
 
 INSERT INTO `rankin_wordle` (`id_ranking`, `id_us`, `aciertos`, `tiempo`, `fecha`) VALUES
@@ -361,7 +361,7 @@ INSERT INTO `rankin_wordle` (`id_ranking`, `id_us`, `aciertos`, `tiempo`, `fecha
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `resources_juego`
+-- Table structure for table `resources_juego`
 --
 
 CREATE TABLE `resources_juego` (
@@ -373,7 +373,7 @@ CREATE TABLE `resources_juego` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `resources_juego`
+-- Dumping data for table `resources_juego`
 --
 
 INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`, `descripcion_img`) VALUES
@@ -463,7 +463,7 @@ INSERT INTO `resources_juego` (`id_rources`, `id_nivel`, `url_img`, `titulo_img`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `respuestas`
+-- Table structure for table `respuestas`
 --
 
 CREATE TABLE `respuestas` (
@@ -476,7 +476,7 @@ CREATE TABLE `respuestas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -494,20 +494,20 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `contraseña`, `rol`) VALUES
-(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', '$2b$10$VmZdIK9tS4Zk0OZhHFKP0e37AtZw7uMDlHPoWR6DAZoT8RraF.Q.6', 'alumno'),
-(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo'),
-(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno'),
-(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno'),
-(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root');
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `nombre_usuario`, `email`, `recibir_nov`, `contraseña`, `rol`, `daltonismo`, `reset_password_token`, `reset_password_expires`) VALUES
+(5, 'Francisco', 'Suchomela', 'fransucho', 'franciscosuchomela@gmail.com', 0, '$2b$10$k/1tiU4.FOO9ASpHYFaQcOfgNdwGRUWn2SLmOcaGql1yvQe3dBFVy', 'alumno', NULL, NULL, NULL),
+(9, 'jorge', 'almiron', 'jorgealmiron', 'jorgealmiron@gmail.com', 0, '$2b$10$CLLeEJ3GNyLCVfHYC.iySOqTiqd/tC80aCD8Yt3SnsnTQpmJ9rC5G', 'directivo', NULL, NULL, NULL),
+(12, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelass@gmail.com', 0, '$2b$10$GURk.7Xwfu6Q936IiqGnnu.zdh8DK8z4fnMXWjS13uiiEMGYoz39.', 'alumno', NULL, NULL, NULL),
+(13, 'Francisco', 'Suchomela', 'davidmingueza', 'franciscosuchomelasss@gmail.com', 0, '$2b$10$NqcXencqzseAIyPlvgdhFOiYu9pSbeFhrfKidDUVxmMYPZUTUnIDO', 'alumno', NULL, NULL, NULL),
+(15, 'Francisco', 'Suchomela', 'root', 'root@gmail.com', 0, '$2b$10$uxAMYrN7wnfcmVGTOnH3YOi.x2CW/GCtiteQM7cBiAy.IkON/FdPW', 'root', 'tritanopia', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `wordle`
+-- Table structure for table `wordle`
 --
 
 CREATE TABLE `wordle` (
@@ -518,7 +518,7 @@ CREATE TABLE `wordle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `wordle`
+-- Dumping data for table `wordle`
 --
 
 INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
@@ -686,17 +686,17 @@ INSERT INTO `wordle` (`id_palabra`, `id_area`, `palabra`, `descrip`) VALUES
 (289, 7, 'sierra', 'Herramienta para cortar materiales.');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `areas`
+-- Indexes for table `areas`
 --
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`materia_id`);
 
 --
--- Indices de la tabla `estadisticas`
+-- Indexes for table `estadisticas`
 --
 ALTER TABLE `estadisticas`
   ADD PRIMARY KEY (`estadistica_id`),
@@ -705,7 +705,7 @@ ALTER TABLE `estadisticas`
   ADD KEY `id_nivel` (`id_nivel`);
 
 --
--- Indices de la tabla `historial_ahorcado`
+-- Indexes for table `historial_ahorcado`
 --
 ALTER TABLE `historial_ahorcado`
   ADD PRIMARY KEY (`id_historial`),
@@ -713,14 +713,14 @@ ALTER TABLE `historial_ahorcado`
   ADD KEY `id_area` (`id_area`);
 
 --
--- Indices de la tabla `historial_wordle`
+-- Indexes for table `historial_wordle`
 --
 ALTER TABLE `historial_wordle`
   ADD PRIMARY KEY (`id_historial`),
   ADD KEY `id_us` (`id_us`);
 
 --
--- Indices de la tabla `intentos`
+-- Indexes for table `intentos`
 --
 ALTER TABLE `intentos`
   ADD PRIMARY KEY (`intento_id`),
@@ -728,14 +728,14 @@ ALTER TABLE `intentos`
   ADD KEY `juego_id` (`juego_id`);
 
 --
--- Indices de la tabla `juegos`
+-- Indexes for table `juegos`
 --
 ALTER TABLE `juegos`
   ADD PRIMARY KEY (`juego_id`),
   ADD KEY `materia_id` (`materia_id`);
 
 --
--- Indices de la tabla `niveles_memory`
+-- Indexes for table `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
   ADD PRIMARY KEY (`id_nivel`),
@@ -744,7 +744,7 @@ ALTER TABLE `niveles_memory`
   ADD KEY `id_creador_us` (`id_creador_us`);
 
 --
--- Indices de la tabla `niveles_us`
+-- Indexes for table `niveles_us`
 --
 ALTER TABLE `niveles_us`
   ADD PRIMARY KEY (`id_nivel_us`),
@@ -755,27 +755,27 @@ ALTER TABLE `niveles_us`
   ADD KEY `id_juego` (`id_juego`);
 
 --
--- Indices de la tabla `novedades`
+-- Indexes for table `novedades`
 --
 ALTER TABLE `novedades`
   ADD PRIMARY KEY (`id_novedad`);
 
 --
--- Indices de la tabla `palabras_ahorcado`
+-- Indexes for table `palabras_ahorcado`
 --
 ALTER TABLE `palabras_ahorcado`
   ADD PRIMARY KEY (`id_palabra`),
   ADD KEY `materia_id` (`materia_id`);
 
 --
--- Indices de la tabla `preguntas`
+-- Indexes for table `preguntas`
 --
 ALTER TABLE `preguntas`
   ADD PRIMARY KEY (`pregunta_id`),
   ADD KEY `juego_id` (`juego_id`);
 
 --
--- Indices de la tabla `puntaje_juego`
+-- Indexes for table `puntaje_juego`
 --
 ALTER TABLE `puntaje_juego`
   ADD PRIMARY KEY (`id_puntaje`),
@@ -783,7 +783,7 @@ ALTER TABLE `puntaje_juego`
   ADD KEY `id_us` (`id_us`);
 
 --
--- Indices de la tabla `ranking_ahorcado`
+-- Indexes for table `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   ADD PRIMARY KEY (`id_ranking`),
@@ -791,14 +791,14 @@ ALTER TABLE `ranking_ahorcado`
   ADD KEY `id_area` (`id_area`);
 
 --
--- Indices de la tabla `rankin_wordle`
+-- Indexes for table `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
   ADD PRIMARY KEY (`id_ranking`),
   ADD KEY `id_us` (`id_us`);
 
 --
--- Indices de la tabla `resources_juego`
+-- Indexes for table `resources_juego`
 --
 ALTER TABLE `resources_juego`
   ADD PRIMARY KEY (`id_rources`),
@@ -806,143 +806,143 @@ ALTER TABLE `resources_juego`
   ADD KEY `id_nivel` (`id_nivel`);
 
 --
--- Indices de la tabla `respuestas`
+-- Indexes for table `respuestas`
 --
 ALTER TABLE `respuestas`
   ADD PRIMARY KEY (`respuesta_id`),
   ADD KEY `pregunta_id` (`pregunta_id`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuario_id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indices de la tabla `wordle`
+-- Indexes for table `wordle`
 --
 ALTER TABLE `wordle`
   ADD PRIMARY KEY (`id_palabra`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `areas`
+-- AUTO_INCREMENT for table `areas`
 --
 ALTER TABLE `areas`
   MODIFY `materia_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `estadisticas`
+-- AUTO_INCREMENT for table `estadisticas`
 --
 ALTER TABLE `estadisticas`
   MODIFY `estadistica_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
--- AUTO_INCREMENT de la tabla `historial_ahorcado`
+-- AUTO_INCREMENT for table `historial_ahorcado`
 --
 ALTER TABLE `historial_ahorcado`
   MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `historial_wordle`
+-- AUTO_INCREMENT for table `historial_wordle`
 --
 ALTER TABLE `historial_wordle`
   MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT de la tabla `intentos`
+-- AUTO_INCREMENT for table `intentos`
 --
 ALTER TABLE `intentos`
   MODIFY `intento_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `juegos`
+-- AUTO_INCREMENT for table `juegos`
 --
 ALTER TABLE `juegos`
   MODIFY `juego_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `niveles_memory`
+-- AUTO_INCREMENT for table `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
   MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT de la tabla `niveles_us`
+-- AUTO_INCREMENT for table `niveles_us`
 --
 ALTER TABLE `niveles_us`
   MODIFY `id_nivel_us` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `novedades`
+-- AUTO_INCREMENT for table `novedades`
 --
 ALTER TABLE `novedades`
   MODIFY `id_novedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `palabras_ahorcado`
+-- AUTO_INCREMENT for table `palabras_ahorcado`
 --
 ALTER TABLE `palabras_ahorcado`
   MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de la tabla `preguntas`
+-- AUTO_INCREMENT for table `preguntas`
 --
 ALTER TABLE `preguntas`
   MODIFY `pregunta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `puntaje_juego`
+-- AUTO_INCREMENT for table `puntaje_juego`
 --
 ALTER TABLE `puntaje_juego`
   MODIFY `id_puntaje` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `ranking_ahorcado`
+-- AUTO_INCREMENT for table `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `rankin_wordle`
+-- AUTO_INCREMENT for table `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
   MODIFY `id_ranking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `resources_juego`
+-- AUTO_INCREMENT for table `resources_juego`
 --
 ALTER TABLE `resources_juego`
   MODIFY `id_rources` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
--- AUTO_INCREMENT de la tabla `respuestas`
+-- AUTO_INCREMENT for table `respuestas`
 --
 ALTER TABLE `respuestas`
   MODIFY `respuesta_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT de la tabla `wordle`
+-- AUTO_INCREMENT for table `wordle`
 --
 ALTER TABLE `wordle`
   MODIFY `id_palabra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=291;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `estadisticas`
+-- Constraints for table `estadisticas`
 --
 ALTER TABLE `estadisticas`
   ADD CONSTRAINT `estadisticas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`),
@@ -950,26 +950,26 @@ ALTER TABLE `estadisticas`
   ADD CONSTRAINT `estadisticas_ibfk_3` FOREIGN KEY (`id_nivel`) REFERENCES `niveles_memory` (`id_nivel`);
 
 --
--- Filtros para la tabla `historial_ahorcado`
+-- Constraints for table `historial_ahorcado`
 --
 ALTER TABLE `historial_ahorcado`
   ADD CONSTRAINT `historial_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
   ADD CONSTRAINT `historial_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
 
 --
--- Filtros para la tabla `historial_wordle`
+-- Constraints for table `historial_wordle`
 --
 ALTER TABLE `historial_wordle`
   ADD CONSTRAINT `historial_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `juegos`
+-- Constraints for table `juegos`
 --
 ALTER TABLE `juegos`
   ADD CONSTRAINT `juegos_ibfk_1` FOREIGN KEY (`materia_id`) REFERENCES `areas` (`materia_id`);
 
 --
--- Filtros para la tabla `niveles_memory`
+-- Constraints for table `niveles_memory`
 --
 ALTER TABLE `niveles_memory`
   ADD CONSTRAINT `niveles_memory_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
@@ -977,7 +977,7 @@ ALTER TABLE `niveles_memory`
   ADD CONSTRAINT `niveles_memory_ibfk_3` FOREIGN KEY (`id_creador_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
--- Filtros para la tabla `niveles_us`
+-- Constraints for table `niveles_us`
 --
 ALTER TABLE `niveles_us`
   ADD CONSTRAINT `niveles_us_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`),
@@ -985,39 +985,39 @@ ALTER TABLE `niveles_us`
   ADD CONSTRAINT `niveles_us_ibfk_4` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`juego_id`);
 
 --
--- Filtros para la tabla `palabras_ahorcado`
+-- Constraints for table `palabras_ahorcado`
 --
 ALTER TABLE `palabras_ahorcado`
   ADD CONSTRAINT `palabras_ahorcado_ibfk_1` FOREIGN KEY (`materia_id`) REFERENCES `areas` (`materia_id`);
 
 --
--- Filtros para la tabla `preguntas`
+-- Constraints for table `preguntas`
 --
 ALTER TABLE `preguntas`
   ADD CONSTRAINT `preguntas_ibfk_1` FOREIGN KEY (`juego_id`) REFERENCES `juegos` (`juego_id`);
 
 --
--- Filtros para la tabla `puntaje_juego`
+-- Constraints for table `puntaje_juego`
 --
 ALTER TABLE `puntaje_juego`
   ADD CONSTRAINT `puntaje_juego_ibfk_1` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`juego_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `puntaje_juego_ibfk_2` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`);
 
 --
--- Filtros para la tabla `ranking_ahorcado`
+-- Constraints for table `ranking_ahorcado`
 --
 ALTER TABLE `ranking_ahorcado`
   ADD CONSTRAINT `ranking_ahorcado_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`),
   ADD CONSTRAINT `ranking_ahorcado_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `areas` (`materia_id`);
 
 --
--- Filtros para la tabla `rankin_wordle`
+-- Constraints for table `rankin_wordle`
 --
 ALTER TABLE `rankin_wordle`
   ADD CONSTRAINT `rankin_wordle_ibfk_1` FOREIGN KEY (`id_us`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `respuestas`
+-- Constraints for table `respuestas`
 --
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`pregunta_id`) REFERENCES `preguntas` (`pregunta_id`);

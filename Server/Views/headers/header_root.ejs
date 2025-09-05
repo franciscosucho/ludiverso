@@ -1,0 +1,46 @@
+<header id="main-header">
+
+    <nav>
+       
+        <% if (session.rol_us == "root") { %>
+            <a href="/dashboard" class="container_nav" id="cont_nav_tit">
+                <img src="/Resources/Imagenes/logo_ludi.png" alt="">
+            </a>
+        <% } else{ %>
+            <a href="/index" class="container_nav" id="cont_nav_tit">
+                <img src="/Resources/Imagenes/logo_ludi.png" alt="">
+            </a>
+        <% } %>
+
+        <div class="container_nav" id="cont_nav_links">
+            <a href="#" class="link" id="icon_tema">
+                <i class="fa-solid icon_theme" id="icon_tema_tema"></i>
+            </a>
+
+            <a href="/dash_users" class="links" id="link_juegos">
+                <span class="text_links">Usuarios</span>
+                <i class="fa-solid fa-users desac icons_links"></i>
+            </a>
+
+            <a href="/dash_juegos" class="links" id="link_areas">
+                <span class="text_links">Juegos</span>
+                <i class="fa-solid fa-puzzle-piece desac icons_links"></i>
+            </a>
+            <a href="/dash_novedades" class="links" id="link_novedades">
+                <span class="text_links">Novedades</span>
+                <i class="fa-solid fa-newspaper desac icons_links"></i>
+            </a>
+            
+            <% if (session.user_sesion) { %>
+                <a href="/profile" class="links">
+                    <span class="text_links">Mi Perfil</span>
+                    <i class="fa-solid fa-user desac icons_links"></i>
+                </a>
+            <% } %>
+        </div>
+    </nav>
+
+</header>
+
+
+<script src="Scripts/header.js"></script>
