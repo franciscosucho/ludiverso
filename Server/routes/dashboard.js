@@ -1,13 +1,22 @@
 // server/routes/dashboard.js
 const express = require('express');
 const router = express.Router();
-const connection = require('./../config/db.js');
+const mysql = require('mysql2');
 const multer = require('multer');
 const fs = require('fs');
 const path = require("path");
 const upload_nov = multer({ dest: 'uploads/' }); // Carpeta temporal
 const sharp = require("sharp")
 const crypto = require('crypto');
+
+// Conexión a la base de datos (igual que en main.js)
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'ludiverso',
+    port: 3306
+});
 function saveImage(file) {
     const url_nov = `Resources/Imagenes/Novedades/${file.originalname}`
     const newPath = path.join(__dirname, '../Client/Resources/Imagenes/Novedades/', file.originalname);
@@ -142,8 +151,8 @@ router.post('/borrar_user', async (req, res) => {
     // Primero eliminar registros relacionados en otras tablas
     const deleteQueries = [
         "DELETE FROM `estadisticas` WHERE usuario_id = ?",
-        "DELETE FROM `historial_ahorcado` WHERE id_us = ?",
-        "DELETE FROM `historial_wordle` WHERE id_us = ?",
+        // "DELETE FROM `historial_ahorcado` WHERE id_us = ?", // Tabla no existe
+        // "DELETE FROM `historial_wordle` WHERE id_us = ?", // Tabla no existe
         "DELETE FROM `ranking_ahorcado` WHERE id_us = ?",
         "DELETE FROM `rankin_wordle` WHERE id_us = ?",
         "DELETE FROM `niveles_us` WHERE id_us = ?",
@@ -608,24 +617,20 @@ router.get('/profile', isLogged, async (req, res) => {
             // Obtener estadísticas básicas del usuario (todas las partidas)
             const statsQuery = `
                 SELECT 
-                    -- Total de juegos jugados (todas las partidas, ganadas y perdidas)
+                    -- Total de juegos jugados (solo de estadisticas y niveles_us)
                     (
                         COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
-                        COALESCE((SELECT COUNT(*) FROM historial_ahorcado WHERE id_us = ?), 0) +
-                        COALESCE((SELECT COUNT(*) FROM historial_wordle WHERE id_us = ?), 0) +
                         COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
                     ) as juegosJugados,
                     
-                    -- Total de puntos (solo de partidas ganadas)
+                    -- Total de puntos (solo de estadisticas)
                     (
-                        COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0) +
-                        COALESCE((SELECT SUM(aciertos) FROM historial_ahorcado WHERE id_us = ? AND victoria = 1), 0) +
-                        COALESCE((SELECT SUM(aciertos) FROM historial_wordle WHERE id_us = ?), 0)
+                        COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0)
                     ) as puntosTotales
             `;
             
             console.log('Ejecutando consulta de estadísticas generales para usuario:', userId);
-            connection.query(statsQuery, [userId, userId, userId, userId, userId, userId, userId], (err, statsResult) => {
+            connection.query(statsQuery, [userId, userId, userId], (err, statsResult) => {
                 if (err) {
                     console.error('Error al obtener estadísticas:', err);
                     return res.status(500).send('Error al obtener estadísticas');
@@ -661,18 +666,14 @@ router.get('/test-stats', isLogged, (req, res) => {
         SELECT 
             (
                 COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
-                COALESCE((SELECT COUNT(*) FROM historial_ahorcado WHERE id_us = ?), 0) +
-                COALESCE((SELECT COUNT(*) FROM historial_wordle WHERE id_us = ?), 0) +
                 COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
             ) as juegosJugados,
             (
-                COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0) +
-                COALESCE((SELECT SUM(aciertos) FROM historial_ahorcado WHERE id_us = ? AND victoria = 1), 0) +
-                COALESCE((SELECT SUM(aciertos) FROM historial_wordle WHERE id_us = ?), 0)
+                COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0)
             ) as puntosTotales
     `;
     
-    connection.query(statsQuery, [userId, userId, userId, userId, userId, userId, userId], (err, result) => {
+    connection.query(statsQuery, [userId, userId, userId], (err, result) => {
         if (err) {
             console.error('Error en consulta de prueba:', err);
             return res.status(500).json({ error: 'Error en consulta' });
@@ -693,8 +694,8 @@ router.get('/profile-stats', isLogged, (req, res) => {
     
     // Consultas para cada juego
     const memoryQuery = "SELECT COUNT(*) as niveles_completados, COALESCE(SUM(puntaje_total), 0) as puntaje_total FROM estadisticas WHERE usuario_id = ?";
-    const wordleQuery = "SELECT COALESCE(MAX(aciertos), 0) as mejor_aciertos, COALESCE(MIN(tiempo), 0) as mejor_tiempo FROM historial_wordle WHERE id_us = ?";
-    const ahorcadoQuery = "SELECT COUNT(*) as victorias, COALESCE(MIN(tiempo), 0) as mejor_tiempo FROM historial_ahorcado WHERE id_us = ? AND victoria = 1";
+    const wordleQuery = "SELECT 0 as mejor_aciertos, 0 as mejor_tiempo"; // Tabla no existe, valores por defecto
+    const ahorcadoQuery = "SELECT 0 as victorias, 0 as mejor_tiempo"; // Tabla no existe, valores por defecto
     const puzzleQuery = "SELECT COUNT(*) as niveles_completados FROM niveles_us WHERE id_us = ? AND id_juego = 2";
     
     // Ejecutar todas las consultas en paralelo
@@ -706,13 +707,13 @@ router.get('/profile-stats', isLogged, (req, res) => {
             });
         }),
         new Promise((resolve, reject) => {
-            connection.query(wordleQuery, [userId], (err, result) => {
+            connection.query(wordleQuery, [], (err, result) => {
                 if (err) reject(err);
                 else resolve(result[0] || { mejor_aciertos: 0, mejor_tiempo: 0 });
             });
         }),
         new Promise((resolve, reject) => {
-            connection.query(ahorcadoQuery, [userId], (err, result) => {
+            connection.query(ahorcadoQuery, [], (err, result) => {
                 if (err) reject(err);
                 else resolve(result[0] || { victorias: 0, mejor_tiempo: 0 });
             });
