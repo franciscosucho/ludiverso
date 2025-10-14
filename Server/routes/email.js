@@ -51,9 +51,69 @@ const root_verificar = (req, res, next) => {
                     //     console.error(error);
                     // });
 
+// Ruta GET para mostrar la página de recuperar contraseña
 router.get('/recuperar-contrasena', async (req, res) => {
- 
-    res.send('Página para recuperar contraseña');
+    res.render('recuperarContra', { 
+        message: null 
+    });
+});
+
+// Ruta POST para procesar la recuperación de contraseña
+router.post('/recuperar-contrasena', async (req, res) => {
+    try {
+        const { email } = req.body;
+        
+        if (!email) {
+            return res.render('recuperarContra', {
+                message: {
+                    type: 'error',
+                    text: 'Por favor, ingresa tu correo electrónico.'
+                }
+            });
+        }
+
+        // Verificar si el email existe en la base de datos
+        const checkEmailQuery = 'SELECT * FROM usuarios WHERE email = ?';
+        connection.query(checkEmailQuery, [email], (err, results) => {
+            if (err) {
+                console.error('Error al verificar email:', err);
+                return res.render('recuperarContra', {
+                    message: {
+                        type: 'error',
+                        text: 'Error del servidor. Intenta nuevamente.'
+                    }
+                });
+            }
+
+            if (results.length === 0) {
+                return res.render('recuperarContra', {
+                    message: {
+                        type: 'error',
+                        text: 'No se encontró una cuenta con ese correo electrónico.'
+                    }
+                });
+            }
+
+            // Por ahora, solo confirmar que el email existe
+            // En un entorno de producción, aquí enviarías un email con un enlace de recuperación
+            
+            res.render('recuperarContra', {
+                message: {
+                    type: 'success',
+                    text: `Se ha enviado un enlace de recuperación a ${email}. Revisa tu bandeja de entrada. (Nota: En desarrollo, el email no se envía realmente)`
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error('Error en recuperar contraseña:', error);
+        res.render('recuperarContra', {
+            message: {
+                type: 'error',
+                text: 'Error del servidor. Intenta nuevamente.'
+            }
+        });
+    }
 });
 
 

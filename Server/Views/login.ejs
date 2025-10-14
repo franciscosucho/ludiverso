@@ -24,7 +24,7 @@
                     </div>
                     <button>Ingresar</button>
                     <a href="/register">No tienes cuenta todavia?</a>
-                    <a href="/recuperarContra">Olvidaste tu contraseña?</a>
+                    <a href="/recuperar-contrasena">Olvidaste tu contraseña?</a>
                     <% if (typeof error !== 'undefined' && error) { %>
                         <div class="error-message">
                           <%= error %>
@@ -35,7 +35,6 @@
 
         </div> 
     </main>
-    <%- include('chatbot.ejs') %>
 </body>
 </html>
 <script>
