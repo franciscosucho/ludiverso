@@ -147,6 +147,10 @@ class LudiversoChatbot {
                     <button class="suggestion-btn" data-question="¿Cómo jugar?">¿Cómo jugar?</button>
                     <button class="suggestion-btn" data-question="¿Qué áreas hay?">¿Qué áreas hay?</button>
                     <button class="suggestion-btn" data-question="¿Cómo registrarse?">¿Cómo registrarse?</button>
+                    <button class="suggestion-btn" data-question="¿Qué juegos hay?">¿Qué juegos hay?</button>
+                    <button class="suggestion-btn" data-question="¿Cómo funciona el puntaje?">¿Cómo funciona el puntaje?</button>
+                    <button class="suggestion-btn" data-question="¿Necesito ayuda?">¿Necesito ayuda?</button>
+                    <button class="suggestion-btn" data-question="¿Sobre el equipo?">¿Sobre el equipo?</button>
                 </div>
             </div>
         `;
@@ -243,6 +247,11 @@ class LudiversoChatbot {
     processMessage(message) {
         const lowerMessage = message.toLowerCase();
         
+        // Detectar mensajes explícitos o inapropiados
+        if (this.isInappropriateMessage(lowerMessage)) {
+            return this.getInappropriateResponse();
+        }
+        
         // Detectar intención y contexto
         if (this.containsAny(lowerMessage, ['hola', 'hi', 'buenos días', 'buenas tardes', 'buenas noches'])) {
             return this.getGreetingResponse();
@@ -292,12 +301,33 @@ class LudiversoChatbot {
             return this.getAboutUsInfo();
         }
         
-        // Respuesta por defecto
+        // Respuesta por defecto para mensajes que no puede responder
         return this.getDefaultResponse();
     }
 
     containsAny(text, keywords) {
         return keywords.some(keyword => text.includes(keyword));
+    }
+
+    isInappropriateMessage(message) {
+        const inappropriateWords = [
+            'puto', 'puta', 'mierda', 'joder', 'coño', 'cabrón', 'cabrona',
+            'idiota', 'estúpido', 'estúpida', 'tonto', 'tonta', 'imbécil',
+            'fuck', 'shit', 'damn', 'bitch', 'asshole', 'stupid',
+            'odio', 'hate', 'matar', 'kill', 'violencia', 'violence'
+        ];
+        
+        return inappropriateWords.some(word => message.includes(word));
+    }
+
+    getInappropriateResponse() {
+        const responses = [
+            `Lo siento, no puedo responder eso. Por favor, mantén un lenguaje respetuoso. 😊`,
+            `No puedo ayudarte con ese tipo de mensaje. ¿Hay algo sobre Ludiverso en lo que pueda asistirte? 🤖`,
+            `Por favor, usa un lenguaje apropiado. Estoy aquí para ayudarte con dudas sobre la plataforma. 😌`,
+            `No puedo responder a ese tipo de comentarios. ¿Te gustaría preguntarme sobre los juegos o áreas educativas? 😇`
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
     }
 
     getGreetingResponse() {
@@ -310,7 +340,7 @@ class LudiversoChatbot {
     }
 
     getLudiversoInfo() {
-        return `🎮 <strong>Ludiverso</strong> es una plataforma educativa desarrollada por estudiantes de 7° año de programación.
+        return `🎮 Ludiverso es una plataforma educativa desarrollada por estudiantes de 7° año de programación.
 
 Nuestro objetivo es fomentar la educación de manera divertida y amigable para los nuevos alumnos. 
 
@@ -331,27 +361,27 @@ Las áreas que cubrimos son:
     }
 
     getHowToPlayInfo() {
-        return `🎯 <strong>¿Cómo empezar a jugar en Ludiverso?</strong>
+        return `🎯 ¿Cómo empezar a jugar en Ludiverso?
 
-1️⃣ <strong>Regístrate o inicia sesión</strong>
+1️⃣ Regístrate o inicia sesión
    • Si eres nuevo, crea una cuenta en el botón "Registrarse"
    • Si ya tienes cuenta, usa "Iniciar sesión"
 
-2️⃣ <strong>Explora las áreas</strong>
+2️⃣ Explora las áreas
    • En la página principal verás diferentes áreas educativas
    • Haz clic en cualquier área para ver los juegos disponibles
 
-3️⃣ <strong>Selecciona un juego</strong>
+3️⃣ Selecciona un juego
    • Cada área tiene diferentes tipos de juegos
    • Haz clic en "Jugar" para comenzar
 
-4️⃣ <strong>Tipos de juegos disponibles:</strong>
-   • 🧩 <strong>Memoria:</strong> Encuentra las parejas correctas
-   • 🔤 <strong>Wordle:</strong> Adivina la palabra oculta
-   • 🎯 <strong>Ahorcado:</strong> Adivina la palabra letra por letra
-   • 🧩 <strong>Rompecabezas:</strong> Arma la imagen correctamente
+4️⃣ Tipos de juegos disponibles:
+   • 🧩 Memoria: Encuentra las parejas correctas
+   • 🔤 Wordle: Adivina la palabra oculta
+   • 🎯 Ahorcado: Adivina la palabra letra por letra
+   • 🧩 Rompecabezas: Arma la imagen correctamente
 
-5️⃣ <strong>Gana puntos</strong>
+5️⃣ Gana puntos
    • Cada juego te dará puntos según tu rendimiento
    • Compite en los rankings con otros estudiantes
 
@@ -359,25 +389,25 @@ Las áreas que cubrimos son:
     }
 
     getAreasInfo() {
-        return `📚 <strong>Áreas educativas en Ludiverso:</strong>
+        return `📚 Áreas educativas en Ludiverso:
 
-🔤 <strong>Comunicaciones</strong>
+🔤 Comunicaciones
    • Juegos de lenguaje, literatura y comunicación
    • Mejora tu vocabulario y comprensión lectora
 
-🔬 <strong>Ciencias Exactas y Naturales</strong>
+🔬 Ciencias Exactas y Naturales
    • Matemáticas, física, química y biología
    • Ejercicios prácticos y problemas interactivos
 
-🌍 <strong>Ciencias Sociales</strong>
+🌍 Ciencias Sociales
    • Historia, geografía y ciencias sociales
    • Aprende sobre el mundo de forma divertida
 
-🏃 <strong>Educación Física</strong>
+🏃 Educación Física
    • Conocimientos sobre deportes y salud
    • Anatomía y fisiología del ejercicio
 
-🔧 <strong>Taller</strong>
+🔧 Taller
    • Tecnología, informática y habilidades técnicas
    • Programación y desarrollo de software
 
@@ -385,21 +415,21 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getRegistrationInfo() {
-        return `📝 <strong>¿Cómo registrarse en Ludiverso?</strong>
+        return `📝 ¿Cómo registrarse en Ludiverso?
 
 1️⃣ Ve a la página de inicio
-2️⃣ Haz clic en el botón <strong>"Registrarse"</strong>
+2️⃣ Haz clic en el botón "Registrarse"
 3️⃣ Completa el formulario con:
    • Nombre y apellido
    • Nombre de usuario (único)
    • Email válido
    • Contraseña segura
 
-4️⃣ Haz clic en <strong>"Crear cuenta"</strong>
+4️⃣ Haz clic en "Crear cuenta"
 
-✅ <strong>¡Listo!</strong> Ya puedes empezar a jugar y aprender.
+✅ ¡Listo! Ya puedes empezar a jugar y aprender.
 
-<strong>Consejos:</strong>
+Consejos:
 • Elige un nombre de usuario fácil de recordar
 • Usa una contraseña segura con letras, números y símbolos
 • Verifica que tu email sea correcto
@@ -408,21 +438,21 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getLoginInfo() {
-        return `🔐 <strong>¿Cómo iniciar sesión?</strong>
+        return `🔐 ¿Cómo iniciar sesión?
 
 1️⃣ Ve a la página de inicio
-2️⃣ Haz clic en <strong>"Iniciar sesión"</strong>
+2️⃣ Haz clic en "Iniciar sesión"
 3️⃣ Ingresa tus credenciales:
    • Nombre de usuario
    • Contraseña
 
-4️⃣ Haz clic en <strong>"Entrar"</strong>
+4️⃣ Haz clic en "Entrar"
 
-❌ <strong>Si olvidaste tu contraseña:</strong>
+❌ Si olvidaste tu contraseña:
 • Haz clic en "¿Olvidaste tu contraseña?"
 • Sigue las instrucciones para recuperarla
 
-✅ <strong>Una vez dentro podrás:</strong>
+✅ Una vez dentro podrás:
 • Acceder a todos los juegos
 • Ver tu progreso y estadísticas
 • Competir en rankings
@@ -432,29 +462,29 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getGamesInfo() {
-        return `🎮 <strong>Juegos disponibles en Ludiverso:</strong>
+        return `🎮 Juegos disponibles en Ludiverso:
 
-🧩 <strong>Juego de Memoria</strong>
+🧩 Juego de Memoria
    • Encuentra las parejas correctas
    • Mejora tu concentración y memoria
    • Diferentes niveles de dificultad
 
-🔤 <strong>Wordle</strong>
+🔤 Wordle
    • Adivina la palabra oculta en 6 intentos
    • Cada intento te da pistas sobre las letras
    • Perfecto para mejorar vocabulario
 
-🎯 <strong>Ahorcado</strong>
+🎯 Ahorcado
    • Adivina la palabra letra por letra
    • Cada error te acerca al final
    • Ideal para aprender nuevas palabras
 
-🧩 <strong>Rompecabezas</strong>
+🧩 Rompecabezas
    • Arma la imagen correctamente
    • Desarrolla habilidades espaciales
    • Diferentes tamaños y complejidades
 
-<strong>Características de todos los juegos:</strong>
+Características de todos los juegos:
 • ⏱️ Cronómetro para medir tu velocidad
 • 🏆 Sistema de puntuación
 • 📊 Estadísticas detalladas
@@ -464,28 +494,28 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getScoreInfo() {
-        return `🏆 <strong>Sistema de puntuación en Ludiverso:</strong>
+        return `🏆 Sistema de puntuación en Ludiverso:
 
-📊 <strong>Cómo se calculan los puntos:</strong>
+📊 Cómo se calculan los puntos:
 • Aciertos correctos: +100 puntos
 • Velocidad: Menos tiempo = más puntos
 • Intentos: Menos intentos = mejor puntuación
 • Precisión: Mayor precisión = bonus extra
 
-🥇 <strong>Rankings disponibles:</strong>
+🥇 Rankings disponibles:
 • Ranking general por juego
 • Ranking por área educativa
 • Ranking por nivel de dificultad
 • Tu posición personal
 
-📈 <strong>Estadísticas que puedes ver:</strong>
+📈 Estadísticas que puedes ver:
 • Puntuación total
 • Tiempo promedio por juego
 • Número de juegos completados
 • Progreso por área
 • Mejores puntuaciones
 
-🎯 <strong>Consejos para mejorar tu puntuación:</strong>
+🎯 Consejos para mejorar tu puntuación:
 • Practica regularmente
 • Lee las instrucciones cuidadosamente
 • Mantén la calma bajo presión
@@ -495,31 +525,31 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getHelpInfo() {
-        return `🆘 <strong>Centro de ayuda de Ludiverso</strong>
+        return `🆘 Centro de ayuda de Ludiverso
 
-❓ <strong>Problemas comunes y soluciones:</strong>
+❓ Problemas comunes y soluciones:
 
-🔧 <strong>El juego no carga:</strong>
+🔧 El juego no carga:
 • Verifica tu conexión a internet
 • Actualiza la página (F5)
 • Limpia la caché del navegador
 
-🔐 <strong>No puedo iniciar sesión:</strong>
+🔐 No puedo iniciar sesión:
 • Verifica tu nombre de usuario y contraseña
 • Usa la opción "¿Olvidaste tu contraseña?"
 • Contacta al administrador si persiste
 
-🎮 <strong>El juego se traba:</strong>
+🎮 El juego se traba:
 • Refresca la página
 • Cierra otras pestañas del navegador
 • Verifica que JavaScript esté habilitado
 
-📱 <strong>Problemas en móvil:</strong>
+📱 Problemas en móvil:
 • Usa un navegador actualizado
 • Asegúrate de tener buena señal
 • Rota la pantalla si es necesario
 
-🆘 <strong>Si necesitas más ayuda:</strong>
+🆘 Si necesitas más ayuda:
 • Contacta al equipo de soporte
 • Reporta bugs o problemas
 • Sugiere mejoras
@@ -528,28 +558,28 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getContactInfo() {
-        return `📞 <strong>Información de contacto:</strong>
+        return `📞 Información de contacto:
 
-👥 <strong>Equipo de desarrollo:</strong>
+👥 Equipo de desarrollo:
 • Estudiantes de 7° año de programación
 • Especialidad en desarrollo de software
 
-📧 <strong>Para soporte técnico:</strong>
+📧 Para soporte técnico:
 • Contacta a través del sistema de reportes
 • Incluye detalles del problema
 • Adjunta capturas de pantalla si es posible
 
-💡 <strong>Para sugerencias:</strong>
+💡 Para sugerencias:
 • Usa el formulario de feedback
 • Describe tu idea claramente
 • Explica cómo mejoraría la experiencia
 
-🐛 <strong>Para reportar bugs:</strong>
+🐛 Para reportar bugs:
 • Describe el problema paso a paso
 • Menciona qué navegador usas
 • Incluye el mensaje de error si aparece
 
-📱 <strong>Redes sociales:</strong>
+📱 Redes sociales:
 • Síguenos para actualizaciones
 • Participa en la comunidad
 • Comparte tus logros
@@ -558,33 +588,33 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getNewsInfo() {
-        return `📰 <strong>Novedades en Ludiverso:</strong>
+        return `📰 Novedades en Ludiverso:
 
-🆕 <strong>Últimas actualizaciones:</strong>
+🆕 Últimas actualizaciones:
 • Nuevos juegos agregados regularmente
 • Mejoras en la interfaz de usuario
 • Optimizaciones de rendimiento
 • Nuevas áreas educativas
 
-🏆 <strong>Eventos especiales:</strong>
+🏆 Eventos especiales:
 • Torneos mensuales
 • Competencias por área
 • Desafíos especiales
 • Premios para los mejores jugadores
 
-📊 <strong>Estadísticas de la plataforma:</strong>
+📊 Estadísticas de la plataforma:
 • Miles de estudiantes activos
 • Cientos de juegos completados diariamente
 • Alta satisfacción de usuarios
 • Crecimiento constante
 
-🔮 <strong>Próximamente:</strong>
+🔮 Próximamente:
 • Nuevos tipos de juegos
 • Sistema de logros
 • Modo multijugador
 • Aplicación móvil
 
-📢 <strong>Mantente informado:</strong>
+📢 Mantente informado:
 • Revisa la sección de novedades regularmente
 • Sigue nuestras redes sociales
 • Participa en la comunidad
@@ -593,31 +623,31 @@ Cada área tiene múltiples niveles de dificultad y diferentes tipos de juegos. 
     }
 
     getAboutUsInfo() {
-        return `👥 <strong>Sobre el equipo de Ludiverso:</strong>
+        return `👥 Sobre el equipo de Ludiverso:
 
-🎓 <strong>¿Quiénes somos?</strong>
+🎓 ¿Quiénes somos?
 Somos estudiantes de 7° año de la especialidad de programación, apasionados por la educación y la tecnología.
 
-🎯 <strong>Nuestra misión:</strong>
+🎯 Nuestra misión:
 Crear una plataforma educativa que haga el aprendizaje divertido y accesible para todos los estudiantes.
 
-💡 <strong>Nuestra visión:</strong>
+💡 Nuestra visión:
 Ser la plataforma educativa líder en gamificación del aprendizaje, combinando tecnología y pedagogía.
 
-🛠️ <strong>Tecnologías que usamos:</strong>
+🛠️ Tecnologías que usamos:
 • Node.js y Express para el backend
 • EJS para las plantillas
 • MySQL para la base de datos
 • CSS3 y JavaScript moderno
 • Diseño responsive
 
-🌟 <strong>Nuestros valores:</strong>
+🌟 Nuestros valores:
 • Educación accesible para todos
 • Innovación constante
 • Calidad en el desarrollo
 • Experiencia de usuario excepcional
 
-🤝 <strong>Únete a nuestra comunidad:</strong>
+🤝 Únete a nuestra comunidad:
 • Participa en el desarrollo
 • Sugiere nuevas funcionalidades
 • Reporta problemas
@@ -628,18 +658,18 @@ Ser la plataforma educativa líder en gamificación del aprendizaje, combinando 
 
     getDefaultResponse() {
         const responses = [
-            `🤔 No estoy seguro de entender tu pregunta. ¿Podrías ser más específico?`,
-            `😅 No tengo información sobre eso. ¿Te gustaría preguntarme sobre los juegos, áreas educativas o cómo usar Ludiverso?`,
-            `🤖 No puedo ayudarte con eso específicamente. ¿Hay algo sobre Ludiverso en lo que pueda asistirte?`,
-            `💭 Interesante pregunta. ¿Podrías reformularla? Puedo ayudarte con información sobre juegos, registro, áreas educativas, etc.`,
-            `❓ No estoy seguro de cómo responder eso. ¿Te gustaría que te explique cómo funciona Ludiverso o alguna de sus características?`
+            `Lo siento, no puedo responder eso. ¿Podrías ser más específico sobre Ludiverso?`,
+            `No tengo información sobre eso. ¿Te gustaría preguntarme sobre los juegos, áreas educativas o cómo usar Ludiverso?`,
+            `No puedo ayudarte con eso específicamente. ¿Hay algo sobre Ludiverso en lo que pueda asistirte?`,
+            `Interesante pregunta. ¿Podrías reformularla? Puedo ayudarte con información sobre juegos, registro, áreas educativas, etc.`,
+            `No estoy seguro de cómo responder eso. ¿Te gustaría que te explique cómo funciona Ludiverso o alguna de sus características?`
         ];
         
         const randomResponse = responses[Math.floor(Math.random() * responses.length)];
         
         return `${randomResponse}
 
-💡 <strong>Puedo ayudarte con:</strong>
+💡 Puedo ayudarte con:
 • Información sobre Ludiverso
 • Cómo registrarse e iniciar sesión
 • Explicación de los juegos disponibles
