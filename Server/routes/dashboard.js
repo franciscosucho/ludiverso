@@ -2,7 +2,7 @@
 const express = require('express');
 const session = require('express-session');
 const router = express.Router();
-const connection = require('./../config/db.js');
+const mysql = require('mysql2');
 const multer = require('multer');
 const fs = require('fs');
 const path = require("path");
@@ -13,7 +13,14 @@ const crypto = require('crypto');
 const transporter = require('../config/nodemailer.js');
 require('dotenv').config();
 
-
+// Conexión a la base de datos (igual que en main.js)
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'ludiverso',
+    port: 3306
+});
 
 // // Configuración de express-session
 router.use(
@@ -27,7 +34,6 @@ router.use(
         },
     })
 );
-
 function saveImage(file) {
 
     const uploadDir = path.join(__dirname, '../../Client/Resources/Imagenes/Novedades');
@@ -185,8 +191,8 @@ router.post('/borrar_user', async (req, res) => {
     // Primero eliminar registros relacionados en otras tablas
     const deleteQueries = [
         "DELETE FROM `estadisticas` WHERE usuario_id = ?",
-        "DELETE FROM `historial_ahorcado` WHERE id_us = ?",
-        "DELETE FROM `historial_wordle` WHERE id_us = ?",
+        // "DELETE FROM `historial_ahorcado` WHERE id_us = ?", // Tabla no existe
+        // "DELETE FROM `historial_wordle` WHERE id_us = ?", // Tabla no existe
         "DELETE FROM `ranking_ahorcado` WHERE id_us = ?",
         "DELETE FROM `rankin_wordle` WHERE id_us = ?",
         "DELETE FROM `niveles_us` WHERE id_us = ?",
@@ -672,7 +678,161 @@ router.get("/dash_rompecabezas", isLogged, async (req, res) => {
     }
 });
 
+// Ruta para mostrar el perfil del usuario
+router.get('/profile', isLogged, (req, res) => {
+    const userId = req.session.usuario_id;
+    console.log('Cargando perfil para usuario:', userId);
+    
+    // Obtener datos del usuario
+    const userQuery = "SELECT * FROM usuarios WHERE usuario_id = ?";
+    connection.query(userQuery, [userId], (err, userResult) => {
+        if (err) {
+            console.error('Error al obtener datos del usuario:', err);
+            return res.status(500).send('Error al obtener datos del usuario');
+        }
 
+        if (!userResult || userResult.length === 0) {
+            console.error('Usuario no encontrado');
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        // Obtener estadísticas básicas del usuario (todas las partidas)
+        const statsQuery = `
+            SELECT 
+                -- Total de juegos jugados (solo de estadisticas y niveles_us)
+                (
+                    COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
+                    COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
+                ) as juegosJugados,
+                
+                -- Total de puntos (solo de estadisticas)
+                (
+                    COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0)
+                ) as puntosTotales
+        `;
+        
+        console.log('Ejecutando consulta de estadísticas generales para usuario:', userId);
+        connection.query(statsQuery, [userId, userId, userId], (err, statsResult) => {
+            if (err) {
+                console.error('Error al obtener estadísticas:', err);
+                return res.status(500).send('Error al obtener estadísticas');
+            }
+
+            console.log('Resultado de estadísticas generales:', statsResult);
+            
+            // Agregar ranking simple
+            const stats = statsResult[0] || { juegosJugados: 0, puntosTotales: 0 };
+            stats.ranking = stats.puntosTotales > 0 ? 'Activo' : 'Nuevo';
+            
+            console.log('Estadísticas finales para renderizar:', stats);
+            
+            res.render('profile', {
+                user: userResult[0],
+                stats: stats,
+                session: req.session
+            });
+        });
+    });
+});
+
+// Ruta de prueba para verificar conexión
+router.get('/test-stats', isLogged, (req, res) => {
+    const userId = req.session.usuario_id;
+    
+    // Probar consulta de estadísticas generales
+    const statsQuery = `
+        SELECT 
+            (
+                COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
+                COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
+            ) as juegosJugados,
+            (
+                COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0)
+            ) as puntosTotales
+    `;
+    
+    connection.query(statsQuery, [userId, userId, userId], (err, result) => {
+        if (err) {
+            console.error('Error en consulta de prueba:', err);
+            return res.status(500).json({ error: 'Error en consulta' });
+        }
+        
+        res.json({ 
+            message: 'Ruta funcionando', 
+            userId: userId,
+            stats: result[0] || { juegosJugados: 0, puntosTotales: 0 }
+        });
+    });
+});
+
+// Ruta para obtener estadísticas detalladas por juego
+router.get('/profile-stats', isLogged, (req, res) => {
+    const userId = req.session.usuario_id;
+    console.log('Obteniendo estadísticas para usuario:', userId);
+    
+    // Consultas para cada juego
+    const memoryQuery = "SELECT COUNT(*) as niveles_completados, COALESCE(SUM(puntaje_total), 0) as puntaje_total FROM estadisticas WHERE usuario_id = ?";
+    const wordleQuery = "SELECT 0 as mejor_aciertos, 0 as mejor_tiempo"; // Tabla no existe, valores por defecto
+    const ahorcadoQuery = "SELECT 0 as victorias, 0 as mejor_tiempo"; // Tabla no existe, valores por defecto
+    const puzzleQuery = "SELECT COUNT(*) as niveles_completados FROM niveles_us WHERE id_us = ? AND id_juego = 2";
+    
+    // Ejecutar todas las consultas en paralelo
+    Promise.all([
+        new Promise((resolve, reject) => {
+            connection.query(memoryQuery, [userId], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { niveles_completados: 0, puntaje_total: 0 });
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(wordleQuery, [], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { mejor_aciertos: 0, mejor_tiempo: 0 });
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(ahorcadoQuery, [], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { victorias: 0, mejor_tiempo: 0 });
+            });
+        }),
+        new Promise((resolve, reject) => {
+            connection.query(puzzleQuery, [userId], (err, result) => {
+                if (err) reject(err);
+                else resolve(result[0] || { niveles_completados: 0 });
+            });
+        })
+    ])
+    .then(([memory, wordle, ahorcado, puzzle]) => {
+        const response = {
+            memory: { 
+                niveles_completados: memory.niveles_completados,
+                puntaje_total: memory.puntaje_total
+            },
+            wordle: { 
+                mejor_aciertos: wordle.mejor_aciertos,
+                mejor_tiempo: wordle.mejor_tiempo
+            },
+            ahorcado: { 
+                victorias: ahorcado.victorias,
+                mejor_tiempo: ahorcado.mejor_tiempo
+            },
+            puzzle: { 
+                niveles_completados: puzzle.niveles_completados,
+                mejor_tiempo: 0
+            }
+        };
+        
+        console.log('Estadísticas completas obtenidas:', response);
+        res.json(response);
+    })
+    .catch(err => {
+        console.error('Error al obtener estadísticas:', err);
+        res.status(500).json({ error: 'Error al obtener estadísticas' });
+    });
+});
+
+// (Eliminada) Ruta duplicada de actualizar perfil. La lógica oficial vive en routes/profile.js
 
 // Exporta todas las rutas definidas
 module.exports = router;
