@@ -207,10 +207,17 @@ router.get('/profile-stats', isLogged, (req, res) => {
 router.post('/actualizar_perfil', isLogged, async (req, res) => {
 
     try {
-        const { usuario_id, nombre, apellido, email, password, daltonismo } = req.body;
+        const { usuario_id, nombre, apellido, email, password } = req.body;
+        // Aceptar ambos nombres desde el formulario por compatibilidad
+        const daltonismoInput = (req.body.daltonismo || req.body.tipo_daltonismo || req.session.daltonismo);
 
-        let query = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, daltonismo=?";
-        const params = [nombre, apellido, email, daltonismo];
+        let query = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?";
+        const params = [nombre, apellido, email];
+
+        if (typeof daltonismoInput !== 'undefined' && daltonismoInput !== null && daltonismoInput !== '') {
+            query += ", daltonismo=?";
+            params.push(daltonismoInput);
+        }
 
         // Solo actualizar contraseña si se proporciona una nueva
         if (password && password.trim() !== '') {
@@ -230,8 +237,10 @@ router.post('/actualizar_perfil', isLogged, async (req, res) => {
             // Actualizar datos de sesión
             req.session.nombre_us = nombre;
             req.session.apellido_us = apellido;
-            req.session.daltonismo = daltonismo
-            res.cookie('daltonismo', daltonismo, { maxAge: 31536000000, httpOnly: false, path: '/' });
+            if (typeof daltonismoInput !== 'undefined' && daltonismoInput !== null && daltonismoInput !== '') {
+                req.session.daltonismo = daltonismoInput;
+                res.cookie('daltonismo', daltonismoInput, { maxAge: 31536000000, httpOnly: false, path: '/' });
+            }
             res.redirect('/profile');
         });
     } catch (err) {

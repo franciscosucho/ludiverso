@@ -692,51 +692,47 @@ router.get('/profile', isLogged, (req, res) => {
         }
 
         if (!userResult || userResult.length === 0) {
-                console.error('Usuario no encontrado');
-                return res.status(404).send('Usuario no encontrado');
+            console.error('Usuario no encontrado');
+            return res.status(404).send('Usuario no encontrado');
+        }
+
+        // Obtener estadísticas básicas del usuario (todas las partidas)
+        const statsQuery = `
+            SELECT 
+                -- Total de juegos jugados (solo de estadisticas y niveles_us)
+                (
+                    COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
+                    COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
+                ) as juegosJugados,
+                
+                -- Total de puntos (solo de estadisticas)
+                (
+                    COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0)
+                ) as puntosTotales
+        `;
+        
+        console.log('Ejecutando consulta de estadísticas generales para usuario:', userId);
+        connection.query(statsQuery, [userId, userId, userId], (err, statsResult) => {
+            if (err) {
+                console.error('Error al obtener estadísticas:', err);
+                return res.status(500).send('Error al obtener estadísticas');
             }
 
-            // Obtener estadísticas básicas del usuario (todas las partidas)
-            const statsQuery = `
-                SELECT 
-                    -- Total de juegos jugados (solo de estadisticas y niveles_us)
-                    (
-                        COALESCE((SELECT COUNT(*) FROM estadisticas WHERE usuario_id = ?), 0) +
-                        COALESCE((SELECT COUNT(*) FROM niveles_us WHERE id_us = ?), 0)
-                    ) as juegosJugados,
-                    
-                    -- Total de puntos (solo de estadisticas)
-                    (
-                        COALESCE((SELECT SUM(puntaje_total) FROM estadisticas WHERE usuario_id = ?), 0)
-                    ) as puntosTotales
-            `;
+            console.log('Resultado de estadísticas generales:', statsResult);
             
-            console.log('Ejecutando consulta de estadísticas generales para usuario:', userId);
-            connection.query(statsQuery, [userId, userId, userId], (err, statsResult) => {
-                if (err) {
-                    console.error('Error al obtener estadísticas:', err);
-                    return res.status(500).send('Error al obtener estadísticas');
-                }
-
-                console.log('Resultado de estadísticas generales:', statsResult);
-                
-                // Agregar ranking simple
-                const stats = statsResult[0] || { juegosJugados: 0, puntosTotales: 0 };
-                stats.ranking = stats.puntosTotales > 0 ? 'Activo' : 'Nuevo';
-                
-                console.log('Estadísticas finales para renderizar:', stats);
-                
-                res.render('profile', {
-                    user: userResult[0],
-                    stats: stats,
-                    session: req.session
-                });
+            // Agregar ranking simple
+            const stats = statsResult[0] || { juegosJugados: 0, puntosTotales: 0 };
+            stats.ranking = stats.puntosTotales > 0 ? 'Activo' : 'Nuevo';
+            
+            console.log('Estadísticas finales para renderizar:', stats);
+            
+            res.render('profile', {
+                user: userResult[0],
+                stats: stats,
+                session: req.session
             });
         });
-    } catch (err) {
-        console.error('Error al cargar el perfil:', err);
-        res.status(500).send('Error al cargar el perfil');
-    }
+    });
 });
 
 // Ruta de prueba para verificar conexión
@@ -836,40 +832,7 @@ router.get('/profile-stats', isLogged, (req, res) => {
     });
 });
 
-// Ruta para actualizar el perfil
-router.post('/actualizar_perfil', isLogged, async (req, res) => {
-    try {
-        const { usuario_id, nombre, apellido, email, password } = req.body;
-        
-        let query = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?";
-        const params = [nombre, apellido, email];
-        
-        // Solo actualizar contraseña si se proporciona una nueva
-        if (password && password.trim() !== '') {
-            query += ", contraseña = ?";
-            params.push(password);
-        }
-        
-        query += " WHERE usuario_id = ?";
-        params.push(usuario_id);
-        
-        connection.query(query, params, (err, result) => {
-            if (err) {
-                console.error('Error al actualizar el perfil:', err);
-                return res.status(500).send('Error al actualizar el perfil');
-            }
-            
-            // Actualizar datos de sesión
-            req.session.nombre_us = nombre;
-            req.session.apellido_us = apellido;
-            
-            res.redirect('/profile');
-        });
-    } catch (err) {
-        console.error('Error al actualizar el perfil:', err);
-        res.status(500).send('Error al actualizar el perfil');
-    }
-});
+// (Eliminada) Ruta duplicada de actualizar perfil. La lógica oficial vive en routes/profile.js
 
 // Exporta todas las rutas definidas
 module.exports = router;

@@ -106,13 +106,15 @@ function leerModoDeCookie() {
     return modo ? modo.split("=")[1] : null;
 }
 
-document.getElementById("icon_tema").addEventListener("click", () => {
-    const actual = document.documentElement.getAttribute("data-tema") || "claro";
-    const nuevo = actual === "oscuro" ? "claro" : "oscuro";
-    console.log(actual);
-    console.log(nuevo);
-    setModo(nuevo);
-});
+// Asegurar que el elemento exista antes de registrar el listener (el script carga en <head>)
+const iconTemaEarly = document.getElementById("icon_tema");
+if (iconTemaEarly) {
+    iconTemaEarly.addEventListener("click", () => {
+        const actual = document.documentElement.getAttribute("data-tema") || "claro";
+        const nuevo = actual === "oscuro" ? "claro" : "oscuro";
+        setModo(nuevo);
+    });
+}
 
 function setDaltonismo(tipo) {
     if (tipo === 'no_daltonico' || tipo === '') {
@@ -129,28 +131,48 @@ function leerDaltonismoDeCookie() {
     return daltonismo ? daltonismo.split("=")[1] : null;
 }
 
+// Función para aplicar daltonismo inmediatamente
+function aplicarDaltonismo() {
+    const daltonismoGuardado = leerDaltonismoDeCookie();
+    if (daltonismoGuardado) {
+        setDaltonismo(daltonismoGuardado);
+    } else {
+        setDaltonismo("no_daltonico");
+    }
+}
+
 window.addEventListener("DOMContentLoaded", () => {
     const modoGuardado = leerModoDeCookie() || "claro";
     setModo(modoGuardado);
 
+    // Aplicar daltonismo inmediatamente
+    aplicarDaltonismo();
+
+    // Registrar listener del toggle de tema cuando el DOM está listo
+    const iconTema = document.getElementById("icon_tema");
+    if (iconTema) {
+        iconTema.addEventListener("click", () => {
+            const actual = document.documentElement.getAttribute("data-tema") || "claro";
+            const nuevo = actual === "oscuro" ? "claro" : "oscuro";
+            setModo(nuevo);
+        });
+    }
+
     const daltonismoSelect = document.getElementById('tipo_daltonismo');
     const daltonismoGuardado = leerDaltonismoDeCookie();
 
-    if (daltonismoGuardado) {
-        setDaltonismo(daltonismoGuardado);
-        if (daltonismoSelect) {
-            daltonismoSelect.value = daltonismoGuardado;
-        }
-    } else {
-        if (daltonismoSelect) {
-            daltonismoSelect.value = "no_daltonico";
-        }
-        setDaltonismo("no_daltonico");
-    }
-
     if (daltonismoSelect) {
-        daltonismoSelect.addEventListener('change', () => {
-            setDaltonismo(daltonismoSelect.value);
-        });
+        daltonismoSelect.value = daltonismoGuardado || "no_daltonico";
+
+        // En el perfil NO aplicar inmediatamente; solo en otras páginas
+        const isProfile = window.location && window.location.pathname && window.location.pathname.startsWith('/profile');
+        if (!isProfile) {
+            daltonismoSelect.addEventListener('change', () => {
+                setDaltonismo(daltonismoSelect.value);
+            });
+        }
     }
 });
+
+// Aplicar daltonismo también cuando se carga la página (por si acaso)
+window.addEventListener("load", aplicarDaltonismo);
